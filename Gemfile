@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
+ruby '1.9.3'
 
 gem 'rails', '3.2.19'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 
 group :production do
   gem 'pg'
@@ -36,6 +36,7 @@ gem 'devise'
 gem 'simple_form'
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails', '~> 2.14.0'
   gem 'simplecov'
 end
