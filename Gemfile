@@ -20,6 +20,9 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
+  # Enables Foundation framework
+  gem 'modernizr-rails'
+  gem 'foundation-rails', '~> 5.4.5.0'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -29,6 +32,8 @@ gem 'haml-rails', '~> 0.4.0'
 
 # Use Devise for authentification
 gem 'devise'
+
+gem 'simple_form'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.0'

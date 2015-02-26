@@ -1,0 +1,35 @@
+.off-canvas-wrap(data-offcanvas)
+  .inner-wrap
+    .fixed
+      %nav.top-bar{ data: { topbar: '' }, role: 'navigation' }
+        %ul.title-area
+          %li.name
+            %h1
+              = link_to 'BSC Work Scheduler', root_url
+          %li.toggle-topbar.menu-icon
+            = link_to root_url do
+              %span Menu
+
+        %section.top-bar-section
+          %ul.right
+            %li
+              = link_to 'My Shifts', '#'
+            %li
+              = link_to 'Weekly Schedule', '#'
+            %li
+              = link_to 'House Roster', '#'
+
+    .devise-notice
+      - if notice
+        .alert-box.success(data-alert)
+          .row
+            .column.small-12
+              = notice
+      - if alert
+        .alert-box.alert(data-alert)
+          .row
+            .column.small-12
+              = alert
+    %section.main-section
+
+      = yield

@@ -1,4 +1,14 @@
 WorkshiftWebsite::Application.routes.draw do
+  root to: 'users#profile'
+
+  devise_for :users
+
+  devise_scope :user do
+    get 'login', to: 'devise/sessions#new'
+    get 'settings', to: 'devise/registrations#edit'
+    get 'logout', to: 'devise/sessions#destroy', as: :logout
+    get 'register', to: 'devise/registrations#new'
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -52,7 +62,9 @@ WorkshiftWebsite::Application.routes.draw do
 
   # See how all your routes lay out with "rake routes"
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
+  # This is a legacy wild controller route that's not recommended for RESTful
+  # applications.
+  # Note: This route will make all actions in every controller accessible via
+  # GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
