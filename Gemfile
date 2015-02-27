@@ -35,6 +35,8 @@ gem 'devise'
 
 gem 'simple_form'
 
+gem 'faker'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '~> 2.14.0'
