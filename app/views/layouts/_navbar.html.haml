@@ -18,6 +18,17 @@
               = link_to 'Weekly Schedule', '#'
             %li
               = link_to 'House Roster', roster_path
+            - if user_signed_in?
+              %li.has-dropdown
+                = link_to current_user.name, '#', id: 'user-link'
+                %ul.dropdown
+                  %li
+                    = link_to 'Settings', settings_path
+                  %li
+                    = link_to 'Logout', logout_path
+            - else
+              %li
+                = link_to 'Login', login_path, id: 'user-link'
 
     .devise-notice
       - if notice

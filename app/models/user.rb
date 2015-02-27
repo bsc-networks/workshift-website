@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :assigned_workshifts
+  has_many :workshifts, through: :assigned_workshifts
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

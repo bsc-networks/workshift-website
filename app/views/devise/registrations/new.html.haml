@@ -1,25 +1,23 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name
-  .field
-    = f.label :password
-    - if @validatable
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+%header.row
+  %h2.column.small-12 Sign Up
+
+= simple_form_for(resource, as: resource_name,
+  url: registration_path(resource_name)) do |f|
+  .row
+    .column.small-12
+      = f.error_notification
+
+    .column.small-12.medium-6
+      = f.input :name, placeholder: 'Your Name'
+    .column.small-12.medium-6
+      = f.input :email, placeholder: 'E-mail Address'
+    .column.small-12.medium-6
+      = f.input :password, placeholder: 'Password (at least 6 characters long)'
+    .column.small-12.medium-6
+      = f.input :password_confirmation, placeholder: 'Confirm Password'
+    .column.small-12
+      = f.button :submit, class: 'button small'
+
+.row#shared-links
+  .column.small-12
+    = render 'devise/shared/links'
