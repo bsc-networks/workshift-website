@@ -41,6 +41,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '~> 2.14.0'
   gem 'simplecov'
+  gem 'faker'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
