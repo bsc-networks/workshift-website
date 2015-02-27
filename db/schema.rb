@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150226015227) do
+ActiveRecord::Schema.define(:version => 20150227095147) do
+
+  create_table "assigned_workshifts", :force => true do |t|
+    t.integer  "workshift_id"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "assigned_workshifts", ["user_id"], :name => "index_assigned_workshifts_on_user_id"
+  add_index "assigned_workshifts", ["workshift_id"], :name => "index_assigned_workshifts_on_workshift_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -31,5 +41,12 @@ ActiveRecord::Schema.define(:version => 20150226015227) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "workshifts", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.time     "start_time"
+    t.time     "end_time"
+  end
 
 end

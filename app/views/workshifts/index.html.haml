@@ -1,0 +1,17 @@
+%h1 Listing workshifts
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @workshifts.each do |workshift|
+    %tr
+      %td= link_to 'Show', workshift
+      %td= link_to 'Edit', edit_workshift_path(workshift)
+      %td= link_to 'Destroy', workshift, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Workshift', new_workshift_path
