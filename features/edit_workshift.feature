@@ -15,6 +15,11 @@ Scenario: Fill in the forms and see changes
   Given the following workshifts exist:
     | Name                         | Hours         | Number of people |
     | Expedite Strategic Eyeballs  | 3             | 2                |
+  Given I am on the workshifts page
+  And I click on "Edit" for the task "Expedite Strategic Eyeballs"
+  Then I should be on the edit page for "Expedite Strategic Eyeballs"
+
+Scenario: Fill in the forms and see changes
   Given I am on the edit page for "Expedite Strategic Eyeballs"
   When I fill in:
     | field                 | value            |
@@ -43,3 +48,4 @@ Scenario: Fill in the forms with blank required fields
     | Number needed         |                  |
   And I click the "Update Workshift" button
   Then I should see an error page: "Invalid fields"
+
