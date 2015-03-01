@@ -34,4 +34,4 @@ Scenario: Fill in the forms with blank required fields
     | Task                  |                  |
     | Number needed         |                  |
   And I click the "Update Workshift" button
-  Then I should see an error page
+  Then I should see an error page: "Invalid fields"
