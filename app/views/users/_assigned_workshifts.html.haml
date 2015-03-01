@@ -1,37 +1,25 @@
 .row
   .column.small-12
-    %h1 Workshift Listing
-
-.row
-  .column.small-12
     %table
       %thead
         %tr
-          %th Task
-          %th Hours
-          %th People
           %th Day
           %th Start Time
           %th End Time
+          %th Completed?
           %th
           %th
-
+          %th
       %tbody
-        - @workshifts.each do |workshift|
+        - assigned_workshifts.each do |assigned_workshift|
+          - workshift = assigned_workshift.workshift
           %tr
-            %td= link_to workshift.task, workshift
-            %td= workshift.hours
-            %td= workshift.assigned_so_far
             %td= workshift.weekday
             %td= workshift.formatted_start_time
             %td= workshift.formatted_end_time
+            %td= assigned_workshift.completed.to_s
+            %td= link_to 'Show', workshift
             %td= link_to 'Edit', edit_workshift_path(workshift)
             %td
               = link_to 'Destroy', workshift, method: :delete,
                 data: { confirm: 'Are you sure?' }
-
-%br
-
-.row
-  .column.small-12
-    = link_to 'New Workshift', new_workshift_path

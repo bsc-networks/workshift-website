@@ -1,10 +1,11 @@
 class WorkshiftsController < ApplicationController
   before_filter :set_workshift, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
-    @workshifts = Workshift.all
+    @workshifts = Workshift.order(:day)
     respond_with(@workshifts)
   end
 
@@ -22,8 +23,11 @@ class WorkshiftsController < ApplicationController
 
   def create
     @workshift = Workshift.new(params[:workshift])
-    @workshift.save
-    respond_with(@workshift)
+    if @workshift.save
+      respond_with(@workshift)
+    else
+      render :new
+    end
   end
 
   def update

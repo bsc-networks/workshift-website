@@ -17,3 +17,17 @@ User.create!(user_defaults.merge(email: 'sally@example.com',
   email = "#{name.downcase.split.join('_')}@example.com"
   User.create(user_defaults.merge(email: email, name: name))
 end
+
+7.times do |day|
+  10.times do
+    start_time = Faker::Time.forward(10, :all).change(min: 0)
+    end_time = start_time + 4.hours
+    hours = rand(3) + 1
+    task = Faker::Company.bs.titleize
+    description = Faker::Hacker.say_something_smart
+    people_needed = rand(4) + 1
+    Workshift.create(day: day, start_time: start_time, end_time: end_time,
+                     hours: hours, task: task, description: description,
+                     people_needed: people_needed)
+  end
+end

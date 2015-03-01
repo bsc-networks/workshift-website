@@ -3,3 +3,7 @@
     %ul
       %li= current_user.email
       %li= current_user.name
+
+  .column.small-12
+    = render 'users/assigned_workshifts',
+      assigned_workshifts: current_user.assigned_workshifts

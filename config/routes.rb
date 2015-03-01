@@ -1,18 +1,18 @@
 WorkshiftWebsite::Application.routes.draw do
-  resources :workshifts
-
-
   root to: 'users#profile'
 
   get 'roster' => 'users#index', as: 'roster'
-  devise_for :users
 
+  devise_for :users
   devise_scope :user do
     get 'login', to: 'devise/sessions#new', as: :login
     get 'settings', to: 'devise/registrations#edit', as: :settings
     get 'logout', to: 'devise/sessions#destroy', as: :logout
     get 'register', to: 'devise/registrations#new', as: :register
   end
+
+  resources :workshifts
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

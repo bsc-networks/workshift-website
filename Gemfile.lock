@@ -102,6 +102,7 @@ GEM
     rake (10.4.2)
     rdoc (3.12.2)
       json (~> 1.4)
+    redcarpet (3.2.2)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rspec-core (2.14.8)
@@ -161,6 +162,7 @@ DEPENDENCIES
   modernizr-rails
   pg
   rails (= 3.2.19)
+  redcarpet (~> 3.0)
   rspec-rails (~> 2.14.0)
   sass-rails (~> 3.2.3)
   simple_form

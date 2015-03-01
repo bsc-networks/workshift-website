@@ -1,0 +1,17 @@
+.row
+  .column.small-12
+    %h1= @workshift.task
+  .column.small-4
+    %p Hours: #{@workshift.hours}
+  .column.small-8
+    %p Assigned: #{@workshift.assigned_so_far}
+  .column.small-4
+    %p Day of the week: #{@workshift.weekday}
+  .column.small-4
+    %p Shift Start: #{@workshift.start_time.strftime('%l:%M %p')}
+  .column.small-4
+    %p Shift End: #{@workshift.end_time.strftime('%l:%M %p')}
+  .column.small-12
+    %h4 Description
+    :markdown
+      #{@workshift.description}

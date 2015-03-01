@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150227095147) do
+ActiveRecord::Schema.define(:version => 20150228014617) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
     t.integer  "user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "completed",    :default => false
   end
 
   add_index "assigned_workshifts", ["user_id"], :name => "index_assigned_workshifts_on_user_id"
@@ -43,10 +44,15 @@ ActiveRecord::Schema.define(:version => 20150227095147) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "workshifts", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.time     "start_time"
     t.time     "end_time"
+    t.integer  "day"
+    t.integer  "people_needed"
+    t.text     "description"
+    t.string   "task"
+    t.integer  "hours"
   end
 
 end

@@ -16,10 +16,6 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
   # Enables Foundation framework
   gem 'modernizr-rails'
   gem 'foundation-rails', '~> 5.4.5.0'
@@ -29,6 +25,7 @@ end
 gem 'jquery-rails'
 
 gem 'haml-rails', '~> 0.4.0'
+gem 'redcarpet', '~> 3.0'
 
 # Use Devise for authentification
 gem 'devise'
@@ -41,7 +38,6 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '~> 2.14.0'
   gem 'simplecov'
-  gem 'faker'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
