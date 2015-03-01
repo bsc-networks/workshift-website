@@ -9,14 +9,16 @@ Scenario: See login/signup page if not logged in
   And I am on the home page
   Then I should should see "Sign in"
 
-Scenario: Sign up and log in
+Scenario: Sign up
   Given I am on the login page
   And I click on "Sign up"
   Then I should be on the register page
-  When I fill in:
+  When I fill the following fields:
     | field                 | value            |
     | Name                  | Jane Doe         |
     | Email                 | user@example.com |
     | Password              | testtest         |
     | Password Confirmation | testtest         |
-  And I click
+  And I click "Create User"
+  Then I should see "Welcome! You have signed up successfully"
+  And I should be logged in
