@@ -27,7 +27,7 @@ class Workshift < ActiveRecord::Base
   end
 
   def weekday
-    return unless day >= 0 && day <= 6
+    # return unless day >= 0 && day <= 6
     Date::DAYNAMES[day]
   end
 
