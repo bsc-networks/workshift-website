@@ -3,10 +3,6 @@ ruby '1.9.3'
 
 gem 'rails', '3.2.19'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-
 group :production do
   gem 'pg'
 end
@@ -38,7 +34,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails', '~> 2.14.0'
   gem 'simplecov'
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
 end
 # To use ActiveModel has_secure_password
