@@ -1,11 +1,9 @@
-Feature: blah blah
-
-    As blah
-    So that blah
-    I want to blah
+Feature: Viewing all workshifts
+    As a resident of the coop
+    So that I can see what workshifts are available
+    I want to navigate to the workshifts page and see them all
 
 Background: workshifts have been added to the database
-
     Given the following workshifts exist:
     | task       | description    | hours | people_needed | start_time | end_time |
     | Wash Pots  | wash the pots  | 1     | 2             | 3:00pm     | 7:00pm   |
@@ -14,6 +12,6 @@ Background: workshifts have been added to the database
     | Groceries  | go to store    | 2     | 3             | 12:00pm    | 4:00pm   |
 
 Scenario:
-    Given I am logged in as an authenticated user
-    When I am on the "workshifts" page
+    Given I am signed in as an authenticated user
+    When I am on the workshifts page
     Then I should see all of the workshifts
