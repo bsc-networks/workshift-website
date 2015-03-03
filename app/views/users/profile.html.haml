@@ -1,9 +1,9 @@
 .row
   .column.small-12
     %ul
-      %li= current_user.email
-      %li= current_user.name
+      %li= @user.email
+      %li= @user.name
 
   .column.small-12
     = render 'users/assigned_workshifts',
-      assigned_workshifts: current_user.assigned_workshifts
+      assigned_workshifts: @assigned_workshifts

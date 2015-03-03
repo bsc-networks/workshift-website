@@ -1,34 +1,34 @@
-require "spec_helper"
+require "rails_helper"
 
-describe WorkshiftsController do
+RSpec.describe WorkshiftsController, :type => :routing do
   describe "routing" do
 
     it "routes to #index" do
-      get("/workshifts").should route_to("workshifts#index")
+      expect(:get => "/workshifts").to route_to("workshifts#index")
     end
 
     it "routes to #new" do
-      get("/workshifts/new").should route_to("workshifts#new")
+      expect(:get => "/workshifts/new").to route_to("workshifts#new")
     end
 
     it "routes to #show" do
-      get("/workshifts/1").should route_to("workshifts#show", :id => "1")
+      expect(:get => "/workshifts/1").to route_to("workshifts#show", :id => "1")
     end
 
     it "routes to #edit" do
-      get("/workshifts/1/edit").should route_to("workshifts#edit", :id => "1")
+      expect(:get => "/workshifts/1/edit").to route_to("workshifts#edit", :id => "1")
     end
 
     it "routes to #create" do
-      post("/workshifts").should route_to("workshifts#create")
+      expect(:post => "/workshifts").to route_to("workshifts#create")
     end
 
     it "routes to #update" do
-      put("/workshifts/1").should route_to("workshifts#update", :id => "1")
+      expect(:put => "/workshifts/1").to route_to("workshifts#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/workshifts/1").should route_to("workshifts#destroy", :id => "1")
+      expect(:delete => "/workshifts/1").to route_to("workshifts#destroy", :id => "1")
     end
 
   end

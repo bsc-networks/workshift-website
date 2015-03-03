@@ -30,9 +30,16 @@ gem 'simple_form'
 
 gem 'faker'
 
+group :development do
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
+end
+
 group :development, :test do
   gem 'sqlite3'
-  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'simplecov'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'

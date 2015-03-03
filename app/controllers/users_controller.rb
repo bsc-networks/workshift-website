@@ -6,5 +6,8 @@ class UsersController < ApplicationController
   end
 
   def profile
+    id = params[:id] || current_user.id
+    @user = User.find(id)
+    @assigned_workshifts = @user.assigned_workshifts
   end
 end
