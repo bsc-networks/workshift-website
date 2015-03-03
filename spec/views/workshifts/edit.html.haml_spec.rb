@@ -1,15 +1,15 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "workshifts/edit" do
+RSpec.describe 'workshifts/edit', type: :view do
   before(:each) do
-    @workshift = assign(:workshift, stub_model(Workshift))
+    @workshift = create(:workshift)
   end
 
-  it "renders the edit workshift form" do
+  it 'renders the edit workshift form' do
     render
 
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form[action=?][method=?]", workshift_path(@workshift), "post" do
+    assert_select 'form[action=?][method=?]', workshift_path(@workshift),
+                  'post' do
     end
   end
 end

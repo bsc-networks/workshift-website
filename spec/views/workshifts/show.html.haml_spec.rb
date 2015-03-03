@@ -1,12 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "workshifts/show" do
+RSpec.describe 'workshifts/show', type: :view do
   before(:each) do
-    @workshift = assign(:workshift, stub_model(Workshift))
+    @workshift = create(:workshift)
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
   end
 end

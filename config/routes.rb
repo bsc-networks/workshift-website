@@ -1,6 +1,7 @@
 WorkshiftWebsite::Application.routes.draw do
   root to: 'users#profile'
 
+  get 'profile/:id' => 'users#profile', as: 'user_profile'
   get 'roster' => 'users#index', as: 'roster'
 
   devise_for :users
