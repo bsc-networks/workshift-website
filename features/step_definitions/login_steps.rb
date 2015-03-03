@@ -7,8 +7,3 @@ Given /^I am not signed in$/ do
     Capybara.current_driver = current_driver
   end
 end
-
-When(/^I fill the following fields:$/) do |table|
-  
-  pending # express the regexp above with the code you wish you had
-end
