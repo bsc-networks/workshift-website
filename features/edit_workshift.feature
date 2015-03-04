@@ -20,6 +20,9 @@ Scenario: Fill in the forms and see changes
   Then I should be on the edit page for "Expedite Strategic Eyeballs"
 
 Scenario: Fill in the forms and see changes
+  Given the following workshifts exist:
+    | Name                         | Hours         | Number of people |
+    | Expedite Strategic Eyeballs  | 3             | 2                |
   Given I am on the edit page for "Expedite Strategic Eyeballs"
   When I fill in:
     | field                 | value            |
