@@ -16,6 +16,7 @@ module NavigationHelpers
     when /^the login page$/ then login_path
     when /^the workshifts page$/ then workshifts_path
     when /^the home page$/ then '/'
+    when /^the Roster page$/ then '/roster'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
