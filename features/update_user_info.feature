@@ -1,7 +1,7 @@
 Feature: see the updated info after a user changes it
-	As a concerned user
-	So that I can update my profile information
-	I want to see my changes to my profile info
+    As a concerned user
+    So that I can update my profile information
+    I want to see my changes to my profile info
 
 Background: original user profile info
   Given I have an account with email "test@example.com" and password "secret" and name "Test User"
@@ -18,8 +18,8 @@ Scenario: update email address
 Scenario: update password
   When I fill in the following:
     | New Password          | newsecret           |
-    | Confirm New Password  | newsecret           |	
-    | Current password  		| secret     				  |
+    | Confirm New Password  | newsecret           |
+    | Current password      | secret              |
   And I press "Update User"
   And I log out
   When I am on the login page
