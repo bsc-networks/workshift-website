@@ -31,6 +31,7 @@ gem 'simple_form'
 gem 'faker'
 
 group :development do
+  gem 'annotate', '~> 2.6.5'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
