@@ -15,6 +15,17 @@ Scenario: update email address
   And I am on the home page
   Then I should see "newemail@example.com"
 
+Scenario: update email address #2
+  When I fill in the following:
+    | Email            | newemailnew@example.com   |
+    | Current password | secret                    |
+  And I press "Update User"
+  And I log out
+  Then I should be able to log in with the following:
+    | Email            | newemailnew@example.com   |
+    | Current password | secret                    |
+
+
 Scenario: update password
   When I fill in the following:
     | New Password          | newsecret           |
