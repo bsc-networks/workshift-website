@@ -32,3 +32,15 @@ end
 Then /^I should be signed in$/ do
   step 'I should see "Logout"'
 end
+
+Then /^I should be able to log in with the following:$/ do |login_info|
+  visit login_path
+  login_info.rows_hash do |email, password|
+    fill_in 'Current email', with: email
+    fill_in 'user_password', with: password
+    # => visit login_path
+    #fill_in 'user_email', with: email
+    #fill_in 'user_password', with: password
+    click_button 'Sign In'
+  end
+end
