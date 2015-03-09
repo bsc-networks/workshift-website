@@ -10,9 +10,8 @@ class UsersController < ApplicationController
     @user = User.find(id)
     @assigned_workshifts = @user.assigned_workshifts
   end
+
 end
 
 
-def invite_user
-  @user = User.invite!({:email => "chan.m.trinh@gmail.com"}, name: "Shirley Trinh")
-end
+	
