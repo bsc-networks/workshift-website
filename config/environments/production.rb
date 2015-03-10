@@ -1,5 +1,6 @@
 WorkshiftWebsite::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+  # Settings specified here will take precedence over those in
+  # config/application.rb
 
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -27,7 +28,8 @@ WorkshiftWebsite::Application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  # Force all access to the app over SSL, use Strict-Transport-Security,
+  # and use secure cookies.
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
@@ -45,8 +47,25 @@ WorkshiftWebsite::Application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
 
-  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+  # Precompile additional assets (application.js, application.css, and all
+  # non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
+
+  # Set up mailer
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    authentication: 'plain',
+    enable_starttls_auto: true,
+    domain: ENV['GMAIL_DOMAIN'],
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASSWORD']
+  }
+  config.action_mailer.default_url_options = {
+    host: 'http://bsc-workshifts.herokuapp.com'
+  }
+  config.action_mailer.asset_host = 'http://bsc-workshifts.herokuapp.com'
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
