@@ -1,3 +1,5 @@
+require 'csv'
+
 class UsersController < ApplicationController
   before_filter :authenticate_user!
 
@@ -9,5 +11,22 @@ class UsersController < ApplicationController
     id = params[:id] || current_user.id
     @user = User.find(id)
     @assigned_workshifts = @user.assigned_workshifts
+  end
+
+  def add_users
+    user_info = params[:user_info]
+    if user_info.length == 0
+      flash[:alert] = 'Improperly formatted user information'
+      flash.keep
+      redirect_to root_url
+      return
+    end
+    num_invited = 0
+    CSV.parse(user_info) do |row|
+      User.invite!(name: row[0], email: row[1])
+      num_invited += 1
+    end
+    flash[:notice] = "Invited #{num_invited} new users."
+    redirect_to root_url
   end
 end
