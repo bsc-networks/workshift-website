@@ -61,6 +61,14 @@ describe WorkshiftsController do
           expect(response).to render_template 'show'
         end
       end
+    end
+
+    context 'when workshift manager is signed in' do 
+      before :each do
+        @id = rand(1..100)
+        @workshift = create(:workshift, id: @id)
+        sign_in double('user', :workshift_manager? => true)
+      end
 
       describe 'GET edit' do
         it 'gets member using id' do

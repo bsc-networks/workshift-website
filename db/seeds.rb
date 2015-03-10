@@ -12,6 +12,9 @@ user_defaults = { password: 'secret', password_confirmation: 'secret' }
 User.create!(user_defaults.merge(email: 'john@example.com', name: 'John Doe'))
 User.create!(user_defaults.merge(email: 'sally@example.com',
                                  name: 'Sally Smith'))
+manager = User.create!(user_defaults.merge(email: 'manager@example.com', name: 'Boss Man'))
+manager.update_attribute :workshift_manager, true
+
 30.times do
   name = Faker::Name.name
   email = "#{name.downcase.split.join('_')}@example.com"
