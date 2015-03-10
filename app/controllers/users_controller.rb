@@ -21,9 +21,12 @@ class UsersController < ApplicationController
       redirect_to root_url
       return
     end
-    CSV.parse(user_info).each do |row|
-      puts row
+    num_invited = 0
+    CSV.parse(user_info) do |row|
+      User.invite!(name: row[0], email: row[1])
+      num_invited += 1
     end
+    flash[:notice] = "Invited #{num_invited} new users."
     redirect_to root_url
   end
 end
