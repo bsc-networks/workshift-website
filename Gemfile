@@ -31,6 +31,9 @@ gem 'simple_form'
 gem 'faker'
 gem 'devise_invitable', '~> 1.3.4'
 
+gem 'mandrill-api'
+gem 'letter_opener'
+
 group :development do
   gem 'annotate', '~> 2.6.5'
   gem 'spring'

@@ -1,20 +1,24 @@
 class InvitationsController < ApplicationController
-	before_filter :authenticate_user!
+	InvitationsMailer.email_name.deliver(@user, @from, @subject, @content)
+		
 
-	def new
-		@message = Message.new
+	def batch_invite
+		#Validate the user_emails field isn't blank and emails are valid
+		params[:user_emails].split(",").each do |email|
+			User.invite!(:email => email)
+		end
 	end
-
 	def create
-		@message = Message.new(params[:message])
-		if @message.valid?
-		  	InvitationsMailer.new_message(@message).deliver
-		  	respond_to do |format|
-		      format.html # index.html.erb
-		      format.json  { render :json => {
-		        :message=>@message.as_json(:only => [:email, :name])
-		  		} }
-    		end
+		User.invite!(:email => email)
+
+		NotificationMailer.invite_message(@user, @from, @subject, @content).deliver
+		@user.invitation_sent_at = Time.now.utc # mark invitation as delivered
+
+		if @user.errors.empty?
+			flash[:notice] = "successfully sent invite to #{@user.email}"
+			respond_with @user, :location => root_path
+		else
+			render :new
 		end
 	end
 end

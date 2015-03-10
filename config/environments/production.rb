@@ -58,6 +58,16 @@ WorkshiftWebsite::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
+  config.action_mailer.smtp_settings = {
+  :address   => "smtp.mandrillapp.com",
+  :port      => 25, # ports 587 and 2525 are also supported with STARTTLS
+  :enable_starttls_auto => true, # detects and uses STARTTLS
+  :user_name => ENV["MANDRILL_USERNAME"],
+  :password  => ENV["MANDRILL_PASSWORD"], # SMTP password is any valid API key
+  :authentication => :plain, # Mandrill supports 'plain' or 'login'
+  :domain => 'heroku.com', # your domain to identify your server when connecting
+  }
+
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 

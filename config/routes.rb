@@ -16,6 +16,12 @@ WorkshiftWebsite::Application.routes.draw do
 
   resources :workshifts
 
+resources :users do
+  collection do
+    post 'batch_invite'
+  end
+end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
