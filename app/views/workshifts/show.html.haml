@@ -2,6 +2,7 @@
 
 = render 'show'
 
-= link_to 'Edit', edit_workshift_path(@workshift)
-\|
+- if policy(:workshift_edit).edit?
+  = link_to 'Edit', edit_workshift_path(@workshift)
+  \|
 = link_to 'Back', workshifts_path

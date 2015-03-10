@@ -14,14 +14,17 @@ class WorkshiftsController < ApplicationController
   end
 
   def new
+    authorize :workshift_edit, :new?
     @workshift = Workshift.new
     respond_with(@workshift)
   end
 
   def edit
+    authorize :workshift_edit, :edit?
   end
 
   def create
+    authorize :workshift_edit, :create?
     @workshift = Workshift.new(params[:workshift])
     if @workshift.save
       respond_with(@workshift)
@@ -31,11 +34,13 @@ class WorkshiftsController < ApplicationController
   end
 
   def update
+    authorize :workshift_edit, :update?
     @workshift.update_attributes(params[:workshift])
     respond_with(@workshift)
   end
 
   def destroy
+    authorize :workshift_edit, :destroy?
     @workshift.destroy
     respond_with(@workshift)
   end

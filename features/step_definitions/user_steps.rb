@@ -44,3 +44,9 @@ Then /^I should be able to log in with the following:$/ do |login_info|
     click_button 'Sign In'
   end
 end
+
+=begin
+When (/^I am a workshift manager with email "(.*)" and name "(.*)"/) do |email, name|
+  #to do
+end
+=end
