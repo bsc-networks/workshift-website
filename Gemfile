@@ -32,6 +32,7 @@ gem 'simple_form'
 gem 'faker'
 
 gem 'pundit'
+gem 'letter_opener'
 
 group :development do
   gem 'annotate', '~> 2.6.5'
