@@ -2,4 +2,4 @@
   %ul
     - @users.each do |user|
       %li.column.small-4
-        = user.name
+        = link_to user.name, user_profile_path(user)

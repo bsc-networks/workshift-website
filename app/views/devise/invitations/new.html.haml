@@ -1,17 +1,16 @@
-%h2 Send invitation
+.row
+  .column.small-12
+    %h2 Add New Users
+  .column.small-12
+    :markdown
+      Enter new user information in **Comma Separated** format, with names
+      in the first column and email addresses in the second.
 
-= form_tag invite_users_path do
-  = label_tag 'user_info', 'User Names and Emails'
-  = text_area_tag 'user_info'
-  = submit_tag 'Invite Users'
-
--# = form_for resource, as: resource_name, url: invite_users_path,
--#   html: { method: :post} do |f|
--#   = devise_error_messages!
--#   %p
--#     = f.label :user_info
--#     %br
--#     = f.text_area :user_info
--#   %p= f.submit "Send an invitation", class: 'button small'
-
-= link_to "Home", after_sign_in_path_for(resource_name)
+.row
+  = form_tag invite_users_path do
+    .column.small-12
+      = label_tag 'user_info', 'User Names and Emails'
+      = text_area_tag 'user_info', @user_info, rows: 20,
+        placeholder: 'User Name,user_email@example.com'
+    .column.small-12
+      = submit_tag 'Invite Users', class: 'button-small'

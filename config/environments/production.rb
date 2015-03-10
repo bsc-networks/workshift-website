@@ -66,7 +66,7 @@ WorkshiftWebsite::Application.configure do
     host: 'http://bsc-workshifts.herokuapp.com'
   }
   config.action_mailer.asset_host = 'http://bsc-workshifts.herokuapp.com'
-  
+
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
