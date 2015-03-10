@@ -30,6 +30,8 @@ gem 'simple_form'
 
 gem 'faker'
 
+gem 'pundit'
+
 group :development do
   gem 'annotate', '~> 2.6.5'
   gem 'spring'

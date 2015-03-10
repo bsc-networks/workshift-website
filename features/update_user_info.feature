@@ -9,7 +9,7 @@ Background: original user profile info
   And I am on the settings page
 
 Scenario: update email address
-  When I fill in "Email" with "newemail@example.com"
+  When I fill in "Email" with "newemail@example.com"	
   And I fill in "Current password" with "secret"
   Then I press "Update User"
   And I am on the home page
@@ -28,9 +28,9 @@ Scenario: update email address #2
 
 Scenario: update password
   When I fill in the following:
-    | New Password          | newsecret           |
-    | Confirm New Password  | newsecret           |
-    | Current password      | secret              |
+    | New Password         | newsecret |  
+    | Confirm New Password | newsecret |  
+    | Current password     | secret    |  
   And I press "Update User"
   And I log out
   When I am on the login page
