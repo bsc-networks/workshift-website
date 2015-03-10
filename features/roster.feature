@@ -17,8 +17,4 @@ Background: residents have been added to database
 
   And I am on the Roster page
 
-Scenario: all residents' names are displayed and sorted alphabetically
-  I should see all of the residents
-  And I should see "Dev Patel" before "Timmy Turner"
-  And I should see "Dwight Schrute" before "Michael Scott"
-  
+Scenario: all residents' names are displayed
