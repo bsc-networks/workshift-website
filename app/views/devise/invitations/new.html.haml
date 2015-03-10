@@ -1,0 +1,17 @@
+%h2 Send invitation
+
+= form_tag invite_users_path do
+  = label_tag 'user_info', 'User Names and Emails'
+  = text_area_tag 'user_info'
+  = submit_tag 'Invite Users'
+
+-# = form_for resource, as: resource_name, url: invite_users_path,
+-#   html: { method: :post} do |f|
+-#   = devise_error_messages!
+-#   %p
+-#     = f.label :user_info
+-#     %br
+-#     = f.text_area :user_info
+-#   %p= f.submit "Send an invitation", class: 'button small'
+
+= link_to "Home", after_sign_in_path_for(resource_name)

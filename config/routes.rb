@@ -3,6 +3,7 @@ WorkshiftWebsite::Application.routes.draw do
 
   get 'profile/:id' => 'users#profile', as: 'user_profile'
   get 'roster' => 'users#index', as: 'roster'
+  post 'users/add' => 'users#add_users', as: :invite_users
 
   devise_for :users
   devise_scope :user do
@@ -10,6 +11,8 @@ WorkshiftWebsite::Application.routes.draw do
     get 'settings', to: 'devise/registrations#edit', as: :settings
     get 'logout', to: 'devise/sessions#destroy', as: :logout
     get 'register', to: 'devise/registrations#new', as: :register
+    get 'invite', to: 'devise/invitations#new', as: :add_users
+    get 'setpw', to: 'devise/invitations#edit', as: :setpw
   end
 
   resources :workshifts
