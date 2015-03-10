@@ -1,5 +1,20 @@
 require 'faker'
 
+# == Schema Information
+#
+# Table name: workshifts
+#
+#  id            :integer          not null, primary key
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  start_time    :time
+#  end_time      :time
+#  day           :integer
+#  people_needed :integer
+#  description   :text
+#  task          :string(255)
+#  hours         :integer
+#
 FactoryGirl.define do
   factory :workshift do
     task { Faker::Company.bs.titleize }
