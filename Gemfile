@@ -25,11 +25,11 @@ gem 'redcarpet', '~> 3.0'
 
 # Use Devise for authentification
 gem 'devise'
+gem 'devise_invitable', '~> 1.3.4'
 
 gem 'simple_form'
 
 gem 'faker'
-gem 'devise_invitable', '~> 1.3.4'
 
 group :development do
   gem 'annotate', '~> 2.6.5'

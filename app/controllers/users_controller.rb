@@ -10,8 +10,4 @@ class UsersController < ApplicationController
     @user = User.find(id)
     @assigned_workshifts = @user.assigned_workshifts
   end
-
 end
-
-
-	
