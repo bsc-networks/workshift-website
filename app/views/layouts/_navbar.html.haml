@@ -24,6 +24,9 @@
                 %ul.dropdown
                   %li
                     = link_to 'Settings', settings_path
+                  - if true # will be check for workshift manager-ness
+                    %li
+                      = link_to 'Add Users', add_users_path
                   %li
                     = link_to 'Logout', logout_path
             - else

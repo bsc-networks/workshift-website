@@ -10,7 +10,7 @@ WorkshiftWebsite::Application.routes.draw do
     get 'settings', to: 'devise/registrations#edit', as: :settings
     get 'logout', to: 'devise/sessions#destroy', as: :logout
     get 'register', to: 'devise/registrations#new', as: :register
-    get 'invite', to: 'devise/invitations#new', as: :invite
+    get 'invite', to: 'devise/invitations#new', as: :add_users
     get 'setpw', to: 'devise/invitations#edit', as: :setpw
   end
 
