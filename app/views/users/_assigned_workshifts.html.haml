@@ -19,7 +19,8 @@
             %td= workshift.formatted_end_time
             %td= assigned_workshift.completed.to_s
             %td= link_to 'Show', workshift
-            %td= link_to 'Edit', edit_workshift_path(workshift)
-            %td
-              = link_to 'Destroy', workshift, method: :delete,
-                data: { confirm: 'Are you sure?' }
+            - if policy(:workshift_edit).edit?
+              %td= link_to 'Edit', edit_workshift_path(workshift)
+            - if policy(:workshift_edit).destroy?
+              %td= link_to 'Destroy', workshift, method: :delete,
+                  data: { confirm: 'Are you sure?' }
