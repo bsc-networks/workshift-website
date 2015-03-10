@@ -1,12 +1,9 @@
-
-  
 .row
   .column.small-12
     %ul
-      %li= @user.email
       %li= @user.name
-
-
+      %li= @user.email
+      %li= @user.role
 
   .column.small-12
     = render 'users/assigned_workshifts',
