@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: workshifts
+#
+#  id            :integer          not null, primary key
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  start_time    :time
+#  end_time      :time
+#  day           :integer
+#  people_needed :integer
+#  description   :text
+#  task          :string(255)
+#  hours         :integer
+#
 class Workshift < ActiveRecord::Base
   has_many :assigned_workshifts
   has_many :users, through: :assigned_workshifts

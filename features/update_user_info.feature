@@ -1,7 +1,7 @@
 Feature: see the updated info after a user changes it
-	As a concerned user
-	So that I can update my profile information
-	I want to see my changes to my profile info
+    As a concerned user
+    So that I can update my profile information
+    I want to see my changes to my profile info
 
 Background: original user profile info
   Given I have an account with email "test@example.com" and password "secret" and name "Test User"
@@ -9,17 +9,28 @@ Background: original user profile info
   And I am on the settings page
 
 Scenario: update email address
-  When I fill in "Email" with "newemail@example.com"
+  When I fill in "Email" with "newemail@example.com"	
   And I fill in "Current password" with "secret"
   Then I press "Update User"
   And I am on the home page
   Then I should see "newemail@example.com"
 
+Scenario: update email address #2
+  When I fill in the following:
+    | Email            | newemailnew@example.com   |
+    | Current password | secret                    |
+  And I press "Update User"
+  And I log out
+  Then I should be able to log in with the following:
+    | Email            | newemailnew@example.com   |
+    | Current password | secret                    |
+
+
 Scenario: update password
   When I fill in the following:
-    | New Password          | newsecret           |
-    | Confirm New Password  | newsecret           |	
-    | Current password  		| secret     				  |
+    | New Password         | newsecret |  
+    | Confirm New Password | newsecret |  
+    | Current password     | secret    |  
   And I press "Update User"
   And I log out
   When I am on the login page
