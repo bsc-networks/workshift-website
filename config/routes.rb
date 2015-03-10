@@ -3,6 +3,7 @@ WorkshiftWebsite::Application.routes.draw do
 
   get 'profile/:id' => 'users#profile', as: 'user_profile'
   get 'roster' => 'users#index', as: 'roster'
+  post 'users/add' => 'users#add_users', as: :invite_users
 
   devise_for :users
   devise_scope :user do
