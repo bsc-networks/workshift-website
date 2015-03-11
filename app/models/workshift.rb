@@ -28,6 +28,22 @@ class Workshift < ActiveRecord::Base
                                   less_than_or_equal_to: 6 }
   validate :end_time_later_than_start_time
 
+  
+  def self.assignworkers(workerid, workshiftid)
+    assign = AssignedWorkshift.create({"user_id" => workerid[0], "workshift_id" => workshiftid[0]})
+    assignUser = User.find(workerid[0])
+    if assignUser.assigned_workshifts.nil?
+      assignUser.assigned_workshifts = Array.new
+    end
+    assignUser.assigned_workshifts.nil?
+    assignUser.assigned_workshifts << assign
+    if @assigned_workshifts.nil?
+      @assigned_workshifts = Array.new
+    end
+    @assigned_workshifts << assign
+  end
+
+
   def end_time_later_than_start_time
     return if end_time > start_time
     errors.add(:end_time, 'must be later than the starting time.')

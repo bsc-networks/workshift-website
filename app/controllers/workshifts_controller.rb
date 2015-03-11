@@ -47,8 +47,10 @@ class WorkshiftsController < ApplicationController
 
   def update
     authorize @workshift
+    flash[:notice] = Workshift.assignworkers(params[:aw], params[:id])   
     @workshift.update_attributes(params[:workshift])
     respond_with(@workshift)
+
   end
 
   def destroy
