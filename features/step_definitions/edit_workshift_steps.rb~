@@ -11,7 +11,7 @@ Then /I should be on the edit page for "(.*)"/ do
 
 end
 
-#Scenario 2
+#Scenario 2, 3
 Given /I am on the edit page for "(.*)"/ do |task|
 
 end
@@ -28,6 +28,7 @@ Then /I should see:/ do |form_table|
 
 end
 
-#Scenario 3
-Given 
+Then /I should see an error page: "Invalid Fields"/ do
+
+end
 
