@@ -1,4 +1,8 @@
 #Scenario 1
+Given /I am a workshift manager/ do
+
+end
+
 Given /I am on the workshift page/ do
 
 end
