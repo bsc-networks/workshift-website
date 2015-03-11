@@ -13,4 +13,4 @@
       = text_area_tag 'user_info', @user_info, rows: 20,
         placeholder: 'User Name,user_email@example.com'
     .column.small-12
-      = submit_tag 'Invite Users', class: 'button-small'
+      %input.button{:type => "submit", :value => "Invite User"}/
