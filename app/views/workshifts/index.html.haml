@@ -13,9 +13,9 @@
           %th Day
           %th Start Time
           %th End Time
-          - if policy(:workshift_edit).edit?
+          - if policy(:workshift).edit?
             %th
-          - if policy(:workshift_edit).destroy?
+          - if policy(:workshift).destroy?
             %th
 
       %tbody
@@ -27,14 +27,14 @@
             %td= workshift.weekday
             %td= workshift.formatted_start_time
             %td= workshift.formatted_end_time
-            - if policy(:workshift_edit).edit?
+            - if policy(:workshift).edit?
               %td= link_to 'Edit', edit_workshift_path(workshift)
-            - if policy(:workshift_edit).destroy?
+            - if policy(:workshift).destroy?
               %td= link_to 'Destroy', workshift, method: :delete,
                 data: { confirm: 'Are you sure?' }
 
 %br
-- if policy(:workshift_edit).new?
+- if policy(:workshift).new?
   .row
     .column.small-12
       = link_to 'New Workshift', new_workshift_path

@@ -1,4 +1,4 @@
-class WorkshiftEditPolicy < Struct.new(:user, :workshift_edit)
+class WorkshiftPolicy < ApplicationPolicy
   def new?
     user.workshift_manager?
   end
