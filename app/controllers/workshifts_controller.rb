@@ -6,6 +6,7 @@ class WorkshiftsController < ApplicationController
   respond_to :html, :json
 
   def index
+    reset_session
     @workshifts = Workshift.order(:day)
     respond_with(@workshifts)
   end
@@ -47,7 +48,7 @@ class WorkshiftsController < ApplicationController
 
   def update
     authorize @workshift
-    flash[:notice] = Workshift.assignworkers(params[:aw], params[:id])   
+    flash[:notice] = @workshift.assignworkers(params[:aw], params[:id])   
     @workshift.update_attributes(params[:workshift])
     respond_with(@workshift)
 

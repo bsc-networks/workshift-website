@@ -29,18 +29,22 @@ class Workshift < ActiveRecord::Base
   validate :end_time_later_than_start_time
 
   
-  def self.assignworkers(workerid, workshiftid)
-    assign = AssignedWorkshift.create({"user_id" => workerid[0], "workshift_id" => workshiftid[0]})
-    assignUser = User.find(workerid[0])
-    if assignUser.assigned_workshifts.nil?
-      assignUser.assigned_workshifts = Array.new
+  def assignworkers(workerid, workshiftid)
+    if num_assigned < people_needed and already_assigned_user(workerid[0]) == false
+      assign = AssignedWorkshift.create({"user_id" => workerid[0], "workshift_id" => workshiftid[0]})
+      assignUser = User.find(workerid[0])
+      if assignUser.assigned_workshifts.nil?
+        assignUser.assigned_workshifts = Array.new
+      end
+      assignUser.assigned_workshifts.nil?
+      assignUser.assigned_workshifts << assign
+      if @assigned_workshifts.nil?
+        @assigned_workshifts = Array.new
+      end
+      @assigned_workshifts << assign
     end
-    assignUser.assigned_workshifts.nil?
-    assignUser.assigned_workshifts << assign
-    if @assigned_workshifts.nil?
-      @assigned_workshifts = Array.new
-    end
-    @assigned_workshifts << assign
+
+
   end
 
 
@@ -79,5 +83,34 @@ class Workshift < ActiveRecord::Base
 
   def formatted_end_time
     end_time.strftime('%l:%M %p')
+  end
+
+  def num_assigned
+    users.length
+  end
+
+  def assigned_so_far
+    "#{num_assigned}/#{people_needed}"
+  end
+
+  def already_assigned_user(userid)
+    b = false
+    user = User.find(userid)
+    usershifts = user.assigned_workshifts
+    usershifts.each do |u|
+      if u.workshift_id == id
+        b = true
+      end
+    end
+    b
+  end
+
+  def assignedworkers
+    names = ""
+    relation = users.select(:name).all
+    relation.each do |r|
+      names = names + r.name + ", "
+    end
+    names[0..-3]
   end
 end
