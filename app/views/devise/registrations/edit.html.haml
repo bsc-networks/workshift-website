@@ -13,7 +13,7 @@
         = f.input :name
 
       .column.small-12
-        = f.input :email
+        = f.input :email, as: :email
 
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       .column.small-12
@@ -25,12 +25,12 @@
         = f.input :room_number, label: 'Room Number',
           placeholder: 'Your room number'
       .column.small-12.medium-6
-        = f.input :phone_number, label: 'Phone Number',
+        = f.input :phone_number, as: :tel, label: 'Phone Number',
           placeholder: '(012)345-6789'
       .column.small-6
-        = f.input :display_phone_number
+        = f.input :display_phone_number, as: :boolean, boolean_style: :inline
       .column.small-6
-        = f.input :display_email
+        = f.input :display_email, as: :boolean, boolean_style: :inline
 
     .column.small-12.spacer
 
