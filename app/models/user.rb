@@ -41,7 +41,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :name
+                  :name, :room_number, :phone_number, :display_email,
+                  :display_phone_number
 
   def role
     return 'Workshift Manager' if workshift_manager?
