@@ -1,16 +1,16 @@
 require 'spec_helper'
+require 'rails_helper'
 
 describe 'invitations' do
-  #eeee
 
-  before do
-  	#set email credentials?
-    
-    visit users_path
+  before :each do
+        
+    visit add_users_path
   end
 
   it 'validates email' do
-    fill_in 'User Names and Emails', with: 'blabla'
+    visit add_users_path
+    fill_in 'user_info', with: 'blabla'
     click_button 'Invite User'
     expect(page).to have_content 'Improperly formatted user information'
   end

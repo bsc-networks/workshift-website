@@ -36,6 +36,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'email_spec'
 end
 
 # Gems used only for assets and not required
