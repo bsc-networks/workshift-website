@@ -33,3 +33,8 @@ Then /^I should see all of the workshifts$/ do
     end
   end
 end
+
+Then /I should be able to click on "(.*)" for the task "(.*)"/ do |action, task|
+  assert find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", :text => action).nil? == false, "Destroy option doesn't exist"
+  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", :text => action).click
+end
