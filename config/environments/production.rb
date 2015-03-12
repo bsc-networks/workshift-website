@@ -63,7 +63,8 @@ WorkshiftWebsite::Application.configure do
     password: ENV['GMAIL_PASSWORD']
   }
   config.action_mailer.default_url_options = {
-    host: 'http://bsc-workshifts.herokuapp.com'
+    host: 'bsc-workshifts.herokuapp.com',
+    protocol: 'https://'
   }
   config.action_mailer.asset_host = 'http://bsc-workshifts.herokuapp.com'
 
