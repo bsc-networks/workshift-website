@@ -1,14 +1,6 @@
 #Scenario 1
-Given /I am a workshift manager/ do
-
-end
-
-Given /I am on the workshift page/ do
-
-end
-
-When /I click on "Edit" for the task "(.*)"/ do
-
+When /I click on "Edit" for the task "(.*)"/ do |task|
+  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", :text => 'Edit').click
 end
 
 Then /I should be on the edit page for "(.*)"/ do
