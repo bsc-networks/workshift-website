@@ -1,32 +1,29 @@
 Feature: edit workshift
-  As a workshift manager,
+  As the workshift manager,
   In order to organize workshifts among students,
   I want to edit a workshift, including its hours, tasks, and number of people needed.
 
+Background: workshifts have been added to the database and I'm a manager
+    Given I am a workshift manager with email "manager@example.com" and name "Test Manager"
+    Given the following workshifts exist:
+    | task       | description    | hours | people_needed | start_time | end_time |
+    | Wash Pots  | wash the pots  | 1     | 2             | 3:00pm     | 7:00pm   |
+    | Do Laundry | do the laundry | 1     | 1             | 12:00am    | 11:59pm  |
+    | Sweep      | clean hallway  | 2     | 1             | 12:30pm    | 4:30pm   |
+    | Groceries  | go to store    | 2     | 3             | 12:00pm    | 4:00pm   |
+
 Scenario: See the edit page
-  Given I am a workshift manager
-  And the following workshifts exist:
-    | Name                         | Hours         | Number of people |
-    | Expedite Strategic Eyeballs  | 3             | 2                |
-  And I am on the workshifts page
-  When I click on "Edit" for the task "Expedite Strategic Eyeballs"
-  Then I should be on the edit page for "Expedite Strategic Eyeballs"
+  Given I am on the workshifts page
+  When I click on "Edit" for the task "Wash Pots"
+  Then I should be on the edit page for "Wash Pots"
 
 Scenario: Fill in the forms and see changes
-  Given I am a workshift manager
-  And the following workshifts exist:
-    | Name                         | Hours         | Number of people |
-    | Expedite Strategic Eyeballs  | 3             | 2                |
-  And I am on the workshifts page
-  And I click on "Edit" for the task "Expedite Strategic Eyeballs"
-  Then I should be on the edit page for "Expedite Strategic Eyeballs"
+  Given I am on the workshifts listing page
+  And I click on "Edit" for the task "Wash Pots"
+  Then I should be on the edit page for "Wash Pots"
 
 Scenario: Fill in the forms and see changes
-  Given I am a workshift manager
-  And the following workshifts exist:
-    | Name                         | Hours         | Number of people |
-    | Expedite Strategic Eyeballs  | 3             | 2                |
-  And I am on the edit page for "Expedite Strategic Eyeballs"
+  Given I am on the edit page for "Wash Pots"
   When I fill in:
     | field                 | value            |
     | Task                  | Eat Eyeballs     |
@@ -44,11 +41,10 @@ Scenario: Fill in the forms and see changes
     | Description           | What             |
 
 Scenario: Fill in the forms with blank required fields
-  Given I am a workshift manager
-  And the following workshifts exist:
+  Given the following workshifts exist:
     | Name                         | Hours         | Number of people |
-    | Expedite Strategic Eyeballs  | 3             | 2                |
-  And I am on the edit page for "Expedite Strategic Eyeballs"
+    | Wash Pots  | 3             | 2                |
+  And I am on the edit page for "Wash Pots"
   When I fill in:
     | field                 | value            |
     | Task                  |                  |
