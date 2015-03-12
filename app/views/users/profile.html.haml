@@ -1,10 +1,20 @@
 .row
+  %h2.column.small-12= @user.name
   .column.small-12
     %ul
-      %li= @user.name
-      %li= @user.email
       %li= @user.role
+      - if @user.room_number.length > 0
+        %li Room #{@user.room_number}
+      - if @user.display_email?
+        %li
+          %b Email:
+          = @user.email
+      - if @user.display_phone_number? && @user.phone_number.length > 0
+        %li
+          %b Phone:
+          = @user.phone_number
 
+  %h3.column.small Assigned Workshifts
   .column.small-12
     = render 'users/assigned_workshifts',
       assigned_workshifts: @assigned_workshifts
