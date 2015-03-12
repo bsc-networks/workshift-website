@@ -14,42 +14,36 @@ Background: workshifts have been added to the database and I'm a signed in manag
 
 Scenario: See the edit page
   Given I am on the workshifts page
-  Then show me the page
   When I click on "Edit" for the task "Wash Pots"
-  Then I should be on the edit page for "Wash Pots"
+  Then the manager should be on the edit page for "Wash Pots"
 
 Scenario: Fill in the forms and see changes
-  Given I am on the workshifts listing page
-  And I click on "Edit" for the task "Wash Pots"
-  Then I should be on the edit page for "Wash Pots"
-
-Scenario: Fill in the forms and see changes
-  Given I am on the edit page for "Wash Pots"
+  Given the manager is on the edit page for "Wash Pots"
   When I fill in:
     | field                 | value            |
     | Task                  | Eat Eyeballs     |
-    | Number needed         | 5                |
+    | NumberNeeded          | 5                |
     | Hours                 | 4                |
-    | Start time            | 11 AM            |
+    | StartTime             | 11 AM            |
     | Description           | What             |
-  And I click the "Update Workshift" button
+  When I click on the "Update Workshift" button
   Then I should see:
     | field                 | value            |
     | Task                  | Eat Eyeballs     |
-    | Number needed         | 5                |
+    | NumberNeeded          | 5                |
     | Hours                 | 4                |
-    | Start time            | 11 AM            |
+    | StartTime             | 11 AM            |
     | Description           | What             |
+  But I should still see:
+    | field                 | value            |
+    | EndTime               | 07 PM            |
 
 Scenario: Fill in the forms with blank required fields
-  Given the following workshifts exist:
-    | Name                         | Hours         | Number of people |
-    | Wash Pots  | 3             | 2                |
-  And I am on the edit page for "Wash Pots"
+  Given the manager is on the edit page for "Wash Pots"
   When I fill in:
     | field                 | value            |
     | Task                  |                  |
-    | Number needed         |                  |
-  And I click the "Update Workshift" button
-  Then I should see an error page: "Invalid fields"
+    | NumberNeeded          |                  |
+  And I click on the "Update Workshift" button
+  Then I should see an error message: "Please review the problems below:"
 
