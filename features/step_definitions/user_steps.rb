@@ -45,8 +45,15 @@ Then /^I should be able to log in with the following:$/ do |login_info|
   end
 end
 
-=begin
 When (/^I am a workshift manager with email "(.*)" and name "(.*)"/) do |email, name|
-  #to do
+  name ||= 'Test User'
+  password ||= 'secret'
+  user = User.new(email: email, password: password, password_confirmation: password,
+           name: name)
+  user.update_attribute :workshift_manager, true
+  user.save!
+  visit login_path
+  fill_in 'user_email', with: email
+  fill_in 'user_password', with: password
+  click_button 'Sign In'
 end
-=end
