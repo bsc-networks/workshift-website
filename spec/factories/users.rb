@@ -35,6 +35,11 @@ FactoryGirl.define do
   factory :user do
     sequence(:name) { |n| "User ##{n}" }
     sequence(:email) { |n| "person#{n}@example.com" }
+    phone_number '(012) 345-6789'
+    room_number '14a'
+    display_phone_number true
+    display_email true
+    workshift_manager false
     password 'secret'
 
     trait :with_assigned_workshifts do
