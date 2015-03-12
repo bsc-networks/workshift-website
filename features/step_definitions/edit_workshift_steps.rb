@@ -1,6 +1,6 @@
 #Scenario 1
-When /I click on "Edit" for the task "(.*)"/ do |task|
-  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", :text => 'Edit').click
+When /I click on "(.*)" for the task "(.*)"/ do |action, task|
+  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", :text => action).click
 end
 
 Then /the edit page for "(.*)" should load/ do |task|
