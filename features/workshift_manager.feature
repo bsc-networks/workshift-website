@@ -21,8 +21,6 @@ Feature: workshift manager edit shifts
     And I press "Create Workshift"
     Then I should see the workshift "asdf"
 
-  Scenario: Edit a workshift
-    Given TO DO
-
   Scenario: Delete a workshift
     Given TO DO
+
