@@ -15,35 +15,48 @@ Background: workshifts have been added to the database and I'm a signed in manag
 Scenario: See the edit page
   Given I am on the workshifts page
   When I click on "Edit" for the task "Wash Pots"
-  Then the manager should be on the edit page for "Wash Pots"
+  Then the edit page for "Wash Pots" should load
 
 Scenario: Fill in the forms and see changes
-  Given the manager is on the edit page for "Wash Pots"
+  Given the edit page for "Wash Pots" is loaded
   When I fill in:
     | field                 | value            |
     | Task                  | Eat Eyeballs     |
     | NumberNeeded          | 5                |
     | Hours                 | 4                |
-    | StartTime             | 11 AM            |
+    | StartTime             | 11:15 AM         |
     | Description           | What             |
-  When I click on the "Update Workshift" button
+  And I click on the "Update Workshift" button
   Then I should see:
     | field                 | value            |
     | Task                  | Eat Eyeballs     |
     | NumberNeeded          | 5                |
     | Hours                 | 4                |
-    | StartTime             | 11 AM            |
+    | StartTime             | 11:15 AM         |
     | Description           | What             |
   But I should still see:
     | field                 | value            |
-    | EndTime               | 07 PM            |
+    | EndTime               | 7:00 PM          |
 
 Scenario: Fill in the forms with blank required fields
-  Given the manager is on the edit page for "Wash Pots"
+  Given the edit page for "Wash Pots" is loaded
   When I fill in:
     | field                 | value            |
     | Task                  |                  |
     | NumberNeeded          |                  |
+  And I click on the "Update Workshift" button
+  Then I should see an error message: "Please review the problems below:"
+
+Scenario: The start and end times don't correspond
+  Given the edit page for "Wash Pots" is loaded
+  When I fill in:
+    | field                 | value            |
+    | Task                  | Eat Eyeballs     |
+    | NumberNeeded          | 5                |
+    | Hours                 | 4                |
+    | StartTime             | 11:15 AM         |
+    | EndTime               | 11:00 AM         |
+    | Description           | What             |
   And I click on the "Update Workshift" button
   Then I should see an error message: "Please review the problems below:"
 
