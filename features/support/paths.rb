@@ -17,6 +17,9 @@ module NavigationHelpers
     when /^the workshifts page$/ then workshifts_path
     when /^the home page$/ then '/'
     when /^the Roster page$/ then '/roster'
+    when /^my profile page$/ then
+      user_profile_path(@user)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
