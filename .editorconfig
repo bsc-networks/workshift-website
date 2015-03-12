@@ -30,6 +30,11 @@ indent_size = 4
 indent_syle = space
 indent_size = 2
 
+# 2 space indentation for Cucumber features
+[*.feature]
+indent_style = space
+indent_size = 2
+
 # 2 space indentation for Yaml
 [*.yml]
 indent_style = space
