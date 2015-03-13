@@ -8,26 +8,42 @@ describe 'invitations' do
   
 
   it 'validates email' do
-    visit login_path
+    visit register_path
     #print current_path
-    fill_in 'user_email', with: "john@example.com"
+    fill_in 'user_name', with: "John"
+    fill_in 'user_email', with: "john1@example.com"
     fill_in 'user_password', with: "secret"
-    click_button "Sign In"
-    visit add_users_path
+    fill_in 'user_password_confirmation', with: "secret"
+    click_button "Create User"
     print current_path
-    fill_in 'user_info', with: 'blabla, bla@gmail.com'
+    visit add_users_path
+    #print current_path
+    fill_in 'user_info', with: 'bla@gmail.com'
     click_button 'Invite User'
     expect(page).to have_content 'Improperly formatted user information'
   end
 
   describe 'when user is invited' do
     before do
-      visit add_users_path
-      fill_in 'User Names and Emails', with: 'name, shirley@example.com'
-      click_button 'Invite User'
+
+      visit register_path
+      #print current_path
+      fill_in 'user_name', with: "John"
+      fill_in 'user_email', with: "john1@example.com"
+      fill_in 'user_password', with: "secret"
+      fill_in 'user_password_confirmation', with: "secret"
+      click_button "Create User"
+      #print current_path
+      
+      
+
+      print current_path
     end
 
     it 'shows invitation' do
+      visit add_users_path
+      fill_in 'user_info', with: 'name, shirley@example.com'
+      click_button 'Invite User'
       expect(page).to have_content 'invited'
     end
 
