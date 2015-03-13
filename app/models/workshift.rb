@@ -29,22 +29,15 @@ class Workshift < ActiveRecord::Base
   validate :end_time_later_than_start_time
 
   
-  def assignworkers(workerid, workshiftid)
-    if num_assigned < people_needed and already_assigned_user(workerid[0]) == false
-      assign = AssignedWorkshift.create({"user_id" => workerid[0], "workshift_id" => workshiftid[0]})
-      assignUser = User.find(workerid[0])
-      if assignUser.assigned_workshifts.nil?
-        assignUser.assigned_workshifts = Array.new
+  def assignworkers(assigned_user_ids, workshiftid)
+    thisWorkshift = Workshift.find(workshiftid)
+    thisWorkshift.assigned_workshifts.destroy_all
+    assigned_user_ids.each do |a|
+      if not already_assigned_user(a)
+        assign = AssignedWorkshift.create({"user_id" => a, "workshift_id" => workshiftid})
+        assignUser = User.find(a)
       end
-      assignUser.assigned_workshifts.nil?
-      assignUser.assigned_workshifts << assign
-      if @assigned_workshifts.nil?
-        @assigned_workshifts = Array.new
-      end
-      @assigned_workshifts << assign
     end
-
-
   end
 
 
