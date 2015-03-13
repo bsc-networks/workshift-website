@@ -2,12 +2,19 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe 'invitations' do
-
   
+  
+
   
 
   it 'validates email' do
+    visit login_path
+    #print current_path
+    fill_in 'user_email', with: "john@example.com"
+    fill_in 'user_password', with: "secret"
+    click_button "Sign In"
     visit add_users_path
+    print current_path
     fill_in 'user_info', with: 'blabla, bla@gmail.com'
     click_button 'Invite User'
     expect(page).to have_content 'Improperly formatted user information'
