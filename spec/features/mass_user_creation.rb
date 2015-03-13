@@ -3,21 +3,20 @@ require 'rails_helper'
 
 describe 'invitations' do
 
-  before :each do
-        
-    visit add_users_path
-  end
+  
+  
 
   it 'validates email' do
     visit add_users_path
-    fill_in 'user_info', with: 'blabla'
+    fill_in 'user_info', with: 'blabla, bla@gmail.com'
     click_button 'Invite User'
     expect(page).to have_content 'Improperly formatted user information'
   end
 
   describe 'when user is invited' do
     before do
-      fill_in 'User Names and Emails', with: 'shirley@example.com'
+      visit add_users_path
+      fill_in 'User Names and Emails', with: 'name, shirley@example.com'
       click_button 'Invite User'
     end
 
