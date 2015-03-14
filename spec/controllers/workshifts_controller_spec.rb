@@ -2,7 +2,9 @@ require 'rails_helper'
 
 describe WorkshiftsController do
   before :each do
-    sign_in
+    user = double('user')
+    allow(user).to receive(:workshift_manager?) { true }
+    sign_in(user)
   end
 
   describe 'GET index' do
