@@ -24,8 +24,9 @@ describe 'invitations' do
   end
 
   describe 'when user is invited' do
-    before do
+    
 
+    it 'shows invitation' do
       visit register_path
       #print current_path
       fill_in 'user_name', with: "John"
@@ -33,17 +34,10 @@ describe 'invitations' do
       fill_in 'user_password', with: "secret"
       fill_in 'user_password_confirmation', with: "secret"
       click_button "Create User"
-      #print current_path
-      
-      
-
-      print current_path
-    end
-
-    it 'shows invitation' do
       visit add_users_path
-      fill_in 'user_info', with: 'name, shirley@example.com'
+      fill_in 'user_info', with: 'Shirley, shirley@example.com'
       click_button 'Invite User'
+      #NEED TO STUB OUT THE EMAIL SENDING BUT IDK HOW
       expect(page).to have_content 'invited'
     end
 
