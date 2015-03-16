@@ -20,6 +20,8 @@ module NavigationHelpers
     when /^the Roster page$/ then '/roster'
     when /^my profile page$/ then
       user_profile_path(@user)
+    when /^the edit page for workshift "(.+)"$/ then
+      edit_workshift_path(Workshift.find_by_task($1))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
