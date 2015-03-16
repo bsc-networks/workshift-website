@@ -1,18 +1,5 @@
 Given /^the following workshifts exist:$/ do |workshifts_table|
   workshifts_table.hashes.each do |workshift|
-
-    #start_time = workshift["start_time"]
-    #end_time = workshift["end_time"]
-    #hours = workshift["hours"]
-    #task = workshift["task"]
-    #description = workshift["description"]
-    #people_needed = workshift["people_needed"]
-    #day = workshift["day"]
-    #Workshift.create!(day: day, start_time: start_time, end_time: end_time,
-                     #hours: hours, task: task, description: description,
-                     #people_needed: people_needed)
-    #puts workshift
-
     Workshift.create!(workshift)
   end
 end

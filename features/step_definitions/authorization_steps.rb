@@ -4,6 +4,14 @@ Given /^I have an account with email "(.+)" and password "([^"]+)"(?: and name "
                        password_confirmation: password, name: name)
 end
 
+Given /^I am a workshift manager with email "(.*)" and password "([^"]+)"(?: and name "(.+)")?$/ do |email, password, name|
+  name ||= 'Test User'
+  step "I have an account with email \"#{email}\" and password \"#{password}\""\
+    " and name \"#{name}\""
+  @user.update_attribute :workshift_manager, true
+  @user.save!
+end
+
 Given /^I (?:am signed in|sign in) using email "(.+)" and password "([^"]+)"$/ do |email, password|
   visit login_path
   @password = password
@@ -17,10 +25,18 @@ Then /^I can sign in using email "(.+)" and password "([^"]+)"$/ do |email, pass
   step 'I should be signed in'
 end
 
-Given /^I am signed in as an authenticated user$/ do
+Given /^I am signed in as a resident$/ do
   email = 'test@example.com'
   password = 'secret'
   step "I have an account with email \"#{email}\" and password \"#{password}\""
+  step "I sign in using email \"#{email}\" and password \"#{password}\""
+end
+
+Given /^I am signed in as a workshift manager$/ do
+  email = 'test@example.com'
+  password = 'secret'
+  step "I am a workshift manager with email \"#{email}\" and password "\
+    "\"#{password}\""
   step "I sign in using email \"#{email}\" and password \"#{password}\""
 end
 
@@ -34,17 +50,4 @@ end
 
 Then /^I should be signed in$/ do
   step 'I should see "Logout"'
-end
-
-When (/^I am a workshift manager with email "(.*)" and name "(.*)"/) do |email, name|
-  name ||= 'Test User'
-  password ||= 'secret'
-  user = User.new(email: email, password: password, password_confirmation: password,
-           name: name)
-  user.update_attribute :workshift_manager, true
-  user.save!
-  visit login_path
-  fill_in 'user_email', with: email
-  fill_in 'user_password', with: password
-  click_button 'Sign In'
 end
