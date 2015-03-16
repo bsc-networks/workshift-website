@@ -1,16 +1,5 @@
-#Scenario 1
-When /I click on "(.*)" for the task "(.*)"/ do |action, task|
-  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", :text => action).click
-end
-
-Then /the edit page for "(.*)" should load/ do |task|
-  assert(page.has_content?("Editing workshift") == true, "on an edit page")
-  assert(page.find_field('workshift_task').value == task, "task name is on the page")
-end
-
 When /I fill in:/ do |form_table|
   form_table.hashes.each do |entry|
-    #puts entry
     mapping = {'Task' => 'workshift_task',
                'NumberNeeded' => 'workshift_people_needed',
                'Hours' => 'workshift_hours',
