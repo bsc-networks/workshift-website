@@ -12,6 +12,6 @@ Feature: Viewing all workshifts
       | Groceries  | go to store    | 3   | 2     | 3             | 12:00pm    | 4:00pm   |
 
   Scenario:
-    Given I am signed in as an authenticated user
+    Given I am signed in as a resident
     When I am on the workshifts page
     Then I should see all of the workshifts
