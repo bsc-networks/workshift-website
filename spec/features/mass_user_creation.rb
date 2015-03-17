@@ -23,6 +23,22 @@ describe 'invitations' do
     expect(page).to have_content 'Improperly formatted user information'
   end
 
+  it 'validates email 2' do
+    visit register_path
+    #print current_path
+    fill_in 'user_name', with: "John"
+    fill_in 'user_email', with: "john1@example.com"
+    fill_in 'user_password', with: "secret"
+    fill_in 'user_password_confirmation', with: "secret"
+    click_button "Create User"
+    print current_path
+    visit add_users_path
+    #print current_path
+    fill_in 'user_info', with: ''
+    click_button 'Invite User'
+    expect(page).to have_content 'Must input at least one user'
+  end
+
   describe 'when user is invited' do
     
 
@@ -38,12 +54,12 @@ describe 'invitations' do
       fill_in 'user_info', with: 'Shirley, shirley@example.com'
       click_button 'Invite User'
       #NEED TO STUB OUT THE EMAIL SENDING BUT IDK HOW
-      expect(page).to have_content 'invited'
+      expect(page).to have_content 'Invited 1 new users'
     end
 
     context 'user accepts invitation' do
       before do
-        click_link 'Sign out'
+        click_link 'Logout'
 
         open_email 'shirley@example.com'
         visit_in_email 'Accept invitation'
