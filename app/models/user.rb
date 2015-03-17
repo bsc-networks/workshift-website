@@ -30,6 +30,7 @@
 #  display_phone_number   :boolean          default(FALSE)
 #  display_email          :boolean          default(FALSE)
 #
+require 'csv'
 
 class User < ActiveRecord::Base
   has_many :assigned_workshifts
@@ -43,6 +44,21 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :room_number, :phone_number, :display_email,
                   :display_phone_number
+
+  # Invites each of the users whose information is contained in the input,
+  # which must be formatted as a comma-separated string with names in the
+  # first column and email addresses in the second.
+  def self.invite_users(user_info)
+    fail ArgumentError, 'Must input at least one user' if user_info.length == 0
+    num_invited = 0
+    CSV.parse(user_info) do |row|
+      fail ArgumentError, 'Improperly formatted user information on row '\
+        "#{num_invited + 1}" if row.length != 2
+      User.invite!(name: row[0].strip, email: row[1].strip)
+      num_invited += 1
+    end
+    num_invited
+  end
 
   def role
     return 'Workshift Manager' if workshift_manager?
