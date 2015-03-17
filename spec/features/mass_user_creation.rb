@@ -56,22 +56,5 @@ describe 'invitations' do
       #NEED TO STUB OUT THE EMAIL SENDING BUT IDK HOW
       expect(page).to have_content 'Invited 1 new users'
     end
-
-    context 'user accepts invitation' do
-      before do
-        click_link 'Logout'
-
-        open_email 'shirley@example.com'
-        visit_in_email 'Accept invitation'
-
-        fill_in 'Password', with: 'pw'
-        fill_in 'Password confirmation', with: 'pw'
-        click_button 'Set my password'
-      end
-
-      it 'confirms account creation' do
-        expect(page).to have_content 'Your password was set successfully'
-      end
-    end
   end
 end
