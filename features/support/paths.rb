@@ -15,11 +15,14 @@ module NavigationHelpers
 
     when /^the login page$/ then login_path
     when /^the workshifts page$/ then workshifts_path
-    #when /^the new workshift page$/ then new_workshift_path
+    when /^the new workshift page$/ then new_workshift_path
     when /^the home page$/ then '/'
-    when /^the Roster page$/ then '/roster'
+    when /^the roster page$/ then '/roster'
     when /^my profile page$/ then
       user_profile_path(@user)
+    when /^the edit page for workshift "(.+)"$/ then
+      @workshift = Workshift.find_by_task($1)
+      edit_workshift_path(@workshift)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -4,7 +4,7 @@ Feature: Ordinary co-op residents shouldn't be able to change workshifts
   I want residents to not be able to tamper with workshifts
 
   Background: I am an ordinary resident with no admin privileges
-    Given I am signed in as an authenticated user
+    Given I am signed in as a resident
     Given the following workshifts exist:
     | task       | description    | day | hours | people_needed | start_time | end_time |
     | Wash Pots  | wash the pots  | 0   | 1     | 2             | 3:00pm     | 7:00pm   |
