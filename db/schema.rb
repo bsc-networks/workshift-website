@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20150318052356) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      :default => 0
-    t.boolean  "workshift_manager"
+    t.boolean  "workshift_manager",      :default => false
     t.string   "phone_number",           :default => ""
     t.string   "room_number",            :default => ""
     t.boolean  "display_phone_number",   :default => false
