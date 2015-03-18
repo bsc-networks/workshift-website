@@ -65,7 +65,7 @@ describe WorkshiftsController do
       end
     end
 
-    context 'when workshift manager is signed in' do 
+    context 'when workshift manager is signed in' do
       before :each do
         @id = rand(1..100)
         @workshift = create(:workshift, id: @id)
@@ -155,8 +155,8 @@ describe WorkshiftsController do
 
   describe 'PUT update' do
     it 'updates a workshifts parameters' do
-      workshift = create(:workshift, id: 9999, task: 'Wash the dishes')
-      put :update, id: 9999, workshift: { task: 'Wash dinner dishes' }
+      workshift = create(:workshift, task: 'Wash the dishes')
+      put :update, id: workshift.id, workshift: { task: 'Wash dinner dishes' }
       workshift.reload
       expect(workshift.task).to eq 'Wash dinner dishes'
     end
