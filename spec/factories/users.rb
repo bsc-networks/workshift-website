@@ -42,6 +42,10 @@ FactoryGirl.define do
     workshift_manager false
     password 'secret'
 
+    factory :workshift_manager do
+      workshift_manager true
+    end
+
     trait :with_assigned_workshifts do
       transient do
         number_of_assignments 5
