@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     num_invited
   end
 
+  def self.delete_all_residents
+    User.where(workshift_manager: false).destroy_all
+  end
+
   def role
     return 'Workshift Manager' if workshift_manager?
     'Resident'

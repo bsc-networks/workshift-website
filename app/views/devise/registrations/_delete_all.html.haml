@@ -1,0 +1,11 @@
+.row
+  .column.small-12
+    %h4 Delete All Current Residents
+    :markdown
+      This button will remove all of the current residents from the database,
+      and is irreversible. It should *only* be used at the start of each
+      semester. Please be **very** careful around it!
+  .column.small-12
+    = link_to 'Delete All Residents', delete_all_users_path,
+      method: :delete, class: 'button small alert',
+      data: { confirm: 'Are you absolutely sure you wish to delete all residents?' }
