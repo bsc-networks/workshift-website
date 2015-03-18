@@ -29,9 +29,8 @@ end
     hours = rand(3) + 1
     task = Faker::Company.bs.titleize
     description = Faker::Hacker.say_something_smart
-    people_needed = rand(4) + 1
+    # people_needed = rand(4) + 1
     Workshift.create(day: day, start_time: start_time, end_time: end_time,
-                     hours: hours, task: task, description: description,
-                     people_needed: people_needed)
+                     hours: hours, task: task, description: description)
   end
 end

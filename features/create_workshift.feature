@@ -11,7 +11,6 @@ Feature: workshift manager create shifts
     When I fill in:
       | field         | value              |
       | Task          | asdf               |
-      | NumberNeeded  | 1                  |
       | Hours         | 1                  |
       | StartTime     | 7:00 PM            |
       | EndTime       | 11:00 PM           |
@@ -21,7 +20,6 @@ Feature: workshift manager create shifts
     Then I should see:
       | field         | value              |
       | Task          | asdf               |
-      | NumberNeeded  | 1                  |
       | Hours         | 1                  |
       | StartTime     | 7:00 PM            |
       | EndTime       | 11:00 PM           |
@@ -32,7 +30,6 @@ Feature: workshift manager create shifts
     When I fill in:
       | field         | value              |
       | Task          | asdf               |
-      | NumberNeeded  |                    |
       | Hours         | 1                  |
       | StartTime     | 7:00 PM            |
       | EndTime       | 11:00 PM           |
@@ -45,7 +42,6 @@ Feature: workshift manager create shifts
     When I fill in:
       | field         | value              |
       | Task          | asdf               |
-      | NumberNeeded  | 1                  |
       | Hours         | 1                  |
       | StartTime     | 11:00 PM           |
       | EndTime       | 10:00 PM           |

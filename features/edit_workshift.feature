@@ -5,8 +5,8 @@ Feature: edit workshift
 
   Background: workshifts have been added to the database and I'm a signed in manager
     Given the following workshifts exist:
-      | task       | description    | day | hours | people_needed | start_time | end_time |
-      | Wash Pots  | wash the pots  | 0   | 1     | 2             | 3:00pm     | 7:00pm   |
+      | task       | description    | day | hours | start_time | end_time |
+      | Wash Pots  | wash the pots  | 0   | 1     | 3:00pm     | 7:00pm   |
     And I am signed in as a workshift manager
     And I am on the edit page for workshift "Wash Pots"
 
@@ -14,7 +14,6 @@ Feature: edit workshift
     When I fill in:
       | field                 | value            |
       | Task                  | Eat Eyeballs     |
-      | NumberNeeded          | 5                |
       | Hours                 | 4                |
       | StartTime             | 11:15 AM         |
       | Description           | What             |
@@ -22,7 +21,6 @@ Feature: edit workshift
     Then I should see:
       | field                 | value            |
       | Task                  | Eat Eyeballs     |
-      | NumberNeeded          | 5                |
       | Hours                 | 4                |
       | StartTime             | 11:15 AM         |
       | Description           | What             |
@@ -34,7 +32,6 @@ Feature: edit workshift
     When I fill in:
       | field                 | value            |
       | Task                  | Eat Eyeballs     |
-      | NumberNeeded          | 5                |
       | Hours                 | 4                |
       | StartTime             | 11:15 AM         |
       | EndTime               | 11:00 AM         |
@@ -46,6 +43,5 @@ Feature: edit workshift
     When I fill in:
       | field                 | value            |
       | Task                  |                  |
-      | NumberNeeded          |                  |
     And I press "Update Workshift"
     Then I should see an error message: "Please review the problems below:"

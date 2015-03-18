@@ -13,13 +13,6 @@ describe Workshift do
     expect(build(:workshift, day: 2.4)).to_not be_valid
   end
 
-  it 'is invalid without a positive integer number of people_needed' do
-    expect(build(:workshift, people_needed: 0)).to_not be_valid
-    expect(build(:workshift, people_needed: -1)).to_not be_valid
-    expect(build(:workshift, people_needed: 1)).to be_valid
-    expect(build(:workshift, people_needed: 1.1)).to_not be_valid
-  end
-
   it 'is invalid when the start time is later than the end time' do
     time = Time.now
     expect(build(:workshift, start_time: time, end_time: time - 1)).to_not be_valid
@@ -50,19 +43,4 @@ describe Workshift do
     expect(build(:workshift, start_time: time1, end_time: time2).formatted_start_time).to eq(" 2:00 AM")
     expect(build(:workshift, start_time: time1, end_time: time2).formatted_end_time).to eq(" 2:03 AM")
   end
-
-  it 'returns the right number of users' do
-    workshift = build(:workshift, people_needed: 5)
-    workshift.users << build(:user)
-    workshift.users << build(:user)
-    expect(workshift.num_assigned).to eq(2)
-  end
-
-  it 'returns the right worker ratio' do
-    workshift = build(:workshift, people_needed: 5)
-    workshift.users << build(:user)
-    workshift.users << build(:user)
-    expect(workshift.assigned_so_far).to eq("2/5")
-  end
-
 end

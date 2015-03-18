@@ -14,18 +14,16 @@
 #  hours         :integer
 #
 class Workshift < ActiveRecord::Base
-  has_many :assigned_workshifts
-  has_many :users, through: :assigned_workshifts
+  belongs_to :user
+  has_many :workshift_assignments
   attr_accessible :start_time, :end_time, :day, :task, :people_needed,
                   :description, :hours
 
-  validates :start_time, :end_time, :day, :task, :people_needed,
+  validates :start_time, :end_time, :day, :task,
             :description, presence: true
   validates :day, numericality: { only_integer: true,
                                   greater_than_or_equal_to: 0,
                                   less_than_or_equal_to: 6 }
-  validates :people_needed, numericality: { only_integer: true,
-                                            greater_than: 0 }
   validate :end_time_later_than_start_time
 
   def end_time_later_than_start_time
@@ -52,13 +50,5 @@ class Workshift < ActiveRecord::Base
 
   def formatted_end_time
     end_time.strftime('%l:%M %p')
-  end
-
-  def num_assigned
-    users.length
-  end
-
-  def assigned_so_far
-    "#{num_assigned}/#{people_needed}"
   end
 end
