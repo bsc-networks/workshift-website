@@ -1,7 +1,7 @@
 Feature: checkbox create workshifts
 	As a workshift manager
-	So that I can sort the workshifts by day
-	I want to be able to create a new shift every time it's checked on the checkboxes field
+  So that I can create duplicate workshifts for jobs that happen on multiple days
+  I want to be able to have a new shift be created every time it's checked on the checkboxes field
 
   Background: I am the workshift manager
     Given I am signed in as a workshift manager
@@ -36,5 +36,4 @@ Feature: checkbox create workshifts
         | EndTime       | 11:00 PM           |
         | Description   | take out the trash |
       And I press "Create Workshift"
-      Then I should see an error message: "Please select which day(s) to create the shift for"
-
+      Then I should see an error message: "Please review the problems below:"
