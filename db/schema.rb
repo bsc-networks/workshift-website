@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150310230204) do
+ActiveRecord::Schema.define(:version => 20150318052356) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -59,16 +59,33 @@ ActiveRecord::Schema.define(:version => 20150310230204) do
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "workshift_assignments", :force => true do |t|
+    t.string   "task"
+    t.text     "description"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.date     "date"
+    t.integer  "hours"
+    t.text     "notes"
+    t.datetime "sign_off_time"
+    t.string   "status"
+    t.integer  "workshifter_id"
+    t.integer  "verifier_id"
+    t.integer  "workshift_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "workshifts", :force => true do |t|
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.time     "start_time"
     t.time     "end_time"
     t.integer  "day"
-    t.integer  "people_needed"
     t.text     "description"
     t.string   "task"
     t.integer  "hours"
+    t.integer  "user_id"
   end
 
 end

@@ -11,7 +11,7 @@
           %th
           %th
       %tbody
-        - assigned_workshifts.each do |assigned_workshift|
+        - workshift_assignments.each do |workshift_assignment|
           - workshift = assigned_workshift.workshift
           %tr
             %td= workshift.weekday

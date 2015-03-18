@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def profile
     id = params[:id] || current_user.id
     @user = User.find(id)
-    @assigned_workshifts = @user.assigned_workshifts
+    @workshift_assignments = @user.workshift_assignments
   end
 
   def add_users

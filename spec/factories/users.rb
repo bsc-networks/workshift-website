@@ -44,11 +44,11 @@ FactoryGirl.define do
 
     trait :with_assigned_workshifts do
       transient do
-        number_of_workshifts 5
+        number_of_assignments 5
       end
       after :create do |user, evaluator|
-        FactoryGirl.create_list :assigned_workshift,
-                                evaluator.number_of_workshifts, user: user
+        FactoryGirl.create_list :workshift_assignment,
+                                evaluator.number_of_assignments, workshifter: user
       end
     end
   end

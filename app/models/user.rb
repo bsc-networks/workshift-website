@@ -33,8 +33,9 @@
 require 'csv'
 
 class User < ActiveRecord::Base
-  has_many :assigned_workshifts
-  has_many :workshifts, through: :assigned_workshifts
+  has_many :workshift_assignments, foreign_key: "workshifter_id"
+  has_many :verified_workshifts, class_name: "WorkshiftAssignment", foreign_key: "verifier_id"
+  has_many :workshifts
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
