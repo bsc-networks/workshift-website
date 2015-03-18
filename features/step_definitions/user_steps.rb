@@ -17,3 +17,13 @@ When /^I save my setting preferences$/ do
   fill_in 'Current password', with: @password
   click_button 'Update User'
 end
+
+Then /^only (\d+) person is left in the database$/ do |num_people|
+  num_people = num_people.to_i
+  expect(User.count).to eq num_people
+end
+
+Given /^(\d+) residents exist$/ do |num_people|
+  num_people = num_people.to_i
+  FactoryGirl.create_list(:user, num_people)
+end

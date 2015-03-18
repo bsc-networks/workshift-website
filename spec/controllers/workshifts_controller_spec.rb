@@ -65,7 +65,7 @@ describe WorkshiftsController do
       end
     end
 
-    context 'when workshift manager is signed in' do 
+    context 'when workshift manager is signed in' do
       before :each do
         @id = rand(1..100)
         @workshift = create(:workshift, id: @id)

@@ -24,4 +24,10 @@ class UsersController < ApplicationController
       render 'devise/invitations/new'
     end
   end
+
+  def delete_all
+    User.delete_all_residents
+    flash[:notice] = 'All current residents deleted.'
+    redirect_to root_url
+  end
 end

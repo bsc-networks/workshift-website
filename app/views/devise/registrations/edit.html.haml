@@ -52,3 +52,12 @@
 
       .column.small-12
         = f.button :submit, class: 'button small'
+
+- if current_user.workshift_manager?
+  .row
+    %h2.column.small-12 Workshift Manager Options
+    .column.small-12
+      .column.small-12.alert-box.alert
+        Warning: Dangerous options ahead!!
+    .column.small-6
+      = render 'devise/registrations/delete_all.html.haml'
