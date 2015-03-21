@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150318052356) do
+ActiveRecord::Schema.define(:version => 20150321174845) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -23,6 +23,12 @@ ActiveRecord::Schema.define(:version => 20150318052356) do
 
   add_index "assigned_workshifts", ["user_id"], :name => "index_assigned_workshifts_on_user_id"
   add_index "assigned_workshifts", ["workshift_id"], :name => "index_assigned_workshifts_on_workshift_id"
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
@@ -46,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20150318052356) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      :default => 0
-    t.boolean  "workshift_manager",      :default => false
+    t.boolean  "workshift_manager"
     t.string   "phone_number",           :default => ""
     t.string   "room_number",            :default => ""
     t.boolean  "display_phone_number",   :default => false
@@ -74,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20150318052356) do
     t.integer  "workshift_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "category_id"
   end
 
   create_table "workshifts", :force => true do |t|
