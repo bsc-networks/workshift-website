@@ -21,4 +21,5 @@ WorkshiftWebsite::Application.routes.draw do
   end
 
   resources :workshifts
+  resources :categories
 end
