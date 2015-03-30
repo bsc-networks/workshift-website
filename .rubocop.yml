@@ -1,0 +1,20 @@
+AllCops:
+  RunRailsCops: true
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'script/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+    - 'spec/spec_helper.rb'
+
+Lint/AmbiguousRegexpLiteral:
+  Exclude:
+    - 'features/**/*'
+
+Style/FileName:
+  Exclude:
+    - 'Gemfile'
