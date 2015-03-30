@@ -18,6 +18,7 @@ module NavigationHelpers
     when /^the new workshift page$/ then new_workshift_path
     when /^the home page$/ then '/'
     when /^the roster page$/ then '/roster'
+    when /^the Add Users page$/ then invite_users_path
     when /^my profile page$/ then
       user_profile_path(@user)
     when /^the edit page for workshift "(.+)"$/ then
