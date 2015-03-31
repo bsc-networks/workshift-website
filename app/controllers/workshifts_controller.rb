@@ -1,6 +1,7 @@
 class WorkshiftsController < ApplicationController
   before_filter :set_workshift, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  after_filter :verify_authorized, except: :index
 
   respond_to :html, :json
 
@@ -10,6 +11,7 @@ class WorkshiftsController < ApplicationController
   end
 
   def show
+    authorize @workshift
     respond_with(@workshift)
   end
 
@@ -49,5 +51,13 @@ class WorkshiftsController < ApplicationController
 
   def set_workshift
     @workshift = Workshift.find(params[:id])
+  end
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    msg = 'You are not authorized to perform this action.'
+    flash[:alert] = I18n.t "pundit.#{policy_name}.#{exception.query}",
+                           default: msg
+    redirect_to request.referrer || root_url
   end
 end
