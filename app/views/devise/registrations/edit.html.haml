@@ -53,7 +53,7 @@
       .column.small-12
         = f.button :submit, class: 'button small'
 
-- if current_user.workshift_manager?
+- if policy(:user).delete_all?
   .row
     %h2.column.small-12 Workshift Manager Options
     .column.small-12

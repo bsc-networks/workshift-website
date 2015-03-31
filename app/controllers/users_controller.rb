@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  after_filter :verify_authorized, except: [:index, :profile]
 
   def index
     @users = User.all
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def add_users
+    authorize :user
     @user_info = params[:user_info]
     begin
       num_invited = User.invite_users(@user_info)
@@ -26,8 +28,19 @@ class UsersController < ApplicationController
   end
 
   def delete_all
+    authorize :user
     User.delete_all_residents
     flash[:notice] = 'All current residents deleted.'
     redirect_to root_url
+  end
+
+  private
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    msg = 'You are not authorized to perform this action.'
+    flash[:alert] = I18n.t "pundit.#{policy_name}.#{exception.query}",
+                           default: msg
+    redirect_to request.referrer || root_url
   end
 end
