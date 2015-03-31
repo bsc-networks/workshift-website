@@ -1,6 +1,7 @@
 class WorkshiftsController < ApplicationController
   before_filter :set_workshift, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  after_filter :verify_authorized, except: :index
 
   respond_to :html, :json
 
@@ -10,6 +11,7 @@ class WorkshiftsController < ApplicationController
   end
 
   def show
+    authorize @workshift
     respond_with(@workshift)
   end
 
