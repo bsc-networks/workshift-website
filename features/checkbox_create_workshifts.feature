@@ -36,4 +36,4 @@ Feature: checkbox create workshifts
         | EndTime       | 11:00 PM           |
         | Description   | take out the trash |
       And I press "Create Workshift"
-      Then I should see an error message: "Please review the problems below:"
+      Then I should see "Must select at least one day."

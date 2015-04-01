@@ -15,7 +15,7 @@ Feature: workshift manager create shifts
       | StartTime     | 7:00 PM            |
       | EndTime       | 11:00 PM           |
       | Description   | take out the trash |
-      | Day           | Wednesday          |
+    And I check "Wednesday"
     And I press "Create Workshift"
     Then I should see:
       | field         | value              |
@@ -34,7 +34,7 @@ Feature: workshift manager create shifts
       | StartTime     | 7:00 PM            |
       | EndTime       | 11:00 PM           |
       | Description   |                    |
-      | Day           | Wednesday          |
+    And I check "Wednesday"
     And I press "Create Workshift"
     Then I should see an error message: "Please review the problems below:"
 
@@ -46,6 +46,6 @@ Feature: workshift manager create shifts
       | StartTime     | 11:00 PM           |
       | EndTime       | 10:00 PM           |
       | Description   | hi                 |
-      | Day           | Wednesday          |
+    And I check "Wednesday"
     And I press "Create Workshift"
     Then I should see an error message: "Please review the problems below:"
