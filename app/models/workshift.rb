@@ -18,8 +18,8 @@ class Workshift < ActiveRecord::Base
   belongs_to :category
 
   has_many :workshift_assignments
-  attr_accessible :start_time, :end_time, :day, :task, :people_needed,
-                  :description, :hours, :category_id
+  attr_accessible :start_time, :end_time, :day, :task, :category_id
+                  :description, :hours
 
   validates :start_time, :end_time, :day, :task,
             :description, presence: true
@@ -80,10 +80,6 @@ class Workshift < ActiveRecord::Base
 
   def num_assigned
     users.length
-  end
-
-  def assigned_so_far
-    "#{num_assigned}/#{people_needed}"
   end
 
   def already_assigned_user(userid)
