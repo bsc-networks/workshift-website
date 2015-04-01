@@ -16,8 +16,8 @@
     .column.small-12
       = f.input :description, placeholder: 'Description of task'
     .column.small-12
-      = f.input :day do
-        = f.select :day, Workshift.valid_days, include_blank: 'Select a weekday'
+      - if %w(new create).include? controller.action_name
+        = f.input :day, collection: Workshift.valid_days, as: :check_boxes
 
     .column.small-12
       = f.button :submit, class: 'button-small'

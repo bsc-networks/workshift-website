@@ -115,12 +115,12 @@ describe WorkshiftsController do
         end_time = start_time + 3.hours
         attributes = { task: 'Wash dishes', description: 'dishes need washing',
                        hours: 1, start_time: start_time, end_time: end_time,
-                       day: 0 }
+                       day: ['0', ''] }
         post :create, workshift: attributes
         expect(assigns(:workshift).task).to match attributes[:task]
         expect(assigns(:workshift).description).to eq attributes[:description]
         expect(assigns(:workshift).hours).to eq attributes[:hours]
-        expect(assigns(:workshift).day).to eq attributes[:day]
+        expect(assigns(:workshift).day).to eq 0
         expect(assigns(:workshift).start_time.hour).to eq start_time.hour
         expect(assigns(:workshift).start_time.min).to eq start_time.min
         expect(assigns(:workshift).end_time.hour).to eq end_time.hour
@@ -132,7 +132,8 @@ describe WorkshiftsController do
       before :each do
         start_time = Time.zone.parse('1:30pm')
         end_time = start_time + 3.hours
-        attributes = { task: '', start_time: start_time, end_time: end_time }
+        attributes = { task: '', start_time: start_time, end_time: end_time,
+                       day: ['0', ''] }
         post :create, workshift: attributes
       end
 

@@ -1,7 +1,10 @@
-%h1 Editing workshift
+.row
+  %h1.column.small-12 Editing workshift
 
 = render 'form'
 
-= link_to 'Show', @workshift
-\|
-= link_to 'Back', workshifts_path
+.row
+  .column.small-12
+    = link_to 'Show', @workshift
+    \|
+    = link_to 'Back', workshifts_path
