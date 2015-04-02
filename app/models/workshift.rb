@@ -19,7 +19,7 @@ class Workshift < ActiveRecord::Base
 
   has_many :workshift_assignments
   attr_accessible :start_time, :end_time, :day, :task, :people_needed,
-                  :description, :hours
+                  :description, :hours, :category_id
 
   validates :start_time, :end_time, :day, :task,
             :description, presence: true
@@ -44,6 +44,13 @@ class Workshift < ActiveRecord::Base
   def weekday
     # return unless day >= 0 && day <= 6
     Date::DAYNAMES[day]
+  end
+
+  def category_name
+    if Category.find_by_id(category_id) != nil
+      return Category.find_by_id(category_id).name
+    end
+    "Uncategorized"
   end
 
   def formatted_start_time
