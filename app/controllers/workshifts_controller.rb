@@ -29,20 +29,14 @@ class WorkshiftsController < ApplicationController
     authorize :workshift
     days = params[:workshift].delete('day')
     days.pop # remove added empty string ('') entry
-    if days.length == 0
+    begin
+      @workshift = Workshift.create_multiple(params[:workshift], days)
+      respond_with(@workshift)
+    rescue ArgumentError => e
+      flash[:alert] = e.message
       @workshift = Workshift.new(params[:workshift])
-      flash[:alert] = 'Must select at least one day.'
       render :new
-      return
     end
-    days.each do |day|
-      @workshift = Workshift.new(params[:workshift].merge(day: day))
-      unless @workshift.save
-        render :new
-        return
-      end
-    end
-    respond_with(@workshift)
   end
 
   def update
