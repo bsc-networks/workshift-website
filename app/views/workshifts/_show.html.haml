@@ -2,6 +2,8 @@
   .column.small-12
     %h1= @workshift.task
   .column.small-4
+    %p Category: #{@workshift.category_name}
+  .column.small-4
     %p Hours: #{@workshift.hours}
   .column.small-4
     %p Day of the week: #{@workshift.weekday}

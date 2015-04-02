@@ -7,12 +7,14 @@
       = f.input :task, placeholder: 'Purpose of workshift'
     .column.small-5.medium-4.large-2
       = f.input :hours, default: 1
-    .column.small-12.medium-6
+    .column.small-12.medium-4.large-3
       = f.input :start_time, ampm: true, minute_step: 15,
-        input_html: { class: 'column small-4 medium-3 left' }
-    .column.small-12.medium-6
+        input_html: { class: 'column small-4 medium-5 left' }
+    .column.small-12.medium-4.large-3
       = f.input :end_time, ampm: true, minute_step: 15,
-        input_html: { class: 'column small-4 medium-3 left' }
+        input_html: { class: 'column small-4 medium-5 left' }
+    .column.small-5.medium-4.large-4
+      = f.input :category_id, collection: Category.order(:name)
     .column.small-12
       = f.input :description, placeholder: 'Description of task'
     .column.small-12
