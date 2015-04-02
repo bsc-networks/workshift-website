@@ -15,6 +15,8 @@
 #
 class Workshift < ActiveRecord::Base
   belongs_to :user
+  belongs_to :category
+
   has_many :workshift_assignments
   attr_accessible :start_time, :end_time, :day, :task, :people_needed,
                   :description, :hours
