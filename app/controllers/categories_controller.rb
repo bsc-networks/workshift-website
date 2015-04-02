@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    respond_with(@categorie)
+    respond_with(@categories)
   end
 
   def new
