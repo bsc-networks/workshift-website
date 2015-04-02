@@ -1,17 +1,30 @@
-%h1 Listing categories
+.row
+  .column.small-12
+    %h1 Category Listing
 
-%table
-  %tr
-    %th
-    %th
-    %th
+.row
+  .column.small-12
+    %table#categories
+      %thead
+        %tr
+          %th Name
+          - if policy(:category).edit?
+            %th
+          - if policy(:category).destroy?
+            %th
 
-  - @categories.each do |category|
-    %tr
-      %td= link_to 'Show', category
-      %td= link_to 'Edit', edit_category_path(category)
-      %td= link_to 'Destroy', category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %tbody
+        - @categories.each do |category|
+          %tr
+            %td= link_to category.name, category
+            - if policy(:category).edit?
+              %td= link_to 'Edit', edit_category_path(category)
+            - if policy(:category).destroy?
+              %td= link_to 'Destroy', category, method: :delete,
+                data: { confirm: 'Are you sure?' }
 
 %br
-
-= link_to 'New Category', new_category_path
+- if policy(:category).new?
+  .row
+    .column.small-12
+      = link_to 'New Category', new_category_path
