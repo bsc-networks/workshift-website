@@ -1,7 +1,9 @@
 = simple_form_for(@category) do |f|
-  = f.error_notification
+  .row
+    .column.small-12
+      = f.error_notification
 
-  .form-inputs
-
-  .form-actions
-    = f.button :submit
+    .column.small-10.large-8
+      = f.input :name, placeholder: 'Name of Category'
+    .column.small-12
+      = f.button :submit, class: 'button-small'

@@ -27,6 +27,8 @@
                   - if policy(:user).add_users?
                     %li
                       = link_to 'Add Users', add_users_path
+                    %li
+                      = link_to 'Categories', categories_path
                   %li
                     = link_to 'Logout', logout_path
             - else
