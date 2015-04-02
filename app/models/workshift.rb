@@ -47,9 +47,7 @@ class Workshift < ActiveRecord::Base
   end
 
   def category_name
-    if category != nil
-      return category.name
-    end
+    return category.name unless category.nil?
     "Uncategorized"
   end
 
