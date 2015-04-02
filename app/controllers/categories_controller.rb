@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    respond_with(@categories)
+    respond_with(@category)
   end
 
   def new
@@ -46,7 +46,10 @@ class CategoriesController < ApplicationController
     respond_with(@category)
   end
 
-  def set_category
-    @category = Category.find(params[:id])
-  end
+  private
+
+    def set_category
+      @category = Category.find(params[:id])
+    end
+
 end
