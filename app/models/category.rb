@@ -1,4 +1,8 @@
 class Category < ActiveRecord::Base
+  has_many :workshifts
+
   attr_accessible :name
-  has_many :workshift_assignments
+
+  validates :name, presence: true
+
 end
