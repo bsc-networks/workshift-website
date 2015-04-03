@@ -1,0 +1,32 @@
+.row
+  .column.small-12
+    %h1= @category.name
+
+.row
+  .column.small-12
+    %table#workshifts
+      %thead
+        %tr
+          %th Task
+          %th Hours
+          %th Day
+          %th Start Time
+          %th End Time
+          - if policy(:workshift).edit?
+            %th
+          - if policy(:workshift).destroy?
+            %th
+
+      %tbody
+        - @category.workshifts.each do |workshift|
+          %tr
+            %td= link_to workshift.task, workshift
+            %td= workshift.hours
+            %td= workshift.weekday
+            %td= workshift.formatted_start_time
+            %td= workshift.formatted_end_time
+            - if policy(:workshift).edit?
+              %td= link_to 'Edit', edit_workshift_path(workshift)
+            - if policy(:workshift).destroy?
+              %td= link_to 'Destroy', workshift, method: :delete,
+                data: { confirm: 'Are you sure?' }
