@@ -4,23 +4,24 @@
       %thead
         %tr
           %th Day
+          %th Task
           %th Start Time
           %th End Time
-          %th Completed?
+          %th Status
           %th
           %th
           %th
       %tbody
         - workshift_assignments.each do |workshift_assignment|
-          - workshift = assigned_workshift.workshift
           %tr
-            %td= workshift.weekday
-            %td= workshift.formatted_start_time
-            %td= workshift.formatted_end_time
-            %td= assigned_workshift.completed.to_s
-            %td= link_to 'Show', workshift
+            %td= workshift_assignment.weekday
+            %td= workshift_assignment.task
+            %td= workshift_assignment.formatted_start_time
+            %td= workshift_assignment.formatted_end_time
+            %td= workshift_assignment.status
+            %td= link_to 'Show', workshift_assignment.workshift
             - if policy(:workshift).edit?
-              %td= link_to 'Edit', edit_workshift_path(workshift)
+              %td= link_to 'Edit', edit_workshift_path(workshift_assignment.workshift)
             - if policy(:workshift).destroy?
-              %td= link_to 'Destroy', workshift, method: :delete,
+              %td= link_to 'Destroy', workshift_assignment.workshift, method: :delete,
                   data: { confirm: 'Are you sure?' }

@@ -6,7 +6,7 @@
     .column.small-10.large-8
       = f.input :task, placeholder: 'Purpose of workshift'
     .column.small-5.medium-4.large-2
-      = collection_select "aw", nil, User.all, :id, :name, {include_blank: true}  
+      = f.input :user, collection: User.all, include_blank: true
     .column.small-5.medium-4.large-2
       = f.input :hours, default: 1
     .column.small-12.medium-4.large-3

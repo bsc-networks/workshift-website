@@ -14,6 +14,7 @@ gem 'pundit'
 gem 'devise_invitable', '~> 1.3.4'
 
 gem 'simple_form'
+gem 'chronic' # for natural language date/time parsing
 gem 'faker'
 gem 'clockwork'
 
@@ -40,6 +41,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'timecop'
+  gem 'debugger'
 end
 
 # Gems used only for assets and not required

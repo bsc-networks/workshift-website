@@ -8,4 +8,21 @@ class WorkshiftAssignment < ActiveRecord::Base
 
   validates :start_time, :end_time, :date, :task, :hours,
             :description, :status, presence: true
+
+  def assign_workshifter(user)
+    self.workshifter = user
+  end
+
+  def weekday
+    # return unless day >= 0 && day <= 6
+    Date::DAYNAMES[date.wday]
+  end
+
+  def formatted_start_time
+    start_time.strftime('%l:%M %p')
+  end
+
+  def formatted_end_time
+    end_time.strftime('%l:%M %p')
+  end
 end
