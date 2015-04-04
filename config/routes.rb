@@ -14,6 +14,7 @@ WorkshiftWebsite::Application.routes.draw do
   devise_scope :user do
     get 'login', to: 'devise/sessions#new', as: :login
     get 'settings', to: 'devise/registrations#edit', as: :settings
+    get 'workshifts/preferences', to: 'users#preferences', as: :preferences
     get 'logout', to: 'devise/sessions#destroy', as: :logout
     get 'register', to: 'devise/registrations#new', as: :register
     get 'users/add', to: 'devise/invitations#new', as: :add_users

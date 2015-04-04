@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  after_filter :verify_authorized, except: [:index, :profile]
+  after_filter :verify_authorized, except: [:index, :profile, :preferences]
 
   def index
     @users = User.all
@@ -32,6 +32,10 @@ class UsersController < ApplicationController
     User.delete_all_residents
     flash[:notice] = 'All current residents deleted.'
     redirect_to root_url
+  end
+
+  def preferences
+    @preferences = Preference.all
   end
 
   private
