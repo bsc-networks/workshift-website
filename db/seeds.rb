@@ -8,29 +8,71 @@ require 'faker'
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# User Accounts
 user_defaults = { password: 'secret', password_confirmation: 'secret' }
-User.create!(user_defaults.merge(email: 'john@example.com', name: 'John Doe'))
-User.create!(user_defaults.merge(email: 'sally@example.com',
-                                 name: 'Sally Smith'))
 manager = User.create!(user_defaults.merge(email: 'manager@example.com',
                                            name: 'Boss Man'))
 manager.update_attribute :workshift_manager, true
 
+User.create!(user_defaults.merge(email: 'john@example.com', name: 'John Doe'))
+User.create!(user_defaults.merge(email: 'sally@example.com',
+                                 name: 'Sally Smith'))
 30.times do
   name = Faker::Name.name
   email = "#{name.downcase.split.join('_')}@example.com"
   User.create(user_defaults.merge(email: email, name: name))
 end
 
+# Categories
+category_dishes = Category.create!(name: 'Dishes')
+category_pots = Category.create!(name: 'Pots')
+category_groceries = Category.create!(name: 'Groceries')
+category_cleaning = Category.create!(name: 'Cleaning')
+category_cooking = Category.create!(name: 'Cooking')
+
+# Workshifts
 7.times do |day|
-  10.times do
-    start_time = Faker::Time.forward(10, :all).change(min: 0)
-    end_time = start_time + 4.hours
-    hours = rand(3) + 1
-    task = Faker::Company.bs.titleize
-    description = Faker::Hacker.say_something_smart
-    # people_needed = rand(4) + 1
-    Workshift.create(day: day, start_time: start_time, end_time: end_time,
-                     hours: hours, task: task, description: description)
-  end
+  Workshift.create!(day: day, start_time: Time.parse('9:00AM'), hours: 1,
+                    task: 'Wash breakfast dishes',
+                    category_id: category_dishes.id,
+                    end_time: Time.parse('1:00PM'),
+                    description: 'Wash dirty dishes from breakfast.')
+  Workshift.create!(day: day, hours: 1,
+                    task: 'Wash dinner dishes',
+                    category_id: category_dishes.id,
+                    start_time: Time.parse('7:00PM'),
+                    end_time: Time.parse('11:30PM'),
+                    description: 'Wash dirty dishes from dinner.')
+  Workshift.create!(day: day, hours: 1,
+                    task: 'Wash dinner pots',
+                    category_id: category_pots.id,
+                    start_time: Time.parse('7:00PM'),
+                    end_time: Time.parse('11:30PM'),
+                    description: 'Wash the pots used to cook dinner')
+  Workshift.create!(day: day, hours: 2,
+                    task: 'Cook breakfast',
+                    category_id: category_cooking.id,
+                    start_time: Time.parse('6:00AM'),
+                    end_time: Time.parse('9:30AM'),
+                    description: 'Prepare breakfast for the house.')
+  Workshift.create!(day: day, hours: 2,
+                    task: 'Cook dinner',
+                    category_id: category_cooking.id,
+                    start_time: Time.parse('6:00PM'),
+                    end_time: Time.parse('9:30PM'),
+                    description: 'Prepare dinner for the house.')
 end
+
+Workshift.create!(day: 6, hours: 3,
+                  task: 'Clean common room',
+                  category_id: category_cleaning.id,
+                  start_time: Time.parse('5:00AM'),
+                  end_time: Time.parse('11:00PM'),
+                  description: 'Dust, vacuum, and tidy up the common room.')
+Workshift.create!(day: 6, hours: 3,
+                  task: 'Get groceries',
+                  category_id: category_groceries.id,
+                  start_time: Time.parse('5:00AM'),
+                  end_time: Time.parse('11:00PM'),
+                  description: 'Go grocery shopping and restock the pantry.')
