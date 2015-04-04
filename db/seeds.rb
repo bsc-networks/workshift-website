@@ -26,14 +26,15 @@ end
 
 # Categories
 category_dishes = Category.create!(name: 'Dishes')
+User.create_preferences(category_dishes)
 category_pots = Category.create!(name: 'Pots')
+User.create_preferences(category_pots)
 category_groceries = Category.create!(name: 'Groceries')
+User.create_preferences(category_groceries)
 category_cleaning = Category.create!(name: 'Cleaning')
+User.create_preferences(category_cleaning)
 category_cooking = Category.create!(name: 'Cooking')
-
-Category.all.each do |category|
-  User.create_preferences(category)
-end
+User.create_preferences(category_cleaning)
 
 # Workshifts
 7.times do |day|
