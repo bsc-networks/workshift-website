@@ -2,7 +2,8 @@
   .column.small-12
     %h1= @workshift.task
   .column.small-4
-    %p Category: #{@workshift.category_name}
+    Category:
+    = link_to @workshift.category_name, @workshift.category
   .column.small-4
     %p Hours: #{@workshift.hours}
   .column.small-4

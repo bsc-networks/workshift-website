@@ -31,6 +31,10 @@ category_groceries = Category.create!(name: 'Groceries')
 category_cleaning = Category.create!(name: 'Cleaning')
 category_cooking = Category.create!(name: 'Cooking')
 
+Category.all.each do |category|
+  User.create_preferences(category)
+end
+
 # Workshifts
 7.times do |day|
   Workshift.create!(day: day, start_time: Time.parse('9:00AM'), hours: 1,

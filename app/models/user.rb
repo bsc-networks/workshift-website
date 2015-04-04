@@ -33,8 +33,10 @@
 require 'csv'
 
 class User < ActiveRecord::Base
-  has_many :workshift_assignments, foreign_key: "workshifter_id"
-  has_many :verified_workshifts, class_name: "WorkshiftAssignment", foreign_key: "verifier_id"
+  has_many :workshift_assignments, foreign_key: 'workshifter_id'
+  has_many :preferences
+  has_many :verified_workshifts, class_name: 'WorkshiftAssignment',
+                                 foreign_key: 'verifier_id'
   has_many :workshifts
 
   # Include default devise modules. Others available are:
@@ -63,6 +65,16 @@ class User < ActiveRecord::Base
 
   def self.delete_all_residents
     User.where(workshift_manager: false).destroy_all
+  end
+
+  # Create a new preference for the inputted category for each user. The rank
+  # of the preference should place it as the least prefered category.
+  def self.create_preferences(category)
+    User.all.each do |user|
+      rank = Category.count
+      Preference.create!(user_id: user.id, category_id: category.id,
+                         rank: rank)
+    end
   end
 
   def role
