@@ -8,6 +8,7 @@
       %thead
         %tr
           %th Task
+          %th Category
           %th Hours
           %th Day
           %th Start Time
@@ -21,6 +22,7 @@
         - @workshifts.each do |workshift|
           %tr
             %td= link_to workshift.task, workshift
+            %td= link_to workshift.category_name, workshift.category
             %td= workshift.hours
             %td= workshift.weekday
             %td= workshift.formatted_start_time
