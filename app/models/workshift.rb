@@ -63,6 +63,12 @@ class Workshift < ActiveRecord::Base
         status: "upcoming",
     })
     assignment.assign_workshifter(self.user)
+    puts end_time
+    puts end_time.hour
+    puts assignment_date
+    puts assignment_date + end_time.hour.hours
+    puts assignment_date + end_time.hour.hours + end_time.min.minutes
+    Rufus::Scheduler.singleton.at "#{assignment_date}"
     assignment.save!
   end
 

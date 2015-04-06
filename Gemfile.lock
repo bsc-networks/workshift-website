@@ -183,6 +183,8 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
+    rufus-scheduler (3.0.9)
+      tzinfo
     sass (3.2.19)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -253,6 +255,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet (~> 3.0)
   rspec-rails
+  rufus-scheduler
   sass (~> 3.2.5)
   sass-rails (~> 3.2.3)
   simple_form

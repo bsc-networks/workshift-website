@@ -11,6 +11,7 @@ class WorkshiftAssignment < ActiveRecord::Base
 
   def assign_workshifter(user)
     self.workshifter = user
+    self.save!
   end
 
   def weekday
