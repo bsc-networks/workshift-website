@@ -15,6 +15,7 @@ gem 'devise_invitable', '~> 1.3.4'
 
 gem 'simple_form'
 gem 'chronic' # for natural language date/time parsing
+gem 'rufus-scheduler'
 gem 'faker'
 gem 'clockwork'
 

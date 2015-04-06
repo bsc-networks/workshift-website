@@ -69,6 +69,8 @@ module WorkshiftWebsite
 
     config.assets.initialize_on_precompile = false
 
+    config.time_zone = 'Pacific Time (US & Canada)'
+
     # Load variables stored in local_env.yml as environment variables
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', 'local_env.yml')
