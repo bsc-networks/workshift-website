@@ -81,4 +81,32 @@ class User < ActiveRecord::Base
     return 'Workshift Manager' if workshift_manager?
     'Resident'
   end
+
+  def sorted_preferences
+    preferences
+    # preferences.sort { |a, b| a.rank <=> b.rank }
+  end
+
+  def update_category_preferences(preferences)
+    validate_preferences(preferences)
+    preferences.each do |category_id, rank|
+      pref = Preference.where(user_id: id, category_id: category_id).first
+      pref ||= Preference.create(user_id: id, category_id: category_id)
+      pref.rank = rank
+      pref.save
+    end
+  end
+
+  private
+
+  def validate_preferences(preferences)
+    if preferences.value? '0'
+      category_id = preferences.key('0')
+      category = Category.find(category_id)
+      fail ArgumentError, "No rank selected for category #{category.name}."
+    end
+    unless preferences.values.uniq.length == preferences.values.length
+      fail ArgumentError, 'Please select each ranking only once.'
+    end
+  end
 end

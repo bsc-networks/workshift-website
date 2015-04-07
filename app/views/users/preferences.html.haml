@@ -1,9 +1,8 @@
 .row
   .column.small-12
     %h2 Workshift Preferences
-  .column.small-12.medium-6
-    %h4 Categories
-    = render 'users/category_preferences', preferences: @preferences
-  .column.small-12.medium-6
+  .column.small-12
+    = render 'users/category_preferences', categories: @categories
+  .column.small-12
     %h4 Times
     = render 'users/time_preferences'

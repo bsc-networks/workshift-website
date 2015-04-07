@@ -1,0 +1,26 @@
+= form_tag update_category_preferences_path do
+  .row
+    .column.small-12
+      %fieldset
+        %legend Categories
+        :markdown
+          Rank the following workshift categories in the order by which you'd
+          prefer to be assigned them! *Example:* if you love to cook but hate
+          the cleanup that comes after, you might select **Cooking - 1**,
+          **Pots - 2**, **Dishes - 3**.
+        %table
+          %thead
+            %tr
+              %th Category
+              %th Ranking
+          %tbody
+            - categories.each do |category|
+              %tr
+                %td= category.name
+                %td
+                  = hidden_field_tag "preferences[#{category.id}]", 0
+                  - Category.count.times do |i|
+                    = radio_button_tag "preferences[#{category.id}]", i + 1
+                    = label_tag "preferences[#{category.id}]", i + 1
+        .column.small-12
+          = submit_tag 'Update Category Preferences', class: 'button small'

@@ -16,9 +16,10 @@
               = link_to 'My Shifts', root_url
             %li
               = link_to 'Weekly Schedule', workshifts_path
-            - if policy(:user).modify_categories?
-              %li
-                = link_to 'Categories', categories_path
+            - if user_signed_in?
+              - if policy(:category).edit?
+                %li
+                  = link_to 'Categories', categories_path
             %li
               = link_to 'House Roster', roster_path
             - if user_signed_in?
@@ -28,7 +29,7 @@
                   %li
                     = link_to 'Settings', settings_path
                   %li
-                    = link_to 'Workshift Preferences', preferences_path
+                    = link_to 'Preferences', preferences_path
                   - if policy(:user).add_users?
                     %li
                       = link_to 'Add Users', add_users_path

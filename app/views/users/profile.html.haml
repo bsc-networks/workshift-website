@@ -18,7 +18,7 @@
   .column.small-12.medium-6
     %h5 Workshift Category Preferences
     %ul
-      - @user.preferences.each do |preference|
+      - @preferences.each do |preference|
         %li
           = link_to preference.category.name, preference.category
           = preference.rank
