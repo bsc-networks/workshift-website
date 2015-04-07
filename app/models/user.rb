@@ -33,8 +33,10 @@
 require 'csv'
 
 class User < ActiveRecord::Base
-  has_many :workshift_assignments, foreign_key: "workshifter_id"
-  has_many :verified_workshifts, class_name: "WorkshiftAssignment", foreign_key: "verifier_id"
+  has_many :workshift_assignments, foreign_key: 'workshifter_id'
+  has_many :preferences
+  has_many :verified_workshifts, class_name: 'WorkshiftAssignment',
+                                 foreign_key: 'verifier_id'
   has_many :workshifts
 
   # Include default devise modules. Others available are:
@@ -65,8 +67,45 @@ class User < ActiveRecord::Base
     User.where(workshift_manager: false).destroy_all
   end
 
+  # Create a new preference for the inputted category for each user. The rank
+  # of the preference should place it as the least prefered category.
+  def self.create_preferences(category)
+    User.all.each do |user|
+      rank = Category.count
+      Preference.create!(user_id: user.id, category_id: category.id,
+                         rank: rank)
+    end
+  end
+
   def role
     return 'Workshift Manager' if workshift_manager?
     'Resident'
+  end
+
+  def sorted_preferences
+    preferences.sort { |a, b| a.rank <=> b.rank }
+  end
+
+  def update_category_preferences(preferences)
+    validate_preferences(preferences)
+    preferences.each do |category_id, rank|
+      pref = Preference.where(user_id: id, category_id: category_id).first
+      pref ||= Preference.create(user_id: id, category_id: category_id)
+      pref.rank = rank
+      pref.save
+    end
+  end
+
+  private
+
+  def validate_preferences(preferences)
+    if preferences.value? '0'
+      category_id = preferences.key('0')
+      category = Category.find(category_id)
+      fail ArgumentError, "No rank selected for category #{category.name}."
+    end
+    unless preferences.values.uniq.length == preferences.values.length
+      fail ArgumentError, 'Please select each ranking only once.'
+    end
   end
 end

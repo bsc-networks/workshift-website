@@ -8,39 +8,43 @@
       = f.error_notification
 
     .settings-section.column.small-12.medium-6
-      %h3.column.small-12 Personal Information
-      .column.small-12
-        = f.input :name
+      %fieldset
+        %legend Personal Information
+        .column.small-12
+          = f.input :name
 
-      .column.small-12
-        = f.input :email, as: :email
+        .column.small-12
+          = f.input :email, as: :email
 
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      .column.small-12
-        Currently awaiting confirmation for #{resource.unconfirmed_email}
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        .column.small-12
+          Currently awaiting confirmation for #{resource.unconfirmed_email}
 
     .settings-section.column.small-12.medium-6
-      %h3.column.small-12 Contact Information
-      .column.small-12.medium-6
-        = f.input :room_number, label: 'Room Number',
-          placeholder: 'Your room number'
-      .column.small-12.medium-6
-        = f.input :phone_number, as: :tel, label: 'Phone Number',
-          placeholder: '(012)345-6789'
-      .column.small-6
-        = f.input :display_phone_number, as: :boolean, boolean_style: :inline
-      .column.small-6
-        = f.input :display_email, as: :boolean, boolean_style: :inline
+      %fieldset
+        %legend Contact Information
+        .column.small-12.medium-6
+          = f.input :room_number, label: 'Room Number',
+            placeholder: 'Your room number'
+        .column.small-12.medium-6
+          = f.input :phone_number, as: :tel, label: 'Phone Number',
+            placeholder: '(012)345-6789'
+        .column.small-6
+          = f.input :display_phone_number, as: :boolean, boolean_style: :inline
+        .column.small-6
+          = f.input :display_email, as: :boolean, boolean_style: :inline
 
     .column.small-12.spacer
 
     .settings-section.column.small-12.medium-6
-      %h4.column.small-12 Change Password
-      %small.column.small-12 Leave blank unless you wish to change your password
-      .column.small-12.medium-6
-        = f.input :password, label: 'New Password'
-      .column.small-12.medium-6
-        = f.input :password_confirmation, label: 'Confirm New Password'
+      %fieldset
+        %legend Change Password
+        %small.column.small-12
+          Leave blank unless you wish to change your password
+        .column.small-12.medium-6
+          = f.input :password, label: 'New Password'
+        .column.small-12.medium-6
+          = f.input :password_confirmation, label: 'Confirm New Password'
 
     .column.small-12.spacer
 

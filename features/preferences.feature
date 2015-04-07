@@ -4,30 +4,51 @@ Feature: residents can list preferences of workshifts through categories
   I want to be able to rank my preferences of categories
 
   Background:
-    Given I am a resident
-    Given that the following categories exist:
-      | name          | description        |
-      | Clean         | clean related      |
-      | Dishes        | dishes related     |
-      | Shop          | shopping related   |
-    Given I am on the user settings page
+    Given I am signed in as a resident
+    And the following categories exist:
+      | name       |
+      | Cleaning   |
+      | Dishes     |
+      | Groceries  |
+    And I am on the user preferences page
+    And I have no category preferences
 
-  Scenario: I can rank preferences
-    When I fill in "1" for the "Clean" category
-    And I fill in "2" for the "Dishes" category
-    And I fill in "3" for the "Shop" category
-    And I press submit
-    Then I should see:
-      | name          | rank        |
-      | Clean         | 1           |
-      | Dishes        | 2           |
-      | Shop          | 3           |
-    When I fill in "2" for the "Clean" category
-    And I fill in "3" for the "Dishes" category
-    And I fill in "1" for the "Shop" category
-    And I press submit
-    Then I should see:
-      | name          | rank        |
-      | Clean         | 2           |
-      | Dishes        | 3           |
-      | Shop          | 1           |
+  Scenario: ranking preferences for the first time
+    When I rank the "Cleaning" category 1
+    And I rank the "Dishes" category 2
+    And I rank the "Groceries" category 3
+    And I press "Update Category Preferences"
+    Then my category preference rankings should be:
+      | category  | rank |
+      | Cleaning  | 1    |
+      | Dishes    | 2    |
+      | Groceries | 3    |
+
+  Scenario: updating preferences
+    Given I have the following category preferences:
+      | category  | rank |
+      | Cleaning  | 1    |
+      | Dishes    | 2    |
+      | Groceries | 3    |
+    When I rank the "Cleaning" category 3
+    And I rank the "Dishes" category 1
+    And I rank the "Groceries" category 2
+    And I press "Update Category Preferences"
+    Then my category preference rankings should be:
+      | category  | rank |
+      | Cleaning  | 3    |
+      | Dishes    | 1    |
+      | Groceries | 2    |
+
+  Scenario: input rejected if fail to rank a category
+    When I rank the "Cleaning" category 1
+    And I rank the "Groceries" category 2
+    And I press "Update Category Preferences"
+    Then I should see "No rank selected for category Dishes"
+
+  Scenario: input rejected if multiple categories given the same ranking
+    When I rank the "Cleaning" category 1
+    And I rank the "Dishes" category 2
+    And I rank the "Groceries" category 2
+    And I press "Update Category Preferences"
+    Then I should see "Please select each ranking only once."

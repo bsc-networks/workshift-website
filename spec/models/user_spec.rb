@@ -52,4 +52,70 @@ describe User do
       expect(User.invite_users(input)).to eq 3
     end
   end
+
+  describe 'creating preferences when a new category is added' do
+    before :each do
+      @num_categories = rand(5..10)
+      create_list(:category, @num_categories)
+      @created_users = create_list(:user, rand(10..20))
+      @new_category = Category.create(name: 'New Category')
+      User.create_preferences(@new_category)
+    end
+
+    it 'creates a new preferences for each user' do
+      @created_users.each do |user|
+        pref = Preference.where(user_id: user.id,
+                                category_id: @new_category.id).first
+        expect(pref).to_not be_nil
+      end
+    end
+
+    it 'assigns the new preference the lowest rank possible.' do
+      @created_users.each do |user|
+        pref = Preference.where(user_id: user.id,
+                                category_id: @new_category.id).first
+        expect(pref.rank).to eq @num_categories + 1
+      end
+    end
+  end
+
+  describe 'updating a users category preferences' do
+    before :each do
+      @user = create(:user)
+      create_list(:category, 2)
+    end
+
+    it 'creates the preferences if they do not currently exist' do
+      @user.preferences.delete_all
+      preferences = { '1' => '1', '2' => '2' }
+      @user.update_category_preferences(preferences)
+      preferences.each do |category_id, ranking|
+        pref = @user.preferences.where(category_id: category_id).first
+        expect(pref.rank).to eq ranking.to_i
+      end
+    end
+
+    it 'updates the preferences if they already exist' do
+      create(:preference, user_id: @user_id, category_id: 1, rank: 1)
+      create(:preference, user_id: @user_id, category_id: 2, rank: 2)
+      preferences = { '1' => '2', '2' => '1' }
+      @user.update_category_preferences(preferences)
+      preferences.each do |category_id, ranking|
+        pref = @user.preferences.where(category_id: category_id).first
+        expect(pref.rank).to eq ranking.to_i
+      end
+    end
+
+    context 'validating the inputted preferences' do
+      it 'rejects the preferences if a rank of 0 is present' do
+        preferences = { '1' => '0', '2' => '1' }
+        expect{ @user.update_category_preferences(preferences) }.to raise_error(ArgumentError)
+      end
+
+      it 'rejects the preferences if a rank is entered multiple times' do
+        preferences = { '1' => '1', '2' => '1' }
+        expect{ @user.update_category_preferences(preferences) }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end

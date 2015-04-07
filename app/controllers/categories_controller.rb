@@ -28,6 +28,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(params[:category])
     authorize @category
     if @category.save
+      User.create_preferences(@category)
       respond_with(@category)
     else
       render :new
@@ -48,8 +49,7 @@ class CategoriesController < ApplicationController
 
   private
 
-    def set_category
-      @category = Category.find(params[:id])
-    end
-
+  def set_category
+    @category = Category.find(params[:id])
+  end
 end

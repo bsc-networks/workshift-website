@@ -25,6 +25,7 @@ module NavigationHelpers
     when /^the edit page for workshift "(.+)"$/ then
       @workshift = Workshift.find_by_task($1)
       edit_workshift_path(@workshift)
+    when /^the user preferences page$/ then preferences_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

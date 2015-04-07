@@ -3,11 +3,11 @@ class UserPolicy < ApplicationPolicy
     user.workshift_manager?
   end
 
-  def modify_categories?
+  def delete_all?
     user.workshift_manager?
   end
 
-  def delete_all?
-    user.workshift_manager?
+  def update_category_preferences?
+    user == record
   end
 end

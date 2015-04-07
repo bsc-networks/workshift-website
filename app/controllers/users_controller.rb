@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  after_filter :verify_authorized, except: [:index, :profile]
+  after_filter :verify_authorized, except: [:index, :profile, :preferences]
 
   def index
     @users = User.all
@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     id = params[:id] || current_user.id
     @user = User.find(id)
     @workshift_assignments = @user.workshift_assignments
+    @preferences = @user.sorted_preferences
   end
 
   def add_users
@@ -34,13 +35,21 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
 
-  private
+  def preferences
+    @categories = Category.all
+  end
 
-  def user_not_authorized(exception)
-    policy_name = exception.policy.class.to_s.underscore
-    msg = 'You are not authorized to perform this action.'
-    flash[:alert] = I18n.t "pundit.#{policy_name}.#{exception.query}",
-                           default: msg
-    redirect_to request.referrer || root_url
+  def update_category_preferences
+    authorize current_user
+    preferences = params[:preferences]
+    begin
+      current_user.update_category_preferences(preferences)
+      flash[:notice] = 'Successfully updated category preferences'
+      redirect_to root_url
+    rescue ArgumentError => e
+      flash[:alert] = e.message
+      @categories = Category.all
+      render 'users/preferences'
+    end
   end
 end
