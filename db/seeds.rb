@@ -34,7 +34,7 @@ User.create_preferences(category_groceries)
 category_cleaning = Category.create!(name: 'Cleaning')
 User.create_preferences(category_cleaning)
 category_cooking = Category.create!(name: 'Cooking')
-User.create_preferences(category_cleaning)
+User.create_preferences(category_cooking)
 
 # Workshifts
 7.times do |day|
