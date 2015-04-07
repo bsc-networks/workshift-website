@@ -83,8 +83,7 @@ class User < ActiveRecord::Base
   end
 
   def sorted_preferences
-    preferences
-    # preferences.sort { |a, b| a.rank <=> b.rank }
+    preferences.sort { |a, b| a.rank <=> b.rank }
   end
 
   def update_category_preferences(preferences)
