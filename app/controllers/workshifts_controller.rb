@@ -57,6 +57,23 @@ class WorkshiftsController < ApplicationController
     respond_with(@workshift)
   end
 
+  def reports
+    authorize :workshift
+    @reports = WeeklyReport.all
+  end
+
+  def download_report
+    authorize :workshift
+    report = WeeklyReport.find(params[:id])
+    send_data report.report, type: 'text/csv; charset=utf-8; header=present',
+                             disposition: "attachment; filename=#{report.title}"
+  end
+
+  def view_report
+    authorize :workshift
+    @report = WeeklyReport.find(params[:id])
+  end
+
   private
 
   def set_workshift

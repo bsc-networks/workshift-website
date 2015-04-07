@@ -14,8 +14,8 @@ gem 'pundit'
 gem 'devise_invitable', '~> 1.3.4'
 
 gem 'simple_form'
-
 gem 'faker'
+gem 'clockwork'
 
 group :production do
   gem 'pg'

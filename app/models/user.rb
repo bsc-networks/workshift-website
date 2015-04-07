@@ -65,6 +65,7 @@ class User < ActiveRecord::Base
 
   def self.delete_all_residents
     User.where(workshift_manager: false).destroy_all
+    WeeklyReport.destroy_all
   end
 
   # Create a new preference for the inputted category for each user. The rank
@@ -74,6 +75,26 @@ class User < ActiveRecord::Base
       rank = Category.count
       Preference.create!(user_id: user.id, category_id: category.id,
                          rank: rank)
+    end
+  end
+
+  def self.create_weekly_hours_report
+    report = ''
+    CSV.generate(report) do |csv|
+      User.all.each do |user|
+        csv << [user.name, user.weekly_hours]
+      end
+    end
+    WeeklyReport.create(report: report)
+  end
+
+  # Update the total hours balance for every user by adding their current
+  # weeks balance, then reset the weekly balance to 0
+  def self.update_weekly_hours
+    User.all.each do |user|
+      user.hours_balance += user.weekly_hours
+      user.weekly_hours = 0
+      user.save
     end
   end
 

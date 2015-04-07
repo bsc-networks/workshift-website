@@ -41,6 +41,12 @@ class Workshift < ActiveRecord::Base
     days
   end
 
+  def self.create_assignments
+    Workshift.all.each do |workshift|
+      logger.info "Creating assignment for workshift #{workshift.task}"
+    end
+  end
+
   def weekday
     # return unless day >= 0 && day <= 6
     Date::DAYNAMES[day]
