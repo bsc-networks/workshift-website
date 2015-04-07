@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150404014305) do
+ActiveRecord::Schema.define(:version => 20150407203346) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(:version => 20150404014305) do
     t.string   "room_number",            :default => ""
     t.boolean  "display_phone_number",   :default => false
     t.boolean  "display_email",          :default => false
+    t.integer  "weekly_hours",           :default => 0,     :null => false
+    t.integer  "hours_balance",          :default => 0,     :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -72,6 +74,12 @@ ActiveRecord::Schema.define(:version => 20150404014305) do
   add_index "users", ["invitations_count"], :name => "index_users_on_invitations_count"
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "weekly_reports", :force => true do |t|
+    t.text     "report",     :default => ""
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
 
   create_table "workshift_assignments", :force => true do |t|
     t.string   "task"

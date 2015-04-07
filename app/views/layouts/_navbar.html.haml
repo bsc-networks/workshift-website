@@ -20,6 +20,9 @@
               - if policy(:category).edit?
                 %li
                   = link_to 'Categories', categories_path
+              - if policy(:workshift).reports?
+                %li
+                  = link_to 'Reports', reports_workshifts_path
             %li
               = link_to 'House Roster', roster_path
             - if user_signed_in?
