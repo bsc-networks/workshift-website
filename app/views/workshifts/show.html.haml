@@ -3,6 +3,8 @@
 = render 'show'
 
 - if policy(:workshift).edit?
-  = link_to 'Edit', edit_workshift_path(@workshift)
-  \|
-= link_to 'Back', workshifts_path
+  .row
+    .column.small-12
+      = link_to 'Edit', edit_workshift_path(@workshift)
+      \|
+      = link_to 'Back', workshifts_path

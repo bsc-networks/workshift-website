@@ -1,6 +1,8 @@
 .row
-  %h2.column.small-12= @user.name
   .column.small-12
+    %h2= @user.name
+  .column.small-12.medium-6
+    %h5 Contact Information
     %ul
       %li= @user.role
       - if @user.room_number.length > 0
@@ -13,6 +15,15 @@
         %li
           %b Phone:
           = @user.phone_number
+  .column.small-12.medium-6
+    %h5 Workshift Category Preferences
+    %ul
+      - @preferences.each do |preference|
+        %li
+          = link_to preference.category.name, preference.category
+          = preference.rank
+
+
 
   %h3.column.small Assigned Workshifts
   .column.small-12
