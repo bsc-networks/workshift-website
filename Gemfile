@@ -39,6 +39,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'timecop'
 end
 
 # Gems used only for assets and not required
