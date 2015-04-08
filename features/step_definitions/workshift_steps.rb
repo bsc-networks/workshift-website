@@ -4,11 +4,15 @@ Given /^the following workshifts exist:$/ do |workshifts_table|
   end
 end
 
+Given /^the (?:|work)shift "(.+)" exists$/ do |task|
+  FactoryGirl.create(:workshift, task: task)
+end
+
 Then /^I should see all of the workshifts$/ do
   workshifts = Workshift.all
   num_workshifts = workshifts.length
   assert(num_workshifts != 0,
-              "#{num_workshifts} workshifts exist.")
+         "#{num_workshifts} workshifts exist.")
   within '#workshifts' do
     within 'tbody' do
       num_rows = all('tr').size
@@ -22,10 +26,10 @@ Then /^I should see all of the workshifts$/ do
 end
 
 Then /I should be able to click on "(.*)" for the task "(.*)"/ do |action, task|
-  assert find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", :text => action).nil? == false, "Destroy option doesn't exist"
-  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", :text => action).click
+  assert find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", text: action).nil? == false, "Destroy option doesn't exist"
+  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", text: action).click
 end
 
 Then /I should not see any "(.*)" links$/ do |text|
-  assert page.has_content?(text) == false, "Text exists"
+  assert page.has_content?(text) == false, 'Text exists'
 end

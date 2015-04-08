@@ -27,3 +27,7 @@ Given /^(\d+) residents exist$/ do |num_people|
   num_people = num_people.to_i
   FactoryGirl.create_list(:user, num_people)
 end
+
+Given /^a resident named "(.+)" exists$/ do |name|
+  FactoryGirl.create(:user, name: name)
+end
