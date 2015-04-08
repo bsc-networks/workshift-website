@@ -8,8 +8,8 @@ Feature: workshift manager assign shifts
     And I am on the workshifts page
     And the following workshifts exist:
       | task        | description     | day | hours | start_time | end_time |
-      | Wash Pots   | wash the pots   | 0   | 1     | 15:00      | 19:00    |
-      | Clean Floor | clean the floor | 2   | 1     | 11:00am    | 2:00pm   |
+      | Wash Pots   | wash the pots   | 0   | 1     | 3:00pm     | 7:00pm   |
+      # | Clean Floor | clean the floor | 2   | 1     | 11:00am    | 2:00pm   |
     And the following residents exist:
       | name        | email             | password |
       | Sally       | sally@example.com | secret   |

@@ -22,6 +22,11 @@
             %td= link_to 'Show', workshift_assignment.workshift
             - if policy(:workshift).edit?
               %td= link_to 'Edit', edit_workshift_path(workshift_assignment.workshift)
-            - if policy(:workshift).destroy?
-              %td= link_to 'Destroy', workshift_assignment.workshift, method: :delete,
-                  data: { confirm: 'Are you sure?' }
+            %td
+              / = simple_form_for(workshift_assignment) do |f|
+              /   = f.input :verifier, collection: User.all, include_blank: true
+              /   = f.button :submit, class: 'button-small'
+              = form_tag assignment_check_off_path(workshift_assignment) do
+                = label_tag :verifier, "Verifier"
+                = collection_select :verifier, nil, User.all, :id, :name, include_blank: true
+                = submit_tag "Check Off"
