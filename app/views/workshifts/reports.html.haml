@@ -1,0 +1,19 @@
+.row
+  .column.small-12
+    %h2 Weekly Hour Reports
+    :markdown
+      Hours reports are generated every Monday at 12:00AM, and are formatted
+      as **[CSV](http://en.wikipedia.org/wiki/Comma-separated_values)** files,
+      with resident names in the first column and the number of hours they are
+      up or down for the current week in the second column.
+  .column.small-12
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Download
+      %tbody
+        - @reports.each do |report|
+          %tr
+            %td= link_to report.title, view_report_workshifts_path(report)
+            %td= link_to 'Download', download_report_workshifts_path(report)

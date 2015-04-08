@@ -18,4 +18,16 @@ class WorkshiftPolicy < ApplicationPolicy
   def destroy?
     user.workshift_manager?
   end
+
+  def reports?
+    user.workshift_manager?
+  end
+
+  def download_report?
+    user.workshift_manager?
+  end
+
+  def view_report?
+    user.workshift_manager?
+  end
 end

@@ -5,24 +5,32 @@ WorkshiftWebsite::Application.routes.draw do
 
   root to: 'users#profile'
 
-  get 'profile/:id' => 'users#profile', as: 'user_profile'
-  get 'roster' => 'users#index', as: 'roster'
-  post 'users/add' => 'users#add_users', as: :invite_users
-  delete 'users/delete/all' => 'users#delete_all', as: :delete_all_users
+  scope controller: :users do
+    get 'profile/:id' => :profile, as: :user_profile
+    get 'roster' => :index, as: :roster
+    get 'settings/preferences' => :preferences, as: :preferences
+    delete 'users/delete/all' => :delete_all, as: :delete_all_users
+    post 'users/add' => :add_users, as: :invite_users
+    post 'settings/preferences/categories' => :update_category_preferences,
+         as: :update_category_preferences
+  end
 
   devise_for :users
   devise_scope :user do
     get 'login' => 'devise/sessions#new', as: :login
     get 'settings' => 'devise/registrations#edit', as: :settings
-    get 'settings/preferences' => 'users#preferences', as: :preferences
     get 'logout' => 'devise/sessions#destroy', as: :logout
     get 'register' => 'devise/registrations#new', as: :register
     get 'users/add' => 'devise/invitations#new', as: :add_users
     get 'setpw', to: 'devise/invitations#edit', as: :setpw
-    post 'settings/preferences/categories' => 'users#update_category_preferences',
-         as: :update_category_preferences
   end
 
-  resources :workshifts
+  resources :workshifts do
+    collection do
+      get 'reports'
+      get 'reports/:id' => :view_report, as: :view_report
+      get 'reports/:id/download' => :download_report, as: :download_report
+    end
+  end
   resources :categories
 end
