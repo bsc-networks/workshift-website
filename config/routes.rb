@@ -14,6 +14,7 @@ WorkshiftWebsite::Application.routes.draw do
     post 'settings/preferences/categories' => :update_category_preferences,
          as: :update_category_preferences
   end
+  post 'workshift_assignments/:id/check_off' => 'workshift_assignments#check_off', as: :assignment_check_off
 
   devise_for :users
   devise_scope :user do
