@@ -16,8 +16,8 @@
           %tr
             %td= workshift_assignment.weekday
             %td= workshift_assignment.task
-            %td= workshift_assignment.formatted_start_time
-            %td= workshift_assignment.formatted_end_time
+            %td= workshift_assignment.formatted_localized_start_time
+            %td= workshift_assignment.formatted_localized_end_time
             %td= workshift_assignment.status
             %td= link_to 'Show', workshift_assignment.workshift
             - if policy(:workshift).edit?
