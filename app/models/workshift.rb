@@ -20,25 +20,14 @@ class Workshift < ActiveRecord::Base
   has_many :workshift_assignments
   attr_accessible :start_time, :end_time, :day, :task, :category_id
                   :description, :hours
-  before_save :apply_time_zone
+  after_create :apply_time_zone
   validates :start_time, :end_time, :day, :task,
             :description, presence: true
   validates :day, numericality: { only_integer: true,
                                   greater_than_or_equal_to: 0,
                                   less_than_or_equal_to: 6 }
-  validate :end_time_later_than_start_time
+  #validate :end_time_later_than_start_time #not working w/ timezones
 
-  
-  # def assignworkers(assigned_user_ids, workshiftid)
-  #   thisWorkshift = Workshift.find(workshiftid)
-  #   thisWorkshift.assigned_workshifts.destroy_all
-  #   assigned_user_ids.each do |a|
-  #     if not already_assigned_user(a)
-  #       assign = AssignedWorkshift.create({"user_id" => a, "workshift_id" => workshiftid})
-  #       assignUser = User.find(a)
-  #     end
-  #   end
-  # end
 
   def assign_worker(uid)
     worker = User.find_by_id(uid)
@@ -54,7 +43,7 @@ class Workshift < ActiveRecord::Base
   def generate_next_assignment
     #Time.zone = "Pacific Time (US & Canada)"
     Chronic.time_class = Time.zone
-    assignment_date = Chronic.parse "next #{self.weekday} at midnight"
+    assignment_date = Chronic.parse "next #{self.weekday} at 0:00"
     assignment = self.workshift_assignments.create!({
         task: self.task,
         description: self.description,
@@ -67,16 +56,21 @@ class Workshift < ActiveRecord::Base
     assignment.assign_workshifter(self.user)
     puts "start time = #{start_time}"
     puts "end time = #{end_time}"
-    puts end_time.hour
-    puts assignment_date
-    puts assignment_date + end_time.hour.hours
-    puts assignment_date + end_time.hour.hours + end_time.min.minutes
+    puts "assignment date = #{assignment.date}"
+    puts "assignment wday = #{assignment.weekday}"
+    puts "assignment start = #{assignment.start_time}"
+    puts "assignment end = #{assignment.end_time}"
+    puts "assignment loc start #{assignment.localized_start_time}"
+    puts "assignment loc end #{assignment.localized_end_time}"
     #Rufus::Scheduler.singleton.at "#{assignment_date}"
     assignment.save!
   end
 
   def end_time_later_than_start_time
-    return if end_time > start_time
+    puts "check end #{end_time.in_time_zone("Pacific Time (US & Canada)")}"
+    puts "check start #{start_time.in_time_zone("Pacific Time (US & Canada)")}"
+    puts "##{end_time.in_time_zone("Pacific Time (US & Canada)") > start_time.in_time_zone("Pacific Time (US & Canada)")}"
+    return if end_time.in_time_zone("Pacific Time (US & Canada)") > start_time.in_time_zone("Pacific Time (US & Canada)")
     errors.add(:end_time, 'must be later than the starting time.')
   end
 
@@ -108,20 +102,37 @@ class Workshift < ActiveRecord::Base
     start_time.strftime('%l:%M %p')
   end
 
-  def formatted_end_time
-    end_time.strftime('%l:%M %p')
+  def localized_end_time
+    zoned_time(end_time)
+  end
+
+  def formatted_localized_start_time
+    localized_start_time.strftime('%l:%M %p')
+  end
+
+  def formatted_localized_end_time
+    localized_end_time.strftime('%l:%M %p')
   end
 
   protected
+  # convert from UTC to PST/PDT
+  def zoned_time(utc_time)
+    return (utc_time + utc_offset).change(:offset => Time.zone.now.formatted_offset)
+  end
 
+  def utc_offset
+    return Time.zone.now.utc_offset.seconds
+  end
+
+  # convert incorrect time from form (supposed to be in PST/PDT, but is in UTC)
+  # and applies correct offset
   def apply_time_zone
-    puts "orig start time = #{start_time}"
-    puts "orig end time = #{end_time}"
-    puts "time zone = #{Time.zone.now}"
-    utc_offset = Time.zone.now.utc_offset
-    self.start_time = start_time - utc_offset.seconds
-    self.end_time = end_time - utc_offset.seconds
-    puts "after start time = #{start_time}"
-    puts "after end time = #{end_time}"
+    #puts "orig start time = #{start_time}"
+    #puts "orig end time = #{end_time}"
+    self.start_time = start_time - self.utc_offset
+    self.end_time = end_time - self.utc_offset
+    #puts "after start time = #{start_time}"
+    #puts "after end time = #{end_time}"
+    self.save!
   end
 end

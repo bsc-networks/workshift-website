@@ -53,6 +53,7 @@ class WorkshiftsController < ApplicationController
     if params[:workshift][:user]
       @workshift.assign_worker(params[:workshift][:user])
     end
+    puts %Q{#{params[:workshift]}}
     @workshift.update_attributes(params[:workshift].except(:user))
     respond_with(@workshift)
   end
