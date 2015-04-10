@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150407203346) do
+ActiveRecord::Schema.define(:version => 20150410045620) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(:version => 20150407203346) do
     t.time     "end_time"
     t.date     "date"
     t.integer  "hours"
-    t.text     "notes"
+    t.text     "schedule_id"
     t.datetime "sign_off_time"
     t.string   "status"
     t.integer  "workshifter_id"

@@ -20,13 +20,13 @@ class Workshift < ActiveRecord::Base
   has_many :workshift_assignments
   attr_accessible :start_time, :end_time, :day, :task, :category_id
                   :description, :hours
-  after_create :apply_time_zone
+  # after_create :apply_time_zone
   validates :start_time, :end_time, :day, :task,
             :description, presence: true
   validates :day, numericality: { only_integer: true,
                                   greater_than_or_equal_to: 0,
                                   less_than_or_equal_to: 6 }
-  #validate :end_time_later_than_start_time #not working w/ timezones
+  validate :end_time_later_than_start_time #not working w/ timezones
 
 
   def assign_worker(uid)
@@ -41,7 +41,7 @@ class Workshift < ActiveRecord::Base
   end
 
   def generate_next_assignment
-    #Time.zone = "Pacific Time (US & Canada)"
+    Time.zone = "UTC"
     Chronic.time_class = Time.zone
     assignment_date = Chronic.parse "next #{self.weekday} at 0:00"
     assignment = self.workshift_assignments.create!({
@@ -54,23 +54,20 @@ class Workshift < ActiveRecord::Base
         status: "upcoming",
     })
     assignment.assign_workshifter(self.user)
-    puts "start time = #{start_time}"
-    puts "end time = #{end_time}"
-    puts "assignment date = #{assignment.date}"
-    puts "assignment wday = #{assignment.weekday}"
-    puts "assignment start = #{assignment.start_time}"
-    puts "assignment end = #{assignment.end_time}"
-    puts "assignment loc start #{assignment.localized_start_time}"
-    puts "assignment loc end #{assignment.localized_end_time}"
-    #Rufus::Scheduler.singleton.at "#{assignment_date}"
+    # puts "start time = #{start_time}"
+    # puts "end time = #{end_time}"
+    # puts "assignment date = #{assignment.date}"
+    # puts "assignment wday = #{assignment.weekday}"
+    # puts "assignment start = #{assignment.start_time}"
+    # puts "assignment end = #{assignment.end_time}"
     assignment.save!
   end
 
   def end_time_later_than_start_time
-    puts "check end #{end_time.in_time_zone("Pacific Time (US & Canada)")}"
-    puts "check start #{start_time.in_time_zone("Pacific Time (US & Canada)")}"
-    puts "##{end_time.in_time_zone("Pacific Time (US & Canada)") > start_time.in_time_zone("Pacific Time (US & Canada)")}"
-    return if end_time.in_time_zone("Pacific Time (US & Canada)") > start_time.in_time_zone("Pacific Time (US & Canada)")
+    # puts "check end #{end_time.in_time_zone("Pacific Time (US & Canada)")}"
+    # puts "check start #{start_time.in_time_zone("Pacific Time (US & Canada)")}"
+    # puts "##{end_time.in_time_zone("Pacific Time (US & Canada)") > start_time.in_time_zone("Pacific Time (US & Canada)")}"
+    return if end_time > start_time
     errors.add(:end_time, 'must be later than the starting time.')
   end
 
@@ -102,37 +99,29 @@ class Workshift < ActiveRecord::Base
     start_time.strftime('%l:%M %p')
   end
 
-  def localized_end_time
-    zoned_time(end_time)
+  def formatted_end_time
+    end_time.strftime('%l:%M %p')
   end
 
-  def formatted_localized_start_time
-    localized_start_time.strftime('%l:%M %p')
-  end
+  # protected
+  # # convert from UTC to PST/PDT
+  # def zoned_time(utc_time)
+  #   return (utc_time + utc_offset).change(:offset => Time.zone.now.formatted_offset)
+  # end
 
-  def formatted_localized_end_time
-    localized_end_time.strftime('%l:%M %p')
-  end
+  # def utc_offset
+  #   return Time.zone.now.utc_offset.seconds
+  # end
 
-  protected
-  # convert from UTC to PST/PDT
-  def zoned_time(utc_time)
-    return (utc_time + utc_offset).change(:offset => Time.zone.now.formatted_offset)
-  end
-
-  def utc_offset
-    return Time.zone.now.utc_offset.seconds
-  end
-
-  # convert incorrect time from form (supposed to be in PST/PDT, but is in UTC)
-  # and applies correct offset
-  def apply_time_zone
-    #puts "orig start time = #{start_time}"
-    #puts "orig end time = #{end_time}"
-    self.start_time = start_time - self.utc_offset
-    self.end_time = end_time - self.utc_offset
-    #puts "after start time = #{start_time}"
-    #puts "after end time = #{end_time}"
-    self.save!
-  end
+  # # convert incorrect time from form (supposed to be in PST/PDT, but is in UTC)
+  # # and applies correct offset
+  # def apply_time_zone
+  #   #puts "orig start time = #{start_time}"
+  #   #puts "orig end time = #{end_time}"
+  #   self.start_time = start_time - self.utc_offset
+  #   self.end_time = end_time - self.utc_offset
+  #   #puts "after start time = #{start_time}"
+  #   #puts "after end time = #{end_time}"
+  #   self.save!
+  # end
 end

@@ -27,11 +27,11 @@ describe UsersController do
       sign_in
     end
     
-    it 'assigns @workshifts_assignments to users workshift assignments' do
-      get :profile, id: 1
-      assignments = @user.workshift_assignments
-      expect(assigns(:workshift_assignments)).to match_array assignments
-    end
+    # it 'assigns @workshifts_assignments to users workshift assignments' do
+    #   get :profile, id: 1
+    #   assignments = @user.workshift_assignments
+    #   expect(assigns(:workshift_assignments)).to match_array assignments
+    # end
 
     it 'renders the profile template' do
       get :profile, id: 1

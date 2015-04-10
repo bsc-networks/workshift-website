@@ -22,23 +22,22 @@ Feature: edit workshift
       | field                 | value            |
       | Task                  | Eat Eyeballs     |
       | Hours                 | 4                |
-      #| Shift Start             | 11:15 AM         |
+      | StartTime             | 11:15 AM         |
       | Description           | What             |
-    And I should see "11:15 AM"
-    And I should still see:
+    But I should still see:
       | field                 | value            |
       | EndTime               | 7:00 PM          |
 
-  # Scenario: The start and end times don't correspond
-  #   When I fill in:
-  #     | field                 | value            |
-  #     | Task                  | Eat Eyeballs     |
-  #     | Hours                 | 4                |
-  #     | StartTime             | 11:15 AM         |
-  #     | EndTime               | 11:00 AM         |
-  #     | Description           | What             |
-  #   And I press "Update Workshift"
-  #   Then I should see an error message: "Please review the problems below:"
+  Scenario: The start and end times don't correspond
+    When I fill in:
+      | field                 | value            |
+      | Task                  | Eat Eyeballs     |
+      | Hours                 | 4                |
+      | StartTime             | 11:15 AM         |
+      | EndTime               | 11:00 AM         |
+      | Description           | What             |
+    And I press "Update Workshift"
+    Then I should see an error message: "Please review the problems below:"
 
   Scenario: Fill in the forms with blank required fields
     When I fill in:
