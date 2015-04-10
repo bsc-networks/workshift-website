@@ -18,7 +18,7 @@ class Workshift < ActiveRecord::Base
   belongs_to :category
 
   has_many :workshift_assignments
-  attr_accessible :start_time, :end_time, :day, :task, :category_id
+  attr_accessible :start_time, :end_time, :day, :task, :category_id,
                   :description, :hours
   # after_create :apply_time_zone
   validates :start_time, :end_time, :day, :task,
@@ -102,26 +102,4 @@ class Workshift < ActiveRecord::Base
   def formatted_end_time
     end_time.strftime('%l:%M %p')
   end
-
-  # protected
-  # # convert from UTC to PST/PDT
-  # def zoned_time(utc_time)
-  #   return (utc_time + utc_offset).change(:offset => Time.zone.now.formatted_offset)
-  # end
-
-  # def utc_offset
-  #   return Time.zone.now.utc_offset.seconds
-  # end
-
-  # # convert incorrect time from form (supposed to be in PST/PDT, but is in UTC)
-  # # and applies correct offset
-  # def apply_time_zone
-  #   #puts "orig start time = #{start_time}"
-  #   #puts "orig end time = #{end_time}"
-  #   self.start_time = start_time - self.utc_offset
-  #   self.end_time = end_time - self.utc_offset
-  #   #puts "after start time = #{start_time}"
-  #   #puts "after end time = #{end_time}"
-  #   self.save!
-  # end
 end
