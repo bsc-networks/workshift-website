@@ -4,13 +4,19 @@ class WorkshiftAssignmentsController < ApplicationController
 
   def check_off
     logger.debug "HELPHELPHELP #{params[:verifier]}"
+    if !@workshift_assignment.can_check_off?
+      flash[:alert] = "Can't check off this workshift yet"
+      redirect_to user_profile_path(@workshift_assignment.workshifter)
+      return
+    end
     verifier = User.find_by_id(params[:verifier])
     if verifier == @workshift_assignment.workshifter
-      flash[:notice] = "Verifier cannot be the same person as assigned workshifter"
+      flash[:alert] = "Verifier cannot be the same person as assigned workshifter"
       redirect_to user_profile_path(@workshift_assignment.workshifter)
+      return
     end
     @workshift_assignment.check_off(verifier)
-    flash[:notice] = "Assignment successfully checked off"
+    flash[:alert] = "Assignment successfully checked off"
     redirect_to user_profile_path(@workshift_assignment.workshifter)
   end
 

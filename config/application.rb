@@ -30,8 +30,7 @@ module WorkshiftWebsite
     # auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names.
     # Default is UTC.
-    config.time_zone = 'Pacific Time (US & Canada)'
-    Time.zone = 'Pacific Time (US & Canada)'
+    config.time_zone = 'UTC'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml
     # are auto loaded.

@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.find(id)
     @preferences = @user.sorted_preferences
     @workshift_assignments = @user.workshift_assignments.select do |assignment|
-      assignment.status == 'upcoming'
+      assignment.can_check_off? || assignment.status == "upcoming"
     end
     @workshift_assignments_history = @user.workshift_assignments.select do |assignment|
       assignment.status != 'upcoming'
