@@ -37,6 +37,8 @@ module NavigationHelpers
     when /^the view page for workshift "(.+)"$/ then
       @workshift = Workshift.find_by_task($1)
       workshift_path(@workshift)
+    when /^(.+)'s profile page$/ then
+      user_profile_path(User.find_by_name($1))
 
     else
       begin

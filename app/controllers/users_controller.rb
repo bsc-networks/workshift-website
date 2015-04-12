@@ -9,8 +9,13 @@ class UsersController < ApplicationController
   def profile
     id = params[:id] || current_user.id
     @user = User.find(id)
-    @workshift_assignments = @user.workshift_assignments
     @preferences = @user.sorted_preferences
+    @workshift_assignments = @user.workshift_assignments.select do |assignment|
+      assignment.can_check_off? || assignment.status == "upcoming"
+    end
+    @workshift_assignments_history = @user.workshift_assignments.select do |assignment|
+      assignment.status != 'upcoming'
+    end
   end
 
   def add_users

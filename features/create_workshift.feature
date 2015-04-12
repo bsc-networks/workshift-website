@@ -38,7 +38,7 @@ Feature: workshift manager create shifts
     And I press "Create Workshift"
     Then I should see an error message: "Please review the problems below:"
 
-  Scenario: The start and end times don't correspond
+   Scenario: The start and end times don't correspond
     When I fill in:
       | field         | value              |
       | Task          | asdf               |

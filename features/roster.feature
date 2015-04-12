@@ -1,7 +1,6 @@
 Feature: display list of all residents
 
   Background: residents have been added to database
-
     Given 20 residents exist
 
   Scenario: all residents' names are displayed on roster page when signed in
