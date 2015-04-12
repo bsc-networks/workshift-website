@@ -37,3 +37,9 @@ Then /^every resident's name should be visible$/ do
     expect(page).to have_content(user.name)
   end
 end
+
+Given /^the following residents exist:$/ do |resident_table|
+  resident_table.hashes.each do |resident|
+    User.create!(resident)
+  end
+end

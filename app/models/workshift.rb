@@ -18,17 +18,55 @@ class Workshift < ActiveRecord::Base
   belongs_to :category
 
   has_many :workshift_assignments
-  attr_accessible :start_time, :end_time, :day, :task, :people_needed,
-                  :description, :hours, :category_id
-
+  attr_accessible :start_time, :end_time, :day, :task, :category_id,
+                  :description, :hours
+  # after_create :apply_time_zone
   validates :start_time, :end_time, :day, :task,
             :description, presence: true
   validates :day, numericality: { only_integer: true,
                                   greater_than_or_equal_to: 0,
                                   less_than_or_equal_to: 6 }
-  validate :end_time_later_than_start_time
+  validate :end_time_later_than_start_time #not working w/ timezones
+
+
+  def assign_worker(uid)
+    worker = User.find_by_id(uid)
+    if worker != self.user
+      self.user = worker
+      # to delete or not to delete old user's current assignment
+      # generate new assignment for new user immediately
+      generate_next_assignment
+      self.save!
+    end
+  end
+
+  def generate_next_assignment
+    Time.zone = "UTC"
+    Chronic.time_class = Time.zone
+    assignment_date = Chronic.parse "next #{self.weekday} at 0:00"
+    assignment = self.workshift_assignments.create!({
+        task: self.task,
+        description: self.description,
+        date: assignment_date,
+        start_time: start_time,
+        end_time: end_time,
+        hours: self.hours,
+        status: "upcoming",
+    })
+    assignment.assign_workshifter(self.user)
+    # puts "start time = #{start_time}"
+    # puts "end time = #{end_time}"
+    # puts "assignment date = #{assignment.date}"
+    # puts "assignment wday = #{assignment.weekday}"
+    # puts "assignment start = #{assignment.start_time}"
+    # puts "assignment end = #{assignment.end_time}"
+    assignment.save!
+  end
 
   def end_time_later_than_start_time
+    # puts "check end #{end_time.in_time_zone("Pacific Time (US & Canada)")}"
+    # puts "check start #{start_time.in_time_zone("Pacific Time (US & Canada)")}"
+    # puts "##{end_time.in_time_zone("Pacific Time (US & Canada)") > start_time.in_time_zone("Pacific Time (US & Canada)")}"
     return if end_time > start_time
     errors.add(:end_time, 'must be later than the starting time.')
   end

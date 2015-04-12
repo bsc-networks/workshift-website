@@ -18,6 +18,7 @@ WorkshiftWebsite::Application.routes.draw do
     get 'residents/reports/:id/download' => :download_report,
         as: :download_report
   end
+  post 'workshift_assignments/:id/check_off' => 'workshift_assignments#check_off', as: :assignment_check_off
 
   devise_for :users
   devise_scope :user do
