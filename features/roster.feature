@@ -1,19 +1,14 @@
 Feature: display list of all residents
 
   Background: residents have been added to database
+    Given 20 residents exist
 
-    Given the following residents exist:
-      | name                    | email                  | password |
-      | Timmy Turner            | example_1@example.com  | secret   |
-      | Dev Patel               | example_2@example.com  | secret   |
-      | Cady Haring             | example_3@example.com  | secret   |
-      | Janice Ian              | example_4@example.com  | secret   |
-      | Tina Fey                | example_5@example.com  | secret   |
-      | Vincent Wong            | example_6@example.com  | secret   |
-      | Stephanie Kim           | example_7@example.com  | secret   |
-      | Pam Beasley             | example_8@example.com  | secret   |
-      | Michael Scott           | example_9@example.com  | secret   |
-      | Dwight Schrute          | example_0@example.com  | secret   |
+  Scenario: all residents' names are displayed on roster page when signed in
+    When I am signed in as a resident
     And I am on the roster page
+    Then every resident's name should be visible
 
-  Scenario: all residents' names are displayed
+  Scenario: must be signed in to view the roster
+    When I am not signed in
+    And I go to the roster page
+    Then I should see "You need to sign in"

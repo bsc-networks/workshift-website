@@ -5,7 +5,12 @@ Given /^the following workshifts exist:$/ do |workshifts_table|
 end
 
 Given /^the (?:|work)shift "(.+)" exists$/ do |task|
-  FactoryGirl.create(:workshift, task: task)
+  @workshift = FactoryGirl.create(:workshift, task: task)
+end
+
+Given /^it belongs to the category "(.+)"$/ do |name|
+  @workshift.category_id = Category.find_by_name(name).id
+  @workshift.save
 end
 
 Then /^I should see all of the workshifts$/ do
@@ -25,11 +30,17 @@ Then /^I should see all of the workshifts$/ do
   end
 end
 
-Then /I should be able to click on "(.*)" for the task "(.*)"/ do |action, task|
-  assert find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", text: action).nil? == false, "Destroy option doesn't exist"
-  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", text: action).click
+Then /^the "(.+)" workshift should exist for the following days:$/ do |task, days|
+  all_days = days.raw.map(&:first)
+  all_days = all_days.map { |day| Date::DAYNAMES.index(day) }
+  all_days.each do |day|
+    workshift = Workshift.where(day: day, task: task)
+    expect(workshift.length).to eq 1
+  end
 end
 
-Then /I should not see any "(.*)" links$/ do |text|
-  assert page.has_content?(text) == false, 'Text exists'
+Then /^I should be able to click on "(.*)" for the task "(.*)"$/ do |action, task|
+  assert find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a",
+              text: action).nil? == false, "Destroy option doesn't exist"
+  find(:xpath, "//tr[td[contains(.,'#{task}')]]/td/a", text: action).click
 end
