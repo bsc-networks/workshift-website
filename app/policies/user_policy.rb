@@ -10,4 +10,16 @@ class UserPolicy < ApplicationPolicy
   def update_category_preferences?
     user == record
   end
+
+  def reports?
+    user.workshift_manager?
+  end
+
+  def download_report?
+    user.workshift_manager?
+  end
+
+  def view_report?
+    user.workshift_manager?
+  end
 end

@@ -12,7 +12,7 @@ module Clockwork
   end
 
   every(1.week, 'update.resident.weekly.hours', at: 'Monday 00:00') do
-    User.create_weekly_hours_report
+    WeeklyReport.create_weekly_report
     User.update_weekly_hours
   end
 end

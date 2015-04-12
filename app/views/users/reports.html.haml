@@ -15,5 +15,5 @@
       %tbody
         - @reports.each do |report|
           %tr
-            %td= link_to report.title, view_report_workshifts_path(report)
-            %td= link_to 'Download', download_report_workshifts_path(report)
+            %td= link_to report.title, view_report_path(report)
+            %td= link_to 'Download', download_report_path(report)

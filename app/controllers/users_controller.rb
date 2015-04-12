@@ -35,6 +35,23 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
 
+  def reports
+    authorize :user
+    @reports = WeeklyReport.all
+  end
+
+  def download_report
+    authorize :user
+    report = WeeklyReport.find(params[:id])
+    send_data report.report, type: 'text/csv; charset=utf-8; header=present',
+                             disposition: "attachment; filename=#{report.title}"
+  end
+
+  def view_report
+    authorize :user
+    @report = WeeklyReport.find(params[:id])
+  end
+
   def preferences
     @categories = Category.all
   end
