@@ -10,7 +10,7 @@ Feature: workshift manager create shifts
       | Do Laundry | do the laundry | 1   | 1     | 12:00am    | 11:59pm  |
       | Sweep      | clean hallway  | 2   | 2     | 12:30pm    | 4:30pm   |
       | Groceries  | go to store    | 3   | 2     | 12:00pm    | 4:00pm   |
-      And I am signed in as a workshift manager
+    And I am signed in as a workshift manager
 
   Scenario: I can delete a workshift
     When I am on the workshifts page
