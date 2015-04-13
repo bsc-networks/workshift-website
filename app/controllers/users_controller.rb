@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     id = params[:id] || current_user.id
     @user = User.find(id)
     @preferences = @user.sorted_preferences
+    @verifier_list = User.all.map {|c| c.attributes.slice("name", "id")}
     @workshift_assignments = @user.workshift_assignments.select do |assignment|
       assignment.can_check_off? || assignment.status == "upcoming"
     end

@@ -4,6 +4,7 @@ ruby '1.9.3'
 gem 'rails'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'haml-rails', '~> 0.4.0'
 gem 'redcarpet',  '~> 3.0'
