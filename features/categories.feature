@@ -5,38 +5,32 @@ Feature: workshift manager can group workshift assignments by category
 
   Background:
     Given I am signed in as a workshift manager
-    And the following workshifts exist:
-      | task       | description    | day | hours | start_time | end_time |
-      | Wash Pots  | wash the pots  | 0   | 1     | 3:00pm     | 7:00pm   |
 
   Scenario: I can create a new category
-    When I go to the categories page
-    And I follow "New Category"
-    And I fill in the following for a category:
+    When I go to the new category page
+    And I fill in:
       | field         | value              |
-      | Name          | asdf               |
+      | Name          | Dishes             |
     And I press "Create Category"
-    Then I should see the following for a category:
-      | field         | value              |
-      | Name          | asdf               |
+    Then there should be a category with name "Dishes"
 
   Scenario: I can edit a category
-    Given the following categories exist:
-      | name       | 
-      | Cleaning   | 
-    When I go to the categories page
-    And I follow "Cleaning"
-    And I follow "Edit"
-    And I fill in the following for a category:
+    Given the category "Cleaning" exists
+    When I go to the edit page for category "Cleaning"
+    And I fill in:
       | field         | value              |
-      | Name          | Shopping           |
+      | Name          | Groceries          |
     And I press "Update Category"
-    Then I should see the following for a category:
-      | field         | value              |
-      | Name          | Shopping           |
+    Then there should be a category with name "Groceries"
 
   Scenario: Fill in the forms with blank required fields
-    When I go to the categories page
-    And I follow "New Category"
+    When I go to the new category page
     And I press "Create Category"
     Then I should see an error message: "Please review the problems below:"
+
+  Scenario: workshifts can be assigned to categories
+    Given the category "Dishes" exists
+    And the workshift "Wash the pots" exists
+    And it belongs to the category "Dishes"
+    When I am on the view page for category "Dishes"
+    Then I should see "Wash the pots"
