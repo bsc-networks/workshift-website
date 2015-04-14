@@ -78,16 +78,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.create_weekly_hours_report
-    report = ''
-    CSV.generate(report) do |csv|
-      User.all.each do |user|
-        csv << [user.name, user.weekly_hours]
-      end
-    end
-    WeeklyReport.create(report: report)
-  end
-
   # Update the total hours balance for every user by adding their current
   # weeks balance, then reset the weekly balance to 0
   def self.update_weekly_hours

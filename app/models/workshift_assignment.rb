@@ -24,7 +24,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   # for loop, different cases whether it was attempted sold/sold/done
 
   def check_off(verifier)
-    if verifier != self.workshifter
+    if verifier != self.workshifter || verifer.role === 'Workshift Manager'
       self.verifier = verifier
       self.status = "Completed"
       self.sign_off_time = Time.zone.now # NEEDS TO BE FIXED PROBABLY
@@ -54,8 +54,8 @@ class WorkshiftAssignment < ActiveRecord::Base
     end_time.strftime('%l:%M %p')
   end
 
-  def can_check_off?
-    return self.status == "in progress" || self.status == "awaiting check off"
+  def can_check_off? 
+    self.status == "in progress" || self.status == "awaiting check off"
   end
 
   protected

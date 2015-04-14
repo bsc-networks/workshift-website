@@ -16,25 +16,29 @@ module NavigationHelpers
     when /^the login page$/ then login_path
     when /^the workshifts page$/ then workshifts_path
     when /^the new workshift page$/ then new_workshift_path
-    when /^the home page$/ then '/'
-    when /^the roster page$/ then '/roster'
-    when /^the Add Users page$/ then invite_users_path
+    when /^the new category page$/ then new_category_path
+    when /^the home page$/ then root_path
+    when /^the roster page$/ then roster_path
+    when /^the Add Users page$/ then add_users_path
     when /^the categories page$/ then categories_path
-    when /^my profile page$/ then
-      user_profile_path(@user)
+    when /^my profile page$/ then user_profile_path(@user)
+    when /^the user preferences page$/ then preferences_path
+    when /^the reports page$/ then reports_path
+    when /^the view report page$/ then view_report_path(@report)
+    when /^the edit page for category "(.+)"$/ then
+      @category = Category.find_by_name($1)
+      edit_category_path(@category)
+    when /^the view page for category "(.+)"$/ then
+      @category = Category.find_by_name($1)
+      category_path(@category)
     when /^the edit page for workshift "(.+)"$/ then
       @workshift = Workshift.find_by_task($1)
       edit_workshift_path(@workshift)
-    when /^the user preferences page$/ then preferences_path
-    when /^the reports page$/ then reports_workshifts_path
+    when /^the view page for workshift "(.+)"$/ then
+      @workshift = Workshift.find_by_task($1)
+      workshift_path(@workshift)
     when /^(.+)'s profile page$/ then
       user_profile_path(User.find_by_name($1))
-
-    # Add more mappings here.
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
 
     else
       begin
