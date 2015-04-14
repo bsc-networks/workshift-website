@@ -16,6 +16,13 @@ class WorkshiftAssignment < ActiveRecord::Base
     self.save!
   end
 
+  # make another attrbute buyer, seller
+  # if workshifter != nil then no sell was made
+  # otherwise extract from buyer/seller attribute
+
+  # Generate weekly report pull out all info
+  # for loop, different cases whether it was attempted sold/sold/done
+
   def check_off(verifier)
     if verifier != self.workshifter
       self.verifier = verifier
@@ -68,6 +75,8 @@ class WorkshiftAssignment < ActiveRecord::Base
     # puts "schedule_awaiting = #{schedule_awaiting}"
   end
 
+
+
   def schedule_blown_check_up
     self.status = "awaiting check off"
     checkup_date = date + end_time.hour.hours + 48.hours
@@ -82,5 +91,18 @@ class WorkshiftAssignment < ActiveRecord::Base
       self.workshift.generate_next_assignment
     end
   end
+
+  def undo
+    if Workshift.status == "upcoming" or "in progress"
+      schedule_in_progress_status
+    else
+      flash[:alert]= "You cannot undo this action since you have already missed or blown your shift"
+    end
+  end
+
+
+  def on_market
+    
+
 
 end
