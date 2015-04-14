@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20150410045620) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      :default => 0
-    t.boolean  "workshift_manager"
+    t.boolean  "workshift_manager",      :default => false
     t.string   "phone_number",           :default => ""
     t.string   "room_number",            :default => ""
     t.boolean  "display_phone_number",   :default => false
@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(:version => 20150410045620) do
     t.integer  "workshift_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.integer  "category_id"
   end
 
   create_table "workshifts", :force => true do |t|
