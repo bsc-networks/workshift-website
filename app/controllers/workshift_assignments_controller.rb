@@ -5,6 +5,7 @@ class WorkshiftAssignmentsController < ApplicationController
   def check_off
     logger.debug "HELPHELPHELP #{params[:verifier]}"
     if !@workshift_assignment.can_check_off?
+      #ConfirmationMailer.sign_off_email(@workshift_assignment.workshifter.email, @workshift_assignment.workshifter).deliver
       flash[:alert] = "Can't check off this workshift yet"
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
@@ -16,6 +17,7 @@ class WorkshiftAssignmentsController < ApplicationController
       return
     end
     @workshift_assignment.check_off(verifier)
+    ConfirmationMailer.sign_off_email(@workshift_assignment.verifier.email, @workshift_assignment.workshifter).deliver
     flash[:alert] = "Assignment successfully checked off"
     redirect_to user_profile_path(@workshift_assignment.workshifter)
   end
