@@ -11,6 +11,7 @@
           %th
           %th
           %th
+          %th
       %tbody
         - workshift_assignments.each do |workshift_assignment|
           %tr
@@ -27,3 +28,6 @@
                 = label_tag :verifier, "Verifier"
                 = collection_select :verifier, nil, User.all, :id, :name, include_blank: true
                 = submit_tag "Check Off"
+            %td
+              = form_tag put_on_market_path(workshift_assignment) do
+                = submit_tag "Sell"

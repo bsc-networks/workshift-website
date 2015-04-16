@@ -16,6 +16,8 @@
               = link_to 'My Shifts', root_url
             %li
               = link_to 'Weekly Schedule', workshifts_path
+            %li
+              = link_to 'Workshift Marketplace', marketplace_path
             - if user_signed_in?
               - if policy(:category).edit?
                 %li
