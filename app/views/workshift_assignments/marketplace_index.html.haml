@@ -1,0 +1,30 @@
+.row
+  .column.small-12
+    %h1 Workshift Marketplace
+
+.row
+  .column.small-12
+    %table#workshifts
+      %thead
+        %tr
+          %th Task
+          %th Hours
+          %th Day
+          %th Date
+          %th Start Time
+          %th End Time
+          %th 
+
+      %tbody
+        - @assignments_on_sale.each do |assignment|
+          %tr
+            %td= link_to assignment.task, assignment.workshift
+            %td= assignment.hours
+            %td= assignment.weekday
+            %td= assignment.date
+            %td= assignment.formatted_start_time
+            %td= assignment.formatted_end_time
+            - if current_user != assignment.workshifter
+              %td
+                = form_tag assignment_sell_to_path(assignment, current_user) do
+                  = submit_tag "Buy Shift", data: { confirm: 'Are you sure you want to buy this shift?' }
