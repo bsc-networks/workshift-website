@@ -11,6 +11,10 @@ class WorkshiftAssignment < ActiveRecord::Base
   validates :start_time, :end_time, :date, :task, :hours,
             :description, :status, presence: true
 
+  def self.assignments_on_market
+    WorkshiftAssignment.where("status = 'on market' OR status = 'on market (late)'")
+  end
+
   def assign_workshifter(user)
     self.workshifter = user
     self.save!
@@ -122,9 +126,8 @@ class WorkshiftAssignment < ActiveRecord::Base
   end
 
   def on_market?
-    status = "on_market" || status = "on market (late)"
+    status == "on market" || status == "on market (late)"
   end
-
 
   protected
 

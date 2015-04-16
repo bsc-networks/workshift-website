@@ -1,18 +1,18 @@
 class WorkshiftAssignmentPolicy < ApplicationPolicy
-  def check_off
-    user == @workshift_assignment.workshifter
+  def check_off?
+    user == record.workshifter
   end
 
-  def sell_to
-    user == Workshift_assignment.find(params[:buyer_id])
+  # user cannot be same as seller
+  def sell_to?
+    user != record.workshifter
   end
 
-
-  def put_on_market
-    user == @worksfhit_assignment.workshifter
+  def put_on_market?
+    user == record.workshifter
   end
 
-  def undo_sell
-    user == @workshift_assignment.workshifter
+  def undo_sell?
+    user == record.workshifter
   end
 end
