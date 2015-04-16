@@ -52,6 +52,7 @@ class Workshift < ActiveRecord::Base
         end_time: end_time,
         hours: self.hours,
         status: "upcoming",
+        purchased: false
     })
     assignment.assign_workshifter(self.user)
     # puts "start time = #{start_time}"

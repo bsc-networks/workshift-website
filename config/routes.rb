@@ -19,7 +19,8 @@ WorkshiftWebsite::Application.routes.draw do
         as: :download_report
   end
   post 'workshift_assignments/:id/check_off' => 'workshift_assignments#check_off', as: :assignment_check_off
-
+  post 'workshift_assignments/:id/sell_to/:buyer_id' => 'workshift_assignments#sell_to', as: :assignment_sell_to
+  
   devise_for :users
   devise_scope :user do
     get 'login' => 'devise/sessions#new', as: :login

@@ -3,9 +3,8 @@ class WorkshiftAssignmentsController < ApplicationController
   before_filter :set_workshift_assignment, only: [:check_off]
 
   def check_off
-    logger.debug "HELPHELPHELP #{params[:verifier]}"
+    authorize @workshift_assignment
     if !@workshift_assignment.can_check_off?
-      #ConfirmationMailer.sign_off_email(@workshift_assignment.workshifter.email, @workshift_assignment.workshifter).deliver
       flash[:alert] = "Can't check off this workshift yet"
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
@@ -20,6 +19,36 @@ class WorkshiftAssignmentsController < ApplicationController
     ConfirmationMailer.sign_off_email(@workshift_assignment.verifier.email, @workshift_assignment.workshifter).deliver
     flash[:alert] = "Assignment successfully checked off"
     redirect_to user_profile_path(@workshift_assignment.workshifter)
+  end
+
+  def put_on_market
+    authorize @workshift_assignment
+    if @workshift_assignment.can_put_on_market?
+      @workshift_assignment.put_on_market
+    else
+      flash[:alert] = "You can not put a workshift on the marketplace after it has started."
+      redirect_to user_profile_path(@workshift_assignment.workshifter)
+    end
+  end
+
+  def sell_to
+    authorize @workshift_assignment
+    if @workshift_assignment.on_market?
+      @workshift_assignment.sell_to(user)
+    else
+      flash[:alert] = "This workshift is not on the market."
+      redirect_to user_profile_path(@workshift_assignment.workshifter)
+    end
+  end
+
+  def undo_sell
+    authorize @workshift_assignment
+    if @workshift_assignment.can_undo_sell?
+      @workshift_assignment.undo_sell
+    else
+      flash[:alert] = "You cannot undo a sell after the shift has started."
+      redirect_to user_profile_path(@workshift_assignment.workshifter)
+    end
   end
 
   private
