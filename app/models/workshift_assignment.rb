@@ -144,7 +144,6 @@ class WorkshiftAssignment < ActiveRecord::Base
     status = "on_market" || status = "on market (late)"
   end
 
-
   protected
 
   def update_workshifter_hours_balance
