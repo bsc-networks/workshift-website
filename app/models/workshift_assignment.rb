@@ -132,6 +132,19 @@ class WorkshiftAssignment < ActiveRecord::Base
     status == "on market" || status == "on market (late)"
   end
 
+  def end_workshift_date
+    date + end_time.hour.hours
+  end
+
+  def end_grace_period_date
+    date + end_time.hour.hours + 48.hours
+  end
+
+  def on_market?
+    status = "on_market" || status = "on market (late)"
+  end
+
+
   protected
 
   def update_workshifter_hours_balance
