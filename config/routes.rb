@@ -39,11 +39,8 @@ WorkshiftWebsite::Application.routes.draw do
   get 'workshift_assignments/marketplace' => 'workshift_assignments#marketplace_index', as: :marketplace
   post 'workshift_assignments/:id/check_off' => 'workshift_assignments#check_off', as: :assignment_check_off
   post 'workshift_assignments/:id/sell_to/:buyer_id' => 'workshift_assignments#sell_to', as: :assignment_sell_to
-<<<<<<< HEAD
   post 'workshift_assignments/:id/undo_sell/' => 'workshift_assignments#undo_sell', as: :assignment_undo_sell
   post 'workshift_assignments/:id/sell' => 'workshift_assignments#put_on_market', as: :put_on_market
-=======
->>>>>>> selling and buying backend
   
   devise_for :users
   devise_scope :user do
