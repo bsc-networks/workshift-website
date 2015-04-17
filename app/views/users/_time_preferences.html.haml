@@ -1,0 +1,26 @@
+= form_tag update_category_preferences_path do
+  .row
+    .column.small-12
+      %fieldset
+        %legend Schedule
+        :markdown
+          Check the times that show when you are **available** to do a shift.
+          *Example:* If you're **free from 8-9AM on Monday**, check the box
+          corresponding to the row **"8-9AM"** and the column **"Monday"**.
+        %table
+          %thead
+            %tr
+              %th 
+              - if current_user.schedule == {} then current_user.schedule = User.create_schedule end
+              - User.available_days.each do |day|
+                %th=day
+          %tbody
+            - User.available_hours.each do |slot|
+              %tr
+                %td= slot
+                - current_user.schedule.each do |day, hours|
+                  %td
+                    = hidden_field_tag "schedule[#{day}][#{slot}]", 0
+                    = check_box_tag "schedule[#{day}][#{slot}]",  1, !!(current_user.schedule[day][slot])
+        .column.small-12
+          = submit_tag 'Update Schedule', class: 'button small'

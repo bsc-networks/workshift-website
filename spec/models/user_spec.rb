@@ -118,4 +118,15 @@ describe User do
       end
     end
   end
+
+  describe 'creating a student schedule' do
+    before :each do
+      @user = create(:user)
+    end
+
+    it 'creates a schedule' do
+      @user.schedule = User.create_schedule
+      expect(@user.schedule).to include("Monday")
+    end
+  end
 end
