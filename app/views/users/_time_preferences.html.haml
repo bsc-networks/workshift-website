@@ -1,4 +1,4 @@
-= form_tag update_category_preferences_path do
+= form_tag update_schedule_path do
   .row
     .column.small-12
       %fieldset
@@ -21,6 +21,6 @@
                 - current_user.schedule.each do |day, hours|
                   %td
                     = hidden_field_tag "schedule[#{day}][#{slot}]", 0
-                    = check_box_tag "schedule[#{day}][#{slot}]",  1, !!(current_user.schedule[day][slot])
+                    = check_box_tag "schedule[#{day}][#{slot}]",  "yes", !!(current_user.schedule[day][slot])
         .column.small-12
           = submit_tag 'Update Schedule', class: 'button small'
