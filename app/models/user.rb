@@ -138,10 +138,13 @@ class User < ActiveRecord::Base
   def update_schedule(new_schedule)
     new_schedule.each do |day, times|
       times.each do |time, free|
-        schedule[day][time] = free
+        if free == "0" then
+          schedule[day][time] = false
+        else
+          schedule[day][time] = true
+        end
       end
     end
-    user.save
   end
 
   private

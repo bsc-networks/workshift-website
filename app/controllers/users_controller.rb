@@ -80,6 +80,7 @@ class UsersController < ApplicationController
     new_schedule = params[:schedule]
     begin
       current_user.update_schedule(new_schedule)
+      current_user.save!
       flash[:notice] = 'Successfully updated student schedule'
       redirect_to root_url
     rescue ArgumentError => e
