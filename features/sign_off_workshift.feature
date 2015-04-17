@@ -8,7 +8,7 @@ Feature: residents can mark workshifts as completed, and then be verified by
 
   Background:
     Given I am signed in as a resident
-    And a resident named "Bobby Gee" exists
+    And I am a resident named "Bobby Gee"
     And the shift "Wash the dishes" exists
     And I am assigned to the shift "Wash the dishes"
 

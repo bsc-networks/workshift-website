@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   #     user.save
   #   end
   # end
-
+  
   # calculates whether or not each user is assigned to at least their
   # weekly required hours amount and updates their up/down count
   def self.update_all_users_weekly_hours
