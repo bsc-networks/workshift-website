@@ -22,7 +22,8 @@
         %li
           = link_to preference.category.name, preference.category
           = preference.rank
-
+  .column.small-12.medium-6
+    %h5= "Total Hours Balance: #{@user.hours_balance}"
 
 
   %h3.column.small Current Workshift Assignments

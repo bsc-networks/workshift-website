@@ -81,8 +81,8 @@ class WorkshiftAssignment < ActiveRecord::Base
 
   def sell_to(buyer) # when buyer clicks buy
     self.status = "sold"
+    update_workshifter_hours_balance
     Rufus::Scheduler.singleton.job(self.schedule_id).unschedule    
-    # TO DO POINTS
     cloned_assignment = clone_workshift
     cloned_assignment.assign_workshifter(buyer)
     cloned_assignment.save!
@@ -131,6 +131,31 @@ class WorkshiftAssignment < ActiveRecord::Base
 
   protected
 
+  def update_workshifter_hours_balance
+    case status
+    when "complete"
+      if purchased?
+        self.workshifter.hours_balance += self.hours
+      end
+    when "blown"
+      if purchased?
+        self.workshifter.hours_balance -= self.hours
+      else
+        self.workshifter.hours_balance -= self.hours * 2
+      end
+    when "sold"
+      if purchased?
+        # no points lost if bought and resold
+      else
+        self.workshifter.hours_balance -= self.hours
+      end
+    when "missed"
+      self.workshifter.hours_balance -= self.hours
+    else
+      raise 'Cannot update workshifter hours in current status.'
+    end
+  end
+
   def schedule_in_progress_status
     # puts "in progress date = #{begin_workshift_date}"
     self.schedule_id = Rufus::Scheduler.singleton.at "#{begin_workshift_date.to_s}" do schedule_awaiting_check_off_status end
@@ -157,26 +182,20 @@ class WorkshiftAssignment < ActiveRecord::Base
   def blown_check_up
     if status == "awaiting check off"
       self.status = "blown"
+      update_workshifter_hours_balance
       self.workshift.generate_next_assignment
       self.save!
     end
   end
 
+  # triggers at beginning of workshift
   def off_market_check
     if status == "on market"
       self.status = "missed"
-      if bought_from_marketplace?
-        return # no penalty for bought shift sold again on time
-      else
-        # TODO SUB 1x PTS
-      end
+      update_workshifter_hours_balance
     elsif status == "on market (late)"
       self.status = "blown"
-      if bought_from_marketplace?
-        # TODO SUB 1x PTS
-      else
-        # TODO SUB 2x PTS
-      end
+      update_workshifter_hours_balance
     end
     self.save!
   end

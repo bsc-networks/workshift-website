@@ -32,6 +32,10 @@ Given /^a resident named "(.+)" exists$/ do |name|
   FactoryGirl.create(:user, name: name)
 end
 
+Given /^I am a resident named "(.+)"$/ do |name|
+  @user = FactoryGirl.create(:user, name: name)
+end
+
 Then /^every resident's name should be visible$/ do
   User.all.each do |user|
     expect(page).to have_content(user.name)

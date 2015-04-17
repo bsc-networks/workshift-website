@@ -8,4 +8,12 @@ module ControllerHelpers
         allow(controller).to receive(:current_user).and_return(user)
       end
     end
+
+    def mock_authorize(record, authorize)
+      expectation = expect(controller).to receive(:authorize).with(record)
+      expectation.and_raise(Pundit:NotAuthorizedError) unless authorize
+
+      allow(controller).to receive(:verify_authorized)
+    end
+
   end

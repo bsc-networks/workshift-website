@@ -16,5 +16,6 @@ FactoryGirl.define do
     hours { workshift.hours }
     task { workshift.task }
     status "Upcoming"
+    purchased false
   end
 end

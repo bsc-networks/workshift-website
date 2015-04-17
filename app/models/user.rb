@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :room_number, :phone_number, :display_email,
-                  :display_phone_number
+                  :display_phone_number, :hours_balance
 
   # Invites each of the users whose information is contained in the input,
   # which must be formatted as a comma-separated string with names in the
@@ -80,13 +80,13 @@ class User < ActiveRecord::Base
 
   # Update the total hours balance for every user by adding their current
   # weeks balance, then reset the weekly balance to 0
-  def self.update_weekly_hours
-    User.all.each do |user|
-      user.hours_balance += user.weekly_hours
-      user.weekly_hours = 0
-      user.save
-    end
-  end
+  # def self.update_weekly_hours
+  #   User.all.each do |user|
+  #     user.hours_balance += user.weekly_hours
+  #     user.weekly_hours = 0
+  #     user.save
+  #   end
+  # end
 
   def role
     return 'Workshift Manager' if workshift_manager?
