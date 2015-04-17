@@ -108,12 +108,29 @@ class User < ActiveRecord::Base
     new_schedule
   end
 
+  #Time slots for a student schedule
   def self.available_hours
     ["8-9AM", "9-10AM", "10-11AM", "11-12PM", "12-1PM", "1-2PM", "2-3PM", "3-4PM", "4-5PM", "5-6PM", "6-7PM", "7-8PM", "8-9PM"]
   end
 
+  #Days for a student schedule
   def self.available_days
     ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  end
+
+  #Parses the schedule params from views and returns the appropriate schedule hash
+  def self.parse_schedule_params(schedule_params)
+    new_schedule = User.create_schedule
+    schedule_params.each do |day, times|
+      times.each do |time, free|
+        if free == "0" then
+          new_schedule[day][time] = false
+        else
+          new_schedule[day][time] = true
+        end
+      end
+    end
+    return new_schedule
   end
 
   def role
@@ -132,18 +149,6 @@ class User < ActiveRecord::Base
       pref ||= Preference.create(user_id: id, category_id: category_id)
       pref.rank = rank
       pref.save
-    end
-  end
-
-  def update_schedule(new_schedule)
-    new_schedule.each do |day, times|
-      times.each do |time, free|
-        if free == "0" then
-          schedule[day][time] = false
-        else
-          schedule[day][time] = true
-        end
-      end
     end
   end
 

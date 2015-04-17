@@ -77,16 +77,17 @@ class UsersController < ApplicationController
 
   def update_schedule
     authorize current_user
-    new_schedule = params[:schedule]
-    begin
-      current_user.update_schedule(new_schedule)
-      current_user.save!
-      flash[:notice] = 'Successfully updated student schedule'
-      redirect_to root_url
-    rescue ArgumentError => e
-      flash[:alert] = e.message
-      @categories = Category.all
-      render 'users/preferences'
-    end
+    schedule_params = params[:schedule]
+    #begin
+    new_schedule = User.parse_schedule_params(schedule_params)
+    current_user.schedule = new_schedule
+    current_user.save!
+    flash[:notice] = 'Successfully updated student schedule'
+    redirect_to root_url
+    #rescue ArgumentError => e
+    #  flash[:alert] = e.message
+    #  @categories = Category.all
+    #  render 'users/preferences'
+    #end
   end
 end

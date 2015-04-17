@@ -119,14 +119,33 @@ describe User do
     end
   end
 
-  describe 'creating a student schedule' do
+  describe 'modifying a student schedule' do
     before :each do
       @user = create(:user)
     end
 
-    it 'creates a schedule' do
+    it 'allows creation of a schedule' do
       @user.schedule = User.create_schedule
-      expect(@user.schedule).to include("Monday")
+      expect(@user.schedule).to include("Monday", "Tuesday", "Saturday")
+      expect(@user.schedule["Monday"]["11-12PM"]).to eq(false)
+    end
+
+    it 'allows updates to a schedule' do
+      @user.schedule = User.create_schedule
+      new_schedule = User.create_schedule
+      expect(new_schedule).to include("Monday")
+      new_schedule["Monday"]["11-12PM"] = true
+      @user.schedule = new_schedule
+      expect(@user.schedule["Monday"]["11-12PM"]).to eq(true)
+    end
+
+    it 'parses a schedule from views' do
+      schedule_params = User.create_schedule
+      schedule_params["Monday"]["11-12PM"] = "0"
+      schedule_params["Tuesday"]["12-1PM"] = "1"
+      new_schedule = User.parse_schedule_params(schedule_params)
+      expect(new_schedule["Monday"]["11-12PM"]).to eq(false)
+      expect(new_schedule["Tuesday"]["12-1PM"]).to eq(true)
     end
   end
 end
