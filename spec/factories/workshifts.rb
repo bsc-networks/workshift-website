@@ -22,5 +22,6 @@ FactoryGirl.define do
     hours { rand(1..3) }
     start_time { Faker::Time.forward(10, :all).change(min: 0) }
     end_time { start_time + 4.hours }
+    user { nil }
   end
 end
