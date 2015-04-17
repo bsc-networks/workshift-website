@@ -43,7 +43,7 @@ class Workshift < ActiveRecord::Base
   def generate_next_assignment
     Time.zone = "UTC"
     Chronic.time_class = Time.zone
-    assignment_date = Chronic.parse "next #{self.weekday} at 0:00"
+    assignment_date = Chronic.parse "this #{self.weekday} at 0:00"
     assignment = self.workshift_assignments.create!({
         task: self.task,
         description: self.description,
@@ -56,6 +56,7 @@ class Workshift < ActiveRecord::Base
     })
     assignment.assign_workshifter(self.user)
     assignment.save!
+    assignment
   end
 
   def end_time_later_than_start_time

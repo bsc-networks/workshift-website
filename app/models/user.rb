@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :room_number, :phone_number, :display_email,
-                  :display_phone_number, :schedule, :required_hours
+                  :display_phone_number, :schedule, :required_hours, :hours_balance
 
   serialize :schedule, Hash
 
@@ -83,13 +83,13 @@ class User < ActiveRecord::Base
 
   # Update the total hours balance for every user by adding their current
   # weeks balance, then reset the weekly balance to 0
-  def self.update_weekly_hours
-    User.all.each do |user|
-      user.hours_balance += user.weekly_hours
-      user.weekly_hours = 0
-      user.save
-    end
-  end
+  # def self.update_weekly_hours
+  #   User.all.each do |user|
+  #     user.hours_balance += user.weekly_hours
+  #     user.weekly_hours = 0
+  #     user.save
+  #   end
+  # end
 
   # calculates whether or not each user is assigned to at least their
   # weekly required hours amount and updates their up/down count
