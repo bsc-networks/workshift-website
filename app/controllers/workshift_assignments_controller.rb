@@ -51,7 +51,7 @@ class WorkshiftAssignmentsController < ApplicationController
       redirect_to user_profile_path(current_user)
     else
       flash[:alert] = "Cannot buy a workshift that is not on the market."
-      redirect_to marketplace_path
+      redirect_to user_profile_path(current_user)
     end
   end
 
