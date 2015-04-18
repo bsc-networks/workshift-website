@@ -32,6 +32,13 @@ Given /^I am signed in as a resident$/ do
   step "I sign in using email \"#{email}\" and password \"#{password}\""
 end
 
+Given /^I am signed in as a resident named "(.+)"$/ do |name|
+  email = 'test@example.com'
+  password = 'secret'
+  step "I have an account with email \"#{email}\" and password \"#{password}\" and name \"#{name}\""
+  step "I sign in using email \"#{email}\" and password \"#{password}\""
+end
+
 Given /^I am signed in as a workshift manager$/ do
   email = 'test@example.com'
   password = 'secret'

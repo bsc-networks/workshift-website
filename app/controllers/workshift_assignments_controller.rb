@@ -10,8 +10,8 @@ class WorkshiftAssignmentsController < ApplicationController
       return
     end
     verifier = User.find_by_id(params[:verifier])
-    if verifier == @workshift_assignment.workshifter
-      flash[:alert] = "Verifier cannot be the same person as assigned workshifter"
+    if !verifier || verifier == @workshift_assignment.workshifter
+      flash[:alert] = "Invalid verifier"
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
     end
@@ -40,7 +40,7 @@ class WorkshiftAssignmentsController < ApplicationController
     authorize @workshift_assignment
     if current_user != User.find(params[:buyer_id])
       flash[:alert] = "Unauthorized action"
-      redirect_to user_profile_path(currrent_user)
+      redirect_to user_profile_path(current_user)
       return
     end
     if @workshift_assignment.on_market?
