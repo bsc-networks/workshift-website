@@ -86,6 +86,9 @@ class WorkshiftAssignment < ActiveRecord::Base
     cloned_assignment = clone_workshift
     cloned_assignment.assign_workshifter(buyer)
     cloned_assignment.save!
+    self.schedule_id = Rufus::Scheduler.singleton.at "#{end_workshift_date.to_s}" do
+      self.workshift.generate_next_assignment
+    end
     self.save!
   end
   
@@ -194,9 +197,11 @@ class WorkshiftAssignment < ActiveRecord::Base
     if status == "on market"
       self.status = "missed"
       update_workshifter_hours_balance
+      self.workshift.generate_next_assignment
     elsif status == "on market (late)"
       self.status = "blown"
       update_workshifter_hours_balance
+      self.workshift.generate_next_assignment
     end
     self.save!
   end
