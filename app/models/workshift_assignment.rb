@@ -154,6 +154,7 @@ class WorkshiftAssignment < ActiveRecord::Base
     else
       raise 'Cannot update workshifter hours in current status.'
     end
+    self.workshifter.save!
   end
 
   def schedule_in_progress_status
