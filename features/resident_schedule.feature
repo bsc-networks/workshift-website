@@ -4,14 +4,11 @@ Feature: Residents can show their schedule
  I want to be able to show when I'm free
 
   Background:
-    Given I am a resident
-    Given I am on the user settings page
+    Given I am signed in as a resident
+    And I am on the user preferences page
 
   Scenario: I can edit a schedule
-    When I fill in:
-      | day           | free?              | hour        |
-      | Monday        | Yes                | 9:00AM      |
-    And I press "Update Schdule"
-    Then I should see:
-      | day           | free?              | hour        |
-      | Monday        | Yes                | 9:00AM      |
+    When I check the box in column "Monday" and row "9-10AM"
+    And I press "Update Schedule"
+    And I go to the user preferences page
+    Then the box in column "Monday" and row "9-10AM" should be checked
