@@ -40,16 +40,16 @@ class WorkshiftAssignmentsController < ApplicationController
     authorize @workshift_assignment
     if current_user != User.find(params[:buyer_id])
       flash[:alert] = "Unauthorized action"
-      redirect_to user_profile_path(currrent_user)
+      redirect_to user_profile_path(current_user)
       return
     end
     if @workshift_assignment.on_market?
       @workshift_assignment.sell_to(current_user)
       flash[:notice] = "Successfully bought workshift"
-      redirect_to marketplace_path
+      redirect_to user_profile_path(current_user)
     else
       flash[:alert] = "Cannot buy a workshift that is not on the market."
-      redirect_to marketplace_path
+      redirect_to user_profile_path(current_user)
     end
   end
 
