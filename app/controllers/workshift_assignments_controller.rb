@@ -46,10 +46,10 @@ class WorkshiftAssignmentsController < ApplicationController
     if @workshift_assignment.on_market?
       @workshift_assignment.sell_to(current_user)
       flash[:notice] = "Successfully bought workshift"
-      redirect_to user_profile_path(currrent_user)
+      redirect_to marketplace_path
     else
       flash[:alert] = "Cannot buy a workshift that is not on the market."
-      redirect_to user_profile_path(current_user)
+      redirect_to marketplace_path
     end
   end
 
