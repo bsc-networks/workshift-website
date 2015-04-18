@@ -46,7 +46,7 @@ class WorkshiftAssignmentsController < ApplicationController
     if @workshift_assignment.on_market?
       @workshift_assignment.sell_to(current_user)
       flash[:notice] = "Successfully bought workshift"
-      redirect_to user_profile_path(currrent_user)
+      redirect_to user_profile_path(current_user)
     else
       flash[:alert] = "Cannot buy a workshift that is not on the market."
       redirect_to user_profile_path(current_user)
@@ -57,6 +57,7 @@ class WorkshiftAssignmentsController < ApplicationController
     authorize @workshift_assignment
     if @workshift_assignment.can_undo_sell?
       @workshift_assignment.undo_sell
+      redirect_to user_profile_path(@workshift_assignment.workshifter)
     else
       flash[:alert] = "You cannot undo a sell after the shift has started."
       redirect_to user_profile_path(@workshift_assignment.workshifter)

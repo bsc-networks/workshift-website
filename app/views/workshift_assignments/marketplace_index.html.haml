@@ -28,3 +28,7 @@
               %td
                 = form_tag assignment_sell_to_path(assignment, current_user) do
                   = submit_tag "Buy Shift", data: { confirm: 'Are you sure you want to buy this shift?' }
+            - if  assignment.workshifter = current_user
+              %td
+                = form_tag assignment_undo_sell_path(assignment) do
+                  = submit_tag "Undo Sell", data: { confirm: 'Are you sure you want to undo the sale of your shift?' }
