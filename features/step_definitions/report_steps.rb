@@ -2,9 +2,9 @@ Given /^no weekly reports exist$/ do
   WeeklyReport.delete_all
 end
 
-When /^a new weekly report is generated$/ do
-  @report = WeeklyReport.create_weekly_report
-end
+# When /^a new weekly report is generated$/ do
+  # @report = WeeklyReport.create_weekly_report
+# end
 
 Then /^the title of the report contains today's date$/ do
   expect(@report.title).to include Time.now.strftime('%m_%d_%y')
