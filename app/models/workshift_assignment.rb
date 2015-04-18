@@ -109,7 +109,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   def undo_sell
     self.status = "upcoming"
     Rufus::Scheduler.singleton.job(self.schedule_id).unschedule
-    self.schedule_id = schedule_in_progress_status
+    #self.schedule_id = schedule_in_progress_status
     self.save!
   end
 
