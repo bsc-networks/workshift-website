@@ -65,7 +65,7 @@ class WorkshiftAssignment < ActiveRecord::Base
 
   def put_on_market
     self.status = late_for_market? ? "on market (late)" : "on market"
-    #Rufus::Scheduler.singleton.job(self.schedule_id).unschedule
+    Rufus::Scheduler.singleton.job(self.schedule_id).unschedule
     self.schedule_id = Rufus::Scheduler.singleton.at(begin_workshift_date.to_s) do off_market_check end
     self.save!
   end
