@@ -35,8 +35,9 @@ class Workshift < ActiveRecord::Base
       self.user = worker
       # to delete or not to delete old user's current assignment
       # generate new assignment for new user immediately
-      generate_next_assignment
+      assignment = generate_next_assignment
       self.save!
+      return assignment
     end
   end
 

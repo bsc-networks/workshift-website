@@ -10,8 +10,8 @@ class WorkshiftAssignmentsController < ApplicationController
       return
     end
     verifier = User.find_by_id(params[:verifier])
-    if verifier == @workshift_assignment.workshifter
-      flash[:alert] = "Verifier cannot be the same person as assigned workshifter"
+    if !verifier || verifier == @workshift_assignment.workshifter
+      flash[:alert] = "Invalid verifier"
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
     end

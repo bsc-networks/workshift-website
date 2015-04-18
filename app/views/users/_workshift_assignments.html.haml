@@ -14,7 +14,7 @@
           %th
       %tbody
         - workshift_assignments.each do |workshift_assignment|
-          %tr
+          %tr{id: "assignment_#{workshift_assignment.id}"}
             %td= workshift_assignment.weekday
             %td= workshift_assignment.task
             %td= workshift_assignment.formatted_start_time
