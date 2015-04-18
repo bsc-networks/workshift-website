@@ -18,3 +18,13 @@ Feature: Workshift Marketplace
   Scenario: No one buys my shift
     Given no one buys my shift and the workshift has passed
     Then I should only lose the shift's hours number of points
+
+  Scenario: I undo the selling of my shift
+    Given no one buys my shift and the workshift has not started yet
+    And I click "undo"
+    Then I should not see my workshift in the Marketplace
+
+  Scenario: I sell my shift
+    Given my shift has not started yet
+    And I click "sell"
+    Then I should see my workshift in the Marketplace
