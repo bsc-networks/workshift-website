@@ -29,4 +29,3 @@ Feature: Workshift Marketplace
     Given my shift has not started yet
     And I click "sell"
     Then I should see my workshift in the Marketplace
-
