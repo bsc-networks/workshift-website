@@ -57,6 +57,7 @@ class WorkshiftAssignmentsController < ApplicationController
     authorize @workshift_assignment
     if @workshift_assignment.can_undo_sell?
       @workshift_assignment.undo_sell
+      redirect_to user_profile_path(@workshift_assignment.workshifter)
     else
       flash[:alert] = "You cannot undo a sell after the shift has started."
       redirect_to user_profile_path(@workshift_assignment.workshifter)
