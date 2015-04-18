@@ -29,6 +29,7 @@
 #  room_number            :string(255)      default("")
 #  display_phone_number   :boolean          default(FALSE)
 #  display_email          :boolean          default(FALSE)
+#  schedule               :text             default("")
 #
 require 'csv'
 
@@ -46,7 +47,9 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :room_number, :phone_number, :display_email,
-                  :display_phone_number
+                  :display_phone_number, :schedule
+
+  serialize :schedule, Hash
 
   # Invites each of the users whose information is contained in the input,
   # which must be formatted as a comma-separated string with names in the
@@ -86,6 +89,48 @@ class User < ActiveRecord::Base
       user.weekly_hours = 0
       user.save
     end
+  end
+
+  # Creates an empty schedule for the user
+  def self.create_schedule
+    hours = available_hours
+    days = available_days
+    new_schedule = Hash.new do |hash, key|
+      hash[key] = Hash.new do |hash, key|
+        hash[key] = false
+      end
+    end
+    days.each do |day|
+      hours.each do |hour|
+        new_schedule[day][hour] = false
+      end
+    end
+    new_schedule
+  end
+
+  #Time slots for a student schedule
+  def self.available_hours
+    ["8-9AM", "9-10AM", "10-11AM", "11-12PM", "12-1PM", "1-2PM", "2-3PM", "3-4PM", "4-5PM", "5-6PM", "6-7PM", "7-8PM", "8-9PM"]
+  end
+
+  #Days for a student schedule
+  def self.available_days
+    ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  end
+
+  #Parses the schedule params from views and returns the appropriate schedule hash
+  def self.parse_schedule_params(schedule_params)
+    new_schedule = User.create_schedule
+    schedule_params.each do |day, times|
+      times.each do |time, free|
+        if free == "0" then
+          new_schedule[day][time] = false
+        else
+          new_schedule[day][time] = true
+        end
+      end
+    end
+    return new_schedule
   end
 
   def role
