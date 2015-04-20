@@ -11,6 +11,10 @@ Feature: Workshift Marketplace
     Given there is more than 24 hours until my shift starts
     And I sell my shift
 
+  Scenario: I put my workshift on the market
+    Given I put my workshift on the market
+    Then I can see my workshift on the marketplace
+
   Scenario: Someone buys my shift
     Given someone buys shift
     Then I should only lose the shift's hours number of points
@@ -28,3 +32,4 @@ Feature: Workshift Marketplace
     Given my shift has not started yet
     And I click "sell"
     Then I should see my workshift in the Marketplace
+
