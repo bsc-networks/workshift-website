@@ -12,6 +12,10 @@ Feature: Workshift Marketplace
     Given I put my workshift "Dishes" on the market before the 24 hour deadline
     Then I can see my workshift on the marketplace
 
+  Scenario: I put my workshift on the market
+    Given I put my workshift on the market
+    Then I can see my workshift on the marketplace
+
   Scenario: Someone buys my shift
     Given someone buys shift
     Then I should see the workshift as sold
@@ -29,3 +33,4 @@ Feature: Workshift Marketplace
     Given my shift has not started yet
     And I click "sell"
     Then I should see my workshift in the Marketplace
+
