@@ -11,10 +11,10 @@ Feature: workshift managers can see generated reports on residents weekly
     Given I am signed in as a workshift manager
     And a resident named "Bobby Gee" exists
     And no weekly reports exist
-    And the date is currently "April 6th, 2015 1:30pm"
 
   Scenario: generated report has current day's date in title
-    When a new weekly report is generated
+    When the date is currently April 6th, 2015 1:30pm
+    And a new weekly report is generated
     Then the title of the report contains today's date
 
   Scenario: workshift manager can download the reports

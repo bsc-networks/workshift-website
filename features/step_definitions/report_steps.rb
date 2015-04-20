@@ -7,7 +7,7 @@ When /^a new weekly report is generated$/ do
 end
 
 Then /^the title of the report contains today's date$/ do
-  expect(@report.title).to include Time.now.strftime('%m_%d_%y')
+  expect(@report.title).to include Time.zone.now.strftime('%m_%d_%y')
 end
 
 Given /^"(.+)" is (down|up) (\d+) hours this week$/ do |user, sign, hours|

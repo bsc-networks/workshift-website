@@ -48,8 +48,8 @@ class UsersController < ApplicationController
   def download_report
     authorize :user
     report = WeeklyReport.find(params[:id])
-    send_data report.report, type: 'text/csv; charset=utf-8; header=present',
-                             disposition: "attachment; filename=#{report.title}"
+    send_data report.text, type: 'text/csv; charset=utf-8; header=present',
+                           disposition: "attachment; filename=#{report.title}"
   end
 
   def view_report
