@@ -17,12 +17,18 @@ Feature: workshift managers can see generated reports on residents weekly
     When a new weekly report is generated
     Then the title of the report contains today's date
 
-  Scenario: generated report contains residents' weekly hours balances
-    Given "Bobby Gee" is down 4 hours this week
-    When a new weekly report is generated
-    Then the report contains the entry "Bobby Gee,-4"
-
   Scenario: workshift manager can download the reports
     Given a new weekly report is generated
     When I am on the reports page
     Then I can download the weekly report
+
+  Scenario: workshift manager can view the text of the report
+    Given a new weekly report is generated
+    When I am on the view report page
+    Then I should see the text of that report
+
+  Scenario: a regular resident cannot view the reports
+    When I log out
+    And I sign in as a resident
+    And I go to the reports page
+    Then I should be on the home page
