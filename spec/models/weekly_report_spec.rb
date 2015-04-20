@@ -12,7 +12,7 @@ RSpec.describe WeeklyReport, :type => :model do
   end
 
   it 'can output the creation date in pretty formatting' do
-    Timecop.freeze(Time.local(2010, 6, 19))
+    Timecop.freeze(Time.local(2010, 6, 19, 9, 30))
     report = create(:weekly_report)
     expect(report.date).to eq '06/19/10'
   end
