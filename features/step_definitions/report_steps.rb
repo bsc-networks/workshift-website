@@ -2,9 +2,9 @@ Given /^no weekly reports exist$/ do
   WeeklyReport.delete_all
 end
 
-# When /^a new weekly report is generated$/ do
-  # @report = WeeklyReport.create_weekly_report
-# end
+When /^a new weekly report is generated$/ do
+  @report = WeeklyReport.create
+end
 
 Then /^the title of the report contains today's date$/ do
   expect(@report.title).to include Time.now.strftime('%m_%d_%y')
@@ -27,4 +27,8 @@ Then /^I can download the weekly report$/ do
   click_link 'Download'
   header = page.driver.response.headers
   expect(header['Content-Disposition']).to include "filename=#{@report.title}"
+end
+
+Then /^I should see the text of that report$/ do
+  expect(page).to have_content(@report.text)
 end
