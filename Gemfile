@@ -19,6 +19,8 @@ gem 'rufus-scheduler'
 gem 'faker'
 gem 'clockwork'
 
+gem 'pry-rails'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
