@@ -5,14 +5,11 @@ Feature: Workshift Marketplace
   I want to be able to sell and buy shifts on the workshift marketplace
 
   Background: Selling a shift before 24 hour 'deadline'
-    Given I am assigned to the following shift:
-      | task   | description  | day | hours | start_time | end_time |
-      | Dishes | clean dishes | 0   | 1     | 11:00am    | 1:30pm   |
-    Given there is more than 24 hours until my shift starts
-    And I sell my shift
+    Given I am assigned to the shift "Dishes" with start time "11:00am" and end time "12:00pm" with day "2"
+    
 
-  Scenario: I put my workshift on the market
-    Given I put my workshift on the market
+  Scenario: I put my workshift "Dishes" on the market before the 24 hour deadline
+    Given I put my workshift "Dishes" on the market before the 24 hour deadline
     Then I can see my workshift on the marketplace
 
   Scenario: Someone buys my shift
