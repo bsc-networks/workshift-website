@@ -6,14 +6,9 @@ Feature: Workshift Marketplace
 
   Background: Selling a shift before 24 hour 'deadline'
     Given I am assigned to the shift "Dishes" with start time "11:00am" and end time "12:00pm" with day "2"
-    
 
   Scenario: I put my workshift "Dishes" on the market before the 24 hour deadline
     Given I put my workshift "Dishes" on the market before the 24 hour deadline
-    Then I can see my workshift on the marketplace
-
-  Scenario: I put my workshift on the market
-    Given I put my workshift on the market
     Then I can see my workshift on the marketplace
 
   Scenario: Someone buys my shift
