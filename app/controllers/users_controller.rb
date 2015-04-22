@@ -48,8 +48,8 @@ class UsersController < ApplicationController
   def download_report
     authorize :user
     report = WeeklyReport.find(params[:id])
-    send_data report.report, type: 'text/csv; charset=utf-8; header=present',
-                             disposition: "attachment; filename=#{report.title}"
+    send_data report.text, type: 'text/csv; charset=utf-8; header=present',
+                           disposition: "attachment; filename=#{report.title}"
   end
 
   def view_report
@@ -73,5 +73,21 @@ class UsersController < ApplicationController
       @categories = Category.all
       render 'users/preferences'
     end
+  end
+
+  def update_schedule
+    authorize current_user
+    schedule_params = params[:schedule]
+    #begin
+    new_schedule = User.parse_schedule_params(schedule_params)
+    current_user.schedule = new_schedule
+    current_user.save!
+    flash[:notice] = 'Successfully updated student schedule'
+    redirect_to root_url
+    #rescue ArgumentError => e
+    #  flash[:alert] = e.message
+    #  @categories = Category.all
+    #  render 'users/preferences'
+    #end
   end
 end

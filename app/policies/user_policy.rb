@@ -11,6 +11,10 @@ class UserPolicy < ApplicationPolicy
     user == record
   end
 
+  def update_schedule?
+    user == record
+  end
+
   def reports?
     user.workshift_manager?
   end

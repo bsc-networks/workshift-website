@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150410045620) do
+ActiveRecord::Schema.define(:version => 20150420224218) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20150410045620) do
     t.string   "room_number",            :default => ""
     t.boolean  "display_phone_number",   :default => false
     t.boolean  "display_email",          :default => false
-    t.integer  "weekly_hours",           :default => 0,     :null => false
     t.integer  "hours_balance",          :default => 0,     :null => false
+    t.text     "schedule"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -76,9 +76,8 @@ ActiveRecord::Schema.define(:version => 20150410045620) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "weekly_reports", :force => true do |t|
-    t.text     "report",     :default => ""
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "workshift_assignments", :force => true do |t|
@@ -94,8 +93,9 @@ ActiveRecord::Schema.define(:version => 20150410045620) do
     t.integer  "workshifter_id"
     t.integer  "verifier_id"
     t.integer  "workshift_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.boolean  "purchased",      :default => false
   end
 
   create_table "workshifts", :force => true do |t|
