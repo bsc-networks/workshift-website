@@ -14,11 +14,11 @@ Feature: Workshift Marketplace
 
   Scenario: Someone buys my shift
     Given someone buys shift
-    Then I should only lose the shift's hours number of points
+    Then I should see the workshift as sold
 
   Scenario: No one buys my shift
     Given no one buys my shift and the workshift has passed
-    Then I should only lose the shift's hours number of points
+    Then I should see the workshift as blown
 
   Scenario: I undo the selling of my shift
     Given no one buys my shift and the workshift has not started yet
