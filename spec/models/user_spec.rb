@@ -142,7 +142,7 @@ describe User do
     it 'parses a schedule from views' do
       schedule_params = User.create_schedule
       schedule_params["Monday"]["11-12PM"] = "0"
-      schedule_params["Tuesday"]["12-1PM"] = "1"
+      schedule_params["Tuesday"]["12-1PM"] = "yes"
       new_schedule = User.parse_schedule_params(schedule_params)
       expect(new_schedule["Monday"]["11-12PM"]).to eq(false)
       expect(new_schedule["Tuesday"]["12-1PM"]).to eq(true)
