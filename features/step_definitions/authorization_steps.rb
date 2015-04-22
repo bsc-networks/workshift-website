@@ -25,15 +25,15 @@ Then /^I can sign in using email "(.+)" and password "([^"]+)"$/ do |email, pass
   step 'I should be signed in'
 end
 
-Given /^I am signed in as a resident$/ do
-  email = 'test@example.com'
+Given /^I (?:am signed in|sign in) as a resident$/ do
+  email = 'resident@example.com'
   password = 'secret'
   step "I have an account with email \"#{email}\" and password \"#{password}\""
   step "I sign in using email \"#{email}\" and password \"#{password}\""
 end
 
 Given /^I am signed in as a workshift manager$/ do
-  email = 'test@example.com'
+  email = 'manager@example.com'
   password = 'secret'
   step "I am a workshift manager with email \"#{email}\" and password "\
     "\"#{password}\""

@@ -38,4 +38,17 @@ describe UsersController do
       expect(response).to render_template 'profile'
     end
   end
+
+  #describe 'POST update_schedule' do
+  #  context 'when an authenticated user is logged in'
+  #  before :each do
+  #    @user = create(:user, :with_assigned_workshifts, id: 1)
+  #    sign_in
+  #  end
+  #  it 'renders the index template' do
+  #    new_schedule = User.create_schedule
+  #    post :update_schedule, id: 1, schedule: new_schedule
+  #    expect(response).to render_template 'index'
+  #  end
+  #end
 end
