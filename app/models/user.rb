@@ -123,10 +123,10 @@ class User < ActiveRecord::Base
     new_schedule = User.create_schedule
     schedule_params.each do |day, times|
       times.each do |time, free|
-        if free == "0" then
-          new_schedule[day][time] = false
-        else
+        if free == "yes" then
           new_schedule[day][time] = true
+        else
+          new_schedule[day][time] = false
         end
       end
     end

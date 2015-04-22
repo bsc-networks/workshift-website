@@ -20,7 +20,6 @@
                 %td= slot
                 - current_user.schedule.each do |day, hours|
                   %td
-                    = hidden_field_tag "schedule[#{day}][#{slot}]_tag", 0
                     = check_box_tag "schedule[#{day}][#{slot}]",  "yes", !!(current_user.schedule[day][slot])
         .column.small-12
           = submit_tag 'Update Schedule', class: 'button small'

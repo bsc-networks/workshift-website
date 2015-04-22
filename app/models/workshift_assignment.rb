@@ -101,7 +101,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   end
 
 
-  def on_market
+  #def on_market
     
 
 
