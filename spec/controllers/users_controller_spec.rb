@@ -21,24 +21,47 @@ describe UsersController do
   end
 
   describe 'GET profile' do
-    context 'when an authenticated user is logged in'
-    before :each do
-      @user = create(:user, :with_assigned_workshifts, id: 1)
-      sign_in
-    end
-    
-    # it 'assigns @workshifts_assignments to users workshift assignments' do
-    #   get :profile, id: 1
-    #   assignments = @user.workshift_assignments
-    #   expect(assigns(:workshift_assignments)).to match_array assignments
-    # end
+    context 'when an authenticated user is logged in' do
+      before :each do
+        @user = create(:user, :with_assigned_workshifts, id: 1)
+        sign_in
+      end
 
-    it 'renders the profile template' do
-      get :profile, id: 1
-      expect(response).to render_template 'profile'
+      # it 'assigns @workshifts_assignments to users workshift assignments' do
+      #   get :profile, id: 1
+      #   assignments = @user.workshift_assignments
+      #   expect(assigns(:workshift_assignments)).to match_array assignments
+      # end
+
+      it 'renders the profile template' do
+        get :profile, id: 1
+        expect(response).to render_template 'profile'
+      end
     end
   end
 
+  describe 'GET view_semester_report' do
+    context 'an authenticated user is logged in' do
+      it 'renders the view_semester_report template' do
+        user = create(:workshift_manager)
+        sign_in user
+        get :view_semester_report
+        expect(response).to render_template 'view_semester_report'
+      end
+    end
+  end
+
+  describe 'GET view_report' do
+    context 'a workshift manager is signed in' do
+      it 'renders the view_report template' do
+        user = create(:workshift_manager)
+        sign_in user
+        create(:weekly_report, id: 1)
+        get :view_report, id: 1
+        expect(response).to render_template 'view_report'
+      end
+    end
+  end
   #describe 'POST update_schedule' do
   #  context 'when an authenticated user is logged in'
   #  before :each do
