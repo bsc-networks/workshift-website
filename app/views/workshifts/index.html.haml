@@ -13,10 +13,7 @@
           %th Day
           %th Start Time
           %th End Time
-          - if policy(:workshift).edit?
-            %th
-          - if policy(:workshift).destroy?
-            %th
+          %th Assigned Workshifter
 
       %tbody
         - @workshifts.each do |workshift|
@@ -27,14 +24,10 @@
             %td= workshift.weekday
             %td= workshift.formatted_start_time
             %td= workshift.formatted_end_time
-            - if policy(:workshift).edit?
-              %td= link_to 'Edit', edit_workshift_path(workshift)
-            - if policy(:workshift).destroy?
-              %td= link_to 'Destroy', workshift, method: :delete,
-                data: { confirm: 'Are you sure?' }
+            %td= (workshift.user) ? link_to(workshift.user.name, user_profile_path(workshift.user)) : "Not Assigned"
 
 %br
 - if policy(:workshift).new?
   .row
     .column.small-12
-      = link_to 'New Workshift', new_workshift_path
+      = link_to 'New Workshift', new_workshift_path, class: 'button'

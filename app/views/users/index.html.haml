@@ -1,5 +1,20 @@
 .row
-  %ul
-    - @users.each do |user|
-      %li.column.small-4
-        = link_to user.name, user_profile_path(user)
+  .column.small-12
+    %h1 House Roster
+  .column.small-12
+    %table#house_roster
+      %thead
+        %tr
+          %td Resident
+          //%td Hours
+          %td Room Number
+          %td Email
+          %td Phone Number
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= link_to user.name, user_profile_path(user)
+            //%td= user.hours
+            %td= (user.room_number.length > 0) ? user.room_number : ""
+            %td= (user.display_email?) ? user.email : ""
+            %td= (user.display_phone_number? && user.phone_number.length > 0) ? user.phone_number : ""
