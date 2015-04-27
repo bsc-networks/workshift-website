@@ -1,24 +1,24 @@
 .row
   .column.small-12
     %h1= @workshift.task
-  .column.small-4
-    Category:
-    = link_to @workshift.category_name, @workshift.category
-  .column.small-4
-    %p Hours: #{@workshift.hours}
-  .column.small-8
-    %span Assigned Workshifter: 
-    - if @workshift.user
-      = link_to @workshift.user.name, user_profile_path(@workshift.user)
-    - else
-      None
-  .column.small-4
-    %p Day of the week: #{@workshift.weekday}
-  .column.small-4
-    %p Shift Start: #{@workshift.formatted_start_time}
-  .column.small-4
-    %p Shift End: #{@workshift.formatted_end_time}
   .column.small-12
-    %h4 Description
-    :markdown
-      #{@workshift.description}
+    %table#workshift_info
+      %tbody
+        %tr
+          %td Category:
+          %td= link_to @workshift.category_name, @workshift.category
+          %td Hours:
+          %td= @workshift.hours
+        %tr
+          %td Assigned Workshifter:
+          %td= (@workshift.user) ? @workshift.user : "None"
+          %td Day:
+          %td= @workshift.weekday
+        %tr
+          %td Shift Start:
+          %td= @workshift.formatted_start_time
+          %td Shift End:
+          %td= @workshift.formatted_end_time
+        %tr
+          %td Description:
+          %td= @workshift.description
