@@ -110,12 +110,13 @@ class User < ActiveRecord::Base
 
   #Time slots for a student schedule
   def self.available_hours
-    ["8-9AM", "9-10AM", "10-11AM", "11-12PM", "12-1PM", "1-2PM", "2-3PM", "3-4PM", "4-5PM", "5-6PM", "6-7PM", "7-8PM", "8-9PM"]
+    %w(8-9AM 9-10AM 10-11AM 11-12PM 12-1PM 1-2PM 2-3PM 3-4PM
+       4-5PM 5-6PM 6-7PM 7-8PM 8-9PM)
   end
 
   #Days for a student schedule
   def self.available_days
-    ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    Date::DAYNAMES
   end
 
   #Parses the schedule params from views and returns the appropriate schedule hash

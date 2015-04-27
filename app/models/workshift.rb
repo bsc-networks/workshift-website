@@ -54,19 +54,10 @@ class Workshift < ActiveRecord::Base
         status: "upcoming",
     })
     assignment.assign_workshifter(self.user)
-    # puts "start time = #{start_time}"
-    # puts "end time = #{end_time}"
-    # puts "assignment date = #{assignment.date}"
-    # puts "assignment wday = #{assignment.weekday}"
-    # puts "assignment start = #{assignment.start_time}"
-    # puts "assignment end = #{assignment.end_time}"
     assignment.save!
   end
 
   def end_time_later_than_start_time
-    # puts "check end #{end_time.in_time_zone("Pacific Time (US & Canada)")}"
-    # puts "check start #{start_time.in_time_zone("Pacific Time (US & Canada)")}"
-    # puts "##{end_time.in_time_zone("Pacific Time (US & Canada)") > start_time.in_time_zone("Pacific Time (US & Canada)")}"
     return if end_time > start_time
     errors.add(:end_time, 'must be later than the starting time.')
   end
@@ -77,12 +68,6 @@ class Workshift < ActiveRecord::Base
       days << [Date::DAYNAMES[i], i]
     end
     days
-  end
-
-  def self.create_assignments
-    Workshift.all.each do |workshift|
-      logger.info "Creating assignment for workshift #{workshift.task}"
-    end
   end
 
   def weekday

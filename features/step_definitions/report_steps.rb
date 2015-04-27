@@ -10,11 +10,11 @@ Then /^the title of the report contains today's date$/ do
   expect(@report.title).to include Time.zone.now.strftime('%m_%d_%y')
 end
 
-Given /^"(.+)" is (down|up) (\d+) hours this week$/ do |user, sign, hours|
+Given /^"(.+)" is (down|up) (\d+) hours$/ do |user, sign, hours|
   hours = hours.to_i
   hours *= -1 if sign == 'down'
   user = User.find_by_name(user)
-  user.weekly_hours = hours
+  user.hours_balance = hours
   user.save
 end
 
@@ -31,4 +31,8 @@ end
 
 Then /^I should see the text of that report$/ do
   expect(page).to have_content(@report.text)
+end
+
+Then /^I should get a download with the filename "(.+)"$/ do |filename|
+  expect(page.driver.response.headers['Content-Disposition']).to include("filename=#{filename}")
 end
