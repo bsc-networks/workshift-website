@@ -7,12 +7,7 @@ module Clockwork
     logger.info "Running #{job} at time #{time}"
   end
 
-  every(1.week, 'create.workshift.assignments', at: 'Monday 00:00') do
-    Workshift.create_assignments
-  end
-
   every(1.week, 'update.resident.weekly.hours', at: 'Monday 00:00') do
-    WeeklyReport.create_weekly_report
-    User.update_weekly_hours
+    WeeklyReport.create!
   end
 end
