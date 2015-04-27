@@ -19,7 +19,15 @@ class UserPolicy < ApplicationPolicy
     user.workshift_manager?
   end
 
+  def download_semester_report?
+    user.workshift_manager?
+  end
+
   def download_report?
+    user.workshift_manager?
+  end
+
+  def view_semester_report?
     user.workshift_manager?
   end
 

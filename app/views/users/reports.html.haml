@@ -1,8 +1,18 @@
 .row
   .column.small-12
-    %h2 Weekly Hour Reports
+    %h2 Hour Reports
+  .column.small-12
+    %ul.button-group.round.stack-for-small
+      %li
+        = link_to 'View Semester Report', view_semester_report_path,
+          class: 'button small'
+      %li
+        = link_to 'Download Semester Report', download_semester_report_path,
+          class: 'button small'
+  .column.small-12
+    %h4 Weekly Reports
     :markdown
-      Hours reports are generated every Monday at 12:00AM, and are formatted
+      Weekly reports are generated every Monday at 12:00AM, and are formatted
       as **[CSV](http://en.wikipedia.org/wiki/Comma-separated_values)** files,
       with resident names in the first column and the number of hours they are
       up or down for the current week in the second column.

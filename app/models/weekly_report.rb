@@ -18,4 +18,14 @@ class WeeklyReport < ActiveRecord::Base
   def date
     created_at.strftime('%m/%d/%y')
   end
+
+  def self.semester_report
+    report = ''
+    CSV.generate(report) do |csv|
+      User.all.each do |user|
+        csv << [user.name, user.hours_balance]
+      end
+    end
+    report
+  end
 end

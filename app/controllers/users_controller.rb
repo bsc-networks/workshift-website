@@ -45,11 +45,23 @@ class UsersController < ApplicationController
     @reports = WeeklyReport.all
   end
 
+  def download_semester_report
+    authorize :user
+    report = WeeklyReport.semester_report
+    send_data report, type: 'text/csv; charset=utf-8; header=present',
+                      disposition: "attachment; filename=semester_report.csv"
+  end
+
   def download_report
     authorize :user
     report = WeeklyReport.find(params[:id])
     send_data report.text, type: 'text/csv; charset=utf-8; header=present',
                            disposition: "attachment; filename=#{report.title}"
+  end
+
+  def view_semester_report
+    authorize :user
+    @text = WeeklyReport.semester_report
   end
 
   def view_report

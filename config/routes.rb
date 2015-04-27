@@ -15,10 +15,15 @@ WorkshiftWebsite::Application.routes.draw do
          as: :update_category_preferences
     post 'settings/preferences/schedule' => :update_schedule, as: :update_schedule
     get 'residents/reports' => :reports, as: :reports
+    get 'residents/reports/semester' => :view_semester_report,
+         as: :view_semester_report
     get 'residents/reports/:id' => :view_report, as: :view_report
+    get 'residents/reports/semester/download' => :download_semester_report,
+        as: :download_semester_report
     get 'residents/reports/:id/download' => :download_report,
         as: :download_report
   end
+
   post 'workshift_assignments/:id/check_off' => 'workshift_assignments#check_off', as: :assignment_check_off
 
   devise_for :users
