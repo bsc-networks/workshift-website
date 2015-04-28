@@ -81,16 +81,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # Update the total hours balance for every user by adding their current
-  # weeks balance, then reset the weekly balance to 0
-  # def self.update_weekly_hours
-  #   User.all.each do |user|
-  #     user.hours_balance += user.weekly_hours
-  #     user.weekly_hours = 0
-  #     user.save
-  #   end
-  # end
-  
   # calculates whether or not each user is assigned to at least their
   # weekly required hours amount and updates their up/down count
   def self.update_all_users_weekly_hours
@@ -127,8 +117,8 @@ class User < ActiveRecord::Base
 
   #Time slots for a student schedule
   def self.available_hours
-    %w(8-9AM 9-10AM 10-11AM 11-12PM 12-1PM 1-2PM 2-3PM 3-4PM
-       4-5PM 5-6PM 6-7PM 7-8PM 8-9PM)
+    %w(7-8AM 8-9AM 9-10AM 10-11AM 11-12PM 12-1PM 1-2PM 2-3PM 3-4PM
+       4-5PM 5-6PM 6-7PM 7-8PM 8-9PM 9-10PM)
   end
 
   #Days for a student schedule

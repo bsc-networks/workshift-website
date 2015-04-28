@@ -79,6 +79,36 @@ class Workshift < ActiveRecord::Base
     days
   end
 
+  def self.time_to_hour_string(time)
+    hour = time.hour
+    if hour <= 12
+      period = (hour > 10) ? "PM" : "AM"
+      if (hour == 12)
+        hour_string = "12-1PM"
+      else
+        hour_string = "#{hour}-#{hour+1}#{period}"
+      end
+    else
+      hour -= 12 # adjust for AM/PM system
+      period = (hour == 11) ? "AM" : "PM"
+      hour_string = "#{hour}-#{hour+1}#{period}"
+    end
+    hour_string
+  end
+
+  def availability_of(user)
+    hour = start_time
+    unavailability = []
+    while hour < end_time
+      formatted_hour = Workshift.time_to_hour_string(hour)
+      if !user.schedule[weekday][formatted_hour]
+        unavailability << formatted_hour
+      end
+      hour += 1.hour
+    end
+    unavailability
+  end
+
   def weekday
     # return unless day >= 0 && day <= 6
     Date::DAYNAMES[day]
