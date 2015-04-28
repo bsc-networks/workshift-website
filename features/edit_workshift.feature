@@ -14,14 +14,14 @@ Feature: edit workshift
     When I fill in:
       | field                 | value            |
       | Task                  | Eat Eyeballs     |
-      | Hours                 | 4                |
+      | Hours                 | 4.5              |
       | StartTime             | 11:15 AM         |
       | Description           | What             |
     And I press "Update Workshift"
     Then I should see:
       | field                 | value            |
       | Task                  | Eat Eyeballs     |
-      | Hours                 | 4                |
+      | Hours                 | 4.5              |
       | StartTime             | 11:15 AM         |
       | Description           | What             |
     But I should still see:
@@ -32,7 +32,7 @@ Feature: edit workshift
     When I fill in:
       | field                 | value            |
       | Task                  | Eat Eyeballs     |
-      | Hours                 | 4                |
+      | Hours                 | 4.5              |
       | StartTime             | 11:15 AM         |
       | EndTime               | 11:00 AM         |
       | Description           | What             |
@@ -43,5 +43,14 @@ Feature: edit workshift
     When I fill in:
       | field                 | value            |
       | Task                  |                  |
+    And I press "Update Workshift"
+    Then I should see an error message: "Please review the problems below:"
+
+  Scenario: Shifts has to be in half-hour increments
+    When I fill in:
+      | field                 | value            |
+      | Task                  | Eat Eyeballs     |
+      | Hours                 | 1.3              |
+      | StartTime             | 11:15 AM         |
     And I press "Update Workshift"
     Then I should see an error message: "Please review the problems below:"
