@@ -5,8 +5,19 @@ WorkshiftWebsite::Application.routes.draw do
 
   root to: 'users#profile'
 
+  post 'workshift_assignments/:id/check_off' => 'workshift_assignments#check_off', as: :assignment_check_off
+
+  devise_for :users
+  devise_scope :user do
+    get 'login' => 'devise/sessions#new', as: :login
+    get 'settings' => 'devise/registrations#edit', as: :settings
+    get 'logout' => 'devise/sessions#destroy', as: :logout
+    get 'register' => 'devise/registrations#new', as: :register
+    get 'residents/add' => 'devise/invitations#new', as: :add_users
+    get 'setpw', to: 'devise/invitations#edit', as: :setpw
+  end
+
   scope controller: :users do
-    get 'profile/:id' => :profile, as: :user_profile
     get 'residents' => :index, as: :roster
     get 'settings/preferences' => :preferences, as: :preferences
     delete 'residents/delete/all' => :delete_all, as: :delete_all_users
@@ -22,18 +33,7 @@ WorkshiftWebsite::Application.routes.draw do
         as: :download_semester_report
     get 'residents/reports/:id/download' => :download_report,
         as: :download_report
-  end
-
-  post 'workshift_assignments/:id/check_off' => 'workshift_assignments#check_off', as: :assignment_check_off
-
-  devise_for :users
-  devise_scope :user do
-    get 'login' => 'devise/sessions#new', as: :login
-    get 'settings' => 'devise/registrations#edit', as: :settings
-    get 'logout' => 'devise/sessions#destroy', as: :logout
-    get 'register' => 'devise/registrations#new', as: :register
-    get 'residents/add' => 'devise/invitations#new', as: :add_users
-    get 'setpw', to: 'devise/invitations#edit', as: :setpw
+    get 'residents/:id' => :profile, as: :user_profile
   end
 
   resources :workshifts

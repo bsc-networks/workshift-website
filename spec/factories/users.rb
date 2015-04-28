@@ -41,6 +41,7 @@ FactoryGirl.define do
     display_email true
     workshift_manager false
     password 'secret'
+    schedule { Hash.new }
 
     factory :workshift_manager do
       workshift_manager true
