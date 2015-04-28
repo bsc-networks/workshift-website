@@ -158,6 +158,16 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def hours_balance_class
+    if hours_balance == 0
+      return ""
+    elsif hours_balance < 0
+      return "down_hours"
+    else
+      return "up_hours"
+    end
+  end
+
   def role
     return 'Workshift Manager' if workshift_manager?
     'Resident'

@@ -5,19 +5,19 @@
     - else
       %h2= @user.name
   .column.small-12.medium-6
-    %table#contact_info
+    %table#user_info
       %thead
         %tr
-          %td{ colspan: 3 } Contact Information
-        %tr
+          %td Total Points Balance
           %td Room Number
           %td Email
           %td Phone Number
       %tbody
         %tr
-          %td= @room_number
-          %td= @email
-          %td= @phone_number
+          %td{class: "#{@user.hours_balance_class}"}= @user.hours_balance
+          %td= (@user.room_number.length > 0) ? @user.room_number : ""
+          %td= (@user.display_email?) ? @user.email : ""
+          %td= (@user.display_phone_number? && @user.phone_number.length > 0) ? @user.phone_number : ""
   .column.small-12.medium-6
     %table#user_category_preferences
       %thead
