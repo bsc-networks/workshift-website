@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def reports
     authorize :user
-    @reports = WeeklyReport.all
+    @reports = WeeklyReport.order('created_at DESC')
   end
 
   def download_semester_report
@@ -71,6 +71,7 @@ class UsersController < ApplicationController
 
   def preferences
     @categories = Category.all
+    @schedule = current_user.schedule == {} ? User.create_schedule : current_user.schedule
   end
 
   def update_category_preferences
@@ -83,6 +84,7 @@ class UsersController < ApplicationController
     rescue ArgumentError => e
       flash[:alert] = e.message
       @categories = Category.all
+      @schedule = current_user.schedule == {} ? User.create_schedule : current_user.schedule
       render 'users/preferences'
     end
   end

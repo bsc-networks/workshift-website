@@ -4,7 +4,9 @@
   .column.small-12.medium-6
     %h5 Contact Information
     %ul
-      %li= @user.role
+      - if @user.workshift_manager?
+        %li
+          %span.label Workshift Manager
       - if @user.room_number.length > 0
         %li Room #{@user.room_number}
       - if @user.display_email?
