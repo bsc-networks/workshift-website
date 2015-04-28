@@ -22,7 +22,9 @@ class WorkshiftAssignmentsController < ApplicationController
   end
 
   def marketplace_index
-    @assignments_on_sale = WorkshiftAssignment.assignments_on_market
+    assignments_on_sale = WorkshiftAssignment.assignments_on_market
+    @users_shifts = assignments_on_sale.where("workshifter_id = ?", current_user)
+    @buyable_shifts = assignments_on_sale.where("workshifter_id != ?", current_user)
   end
 
   def put_on_market
