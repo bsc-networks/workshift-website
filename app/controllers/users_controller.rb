@@ -16,6 +16,9 @@ class UsersController < ApplicationController
     @workshift_assignments_history = @user.workshift_assignments.select do |assignment|
       assignment.status != 'upcoming'
     end
+    @room_number = @user.room_number.length > 0 ? @user.room_number : ''
+    @email = @user.display_email? ? @user.email : ''
+    @phone_number = (@user.display_phone_number? && @user.phone_number.length > 0) ? @user.phone_number : ''
   end
 
   def add_users
@@ -42,7 +45,7 @@ class UsersController < ApplicationController
 
   def reports
     authorize :user
-    @reports = WeeklyReport.all
+    @reports = WeeklyReport.order('created_at DESC')
   end
 
   def download_semester_report
@@ -71,6 +74,7 @@ class UsersController < ApplicationController
 
   def preferences
     @categories = Category.all
+    @schedule = current_user.schedule == {} ? User.create_schedule : current_user.schedule
   end
 
   def update_category_preferences
@@ -83,6 +87,7 @@ class UsersController < ApplicationController
     rescue ArgumentError => e
       flash[:alert] = e.message
       @categories = Category.all
+      @schedule = current_user.schedule == {} ? User.create_schedule : current_user.schedule
       render 'users/preferences'
     end
   end
