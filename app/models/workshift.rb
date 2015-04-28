@@ -21,14 +21,13 @@ class Workshift < ActiveRecord::Base
   attr_accessible :start_time, :end_time, :day, :task, :category_id,
                   :description, :hours
   # after_create :apply_time_zone
-  validates :start_time, :end_time, :day, :task,
+  validates :start_time, :end_time, :day, :task, :hours,
             :description, presence: true
   validates :day, numericality: { only_integer: true,
                                   greater_than_or_equal_to: 0,
                                   less_than_or_equal_to: 6 }
-  validate :end_time_later_than_start_time #not working w/ timezones
-  validate :is_multiple_of_5
-
+  validate :end_time_later_than_start_time # not working w/ timezones
+  validate :multiple_of_5?
 
   def assign_worker(uid)
     worker = User.find_by_id(uid)
@@ -52,7 +51,7 @@ class Workshift < ActiveRecord::Base
         start_time: start_time,
         end_time: end_time,
         hours: self.hours,
-        status: "upcoming",
+        status: 'upcoming',
     })
     assignment.assign_workshifter(self.user)
     assignment.save!
@@ -63,8 +62,9 @@ class Workshift < ActiveRecord::Base
     errors.add(:end_time, 'must be later than the starting time.')
   end
 
-  def is_multiple_of_5
-    return if (self.hours*10)%5 == 0 # if hours*10 is divisible by 5: 1.5 ->15
+  def multiple_of_5?
+    return if hours.nil?
+    return if (hours * 10) % 5 == 0 # if hours*10 is divisible by 5: 1.5 ->15
     errors.add(:hours, 'must be in half hour increments.')
   end
 
@@ -83,7 +83,7 @@ class Workshift < ActiveRecord::Base
 
   def category_name
     return category.name unless category.nil?
-    "Uncategorized"
+    'Uncategorized'
   end
 
   def formatted_start_time
