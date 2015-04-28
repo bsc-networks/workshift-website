@@ -5,16 +5,16 @@
         %tr
           %th Day
           %th Task
+          %th Hours
           %th Sign Off Time
           %th Status
           %th Verifier
-          %th
-          %th
       %tbody
         - workshift_assignments.each do |workshift_assignment|
           %tr
             %td= workshift_assignment.weekday
             %td= workshift_assignment.task
+            %td= workshift_assignment.hours
             %td= workshift_assignment.sign_off_time
             %td= workshift_assignment.status
             %td
@@ -22,6 +22,3 @@
                 = link_to workshift_assignment.verifier.name, user_profile_path(workshift_assignment.verifier)
               - else
               None
-            %td= link_to 'Show', workshift_assignment.workshift
-            - if policy(:workshift).edit?
-              %td= link_to 'Edit', edit_workshift_path(workshift_assignment.workshift)

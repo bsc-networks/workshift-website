@@ -6,7 +6,7 @@
       %thead
         %tr
           %td Resident
-          //%td Hours
+          %td Hours Balance
           %td Room Number
           %td Email
           %td Phone Number
@@ -14,7 +14,7 @@
         - @users.each do |user|
           %tr
             %td= link_to user.name, user_profile_path(user)
-            //%td= user.hours
+            %td{class: "#{user.hours_balance_class}"}= user.hours_balance
             %td= (user.room_number.length > 0) ? user.room_number : ""
             %td= (user.display_email?) ? user.email : ""
             %td= (user.display_phone_number? && user.phone_number.length > 0) ? user.phone_number : ""

@@ -1,6 +1,14 @@
 .row
   .column.small-12
     %h1 Workshift Marketplace
+    :markdown
+      Residents can buy and sell shifts here. Sell shifts that you are unable to
+      complete and you will only lose 1x the amount of hours the shift is worth, 
+      versus losing 2x the amount of hours if you blow the shift. You will not be 
+      penalized if no one buys the shift **as long as** you sell the shift **at least
+      24 hours before** it is begins. Buying shifts and completing them will increase your
+      hours balance by 1x the amount of hours the shift is worth. **IMPORTANT:** Once
+      you buy a shift it becomes **YOUR** responsibility.
 
 .row
   .column.small-12
@@ -27,7 +35,7 @@
             %td= assignment.formatted_end_time
             %td
               = form_tag assignment_undo_sell_path(assignment) do
-                = submit_tag "Undo Sell", data: { confirm: 'Are you sure you want to undo the sale of your shift?' }
+                = submit_tag "Undo Sell", class: 'button small radius', data: { confirm: 'Are you sure you want to undo the sale of your shift?' }
 
 .row
   .column.small-12
@@ -54,4 +62,4 @@
             %td= assignment.formatted_end_time
             %td
               = form_tag assignment_sell_to_path(assignment, current_user) do
-                = submit_tag "Buy Shift", data: { confirm: 'Are you sure you want to buy this shift?' }
+                = submit_tag "Buy Shift", class: 'button', data: { confirm: 'Are you sure you want to buy this shift?' }
