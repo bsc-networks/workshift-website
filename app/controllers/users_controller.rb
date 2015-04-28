@@ -16,6 +16,9 @@ class UsersController < ApplicationController
     @workshift_assignments_history = @user.workshift_assignments.select do |assignment|
       assignment.status != 'upcoming'
     end
+    @room_number = @user.room_number.length > 0 ? @user.room_number : ''
+    @email = @user.display_email? ? @user.email : ''
+    @phone_number = (@user.display_phone_number? && @user.phone_number.length > 0) ? @user.phone_number : ''
   end
 
   def add_users

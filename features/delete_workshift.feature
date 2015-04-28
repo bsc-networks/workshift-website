@@ -13,5 +13,5 @@ Feature: workshift manager create shifts
     And I am signed in as a workshift manager
 
   Scenario: I can delete a workshift
-    When I am on the workshifts page
-    Then I should be able to click on "Destroy" for the task "Groceries"
+    When I am on the view page for workshift "Groceries"
+    Then I should see "Delete"
