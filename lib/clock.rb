@@ -7,7 +7,7 @@ module Clockwork
     logger.info "Running #{job} at time #{time}"
   end
 
-  every(1.week, 'update.resident.weekly.hours', at: 'Monday 00:00') do
+  every(1.week, 'update.resident.weekly.hours', at: 'Tuesday 00:00') do
     WeeklyReport.create!
   end
 end
