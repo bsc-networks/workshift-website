@@ -27,6 +27,7 @@ class Workshift < ActiveRecord::Base
                                   greater_than_or_equal_to: 0,
                                   less_than_or_equal_to: 6 }
   validate :end_time_later_than_start_time #not working w/ timezones
+  validate :is_multiple_of_5
 
 
   def assign_worker(uid)
@@ -60,6 +61,11 @@ class Workshift < ActiveRecord::Base
   def end_time_later_than_start_time
     return if end_time > start_time
     errors.add(:end_time, 'must be later than the starting time.')
+  end
+
+  def is_multiple_of_5
+    return if (self.hours*10)%5 == 0 # if hours*10 is divisible by 5: 1.5 ->15
+    errors.add(:hours, 'must be in half hour increments.')
   end
 
   def self.valid_days

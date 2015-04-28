@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20150428054057) do
     t.string   "room_number",            :default => ""
     t.boolean  "display_phone_number",   :default => false
     t.boolean  "display_email",          :default => false
+    t.integer  "weekly_hours",           :default => 0,     :null => false
     t.float    "hours_balance",          :default => 0.0,   :null => false
     t.text     "schedule"
   end
@@ -93,9 +94,8 @@ ActiveRecord::Schema.define(:version => 20150428054057) do
     t.integer  "workshifter_id"
     t.integer  "verifier_id"
     t.integer  "workshift_id"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.boolean  "purchased",      :default => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "workshifts", :force => true do |t|
