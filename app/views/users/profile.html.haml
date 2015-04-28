@@ -1,30 +1,33 @@
 .row
   .column.small-12
-    %h2= @user.name
+    - if @user.role != 'Resident'
+      %h2== #{@user.name} (#{@user.role})
+    - else
+      %h2= @user.name
   .column.small-12.medium-6
-    %h5 Contact Information
-    %ul
-      - if @user.workshift_manager?
-        %li
-          %span.label Workshift Manager
-      - if @user.room_number.length > 0
-        %li Room #{@user.room_number}
-      - if @user.display_email?
-        %li
-          %b Email:
-          = @user.email
-      - if @user.display_phone_number? && @user.phone_number.length > 0
-        %li
-          %b Phone:
-          = @user.phone_number
+    %table#contact_info
+      %thead
+        %tr
+          %td{ colspan: 3 } Contact Information
+        %tr
+          %td Room Number
+          %td Email
+          %td Phone Number
+      %tbody
+        %tr
+          %td= @room_number
+          %td= @email
+          %td= @phone_number
   .column.small-12.medium-6
-    %h5 Workshift Category Preferences
-    %ul
-      - @preferences.each do |preference|
-        %li
-          = link_to preference.category.name, preference.category
-          = preference.rank
-
+    %table#user_category_preferences
+      %thead
+        %tr
+          %td{ colspan: 2 } Workshift Category Preferences
+      %tbody
+        - @preferences.each do |preference|
+          %tr
+            %td= preference.rank
+            %td= link_to preference.category.name, preference.category
 
 
   %h3.column.small Current Workshift Assignments
@@ -32,7 +35,7 @@
     = render 'users/workshift_assignments',
       workshift_assignments: @workshift_assignments
 
-  %h3.column.small History of Workshift Assignments
+  %h3.column.small Workshift Log
   .column.small-12
     = render 'users/workshift_assignments_history',
       workshift_assignments: @workshift_assignments_history

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150420224218) do
+ActiveRecord::Schema.define(:version => 20150428054057) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(:version => 20150420224218) do
     t.string   "room_number",            :default => ""
     t.boolean  "display_phone_number",   :default => false
     t.boolean  "display_email",          :default => false
-    t.integer  "hours_balance",          :default => 0,     :null => false
+    t.float    "hours_balance",          :default => 0.0,   :null => false
     t.text     "schedule"
   end
 
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20150420224218) do
     t.time     "start_time"
     t.time     "end_time"
     t.date     "date"
-    t.integer  "hours"
+    t.float    "hours"
     t.text     "schedule_id"
     t.datetime "sign_off_time"
     t.string   "status"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(:version => 20150420224218) do
     t.integer  "day"
     t.text     "description"
     t.string   "task"
-    t.integer  "hours"
+    t.float    "hours"
     t.integer  "user_id"
     t.integer  "category_id"
   end
