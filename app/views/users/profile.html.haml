@@ -1,6 +1,6 @@
 .row
   .column.small-12
-    - if @user.role != "Resident"
+    - if @user.role != 'Resident'
       %h2== #{@user.name} (#{@user.role})
     - else
       %h2= @user.name
@@ -8,21 +8,21 @@
     %table#contact_info
       %thead
         %tr
-          %td{colspan: 3} Contact Information
+          %td{ colspan: 3 } Contact Information
         %tr
           %td Room Number
           %td Email
           %td Phone Number
       %tbody
         %tr
-          %td= (@user.room_number.length > 0) ? @user.room_number : ""
-          %td= (@user.display_email?) ? @user.email : ""
-          %td= (@user.display_phone_number? && @user.phone_number.length > 0) ? @user.phone_number : ""
+          %td= @room_number
+          %td= @email
+          %td= @phone_number
   .column.small-12.medium-6
     %table#user_category_preferences
       %thead
         %tr
-          %td{colspan: 2} Workshift Category Preferences
+          %td{ colspan: 2 } Workshift Category Preferences
       %tbody
         - @preferences.each do |preference|
           %tr
