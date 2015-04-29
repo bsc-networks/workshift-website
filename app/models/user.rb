@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
     current_week_end = Chronic.parse "last Saturday at 23:59"
     current_week_start = current_week_end - 1.week
     User.all.each do |user|
-      users_shifts = WorkshiftAssignment.where("workshifter = ? and date > ? and date < ?", user.name, current_week_start, current_week_end)
+      users_shifts = WorkshiftAssignment.where("workshifter_id = ? and date > ? and date < ?", user, current_week_start, current_week_end)
       assigned_hours = users_shifts.sum(:hours)
       if assigned_hours < user.required_hours
         user.hours_balance -= (user.required_hours - assigned_hours)
