@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
       assigned_hours = users_shifts.sum(:hours)
       if assigned_hours < user.required_hours
         user.hours_balance -= (user.required_hours - assigned_hours)
+        user.save!
       end
     end
   end

@@ -18,6 +18,7 @@ WorkshiftWebsite::Application.routes.draw do
   end
 
   scope controller: :users do
+    get 'profile/:id' => :profile, as: :user_profile
     get 'residents' => :index, as: :roster
     get 'settings/preferences' => :preferences, as: :preferences
     delete 'residents/delete/all' => :delete_all, as: :delete_all_users
