@@ -29,6 +29,16 @@
             %td= preference.rank
             %td= link_to preference.category.name, preference.category
 
+  - if policy(:user).update_required_hours?
+    .settings-section.column.small-12.medium-6
+      %fieldset
+        %legend Required Weekly Hours
+        .column.small-6
+          %p= "Current Required Hours: #{@user.required_hours}"
+          = form_tag update_required_hours_path(@user)
+          = label_tag :required_hours, "New Required Hours"
+          = number_field_tag :required_hours, @user.required_hours, step: 0.5
+          = submit_tag "Change Required Hours", class: 'button'
 
   %h3.column.small Current Workshift Assignments
   .column.small-12

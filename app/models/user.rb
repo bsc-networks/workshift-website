@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :room_number, :phone_number, :display_email,
-                  :display_phone_number, :schedule
+                  :display_phone_number, :schedule, :required_hours
 
   serialize :schedule, Hash
 
@@ -88,6 +88,22 @@ class User < ActiveRecord::Base
       user.hours_balance += user.weekly_hours
       user.weekly_hours = 0
       user.save
+    end
+  end
+
+  # calculates whether or not each user is assigned to at least their
+  # weekly required hours amount and updates their up/down count
+  def self.update_all_users_weekly_hours
+    Time.zone = "UTC"
+    Chronic.time_class = Time.zone
+    current_week_end = Chronic.parse "last Saturday at 23:59"
+    current_week_start = current_week_end - 1.week
+    User.all.each do |user|
+      users_shifts = WorkshiftAssignment.where("workshifter = ? and date > ? and date < ?", user.name, current_week_start, current_week_end)
+      assigned_hours = users_shifts.sum(:hours)
+      if assigned_hours < user.required_hours
+        user.hours_balance -= (user.required_hours - assigned_hours)
+      end
     end
   end
 
@@ -132,6 +148,14 @@ class User < ActiveRecord::Base
       end
     end
     return new_schedule
+  end
+
+  def update_required_hours(hours)
+    if hours % 0.5 != 0
+      fail ArgumentError, "Required hours must be divisible by 0.5"
+    end
+    self.required_hours = hours
+    self.save!
   end
 
   def role

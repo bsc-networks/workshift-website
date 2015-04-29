@@ -36,6 +36,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_required_hours
+    authorize :user
+    @user = User.find_by_id(params[:id])
+    @user.update_required_hours(params[:required_hours].to_f)
+    redirect_to user_profile_path(@user)
+  end
+
   def delete_all
     authorize :user
     User.delete_all_residents
