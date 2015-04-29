@@ -65,10 +65,9 @@ ActiveRecord::Schema.define(:version => 20150428230734) do
     t.string   "room_number",            :default => ""
     t.boolean  "display_phone_number",   :default => false
     t.boolean  "display_email",          :default => false
-    t.integer  "weekly_hours",           :default => 0,     :null => false
     t.float    "hours_balance",          :default => 0.0,   :null => false
     t.text     "schedule"
-    t.float    "required_hours",         :default => 5.0
+    t.float    "required_hours",         :default => 5.0,   :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
