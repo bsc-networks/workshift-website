@@ -9,5 +9,6 @@ module Clockwork
 
   every(1.week, 'update.resident.weekly.hours', at: 'Tuesday 00:00') do
     WeeklyReport.create!
+    User.update_all_users_weekly_hours
   end
 end

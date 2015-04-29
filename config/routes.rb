@@ -25,6 +25,7 @@ WorkshiftWebsite::Application.routes.draw do
     post 'settings/preferences/categories' => :update_category_preferences,
          as: :update_category_preferences
     post 'settings/preferences/schedule' => :update_schedule, as: :update_schedule
+    post 'residents/:id/settings/required_hours' => :update_required_hours, as: :update_required_hours
     get 'residents/reports' => :reports, as: :reports
     get 'residents/reports/semester' => :view_semester_report,
          as: :view_semester_report
