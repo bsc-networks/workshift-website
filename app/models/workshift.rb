@@ -96,7 +96,11 @@ class Workshift < ActiveRecord::Base
     hour_string
   end
 
-  def availability_of(user)
+  def end_to_start_hours
+    end_time.hour - start_time.hour
+  end
+
+  def unavailability_of(user)
     hour = start_time
     unavailability = []
     while hour < end_time
@@ -107,6 +111,29 @@ class Workshift < ActiveRecord::Base
       hour += 1.hour
     end
     unavailability
+  end
+
+  def best_assignment_candidates
+    best_candidates = {
+      highest_pref: [],
+      most_needed_hours: []
+    }
+    available = []
+    User.all.each do |user|
+      user_unavailability = unavailability_of(user)
+      if user_unavailability.length != end_to_start_hours
+        # if user is not completely unavailable
+        available << [user, user_unavailability]
+      end
+    end
+    best_candidates[:highest_pref] = available.sort do |a, b| 
+      a_rank = a[0].preferences.where("category_id = ?", category).first.rank
+      b_rank = b[0].preferences.where("category_id = ?", category).first.rank
+      a_rank <=> b_rank
+    end
+    best_candidates[:most_needed_hours] = available.sort do |a, b|
+      #a_hours = a[0].required_hours - a[0].
+    end
   end
 
   def weekday

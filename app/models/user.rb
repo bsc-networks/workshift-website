@@ -49,6 +49,8 @@ class User < ActiveRecord::Base
                   :name, :room_number, :phone_number, :display_email,
                   :display_phone_number, :schedule, :required_hours, :hours_balance
 
+  after_create :init_schedule
+
   serialize :schedule, Hash
 
   # Invites each of the users whose information is contained in the input,
@@ -109,10 +111,15 @@ class User < ActiveRecord::Base
     end
     days.each do |day|
       hours.each do |hour|
-        new_schedule[day][hour] = false
+        new_schedule[day][hour] = true
       end
     end
     new_schedule
+  end
+
+  def init_schedule
+    self.schedule = User.create_schedule
+    self.save!
   end
 
   #Time slots for a student schedule
