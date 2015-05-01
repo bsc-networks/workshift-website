@@ -156,6 +156,15 @@ class User < ActiveRecord::Base
     required_hours - workshifts.sum(:hours)
   end
 
+  def hours_assigned_class
+    assignment_deficit = needed_hours
+    if assignment_deficit <= 0
+      return ""
+    else
+      return "down_hours"
+    end
+  end
+
   def hours_balance_class
     if hours_balance == 0
       return ""
