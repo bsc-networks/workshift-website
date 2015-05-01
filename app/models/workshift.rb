@@ -29,9 +29,22 @@ class Workshift < ActiveRecord::Base
   validate :end_time_later_than_start_time # not working w/ timezones
   validate :multiple_of_5?
 
+  before_destroy :unassign_worker
+
+  def unassign_worker
+    if self.user # delete current assignment
+      current_assignment = workshift_assignments.order(date: :desc).first
+      if current_assignment.status == "upcoming"
+        Rufus::Scheduler.singleton.job(current_assignment.schedule_id).unschedule
+        current_assignment.destroy
+      end
+    end
+  end
+
   def assign_worker(uid)
     worker = User.find_by_id(uid)
     if worker != self.user
+      unassign_worker
       self.user = worker
       # to delete or not to delete old user's current assignment
       # generate new assignment for new user immediately
@@ -119,21 +132,52 @@ class Workshift < ActiveRecord::Base
       most_needed_hours: []
     }
     available = []
+    has_ranking = (!!category)
     User.all.each do |user|
-      user_unavailability = unavailability_of(user)
-      if user_unavailability.length != end_to_start_hours
+      unavailability = unavailability_of(user)
+      if unavailability.length < end_to_start_hours && user.needed_hours > 0
         # if user is not completely unavailable
-        available << [user, user_unavailability]
+        if has_ranking
+          ranking = user.preferences.where("category_id = ?", category).first.rank
+        end
+        needed_hours = user.needed_hours
+        available << [user, unavailability, ranking, needed_hours]
       end
     end
-    best_candidates[:highest_pref] = available.sort do |a, b| 
-      a_rank = a[0].preferences.where("category_id = ?", category).first.rank
-      b_rank = b[0].preferences.where("category_id = ?", category).first.rank
-      a_rank <=> b_rank
+
+    if !has_ranking
+      best_candidates[:highest_pref] = []
+    else
+      best_candidates[:highest_pref] = available.sort do |a, b| 
+        a_rank = a[2]
+        b_rank = b[2]
+        case
+        when a_rank < b_rank
+          -1
+        when a_rank == b_rank
+          # secondary ordering = availability
+          a[1].length <=> b[1].length
+        else
+          1
+        end
+      end
     end
+
     best_candidates[:most_needed_hours] = available.sort do |a, b|
-      #a_hours = a[0].required_hours - a[0].
+      a_hours = a[3]
+      b_hours = b[3]
+      case
+      when a_hours < b_hours
+        1
+      when a_hours == b_hours
+        # secondary ordering = availability
+        a[1].length <=> b[1].length
+      else
+        -1
+      end
     end
+
+    best_candidates
   end
 
   def weekday

@@ -10,6 +10,7 @@ class WorkshiftAssignment < ActiveRecord::Base
 
   validates :start_time, :end_time, :date, :task, :hours,
             :description, :status, presence: true
+  before_destroy :unschedule_task
 
   def self.assignments_on_market
     WorkshiftAssignment.where("status = 'on market' OR status = 'on market (late)'")
@@ -24,6 +25,12 @@ class WorkshiftAssignment < ActiveRecord::Base
     purchased
   end
 
+  def gen_next_assignment
+    if workshifter == workshift.user # still assigned to workshift
+      self.workshift.generate_next_assignment
+    end
+  end
+
   # Generate weekly report pull out all info
   # for loop, different cases whether it was attempted sold/sold/done
 
@@ -32,7 +39,7 @@ class WorkshiftAssignment < ActiveRecord::Base
       self.verifier = verifier
       self.status = "Completed"
       self.sign_off_time = Time.zone.now # NEEDS TO BE FIXED PROBABLY
-      self.workshift.generate_next_assignment
+      gen_next_assignment
       self.save!
     end
   end
@@ -70,15 +77,6 @@ class WorkshiftAssignment < ActiveRecord::Base
     self.save!
   end
 
-  # def buy_workshift
-  #   self.status = "upcoming"
-  #   clone_workshift
-  #   #self.schedule_id = Rufus::Scheduler.singleton.at(begin_workshift_date.to_s) do off_market_check
-  #   #Rufus::Scheduler.singleton.job(self.schedule_id).unschedule
-  #   self.schedule_id = schedule_in_progress_status
-  #   self.save!
-  # end
-
   def sell_to(buyer) # when buyer clicks buy
     self.status = "sold"
     update_workshifter_hours_balance
@@ -87,7 +85,7 @@ class WorkshiftAssignment < ActiveRecord::Base
     cloned_assignment.assign_workshifter(buyer)
     cloned_assignment.save!
     self.schedule_id = Rufus::Scheduler.singleton.at "#{end_workshift_date.to_s}" do
-      self.workshift.generate_next_assignment
+      gen_next_assignment
     end
     self.save!
   end
@@ -114,6 +112,12 @@ class WorkshiftAssignment < ActiveRecord::Base
     Rufus::Scheduler.singleton.job(self.schedule_id).unschedule
     schedule_in_progress_status
     self.save!
+  end
+
+  def unschedule_task
+    if self.schedule_id
+      Rufus::Scheduler.singleton.job(self.schedule_id).unschedule
+    end
   end
 
   def begin_workshift_date
@@ -153,11 +157,7 @@ class WorkshiftAssignment < ActiveRecord::Base
         self.workshifter.hours_balance += self.hours
       end
     when "blown"
-      if purchased?
-        self.workshifter.hours_balance -= self.hours
-      else
-        self.workshifter.hours_balance -= self.hours * 2
-      end
+      self.workshifter.hours_balance -= self.hours * 2
     when "sold"
       if purchased?
         # no points lost if bought and resold
@@ -199,7 +199,7 @@ class WorkshiftAssignment < ActiveRecord::Base
     if status == "awaiting check off"
       self.status = "blown"
       update_workshifter_hours_balance
-      self.workshift.generate_next_assignment
+      gen_next_assignment
       self.save!
     end
   end
@@ -209,11 +209,11 @@ class WorkshiftAssignment < ActiveRecord::Base
     if status == "on market"
       self.status = "missed"
       update_workshifter_hours_balance
-      self.workshift.generate_next_assignment
+      gen_next_assignment
     elsif status == "on market (late)"
       self.status = "blown"
       update_workshifter_hours_balance
-      self.workshift.generate_next_assignment
+      gen_next_assignment
     end
     self.save!
   end

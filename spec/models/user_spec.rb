@@ -127,16 +127,16 @@ describe User do
     it 'allows creation of a schedule' do
       @user.schedule = User.create_schedule
       expect(@user.schedule).to include("Monday", "Tuesday", "Saturday")
-      expect(@user.schedule["Monday"]["11-12PM"]).to eq(false)
+      expect(@user.schedule["Monday"]["11-12PM"]).to eq(true)
     end
 
     it 'allows updates to a schedule' do
       @user.schedule = User.create_schedule
       new_schedule = User.create_schedule
       expect(new_schedule).to include("Monday")
-      new_schedule["Monday"]["11-12PM"] = true
+      new_schedule["Monday"]["11-12PM"] = false
       @user.schedule = new_schedule
-      expect(@user.schedule["Monday"]["11-12PM"]).to eq(true)
+      expect(@user.schedule["Monday"]["11-12PM"]).to eq(false)
     end
 
     it 'parses a schedule from views' do
