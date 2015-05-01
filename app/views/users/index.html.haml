@@ -7,6 +7,8 @@
         %tr
           %td Resident
           %td Hours Balance
+          - if policy(:workshift).edit?
+            %td Hours Assigned / Hours Needed
           %td Room Number
           %td Email
           %td Phone Number
@@ -15,6 +17,8 @@
           %tr
             %td= link_to user.name, user_profile_path(user)
             %td{class: "#{user.hours_balance_class}"}= user.hours_balance
+            - if policy(:workshift).edit?
+              %td{class: "#{user.hours_assigned_class}"}="#{user.workshifts.sum(:hours)} / #{user.required_hours}"
             %td= (user.room_number.length > 0) ? user.room_number : ""
             %td= (user.display_email?) ? user.email : ""
             %td= (user.display_phone_number? && user.phone_number.length > 0) ? user.phone_number : ""
