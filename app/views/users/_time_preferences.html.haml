@@ -19,6 +19,7 @@
                 %td= slot
                 - schedule.each do |day, hours|
                   %td
+                    = hidden_field_tag "schedule[#{day}][#{slot}]", false, id: nil
                     = check_box_tag "schedule[#{day}][#{slot}]", 'yes',
                       !!(schedule[day][slot])
         .column.small-12

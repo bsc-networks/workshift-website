@@ -12,6 +12,9 @@ class WorkshiftsController < ApplicationController
 
   def show
     authorize @workshift
+    if current_user.workshift_manager?
+      @insights = @workshift.best_assignment_candidates
+    end
     respond_with(@workshift)
   end
 

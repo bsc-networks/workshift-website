@@ -101,9 +101,7 @@ class UsersController < ApplicationController
 
   def update_schedule
     authorize current_user
-    schedule_params = params[:schedule]
-    #begin
-    new_schedule = User.parse_schedule_params(schedule_params)
+    new_schedule = User.parse_schedule_params(params[:schedule])
     current_user.schedule = new_schedule
     current_user.save!
     flash[:notice] = 'Successfully updated student schedule'

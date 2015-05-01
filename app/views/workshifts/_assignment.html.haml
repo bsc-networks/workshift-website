@@ -1,0 +1,28 @@
+.row
+  = simple_form_for(@workshift) do |f|
+    .settings-section.column.small-12.medium-6
+      %fieldset
+        %legend Workshifter Assignment
+        .column.small-12.medium-4.large-6
+          = f.input :user, collection: User.all, label_method: :name, value_method: :id, include_blank: true, selected: @workshift.user_id, disabled: true, label: 'Current Workshifter:'
+        .column.small-5.medium-4.large-6
+          = f.input :user, collection: User.all, label_method: :name, value_method: :id, include_blank: true, label: 'New Workshifter:'
+        .column.small-12
+          = f.button :submit, 'Assign New Workshifter', class: 'button small'
+    .settings-section.column.small-12.medium-12
+      %fieldset#insights
+        %legend Recommended Candidates
+        .column.small-6.medium-6.large-6
+          %h5 Highest Preference:
+          %ul
+          - @insights[:highest_pref].first(15).each do |candidate|
+            %li= link_to(candidate[0].name, user_profile_path(candidate[0])) + " (rank = #{candidate[2]})"
+            - if candidate[1].length > 0
+              %span.alert= "unavailable at these times: #{candidate[1]}"
+        .column.small-6.medium-6.large-6
+          %h5 Most Needed Hours:
+          %ul
+          - @insights[:most_needed_hours].first(15).each do |candidate|
+            %li= link_to(candidate[0].name, user_profile_path(candidate[0])) + " (hours needed = #{candidate[3]})"
+            - if candidate[1].length > 0
+              %span.alert= "unavailable at these times: #{candidate[1]}"

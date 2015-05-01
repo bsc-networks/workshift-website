@@ -138,11 +138,7 @@ class User < ActiveRecord::Base
     new_schedule = User.create_schedule
     schedule_params.each do |day, times|
       times.each do |time, free|
-        if free == "yes" then
-          new_schedule[day][time] = true
-        else
-          new_schedule[day][time] = false
-        end
+        new_schedule[day][time] = (free == "yes")
       end
     end
     return new_schedule
@@ -154,6 +150,10 @@ class User < ActiveRecord::Base
     end
     self.required_hours = hours
     self.save!
+  end
+
+  def needed_hours
+    required_hours - workshifts.sum(:hours)
   end
 
   def hours_balance_class
