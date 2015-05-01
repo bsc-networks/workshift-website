@@ -49,3 +49,25 @@
   .column.small-12
     = render 'users/workshift_assignments_history',
       workshift_assignments: @workshift_assignments_history
+
+  %h3.column.small Schedule
+  .column.small-12
+    %table#user_schedule
+      %thead
+        %tr
+          %th
+          - User.available_days.each do |day|
+            %th{ width: '150' }= day
+      %tbody
+        - User.available_hours.each do |slot|
+          %tr
+            %td= slot
+            - @user.schedule.each do |day, hours|
+              - if @user.schedule[day][slot] == true then
+                %td{:bgcolor=> "#2A7C58"}
+                  <!-- %font{:color => "#FFFFFF"} Free -->
+              - else
+                %td{:bgcolor => "#8E3030"}
+                  <!--%font{:color => "#FFFFFF"} Busy -->
+
+

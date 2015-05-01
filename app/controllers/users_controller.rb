@@ -106,10 +106,5 @@ class UsersController < ApplicationController
     current_user.save!
     flash[:notice] = 'Successfully updated student schedule'
     redirect_to root_url
-    #rescue ArgumentError => e
-    #  flash[:alert] = e.message
-    #  @categories = Category.all
-    #  render 'users/preferences'
-    #end
   end
 end
