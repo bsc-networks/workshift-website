@@ -94,8 +94,8 @@ ActiveRecord::Schema.define(:version => 20150428230734) do
     t.integer  "workshifter_id"
     t.integer  "verifier_id"
     t.integer  "workshift_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "category_id"
     t.boolean  "purchased",      :default => false
   end
