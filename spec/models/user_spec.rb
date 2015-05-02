@@ -10,6 +10,30 @@ describe User do
     expect(create(:workshift_manager).workshift_manager).to be true
   end
 
+  it 'does not update a users required hours if its invalid' do
+    user = create(:user)
+    expect{user.update_required_hours(0.1)}.to raise_error ArgumentError
+  end
+
+  it 'returns the correct hours balance messages' do
+    user = create(:user)
+    user.hours_balance = 5
+    expect(user.hours_balance_class).to eq("up_hours")
+    expect(user.hours_assigned_class).to eq("down_hours")
+    user.hours_balance = -2
+    expect(user.hours_balance_class).to eq("down_hours")
+    allow(user).to receive(:needed_hours).and_return(-1)
+    expect(user.hours_assigned_class).to eq("")
+  end
+
+  it 'updates a users required hours' do
+    user = create(:user)
+    user.update_required_hours(0.5)
+    expect(user.required_hours).to eq(0.5)
+    user.update_required_hours(2)
+    expect(user.required_hours).to eq(2)
+  end
+
   describe 'wiping current residents from database' do
     it 'removes every user from the database except for workshift managers' do
       workshift_manager_1 = create(:workshift_manager)
