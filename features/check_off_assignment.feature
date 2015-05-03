@@ -10,7 +10,7 @@ Feature: Residents can mark workshifts as completed
     And I am assigned to the shift "Wash the dishes"
     And I am on my profile page
 
-  # Scenario: I try to check off the shift before it starts
+   Scenario: I try to check off the shift before it starts
   #   Given my assignment has not started yet
   #   And I check off my assignment as completed with verifier "Bobby Gee"
   #   Then my assignment should still be "upcoming"
