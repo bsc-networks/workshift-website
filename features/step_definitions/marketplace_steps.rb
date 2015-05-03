@@ -18,6 +18,7 @@ Given(/^I put my workshift "(.*?)" on the market before the (\d+) hour deadline$
 end
 
 
+
 Then(/^I can see my workshift on the marketplace$/) do
   #pending # express the regexp above with the code you wish you had
   visit marketplace_path
@@ -40,14 +41,20 @@ Then(/^I should see the workshift as sold$/) do
   step "I should see \"sold\""
 end
 
-Given(/^no one buys my shift and the workshift has passed$/) do
+Given(/^no one buys my shift "(.*?)" and the workshift has passed$/) do |shift|
   #pending # express the regexp above with the code you wish you had
-  Timecop.freeze(deadline+ 24.hours)
-  visit marketplace_path
+  workshift = Workshift.find_by_task(shift)
+  @assignment = workshift.assign_worker(@user)
+  shift_start_time = @assignment.begin_workshift_date
+  deadline = @assignment.begin_workshift_date - 24.hours
+  Timecop.freeze(deadline- 24.hours) 
+  @assignment.put_on_market
+  Timecop.freeze(deadline+ 24.hours) 
+  visit user_profile_path(@user)
   
 end
 
-Then(/^I should see the workshift as blown$/) do
+Then(/^I should see the workshift as missed$/) do
   #pending # express the regexp above with the code you wish you had
   visit marketplace_path
   step "I should see \"You can not put a workshift on the marketplace after it has started.\""
