@@ -17,6 +17,19 @@ Given(/^I put my workshift "(.*?)" on the market before the deadline$/) do |shif
   @assignment.put_on_market
 end
 
+Given(/^I put my workshift "(.*?)" on the market after the deadline$/) do |shift|
+  workshift = Workshift.find_by_task(shift)
+  @assignment = workshift.assign_worker(@user)
+  shift_start_time = @assignment.begin_workshift_date
+  deadline = @assignment.begin_workshift_date - 24.hours
+  Timecop.freeze(deadline+ 24.hours) 
+  @assignment.put_on_market
+end
+
+Then(/^I should see an error$/) do
+  visit user_profile_path(@user)
+  step "I should see \"Dishes\""
+end
 
 
 Then(/^I can see my workshift on the marketplace$/) do
@@ -35,8 +48,11 @@ Given(/^someone buys shift "(.*?)" with start time "(.*?)" and end time "(.*?)" 
   @assignment.sell_to(buyer)
 end
 
+
+
 Then(/^I should see the workshift as sold$/) do
   #pending # express the regexp above with the code you wish you had
+  
   visit user_profile_path(@user)
   step "I should see \"sold\""
 end
