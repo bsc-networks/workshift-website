@@ -5,19 +5,33 @@
     - else
       %h2= @user.name
   .column.small-12.medium-6
-    %table#user_info
-      %thead
-        %tr
-          %td Total Points Balance
-          %td Room Number
-          %td Email
-          %td Phone Number
-      %tbody
-        %tr
-          %td{class: "#{@user.hours_balance_class}"}= @user.hours_balance
-          %td= (@user.room_number.length > 0) ? @user.room_number : ""
-          %td= (@user.display_email?) ? @user.email : ""
-          %td= (@user.display_phone_number? && @user.phone_number.length > 0) ? @user.phone_number : ""
+    .row
+      .column.small-12
+        %table#user_info
+          %thead
+            %tr
+              %td Total Points Balance
+              %td Room Number
+              %td Email
+              %td Phone Number
+          %tbody
+            %tr
+              %td{ class: "#{@user.hours_balance_class}" }= @user.hours_balance
+              %td= @user.room_number.length > 0 ? @user.room_number : ''
+              %td= @user.display_email? ? @user.email : ''
+              %td= (@user.display_phone_number? && @user.phone_number.length > 0) ? @user.phone_number : ''
+        .column.small-12
+          - if policy(:user).update_required_hours?
+            .settings-section
+              %fieldset
+                %legend Required Weekly Hours
+                %p Current Required Hours: #{@user.required_hours}
+                = form_tag update_required_hours_path(@user)
+                .column.small-5
+                  = label_tag :required_hours, 'New Required Hours'
+                  = number_field_tag :required_hours, @user.required_hours,
+                    step: 0.5
+                = submit_tag 'Change Required Hours', class: 'button small'
   .column.small-12.medium-6
     %table#user_category_preferences
       %thead
@@ -29,16 +43,6 @@
             %td= preference.rank
             %td= link_to preference.category.name, preference.category
 
-  - if policy(:user).update_required_hours?
-    .settings-section.column.small-8.medium-6
-      %fieldset
-        %legend Required Weekly Hours
-        %p= "Current Required Hours: #{@user.required_hours}"
-        = form_tag update_required_hours_path(@user)
-        .column.small-5
-          = label_tag :required_hours, "New Required Hours"
-          = number_field_tag :required_hours, @user.required_hours, step: 0.5
-        = submit_tag "Change Required Hours", class: 'button small'
 
   %h3.column.small Current Workshift Assignments
   .column.small-12
@@ -62,12 +66,12 @@
         - User.available_hours.each do |slot|
           %tr
             %td= slot
-            - @user.schedule.each do |day, hours|
-              - if @user.schedule[day][slot] == true then
-                %td{:bgcolor=> "#2A7C58"}
+            - @user.schedule.each do |day, _hours|
+              - if @user.schedule[day][slot] == true
+                %td{ bgcolor: '#2A7C58' }
                   <!-- %font{:color => "#FFFFFF"} Free -->
               - else
-                %td{:bgcolor => "#8E3030"}
+                %td{ bgcolor: '#8E3030' }
                   <!--%font{:color => "#FFFFFF"} Busy -->
 
 

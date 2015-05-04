@@ -12,7 +12,8 @@ require 'faker'
 # User Accounts
 user_defaults = { password: 'secret', password_confirmation: 'secret' }
 manager = User.create!(user_defaults.merge(email: 'manager@example.com',
-                                           name: 'Boss Man'))
+                                           name: 'Boss Man',
+                                           required_hours: 0))
 manager.update_attribute :workshift_manager, true
 
 User.create!(user_defaults.merge(email: 'john@example.com', name: 'John Doe'))
@@ -35,6 +36,8 @@ category_cleaning = Category.create!(name: 'Cleaning')
 User.create_preferences(category_cleaning)
 category_cooking = Category.create!(name: 'Cooking')
 User.create_preferences(category_cooking)
+category_misc = Category.create!(name: 'Misc')
+User.create_preferences(category_misc)
 
 # Workshifts
 7.times do |day|
