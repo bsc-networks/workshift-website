@@ -1,30 +1,33 @@
 class WorkshiftAssignmentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :set_workshift_assignment, only: [:check_off, :put_on_market, :sell_to, :undo_sell]
+  before_filter :set_workshift_assignment, only: [:check_off, :put_on_market,
+                                                  :sell_to, :undo_sell]
 
   def check_off
     authorize @workshift_assignment
-    if !@workshift_assignment.can_check_off?
+    unless @workshift_assignment.can_check_off?
       flash[:alert] = "Can't check off this workshift yet"
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
     end
     verifier = User.find_by_id(params[:verifier])
     if !verifier || verifier == @workshift_assignment.workshifter
-      flash[:alert] = "Invalid verifier"
+      flash[:alert] = 'Invalid verifier'
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
     end
     @workshift_assignment.check_off(verifier)
-    ConfirmationMailer.sign_off_email(@workshift_assignment.verifier.email, @workshift_assignment.workshifter).deliver
-    flash[:alert] = "Assignment successfully checked off"
+    ConfirmationMailer.sign_off_email(@workshift_assignment.verifier.email,
+                                      @workshift_assignment.workshifter).deliver
+    flash[:notice] = 'Assignment successfully checked off'
     redirect_to user_profile_path(@workshift_assignment.workshifter)
   end
 
   def marketplace_index
     assignments_on_sale = WorkshiftAssignment.assignments_on_market
-    @users_shifts = assignments_on_sale.where("workshifter_id = ?", current_user)
-    @buyable_shifts = assignments_on_sale.where("workshifter_id != ?", current_user)
+    @users_shifts = assignments_on_sale.where(workshifter_id: current_user)
+    @buyable_shifts = assignments_on_sale.where('workshifter_id != ?',
+                                                current_user)
   end
 
   def put_on_market
@@ -33,7 +36,8 @@ class WorkshiftAssignmentsController < ApplicationController
       @workshift_assignment.put_on_market
       redirect_to marketplace_path
     else
-      flash[:alert] = "You can not put a workshift on the marketplace after it has started."
+      flash[:alert] = 'You can not put a workshift on the marketplace '\
+        'after it has started.'
       redirect_to user_profile_path(@workshift_assignment.workshifter)
     end
   end
@@ -41,16 +45,16 @@ class WorkshiftAssignmentsController < ApplicationController
   def sell_to
     authorize @workshift_assignment
     if current_user != User.find(params[:buyer_id])
-      flash[:alert] = "Unauthorized action"
+      flash[:alert] = 'Unauthorized action'
       redirect_to user_profile_path(current_user)
       return
     end
     if @workshift_assignment.on_market?
       @workshift_assignment.sell_to(current_user)
-      flash[:notice] = "Successfully bought workshift"
+      flash[:notice] = 'Successfully bought workshift'
       redirect_to user_profile_path(current_user)
     else
-      flash[:alert] = "Cannot buy a workshift that is not on the market."
+      flash[:alert] = 'Cannot buy a workshift that is not on the market.'
       redirect_to user_profile_path(current_user)
     end
   end
@@ -61,7 +65,7 @@ class WorkshiftAssignmentsController < ApplicationController
       @workshift_assignment.undo_sell
       redirect_to user_profile_path(@workshift_assignment.workshifter)
     else
-      flash[:alert] = "You cannot undo a sell after the shift has started."
+      flash[:alert] = 'You cannot undo a sell after the shift has started.'
       redirect_to user_profile_path(@workshift_assignment.workshifter)
     end
   end

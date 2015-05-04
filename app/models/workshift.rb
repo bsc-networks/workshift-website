@@ -19,7 +19,7 @@ class Workshift < ActiveRecord::Base
 
   has_many :workshift_assignments
   attr_accessible :start_time, :end_time, :day, :task, :category_id,
-                  :description, :hours
+                  :description, :hours, :user_id
   # after_create :apply_time_zone
   validates :start_time, :end_time, :day, :task, :hours,
             :description, presence: true
@@ -32,7 +32,7 @@ class Workshift < ActiveRecord::Base
   before_destroy :unassign_worker
 
   def unassign_worker
-    if self.user # delete current assignment
+    if user # delete current assignment
       current_assignment = workshift_assignments.order(date: :desc).first
       if current_assignment.status == "upcoming"
         Rufus::Scheduler.singleton.job(current_assignment.schedule_id).unschedule
@@ -148,7 +148,7 @@ class Workshift < ActiveRecord::Base
     if !has_ranking
       best_candidates[:highest_pref] = []
     else
-      best_candidates[:highest_pref] = available.sort do |a, b| 
+      best_candidates[:highest_pref] = available.sort do |a, b|
         a_rank = a[2]
         b_rank = b[2]
         case

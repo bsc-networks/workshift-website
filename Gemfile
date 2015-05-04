@@ -19,8 +19,6 @@ gem 'rufus-scheduler'
 gem 'faker'
 gem 'clockwork'
 
-gem 'pry-rails'
-
 group :production do
   gem 'pg'
   gem 'rails_12factor'
@@ -29,6 +27,7 @@ group :production do
 end
 
 group :development do
+  gem 'pry-rails'
   gem 'annotate', '~> 2.6.5'
   gem 'letter_opener'
   gem 'spring'

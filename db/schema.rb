@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20150428230734) do
     t.boolean  "display_email",          :default => false
     t.float    "hours_balance",          :default => 0.0,   :null => false
     t.text     "schedule"
-    t.float    "required_hours",         :default => 5.0,   :null => false
+    t.float    "required_hours",         :default => 5.0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -94,9 +94,8 @@ ActiveRecord::Schema.define(:version => 20150428230734) do
     t.integer  "workshifter_id"
     t.integer  "verifier_id"
     t.integer  "workshift_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "category_id"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.boolean  "purchased",      :default => false
   end
 
