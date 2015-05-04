@@ -25,6 +25,19 @@ class WorkshiftAssignment < ActiveRecord::Base
     purchased
   end
 
+  def hours_multiplier
+    return -1 if status == 'missed'
+    return 1 if status == 'complete'
+    if purchased?
+      return -1 if status == 'blown'
+      return 0 if status == 'sold'
+    else
+      return -2 if status == 'blown'
+      return -1 if status == 'sold'
+    end
+    0
+  end
+
   def gen_next_assignment
     if workshifter == workshift.user # still assigned to workshift
       self.workshift.generate_next_assignment
@@ -37,7 +50,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   def check_off(verifier)
     if verifier != self.workshifter || verifer.role === 'Workshift Manager'
       self.verifier = verifier
-      self.status = "Completed"
+      self.status = "complete"
       self.sign_off_time = Time.zone.now # NEEDS TO BE FIXED PROBABLY
       gen_next_assignment
       self.save!
@@ -57,7 +70,7 @@ class WorkshiftAssignment < ActiveRecord::Base
     end_time.strftime('%l:%M %p')
   end
 
-  def can_check_off? 
+  def can_check_off?
     status == "in progress" || status == "awaiting check off"
   end
 
@@ -80,7 +93,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   def sell_to(buyer) # when buyer clicks buy
     self.status = "sold"
     update_workshifter_hours_balance
-    Rufus::Scheduler.singleton.job(self.schedule_id).unschedule    
+    Rufus::Scheduler.singleton.job(self.schedule_id).unschedule
     cloned_assignment = clone_workshift
     cloned_assignment.assign_workshifter(buyer)
     cloned_assignment.save!
@@ -89,7 +102,7 @@ class WorkshiftAssignment < ActiveRecord::Base
     end
     self.save!
   end
-  
+
   def clone_workshift
     self.workshift.workshift_assignments.create!({
         task: task,
@@ -98,17 +111,17 @@ class WorkshiftAssignment < ActiveRecord::Base
         start_time: start_time,
         end_time: end_time,
         hours: hours,
-        status: "upcoming",
+        status: 'upcoming',
         purchased: true
     })
   end
 
   def can_undo_sell?
-    status == "on market" || status == "on market (late)"
+    status == 'on market' || status == 'on market (late)'
   end
 
   def undo_sell
-    self.status = "upcoming"
+    self.status = 'upcoming'
     Rufus::Scheduler.singleton.job(self.schedule_id).unschedule
     schedule_in_progress_status
     self.save!
@@ -133,19 +146,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   end
 
   def on_market?
-    status == "on market" || status == "on market (late)"
-  end
-
-  def end_workshift_date
-    date + end_time.hour.hours
-  end
-
-  def end_grace_period_date
-    date + end_time.hour.hours + 48.hours
-  end
-
-  def on_market?
-    status = "on_market" || status = "on market (late)"
+    status == 'on market' || status == 'on market (late)'
   end
 
   protected
@@ -180,7 +181,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   end
 
   def schedule_awaiting_check_off_status
-    self.status = "in progress"
+    self.status = 'in progress'
     # puts "awaiting date = #{end_workshift_date}"
     self.schedule_id = Rufus::Scheduler.singleton.at "#{end_workshift_date.to_s}" do schedule_blown_check_up end
     # puts "schedule_awaiting = #{schedule_awaiting}"
@@ -188,7 +189,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   end
 
   def schedule_blown_check_up
-    self.status = "awaiting check off"
+    self.status = 'awaiting check off'
     # puts "blown time = #{checkup_date}"
     self.schedule_id = Rufus::Scheduler.singleton.at "#{end_grace_period_date.to_s}" do blown_check_up end
     # puts "checkup = #{checkup}"
@@ -196,22 +197,21 @@ class WorkshiftAssignment < ActiveRecord::Base
   end
 
   def blown_check_up
-    if status == "awaiting check off"
-      self.status = "blown"
-      update_workshifter_hours_balance
-      gen_next_assignment
-      self.save!
-    end
+    return unless status == 'awaiting check off'
+    self.status = 'blown'
+    update_workshifter_hours_balance
+    gen_next_assignment
+    self.save!
   end
 
   # triggers at beginning of workshift
   def off_market_check
-    if status == "on market"
-      self.status = "missed"
+    if status == 'on market'
+      self.status = 'missed'
       update_workshifter_hours_balance
       gen_next_assignment
-    elsif status == "on market (late)"
-      self.status = "blown"
+    elsif status == 'on market (late)'
+      self.status = 'blown'
       update_workshifter_hours_balance
       gen_next_assignment
     end

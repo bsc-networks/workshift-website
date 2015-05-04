@@ -13,9 +13,10 @@ Feature: workshift managers can see generated reports on residents weekly
     And no weekly reports exist
 
   Scenario: generated report has current day's date in title
-    When the date is currently April 6th, 2015 1:30pm
+    When the date is currently Monday, April 6th, 2015 1:30pm
     And a new weekly report is generated
-    Then the title of the report contains today's date
+    And I am on the reports page
+    Then I should see the reports title
 
   Scenario: workshift manager can download the reports
     Given a new weekly report is generated
