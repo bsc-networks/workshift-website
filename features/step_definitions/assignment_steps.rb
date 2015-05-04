@@ -23,6 +23,7 @@ When (/^I check off my assignment as completed with verifier "(.+)"/) do |verifi
     select(verifier_name, :from => "verifier_")
   end
   # page.find("#assignment_#{@assignment.id} select").select_option(verifier_name)
+  visit user_profile_path(@user)
   click_button('Check Off')
 end
 
