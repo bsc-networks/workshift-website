@@ -6,8 +6,8 @@ When /^a new weekly report is generated$/ do
   @report = WeeklyReport.create
 end
 
-Then /^the title of the report contains today's date$/ do
-  expect(@report.title).to include Time.zone.now.strftime('%m_%d_%y')
+Then /^I should see the reports title$/ do
+  expect(page).to have_content @report.title
 end
 
 Given /^"(.+)" is (down|up) (\d+) hours$/ do |user, sign, hours|
@@ -30,7 +30,10 @@ Then /^I can download the weekly report$/ do
 end
 
 Then /^I should see the text of that report$/ do
-  expect(page).to have_content(@report.text)
+  CSV.parse(@report.text) do |row|
+    expect(page).to have_content(row[0])
+    expect(page).to have_content(row[1])
+  end
 end
 
 Then /^I should get a download with the filename "(.+)"$/ do |filename|

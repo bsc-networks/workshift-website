@@ -1,6 +1,14 @@
 .row
   .column.small-12
-    %h3 Weekly Hours Report for #{@report.date}
+    %h3 Weekly Hours Report for #{@report.period}
   .column.small-12
-    :markdown
-      #{simple_format(@report.text)}
+    %table
+      %thead
+        %tr
+          %th Resident
+          %th Hours Balance
+      %tbody
+        - CSV.parse(@report.text) do |row|
+          %tr
+            %td= row[0]
+            %td= row[1]
