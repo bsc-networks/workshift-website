@@ -34,6 +34,6 @@ Then /^I should (?:|still )see:$/ do |form_table|
   end
 end
 
-Then /^I should see an error message: "(.*)"$/ do |msg|
+Then (/^I should see an error message: "([^"]*)"$/) do |msg|
   assert(page.has_content?(msg), 'no indication of error')
 end
