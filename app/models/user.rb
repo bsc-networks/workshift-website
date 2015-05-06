@@ -138,31 +138,32 @@ class User < ActiveRecord::Base
     self.save!
   end
 
-  #Time slots for a student schedule
+  # Time slots for a student schedule
   def self.available_hours
-    %w(7-8AM 8-9AM 9-10AM 10-11AM 11-12PM 12-1PM 1-2PM 2-3PM 3-4PM
-       4-5PM 5-6PM 6-7PM 7-8PM 8-9PM 9-10PM)
+    %w(6-7AM 7-8AM 8-9AM 9-10AM 10-11AM 11-12PM 12-1PM 1-2PM
+       2-3PM 3-4PM 4-5PM 5-6PM 6-7PM 7-8PM 8-9PM 9-10PM)
   end
 
-  #Days for a student schedule
+  # Days for a student schedule
   def self.available_days
     Date::DAYNAMES
   end
 
-  #Parses the schedule params from views and returns the appropriate schedule hash
+  # Parses the schedule params from views and returns the appropriate
+  # schedule hash
   def self.parse_schedule_params(schedule_params)
     new_schedule = User.create_schedule
     schedule_params.each do |day, times|
       times.each do |time, free|
-        new_schedule[day][time] = (free == "yes")
+        new_schedule[day][time] = (free == 'yes')
       end
     end
-    return new_schedule
+    new_schedule
   end
 
   def update_required_hours(hours)
     if hours % 0.5 != 0
-      fail ArgumentError, "Required hours must be divisible by 0.5"
+      fail ArgumentError, 'Required hours must be divisible by 0.5'
     end
     self.required_hours = hours
     self.save!
@@ -175,19 +176,19 @@ class User < ActiveRecord::Base
   def hours_assigned_class
     assignment_deficit = needed_hours
     if assignment_deficit <= 0
-      return ""
+      return ''
     else
-      return "down_hours"
+      return 'down_hours'
     end
   end
 
   def hours_balance_class
     if hours_balance == 0
-      return ""
+      return ''
     elsif hours_balance < 0
-      return "down_hours"
+      return 'down_hours'
     else
-      return "up_hours"
+      return 'up_hours'
     end
   end
 
