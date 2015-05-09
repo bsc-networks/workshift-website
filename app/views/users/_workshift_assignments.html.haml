@@ -15,7 +15,7 @@
       %tbody
         - workshift_assignments.each do |workshift_assignment|
           %tr{id: "assignment_#{workshift_assignment.id}"}
-            %td= workshift_assignment.weekday
+            %td= workshift_assignment.date.strftime('%A, %m/%e')
             %td= link_to(workshift_assignment.task, workshift_assignment.workshift)
             %td= workshift_assignment.hours
             %td= workshift_assignment.formatted_start_time

@@ -4,7 +4,7 @@
       %h2== #{@user.name} (#{@user.role})
     - else
       %h2= @user.name
-  .column.small-12.medium-6
+  .column.small-12.medium-8
     .row
       .column.small-12
         %table#user_info
@@ -32,7 +32,7 @@
                   = number_field_tag :required_hours, @user.required_hours,
                     step: 0.5
                 = submit_tag 'Change Required Hours', class: 'button small'
-  .column.small-12.medium-6
+  .column.small-12.medium-4
     %table#user_category_preferences
       %thead
         %tr

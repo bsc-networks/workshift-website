@@ -13,6 +13,7 @@
 @import 'components/*';
 @import 'resources/*';
 @import 'foundation_and_overrides';
+@import 'dataTables/jquery.dataTables.foundation';
 
 table#house_roster td.down_hours {
     background: #FF4747;

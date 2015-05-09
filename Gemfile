@@ -12,6 +12,8 @@ gem 'redcarpet',  '~> 3.0'
 gem 'devise'
 gem 'pundit'
 gem 'devise_invitable', '~> 1.3.4'
+# Use the DataTables jQuey plug-in for sortable, beautiful tables
+gem 'jquery-datatables-rails', '~> 3.2.0'
 
 gem 'simple_form'
 gem 'chronic' # for natural language date/time parsing
