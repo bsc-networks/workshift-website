@@ -19,6 +19,13 @@ gem 'rufus-scheduler'
 gem 'faker'
 gem 'clockwork'
 
+# Stuff for Javascript
+gem 'execjs'
+gem 'therubyracer'
+
+# Environment variable management
+gem 'figaro'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
