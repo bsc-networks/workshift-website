@@ -9,4 +9,5 @@ script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - bundle exec rspec spec
-  - bundle exec cucumber features
+  - bundle exec cucumber --tags ~@clockwork
+  - bundle exec cucumber --tags @clockwork

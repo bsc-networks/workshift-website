@@ -1,19 +1,19 @@
 Given /^I put my workshift on the market before the deadline$/ do
   # need the sleeps to prevent database locking issues with Rufus
-  sleep 1
   @assignment = WorkshiftAssignment.where(workshift_id: @workshift.id,
                                           workshifter_id: @user.id).first
   step 'my assignment has not started yet'
   @assignment.put_on_market
+  sleep 2
 end
 
 Given /^I put my workshift on the market after the deadline$/ do
-  sleep 1
   @assignment = WorkshiftAssignment.where(workshift_id: @workshift.id,
                                           workshifter_id: @user.id).first
   step 'my assignment is awaiting check off'
   visit user_profile_path(@user)
   step 'I press "Sell"'
+  sleep 2
 end
 
 Then /^I can see my workshift on the marketplace$/ do
@@ -22,11 +22,11 @@ Then /^I can see my workshift on the marketplace$/ do
 end
 
 When /^someone buys the shift$/ do
-  sleep 1
   buyer = User.find_by_name('Buyer')
   buyer ||= FactoryGirl.create(:user, name: 'Buyer',
                                       email: 'buyer@example.com')
   @assignment.sell_to(buyer)
+  sleep 2
 end
 
 Then /^I should see the workshift as sold$/ do

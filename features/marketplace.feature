@@ -1,3 +1,4 @@
+@clockwork
 Feature: Workshift Marketplace
   As a resident
   So that I can give away workshift assignments that I cannot complete
