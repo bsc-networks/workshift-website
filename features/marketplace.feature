@@ -15,15 +15,18 @@ Feature: Workshift Marketplace
     Given I put my workshift "Dishes" on the market after the deadline
     Then I should see an error
 
+  @rufus
   Scenario: Someone buys my shift
     Given someone buys shift "Dishes" with start time "11:00am" and end time "12:00pm" with day "2"
     Then I should see the workshift as sold
 
+  @rufus
   Scenario: No one buys my shift 
     Given I put my workshift "Dishes" on the market before the deadline
     And no one buys my shift "Dishes" and the workshift has passed
     Then I should see the workshift as missed
 
+  @rufus
   Scenario: I undo the selling of my shift
     Given no one buys my shift and the workshift has not started yet
     And I click "Undo"
