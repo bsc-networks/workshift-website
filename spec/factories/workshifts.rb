@@ -20,7 +20,7 @@ FactoryGirl.define do
     description { Faker::Hacker.say_something_smart }
     day { rand(7) }
     hours { rand(1..3) }
-    start_time { Faker::Time.forward(10, :all).change(min: 0) }
+    start_time { Time.zone.parse('12:00pm') }
     end_time { start_time + 4.hours }
     user { nil }
   end

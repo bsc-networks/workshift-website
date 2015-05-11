@@ -29,7 +29,8 @@ Given /^(\d+) residents exist$/ do |num_people|
 end
 
 Given /^a resident named "(.+)" exists$/ do |name|
-  FactoryGirl.create(:user, name: name)
+  FactoryGirl.create(:user, name: name,
+                            email: "#{name.gsub(' ', '_')}@example.com")
 end
 
 Given /^I am a resident named "(.+)"$/ do |name|

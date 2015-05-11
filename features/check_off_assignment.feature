@@ -1,9 +1,9 @@
 Feature: Residents can mark workshifts as completed
-  As a resident 
+  As a resident
   So that I can let everyone know that I've completed a workshift
   I want to be able to check off a workshift with the verification of another resident
 
-  Background: 
+  Background:
     Given I am signed in as a resident named "Alice Carol"
     And a resident named "Bobby Gee" exists
     And the shift "Wash the dishes" exists
