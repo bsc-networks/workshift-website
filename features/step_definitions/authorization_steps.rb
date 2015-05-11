@@ -33,7 +33,7 @@ Given /^I (?:am signed in|sign in) as a resident$/ do
 end
 
 Given /^I am signed in as a resident named "(.+)"$/ do |name|
-  email = 'test@example.com'
+  email = "#{name.gsub(' ', '_')}@example.com"
   password = 'secret'
   step "I have an account with email \"#{email}\" and password \"#{password}\" and name \"#{name}\""
   step "I sign in using email \"#{email}\" and password \"#{password}\""
@@ -48,7 +48,7 @@ Given /^I am signed in as a workshift manager$/ do
 end
 
 Given /^I am not signed in$/ do
-  step %Q{I log out}
+  step 'I log out'
 end
 
 When /^I log out$/ do
