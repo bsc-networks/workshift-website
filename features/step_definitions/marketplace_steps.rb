@@ -1,6 +1,6 @@
 Given(/^I am assigned to the shift "(.*?)" with start time "(.*?)" and end time "(.*?)" with day "(.*?)"$/) do |task, start_time, end_time, day|
   @user = FactoryGirl.create(:user, name: "Seller")
-  FactoryGirl.create(:workshift, task: task, start_time: start_time, end_time: end_time, day: day )
+  FactoryGirl.create(:workshift, task: task, start_time: start_time, end_time: end_time, day: day)
   step "I am signed in as a resident"
 end
 
