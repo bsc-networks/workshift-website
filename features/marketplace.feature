@@ -8,6 +8,7 @@ Feature: Workshift Marketplace
     Given I am signed in as a resident
     And I am assigned to the shift "Wash Dishes"
 
+  @rufus
   Scenario: I put my workshift on the market before the 24 hour deadline
     When I put my workshift on the market before the deadline
     Then I can see my workshift on the marketplace
