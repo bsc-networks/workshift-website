@@ -1,4 +1,3 @@
-@clockwork
 Feature: Workshift Marketplace
   As a resident
   So that I can give away workshift assignments that I cannot complete
@@ -17,16 +16,19 @@ Feature: Workshift Marketplace
     When I put my workshift on the market after the deadline
     Then I should see "You can not put a workshift on the marketplace after it has started"
 
+  @rufus
   Scenario: Someone buys my shift
     When I put my workshift on the market before the deadline
     And someone buys the shift
     Then I should see the workshift as sold
 
+  @rufus
   Scenario: No one buys my shift
     When I put my workshift on the market before the deadline
     And no one buys my shift and the workshift has passed
     Then I should see the workshift as missed
 
+  @rufus
   Scenario: I undo the selling of my shift
     Given I put my workshift on the market before the deadline
     And no one buys my shift and the workshift has not started yet

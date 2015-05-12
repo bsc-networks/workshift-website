@@ -3,6 +3,9 @@ ruby '1.9.3'
 
 gem 'rails'
 
+# Use Postgres as database
+gem 'pg'
+
 gem 'jquery-rails'
 
 gem 'haml-rails', '~> 0.4.0'
@@ -29,7 +32,6 @@ gem 'therubyracer'
 gem 'figaro'
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
   # Use unicorn as the app server
   gem 'unicorn'
@@ -45,7 +47,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'simplecov'
