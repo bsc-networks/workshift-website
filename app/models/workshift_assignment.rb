@@ -39,7 +39,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   end
 
   def gen_next_assignment
-    if workshifter == workshift.user # still assigned to workshift
+    if workshift and workshifter == workshift.user # still assigned to workshift
       self.workshift.generate_next_assignment
     end
   end
