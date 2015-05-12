@@ -63,10 +63,10 @@ WorkshiftWebsite::Application.configure do
     password: ENV['GMAIL_PASSWORD']
   }
   config.action_mailer.default_url_options = {
-    host: 'bsc-workshifts.herokuapp.com',
+    host: ENV['GMAIL_DOMAIN'],
     protocol: 'https://'
   }
-  config.action_mailer.asset_host = 'http://bsc-workshifts.herokuapp.com'
+  config.action_mailer.asset_host = 'https://' + ENV['GMAIL_DOMAIN']
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
