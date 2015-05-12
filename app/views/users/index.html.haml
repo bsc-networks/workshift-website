@@ -2,7 +2,7 @@
   .column.small-12
     %h1 House Roster
   .column.small-12
-    %table#house_roster
+    %table.data-table#house_roster
       %thead
         %tr
           %td Resident
@@ -16,9 +16,11 @@
         - @users.each do |user|
           %tr
             %td= link_to user.name, user_profile_path(user)
-            %td{class: "#{user.hours_balance_class}"}= user.hours_balance
+            %td{ class: "#{user.hours_balance_class}" }= user.hours_balance
             - if policy(:workshift).edit?
-              %td{class: "#{user.hours_assigned_class}"}="#{user.workshifts.sum(:hours)} / #{user.required_hours}"
-            %td= (user.room_number.length > 0) ? user.room_number : ""
-            %td= (user.display_email?) ? user.email : ""
-            %td= (user.display_phone_number? && user.phone_number.length > 0) ? user.phone_number : ""
+              %td{ class: "#{user.hours_assigned_class}" }
+                #{user.workshifts.sum(:hours)} / #{user.required_hours}
+            %td= (user.room_number.length > 0) ? user.room_number : ''
+            %td= (user.display_email?) ? user.email : ''
+            %td
+              = (user.display_phone_number? && user.phone_number.length > 0) ? user.phone_number : ''

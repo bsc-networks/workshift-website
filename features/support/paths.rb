@@ -18,6 +18,7 @@ module NavigationHelpers
     when /^the new workshift page$/ then new_workshift_path
     when /^the new category page$/ then new_category_path
     when /^the home page$/ then root_path
+    when /^the marketplace page$/ then marketplace_path
     when /^the roster page$/ then roster_path
     when /^the Add Users page$/ then add_users_path
     when /^the categories page$/ then categories_path

@@ -42,8 +42,7 @@ describe User do
       expect(User.all.count).to eq 32
       User.delete_all_residents
       expect(User.all.count).to eq 2
-      expect(User.all[0]).to eq workshift_manager_1
-      expect(User.all[1]).to eq workshift_manager_2
+      expect(User.all).to match_array [workshift_manager_1, workshift_manager_2]
     end
   end
 
@@ -106,7 +105,8 @@ describe User do
   describe 'updating a users category preferences' do
     before :each do
       @user = create(:user)
-      create_list(:category, 2)
+      create(:category, id: 1)
+      create(:category, id: 2)
     end
 
     it 'creates the preferences if they do not currently exist' do
@@ -150,26 +150,26 @@ describe User do
 
     it 'allows creation of a schedule' do
       @user.schedule = User.create_schedule
-      expect(@user.schedule).to include("Monday", "Tuesday", "Saturday")
-      expect(@user.schedule["Monday"]["11-12PM"]).to eq(true)
+      expect(@user.schedule).to include('Monday', 'Tuesday', 'Saturday')
+      expect(@user.schedule['Monday']['11-12PM']).to eq(true)
     end
 
     it 'allows updates to a schedule' do
       @user.schedule = User.create_schedule
       new_schedule = User.create_schedule
-      expect(new_schedule).to include("Monday")
-      new_schedule["Monday"]["11-12PM"] = false
+      expect(new_schedule).to include('Monday')
+      new_schedule['Monday']['11-12PM'] = false
       @user.schedule = new_schedule
-      expect(@user.schedule["Monday"]["11-12PM"]).to eq(false)
+      expect(@user.schedule['Monday']['11-12PM']).to eq(false)
     end
 
     it 'parses a schedule from views' do
       schedule_params = User.create_schedule
-      schedule_params["Monday"]["11-12PM"] = "0"
-      schedule_params["Tuesday"]["12-1PM"] = "yes"
+      schedule_params['Monday']['11-12PM'] = '0'
+      schedule_params['Tuesday']['12-1PM'] = 'yes'
       new_schedule = User.parse_schedule_params(schedule_params)
-      expect(new_schedule["Monday"]["11-12PM"]).to eq(false)
-      expect(new_schedule["Tuesday"]["12-1PM"]).to eq(true)
+      expect(new_schedule['Monday']['11-12PM']).to eq(false)
+      expect(new_schedule['Tuesday']['12-1PM']).to eq(true)
     end
   end
 end

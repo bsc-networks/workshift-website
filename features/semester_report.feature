@@ -17,5 +17,7 @@ Feature: entire semester's csv report
     And a resident named "Sally Jones" exists
     And "Sally Jones" is down 7 hours
     When I follow "View Semester Report"
-    Then I should see "Bobby Gee,4"
-    And I should see "Sally Jones,-7"
+    Then I should see "Bobby Gee"
+    And I should see "4"
+    And I should see "Sally Jones"
+    And I should see "-7"

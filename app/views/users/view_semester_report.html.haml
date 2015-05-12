@@ -2,5 +2,12 @@
   .column.small-12
     %h3 Semester Hours Report
   .column.small-12
-    :markdown
-      #{simple_format(@text)}
+    %table.data-table
+      %thead
+        %th Resident
+        %th Hours Balance
+      %tbody
+        - CSV.parse(@text) do |row|
+          %tr
+            %td= row[0]
+            %td= row[1]
