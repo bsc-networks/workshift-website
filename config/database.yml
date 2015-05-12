@@ -1,4 +1,4 @@
-# SQLite version 3.x
+# Postgresql version 9.3.X
 default: &default
   adapter: postgresql
   pool: 5
