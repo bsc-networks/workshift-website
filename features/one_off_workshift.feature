@@ -3,11 +3,10 @@ Feature: One off workshifts
   So that I can give people extra shifts that aren't tied to the current system
   I want to be able create one off shifts that are already marked as completed
   
-  Background: I am the workshift manager
+  @rufus
+  Scenario: I can create a new workshift and mark it as completed
     Given I am signed in as a workshift manager
     And I am on the new workshift page
-    
-  Scenario: I can create a new workshift and mark it as completed
     When I fill in: 
       | field         | value              |
       | Task          | asdf               |

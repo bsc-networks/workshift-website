@@ -4,7 +4,6 @@ Given /^I put my workshift on the market before the deadline$/ do
                                           workshifter_id: @user.id).first
   step 'my assignment has not started yet'
   @assignment.put_on_market
-  sleep 2
 end
 
 Given /^I put my workshift on the market after the deadline$/ do
@@ -13,7 +12,6 @@ Given /^I put my workshift on the market after the deadline$/ do
   step 'my assignment is awaiting check off'
   visit user_profile_path(@user)
   step 'I press "Sell"'
-  sleep 2
 end
 
 Then /^I can see my workshift on the marketplace$/ do
@@ -26,7 +24,6 @@ When /^someone buys the shift$/ do
   buyer ||= FactoryGirl.create(:user, name: 'Buyer',
                                       email: 'buyer@example.com')
   @assignment.sell_to(buyer)
-  sleep 2
 end
 
 Then /^I should see the workshift as sold$/ do
