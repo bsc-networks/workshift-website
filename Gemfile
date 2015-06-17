@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '1.9.3'
+ruby '2.2.1'
 
 gem 'rails'
 
@@ -26,7 +26,7 @@ gem 'clockwork'
 
 # Stuff for Javascript
 gem 'execjs'
-gem 'therubyracer'
+#gem 'therubyracer' Causes install error on last mac version, do not seem to be used (Due to project update)
 
 # Environment variable management
 gem 'figaro'
@@ -53,7 +53,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'timecop'
-  gem 'debugger'
+  # gem 'debugger' TODO Replace with a Ruby 2+ compatible gem (Due to project update)
 end
 
 # Gems used only for assets and not required
