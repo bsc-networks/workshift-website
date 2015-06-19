@@ -1,10 +1,10 @@
-# Postgresql version 9.3.X
 default: &default
   adapter: postgresql
   pool: 5
   username: workshift_admin
   password: bscworkshiftadmin
   timeout: 5000
+  host: db
 
 development:
   <<: *default
