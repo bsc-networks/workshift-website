@@ -13,3 +13,38 @@ A new workshift website, created by students of CS169.
 * Stephanie Kim
 
 Interview: http://youtu.be/-cVOpNlQUPs
+
+# Installation
+###Local
+In order to install the project to be run on your computer (Development/Debug) you need to install ruby, the actual verion used by the project is ruby-2.2.2 and postgresSQL Server running on your computer.
+
+Then, within the project directory :
+  - Install Bundler
+```
+$ gem install bundler
+```
+  - Install project dependencies
+```
+$ bundle install
+```
+  - Setup the db (Create database, tables, applies migrations and use the seed.rb file)
+```
+$ rake db:setup
+```
+  - Run the server
+```
+$ bin/rails server
+```
+
+###Docker
+In order to run the project inside a Docker container, you must install docker and docker-compose on your machine.
+https://www.docker.com + https://docs.docker.com/compose/
+! You Do Not Need Ruby, Rails or Postgres Server installed on your machine
+
+Then, within the project directory :
+```
+$ docker-compose build
+$ docker-compose up
+```
+Docker compose will create the server container and the database container, link them together and start all the needed services.
+In order to export and restore the DB, please refer to https://registry.hub.docker.com/_/postgres/
