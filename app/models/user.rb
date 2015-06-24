@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   # which must be formatted as a comma-separated string with names in the
   # first column and email addresses in the second.
   def self.invite_users(user_info)
-    fail ArgumentError, 'Must input at least one user' if user_info.length == 0
+    fail ArgumentError, 'Must input at least one userattr_accessible' if user_info.length == 0
     num_invited = 0
     CSV.parse(user_info) do |row|
       fail ArgumentError, 'Improperly formatted user information on row '\
