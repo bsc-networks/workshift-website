@@ -53,6 +53,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'timecop'
+  gem 'test-unit', '~> 3.0'
   # gem 'debugger' TODO Replace with a Ruby 2+ compatible gem (Due to project update)
 end
 
