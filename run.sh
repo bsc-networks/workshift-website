@@ -34,10 +34,12 @@ docker run --detach=true --restart=always --name "${NAME}" --hostname "${NAME}" 
 
 # When running it for the first time, you have to create tables in the database, by default:
 #
-# docker exec -t -i workshift /bin/bash
-#
-# RAILS_ENV=production rake db:create
+# docker exec workshift rake db:create RAILS_ENV=production
 #
 # Alternativelly, if you want to also seed the database with initial data and accounts, run:
 #
-# RAILS_ENV=production rake db:setup
+# docker exec workshift rake db:setup RAILS_ENV=production
+#
+# To migrate the database later on to the new version of the project:
+#
+# docker exec workshift rake db:migrate RAILS_ENV=production
