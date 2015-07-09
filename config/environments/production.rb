@@ -66,7 +66,9 @@ WorkshiftWebsite::Application.configure do
     host: ENV['GMAIL_DOMAIN'],
     protocol: 'https://'
   }
-  config.action_mailer.asset_host = 'https://' + ENV['GMAIL_DOMAIN']
+  if ENV['GMAIL_DOMAIN']
+    config.action_mailer.asset_host = 'https://' + ENV['GMAIL_DOMAIN']
+  end
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
