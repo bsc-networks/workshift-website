@@ -188,7 +188,11 @@ class Workshift < ActiveRecord::Base
     days.each do |day|
       workshift = Workshift.new(params.merge(day: day))
       fail ArgumentError, 'Please fix the problems below:' unless workshift.save
+      if params[:workshift][:user]
+        workshift.assign_worker(params[:workshift][:user])
+      end
     end
+    workshift
   end
 
   def weekday
