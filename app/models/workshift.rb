@@ -180,21 +180,6 @@ class Workshift < ActiveRecord::Base
     best_candidates
   end
 
-  def self.create_multiple(params, days)
-    # create a workshift with parameters PARAMS for each day in array DAYS.
-    # Fails if days is empty or the workshift cannot be saved successfully.
-    # returns the last successfully created workshift.
-    fail ArgumentError, 'Must select at least one day.' if days.length == 0
-    days.each do |day|
-      workshift = Workshift.new(params.merge(day: day))
-      fail ArgumentError, 'Please fix the problems below:' unless workshift.save
-      if params[:workshift][:user]
-        workshift.assign_worker(params[:workshift][:user])
-      end
-    end
-    workshift
-  end
-
   def weekday
     # return unless day >= 0 && day <= 6
     Date::DAYNAMES[day]
