@@ -43,8 +43,15 @@ https://www.docker.com + https://docs.docker.com/compose/
 
 Then, within the project directory :
 ```
+# First installation
+
 $ docker-compose build
+$ docker-compose run web rake db:setup
+
+# Container startup
+
 $ docker-compose up
 ```
+
 Docker compose will create the server container and the database container, link them together and start all the needed services.
 In order to export and restore the DB, please refer to https://registry.hub.docker.com/_/postgres/
