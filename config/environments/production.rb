@@ -6,8 +6,8 @@ WorkshiftWebsite::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
-  config.action_controller.perform_caching = true
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
@@ -66,9 +66,7 @@ WorkshiftWebsite::Application.configure do
     host: ENV['GMAIL_DOMAIN'],
     protocol: 'https://'
   }
-  if ENV['GMAIL_DOMAIN']
-    config.action_mailer.asset_host = 'https://' + ENV['GMAIL_DOMAIN']
-  end
+  config.action_mailer.asset_host = 'https://' + ENV['GMAIL_DOMAIN']
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
