@@ -138,7 +138,12 @@ class Workshift < ActiveRecord::Base
       if unavailability.length < end_to_start_hours && user.needed_hours > 0
         # if user is not completely unavailable
         if has_ranking
-          ranking = user.preferences.where("category_id = ?", category).first.rank
+          preference = user.preferences.where("category_id = ?", category)
+          if preference
+            ranking = user.preferences.where("category_id = ?", category).first.rank
+          else
+            ranking = 1 #If the user is not setting his preferences, each category is best
+          end
         end
         needed_hours = user.needed_hours
         available << [user, unavailability, ranking, needed_hours]
