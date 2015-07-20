@@ -31,6 +31,8 @@ gem 'execjs'
 # Environment variable management
 gem 'figaro'
 
+gem 'exception_notification'
+
 group :production do
   gem 'rails_12factor'
   # Use unicorn as the app server
