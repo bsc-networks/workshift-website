@@ -140,7 +140,7 @@ class Workshift < ActiveRecord::Base
         if has_ranking
           preference = user.preferences.where("category_id = ?", category)
           if preference
-            ranking = user.preferences.where("category_id = ?", category).first.rank
+            ranking = preference.first.rank
           else
             ranking = 1 #If the user is not setting his preferences, each category is best
           end
