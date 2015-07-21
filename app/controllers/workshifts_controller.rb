@@ -38,6 +38,11 @@ class WorkshiftsController < ApplicationController
       render :new
       return
     end
+
+    if days.include? "7"
+      days = ["0", "1", "2", "3", "4", "5", "6"]
+    end
+
     days.each do |day|
       @workshift = Workshift.new(params[:workshift].except(:user).merge(day: day))
       unless @workshift.save

@@ -8,7 +8,8 @@ describe Workshift do
   it 'is invalid without an integer day between 0 and 6' do
     expect(build(:workshift, day: -1)).to_not be_valid
     expect(build(:workshift, day: 0)).to be_valid
-    expect(build(:workshift, day: 7)).to_not be_valid
+    expect(build(:workshift, day: 7)).to be_valid
+    expect(build(:workshift, day: 8)).to_not be_valid
     expect(build(:workshift, day: 6)).to be_valid
     expect(build(:workshift, day: 2.4)).to_not be_valid
   end
@@ -22,7 +23,7 @@ describe Workshift do
 
   it 'generates a list of numbers and their associated day names' do
     days = [['Sunday', 0], ['Monday', 1], ['Tuesday', 2], ['Wednesday', 3],
-            ['Thursday', 4], ['Friday', 5], ['Saturday', 6]]
+            ['Thursday', 4], ['Friday', 5], ['Saturday', 6]], ['Weeklong', 7]
     expect(Workshift.valid_days).to match_array days
   end
 
@@ -34,7 +35,8 @@ describe Workshift do
     expect(build(:workshift, day: 4).weekday).to eq("Thursday")
     expect(build(:workshift, day: 5).weekday).to eq("Friday")
     expect(build(:workshift, day: 6).weekday).to eq("Saturday")
-    expect(build(:workshift, day: 7).weekday).to be_nil
+    expect(build(:workshift, day: 7).weekday).to eq("Weeklong")
+    expect(build(:workshift, day: 8).weekday).to be_nil
   end
 
   it 'formats the times correctly' do

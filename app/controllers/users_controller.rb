@@ -39,7 +39,12 @@ class UsersController < ApplicationController
   def update_required_hours
     authorize :user
     @user = User.find_by_id(params[:id])
-    @user.update_required_hours(params[:required_hours].to_f)
+    required_hours = params[:required_hours].to_f
+    if required_hours >= 0 and required_hours <= 168
+      @user.update_required_hours(required_hours)
+    else
+      flash[:alert] = 'Required hours should be >= 0 and <= 168.'
+    end
     redirect_to user_profile_path(@user)
   end
 
@@ -59,14 +64,14 @@ class UsersController < ApplicationController
     authorize :user
     report = WeeklyReport.semester_report
     send_data report, type: 'text/csv; charset=utf-8; header=present',
-                      disposition: "attachment; filename=semester_report.csv"
+              disposition: "attachment; filename=semester_report.csv"
   end
 
   def download_report
     authorize :user
     report = WeeklyReport.find(params[:id])
     send_data report.text, type: 'text/csv; charset=utf-8; header=present',
-                           disposition: "attachment; filename=#{report.title}"
+              disposition: "attachment; filename=#{report.title}"
   end
 
   def view_semester_report
