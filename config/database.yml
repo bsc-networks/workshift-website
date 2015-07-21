@@ -4,7 +4,7 @@ default: &default
   username: workshift_admin
   password: bscworkshiftadmin
   timeout: 5000
-  host: db
+  host: localhost
 
 development:
   <<: *default

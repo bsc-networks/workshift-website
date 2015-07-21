@@ -23,7 +23,7 @@ describe Workshift do
 
   it 'generates a list of numbers and their associated day names' do
     days = [['Sunday', 0], ['Monday', 1], ['Tuesday', 2], ['Wednesday', 3],
-            ['Thursday', 4], ['Friday', 5], ['Saturday', 6]], ['Weeklong', 7]
+            ['Thursday', 4], ['Friday', 5], ['Saturday', 6], ['Weeklong', 7]]
     expect(Workshift.valid_days).to match_array days
   end
 
