@@ -189,7 +189,13 @@ class Workshift < ActiveRecord::Base
 
   def weekday
     # return unless day >= 0 && day <= 6
-    Date::DAYNAMES[day]
+    if day >= 0 && day <= 6
+      Date::DAYNAMES[day]
+    elsif day == 7
+      "Weeklong"
+    else
+      nil
+    end
   end
 
   def category_name
