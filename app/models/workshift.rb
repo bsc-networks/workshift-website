@@ -33,7 +33,7 @@ class Workshift < ActiveRecord::Base
 
   def unassign_worker
     if user # delete current assignment
-      current_assignment = workshift_assignments.first # current_assignment = workshift_assignments.order(date: :desc).first
+      current_assignment = workshift_assignments.first
 
       if current_assignment.status == "upcoming"
         Rufus::Scheduler.singleton.job(current_assignment.schedule_id).unschedule

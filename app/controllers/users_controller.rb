@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
   after_filter :verify_authorized, except: [:index, :profile, :preferences]
 
+  HOURS_PER_WEEK = 168
+
   def index
     @users = User.all
   end
@@ -40,10 +42,10 @@ class UsersController < ApplicationController
     authorize :user
     @user = User.find_by_id(params[:id])
     required_hours = params[:required_hours].to_f
-    if required_hours >= 0 and required_hours <= 168
+    if required_hours >= 0 and required_hours <= HOURS_PER_WEEK
       @user.update_required_hours(required_hours)
     else
-      flash[:alert] = 'Required hours should be >= 0 and <= 168.'
+      flash[:alert] = "Required hours should be equal or greater than 0 but less than #{HOURS_PER_WEEK}."
     end
     redirect_to user_profile_path(@user)
   end
