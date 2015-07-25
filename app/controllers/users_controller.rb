@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     if required_hours >= 0 and required_hours <= HOURS_PER_WEEK
       @user.update_required_hours(required_hours)
     else
-      flash[:alert] = "Required hours should be equal or greater than 0 but less than #{HOURS_PER_WEEK}."
+      flash[:alert] = "Required hours should be equal or greater than 0 but equal or less than #{HOURS_PER_WEEK}."
     end
     redirect_to user_profile_path(@user)
   end
