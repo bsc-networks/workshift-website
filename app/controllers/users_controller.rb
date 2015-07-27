@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def profile
     id = params[:id] || current_user.id
     @user = User.find(id)
+    @quiet_hours = Quiet_hours.new
     @preferences = @user.sorted_preferences
     @workshift_assignments = @user.workshift_assignments.select do |assignment|
       assignment.can_check_off? || assignment.status == "upcoming"
@@ -36,6 +37,28 @@ class UsersController < ApplicationController
       flash[:alert] = e.message
       render 'devise/invitations/new'
     end
+  end
+
+  def get_quiet_hour_as_str(params)
+    hour = params[0].to_i
+    clock = hour > 12 ? "pm" : "am"
+    if hour == 0
+      hour_str = "12"
+    elsif hour > 12 # if more than 12 we substract 12 to keep the AM/PM format
+      hour_str = (hour - 12).to_s
+    else
+      hour_str = params[0]
+    end
+    hour_str.to_s + ":" + params[1] + clock
+  end
+
+  def update_quiet_hours
+    authorize :user
+    @user = User.find_by_id(params[:id])
+    start = get_quiet_hour_as_str(params[:start_quiet_hours].values)
+    stop = get_quiet_hour_as_str(params[:stop_quiet_hours].values)
+    Quiet_hours.new.set_quiet_hours(start, stop)
+    redirect_to user_profile_path(@user)
   end
 
   def update_required_hours

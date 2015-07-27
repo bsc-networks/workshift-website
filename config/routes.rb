@@ -15,6 +15,8 @@ WorkshiftWebsite::Application.routes.draw do
          as: :update_category_preferences
     post 'settings/preferences/schedule' => :update_schedule,
          as: :update_schedule
+    post 'residents/:id/settings/quiet_hours' => :update_quiet_hours,
+         as: :update_quiet_hours
     post 'residents/:id/settings/required_hours' => :update_required_hours,
          as: :update_required_hours
     get 'residents/reports' => :reports, as: :reports

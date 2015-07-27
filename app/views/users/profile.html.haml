@@ -26,12 +26,33 @@
               %fieldset
                 %legend Required Weekly Hours
                 %p Current Required Hours: #{@user.required_hours}
-                = form_tag update_required_hours_path(@user)
                 .column.small-5
                   = label_tag :required_hours, 'New Required Hours'
+                = form_tag update_required_hours_path(@user) do
                   = number_field_tag :required_hours, @user.required_hours,
                     step: 0.5
-                = submit_tag 'Change Required Hours', class: 'button small'
+                  = submit_tag 'Change Required Hours', class: 'button small'
+        .column.small-12
+          - if policy(:user).update_quiet_hours?
+            .settings-section
+              %fieldset
+                %legend Quiet hours
+                %p
+                  :markdown
+                    The current quiet hours are effective between: <strong>#{@quiet_hours.get_quiet_hours_str}</strong>
+                = form_tag update_quiet_hours_path(@user)
+                %table
+                  %thead
+                    %tr
+                      %td From
+                      %td To
+                  %tbody
+                    %tr
+                      %td= time_select 'start_quiet_hours', 'start_quiet_hours',
+                            {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
+                      %td= time_select 'stop_quiet_hours', 'stop_quiet_hours',
+                            {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
+                = submit_tag 'Update Quiet Hours', class: 'button small'
   .column.small-12.medium-4
     %table#user_category_preferences
       %thead

@@ -11,6 +11,10 @@ class UserPolicy < ApplicationPolicy
     user.workshift_manager?
   end
 
+  def update_quiet_hours?
+    user.workshift_manager?
+  end
+
   def update_category_preferences?
     user == record
   end
