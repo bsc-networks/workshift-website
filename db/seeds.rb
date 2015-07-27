@@ -22,6 +22,7 @@ admin = User.create!(email: 'admin@example.com',
                      password: 'C10H15N',
                      password: 'C10H15N')
 admin.update_attribute :admin, true
+admin.update_attribute :workshift_manager, true
 
 User.create!(user_defaults.merge(email: 'john@example.com', name: 'John Doe'))
 User.create!(user_defaults.merge(email: 'sally@example.com',
