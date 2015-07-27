@@ -50,5 +50,6 @@ WorkshiftWebsite::Application.routes.draw do
   end
 
   resources :categories, path: 'workshifts/categories'
+  resources :units, path: 'units'
   resources :workshifts
 end

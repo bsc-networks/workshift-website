@@ -25,6 +25,9 @@
               - if policy(:user).reports?
                 %li
                   = link_to 'Reports', reports_path
+              - if policy(:unit).edit?
+                %li
+                  = link_to 'Units', units_path
             %li
               = link_to 'House Roster', roster_path
             - if user_signed_in?

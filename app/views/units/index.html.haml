@@ -1,0 +1,30 @@
+.row
+  .column.small-12
+    %h1 Unit Listing
+
+.row
+  .column.small-12
+    %table#units
+      %thead
+        %tr
+          %th Name
+          - if policy(:unit).edit?
+            %th
+          - if policy(:unit).destroy?
+            %th
+
+      %tbody
+        - @units.each do |unit|
+          %tr
+            %td= unit.name
+            - if policy(:unit).edit?
+              %td= link_to 'Edit', edit_unit_path(unit)
+            - if policy(:unit).destroy?
+              %td= link_to 'Destroy', unit, method: :delete,
+                data: { confirm: 'Are you sure?, All registered users will be transferred to the Tmp unit and all the other relevant data will be lost, proceed with care !' }
+
+%br
+- if policy(:unit).new?
+  .row
+    .column.small-12
+      = link_to 'New Unit', new_unit_path, class: 'button'

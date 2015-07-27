@@ -1,0 +1,10 @@
+%p#notice= notice
+
+= render 'show'
+
+- if policy(:unit).edit?
+  .row
+    .column.small-12
+      = link_to 'Edit', edit_unit_path(@unit)
+      \|
+      = link_to 'Back', units_path
