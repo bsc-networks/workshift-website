@@ -25,7 +25,7 @@ class Workshift < ActiveRecord::Base
             :description, presence: true
   validates :day, numericality: { only_integer: true,
                                   greater_than_or_equal_to: 0,
-                                  less_than_or_equal_to: 6 }
+                                  less_than_or_equal_to: 7 }
   validate :end_time_later_than_start_time # not working w/ timezones
   validate :multiple_of_5?
 
@@ -33,7 +33,8 @@ class Workshift < ActiveRecord::Base
 
   def unassign_worker
     if user # delete current assignment
-      current_assignment = workshift_assignments.order(date: :desc).first
+      current_assignment = workshift_assignments.first
+
       if current_assignment.status == "upcoming"
         Rufus::Scheduler.singleton.job(current_assignment.schedule_id).unschedule
         current_assignment.destroy
@@ -89,6 +90,7 @@ class Workshift < ActiveRecord::Base
     7.times do |i|
       days << [Date::DAYNAMES[i], i]
     end
+    days << ["Weeklong", 7]
     days
   end
 
@@ -187,7 +189,13 @@ class Workshift < ActiveRecord::Base
 
   def weekday
     # return unless day >= 0 && day <= 6
-    Date::DAYNAMES[day]
+    if day >= 0 && day <= 6
+      Date::DAYNAMES[day]
+    elsif day == 7
+      "Weeklong"
+    else
+      nil
+    end
   end
 
   def category_name

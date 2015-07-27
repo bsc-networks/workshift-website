@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
   after_filter :verify_authorized, except: [:index, :profile, :preferences]
 
+  HOURS_PER_WEEK = 168
+
   def index
     @users = User.all
   end
@@ -39,7 +41,12 @@ class UsersController < ApplicationController
   def update_required_hours
     authorize :user
     @user = User.find_by_id(params[:id])
-    @user.update_required_hours(params[:required_hours].to_f)
+    required_hours = params[:required_hours].to_f
+    if required_hours >= 0 and required_hours <= HOURS_PER_WEEK
+      @user.update_required_hours(required_hours)
+    else
+      flash[:alert] = "Required hours should be equal or greater than 0 but equal or less than #{HOURS_PER_WEEK}."
+    end
     redirect_to user_profile_path(@user)
   end
 
@@ -59,14 +66,14 @@ class UsersController < ApplicationController
     authorize :user
     report = WeeklyReport.semester_report
     send_data report, type: 'text/csv; charset=utf-8; header=present',
-                      disposition: "attachment; filename=semester_report.csv"
+              disposition: "attachment; filename=semester_report.csv"
   end
 
   def download_report
     authorize :user
     report = WeeklyReport.find(params[:id])
     send_data report.text, type: 'text/csv; charset=utf-8; header=present',
-                           disposition: "attachment; filename=#{report.title}"
+              disposition: "attachment; filename=#{report.title}"
   end
 
   def view_semester_report
