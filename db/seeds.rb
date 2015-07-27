@@ -32,6 +32,11 @@ User.create!(user_defaults.merge(email: 'sally@example.com',
   User.create(user_defaults.merge(email: email, name: name))
 end
 
+# Units
+
+Unit.create!(name: 'Cloyne')
+Unit.create!(name: 'Tmp')
+
 # Categories
 category_dishes = Category.create!(name: 'Dishes')
 User.create_preferences(category_dishes)
