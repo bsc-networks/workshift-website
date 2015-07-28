@@ -7,19 +7,20 @@
   .column.small-12.medium-8
     .row
       .column.small-12
-        %table#user_info
-          %thead
-            %tr
-              %td Total Points Balance
-              %td Room Number
-              %td Email
-              %td Phone Number
-          %tbody
-            %tr
-              %td{ class: "#{@user.hours_balance_class}" }= @user.hours_balance
-              %td= @user.room_number.length > 0 ? @user.room_number : ''
-              %td= @user.display_email? ? @user.email : ''
-              %td= (@user.display_phone_number? && @user.phone_number.length > 0) ? @user.phone_number : ''
+        .column.small-12
+          %table#user_info
+            %thead
+              %tr
+                %td Total Points Balance
+                %td Room Number
+                %td Email
+                %td Phone Number
+            %tbody
+              %tr
+                %td{ class: "#{@user.hours_balance_class}" }= @user.hours_balance
+                %td= @user.room_number.length > 0 ? @user.room_number : ''
+                %td= @user.display_email? ? @user.email : ''
+                %td= (@user.display_phone_number? && @user.phone_number.length > 0) ? @user.phone_number : ''
         .column.small-12
           - if policy(:user).update_required_hours?
             .settings-section
@@ -40,19 +41,19 @@
                 %p
                   :markdown
                     The current quiet hours are effective between: <strong>#{@quiet_hours.get_quiet_hours_str}</strong>
-                = form_tag update_quiet_hours_path(@user)
-                %table
-                  %thead
-                    %tr
-                      %td From
-                      %td To
-                  %tbody
-                    %tr
-                      %td= time_select 'start_quiet_hours', 'start_quiet_hours',
-                            {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
-                      %td= time_select 'stop_quiet_hours', 'stop_quiet_hours',
-                            {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
-                = submit_tag 'Update Quiet Hours', class: 'button small'
+                = form_tag update_quiet_hours_path(@user) do
+                  %table
+                    %thead
+                      %tr
+                        %td From
+                        %td To
+                    %tbody
+                      %tr
+                        %td= time_select 'start_quiet_hours', 'start_quiet_hours',
+                              {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
+                        %td= time_select 'stop_quiet_hours', 'stop_quiet_hours',
+                              {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
+                  = submit_tag 'Update Quiet Hours', class: 'button small'
   .column.small-12.medium-4
     %table#user_category_preferences
       %thead
@@ -88,7 +89,7 @@
           %tr
             %td= slot
             - @user.schedule.each do |day, _hours|
-              - if @user.schedule[day][slot] == true
+              - if @user.schedule[day][slot]
                 %td{ bgcolor: '#2A7C58' }
                   <!-- %font{:color => "#FFFFFF"} Free -->
               - else
