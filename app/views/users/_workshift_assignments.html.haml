@@ -24,10 +24,10 @@
             %td= workshift_assignment.status
             - if current_user == @user
               %td
-              = form_tag assignment_check_off_path(workshift_assignment) do
-                = text_field_tag :verifier_name, nil
-                = hidden_field_tag :verifier, nil
-                = submit_tag "Check Off", class: 'button success small radius'
+                = form_tag assignment_check_off_path(workshift_assignment) do
+                  = text_field_tag :verifier_name, nil, class: 'verifier-name'
+                  = hidden_field_tag :verifier, nil
+                  = submit_tag "Check Off", class: 'button success small radius'
               %td
                 = form_tag put_on_market_path(workshift_assignment) do
                   = submit_tag "Sell", class: 'button alert small radius', data: { confirm: 'Are you sure you want to sell your shift?' }
