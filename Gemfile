@@ -7,6 +7,7 @@ gem 'rails'
 gem 'pg'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'haml-rails', '~> 0.4.0'
 gem 'redcarpet',  '~> 3.0'

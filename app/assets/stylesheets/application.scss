@@ -15,6 +15,10 @@
 @import 'foundation_and_overrides';
 @import 'dataTables/jquery.dataTables.foundation';
 
+/*
+ *= require jquery-ui/autocomplete
+ */
+
 table#house_roster td.down_hours {
     background: #FF4747;
 }
