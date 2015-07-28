@@ -58,6 +58,7 @@ group :development, :test do
   gem 'timecop'
   gem 'test-unit', '~> 3.0'
   # gem 'debugger' TODO Replace with a Ruby 2+ compatible gem (Due to project update)
+  gem 'email_spec'
 end
 
 # Gems used only for assets and not required
