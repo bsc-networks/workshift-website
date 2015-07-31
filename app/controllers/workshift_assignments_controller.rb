@@ -16,7 +16,12 @@ class WorkshiftAssignmentsController < ApplicationController
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
     end
-    @workshift_assignment.check_off(verifier)
+    if !verifier.valid_password?(params[:verifier_password])
+      flash[:alert] = 'Invalid password for ' + verifier.name
+      redirect_to user_profile_path(@workshift_assignment.workshifter)
+      return
+    end
+      @workshift_assignment.check_off(verifier)
     ConfirmationMailer.sign_off_email(@workshift_assignment.verifier.email,
                                       @workshift_assignment.workshifter).deliver
     flash[:notice] = 'Assignment successfully checked off'
