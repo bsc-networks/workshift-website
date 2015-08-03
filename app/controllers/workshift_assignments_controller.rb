@@ -21,7 +21,7 @@ class WorkshiftAssignmentsController < ApplicationController
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
     end
-      @workshift_assignment.check_off(verifier)
+    @workshift_assignment.check_off(verifier)
     ConfirmationMailer.sign_off_email(@workshift_assignment.verifier.email,
                                       @workshift_assignment.workshifter).deliver
     flash[:notice] = 'Assignment successfully checked off'
