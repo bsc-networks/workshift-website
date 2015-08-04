@@ -34,7 +34,10 @@ class WorkshiftAssignmentsController < ApplicationController
     @buyable_shifts = assignments_on_sale.where('workshifter_id != ?',
                                                 current_user)
     @user = current_user
-    @workshift_limit = WorkshiftSellingLimit.find(1) # To be replaced by the :id_unit
+    @workshift_limit = WorkshiftSellingLimit.first # To be replaced by the :id_unit
+    if not @workshift_limit
+      @workshift_limit = WorkshiftSellingLimit.create(time_limit: 48) # remove when adding units
+    end
   end
 
   def put_on_market
