@@ -16,6 +16,8 @@ manager = User.create!(user_defaults.merge(email: 'manager@example.com',
                                            required_hours: 0))
 manager.update_attribute :workshift_manager, true
 
+WorkshiftSellingLimit.create(time_limit: 48)
+
 User.create!(user_defaults.merge(email: 'john@example.com', name: 'John Doe'))
 User.create!(user_defaults.merge(email: 'sally@example.com',
                                  name: 'Sally Smith'))

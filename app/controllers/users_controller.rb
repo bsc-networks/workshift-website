@@ -62,6 +62,21 @@ class UsersController < ApplicationController
     redirect_to user_profile_path(@user)
   end
 
+  def update_workshift_selling_limit
+    authorize :user
+    @user = User.find_by_id(params[:id])
+    time_limit = params[:workshift_selling_limit].to_i
+    if time_limit >= 0
+      workshift_selling_limit = WorkshiftSellingLimit.where(id: 1).first # WHERE id_unit to be added
+      workshift_selling_limit.time_limit = time_limit
+      workshift_selling_limit.save
+      flash[:notice] = "Workshift Selling Limit set to #{time_limit}."
+    else
+      flash[:alert] = 'Workshift Selling Limit should be greater or equal to zero.'
+    end
+    redirect_to marketplace_path(@user)
+  end
+
   def update_required_hours
     authorize :user
     @user = User.find_by_id(params[:id])

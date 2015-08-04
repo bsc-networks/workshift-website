@@ -29,10 +29,10 @@
                 %p Current Required Hours: #{@user.required_hours}
                 .column.small-5
                   = label_tag :required_hours, 'New Required Hours'
-                = form_tag update_required_hours_path(@user) do
-                  = number_field_tag :required_hours, @user.required_hours,
-                    step: 0.5
-                  = submit_tag 'Change Required Hours', class: 'button small'
+                  = form_tag update_required_hours_path(@user) do
+                    = number_field_tag :required_hours, @user.required_hours,
+                      step: 0.5
+                    = submit_tag 'Change Required Hours', class: 'button small'
         .column.small-12
           - if policy(:user).update_quiet_hours?
             .settings-section

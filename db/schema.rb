@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150803074208) do
+ActiveRecord::Schema.define(:version => 20150804091005) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -36,10 +36,6 @@ ActiveRecord::Schema.define(:version => 20150803074208) do
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "selling_workshift_limit", :force => true do |t|
-    t.integer "time_limit"
   end
 
   create_table "users", :force => true do |t|
@@ -101,6 +97,10 @@ ActiveRecord::Schema.define(:version => 20150803074208) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.boolean  "purchased",      :default => false
+  end
+
+  create_table "workshift_selling_limits", :force => true do |t|
+    t.integer "time_limit"
   end
 
   create_table "workshifts", :force => true do |t|

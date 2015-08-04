@@ -33,11 +33,16 @@ class WorkshiftAssignmentsController < ApplicationController
     @users_shifts = assignments_on_sale.where(workshifter_id: current_user)
     @buyable_shifts = assignments_on_sale.where('workshifter_id != ?',
                                                 current_user)
+    @user = current_user
+    @workshift_limit = WorkshiftSellingLimit.find(1) # To be replaced by the :id_unit
   end
 
   def put_on_market
     authorize @workshift_assignment
     if @workshift_assignment.can_put_on_market?
+      if @workshift_assignment.late_for_market?
+        flash[:alert] = 'Warning: You are already late to sell your workshift. If no one buys the workshift, you will still get blown hours.'
+      end
       @workshift_assignment.put_on_market
       redirect_to marketplace_path
     else

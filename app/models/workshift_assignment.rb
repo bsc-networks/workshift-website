@@ -79,8 +79,10 @@ class WorkshiftAssignment < ActiveRecord::Base
   end
 
   def late_for_market?
+    workshift_limit = WorkshiftSellingLimit.where(id: 1).first # id_unit to be added
+    time_limit = workshift_limit.time_limit.to_i * 3600 # 3600 second in one hour
     seconds_diff = begin_workshift_date.to_f - Time.now.to_f
-    seconds_diff < (24 * 60 * 60) # 24 hour period to sell shift without 2x penalty
+    seconds_diff < time_limit
   end
 
   def put_on_market

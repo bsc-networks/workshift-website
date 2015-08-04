@@ -19,6 +19,8 @@ WorkshiftWebsite::Application.routes.draw do
          as: :update_quiet_hours
     post 'residents/:id/settings/required_hours' => :update_required_hours,
          as: :update_required_hours
+    post 'residents/:id/settings/workshift_selling_limit' => :update_workshift_selling_limit,
+         as: :update_workshift_selling_limit
     get 'residents/reports' => :reports, as: :reports
     get 'residents/reports/semester' => :view_semester_report,
         as: :view_semester_report

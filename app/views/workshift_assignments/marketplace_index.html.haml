@@ -6,10 +6,23 @@
       complete and you will only lose 1x the amount of hours the shift is worth,
       versus losing 2x the amount of hours if you blow the shift. You will not be
       penalized if no one buys the shift **as long as** you sell the shift **at least
-      24 hours before** it is begins. Buying shifts and completing them will increase your
+      #{@workshift_limit.time_limit} hours before** it is begins. Buying shifts and completing them will increase your
       hours balance by 1x the amount of hours the shift is worth. **IMPORTANT:** Once
       you buy a shift it becomes **YOUR** responsibility.
 
+.row
+  .column.small-12
+    - if policy(:user).update_workshift_selling_limit?
+      .settings-section
+        %fieldset
+          %legend Workshift selling limit
+          %p Current workshift selling limit: #{@workshift_limit.time_limit} hours.
+          .column.small-5
+            = label_tag :selling_limit, 'New workshift selling limit'
+            = form_tag update_workshift_selling_limit_path(@user) do
+              = number_field_tag :workshift_selling_limit, @workshift_limit.time_limit,
+                        step: 1
+              = submit_tag 'Change Workshift Selling Limit', class: 'button small'
 .row
   .column.small-12
     %h3 Shifts you're selling
