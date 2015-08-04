@@ -41,9 +41,7 @@ class WorkshiftAssignmentsController < ApplicationController
     authorize @workshift_assignment
     if @workshift_assignment.can_put_on_market?
       if @workshift_assignment.late_for_market?
-        workshift_limit = WorkshiftSellingLimit.where(id: 1).first # id_unit to be added
-        time_limit = workshift_limit.time_limit.to_i * 3600
-        flash[:alert] = time_limit
+        flash[:alert] = 'Warning: You are already late to sell your workshift. If no one buys the workshift, you will still get blown hours.'
       end
       @workshift_assignment.put_on_market
       redirect_to marketplace_path
