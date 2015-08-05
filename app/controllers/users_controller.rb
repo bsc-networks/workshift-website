@@ -5,12 +5,12 @@ class UsersController < ApplicationController
   HOURS_PER_WEEK = 168
 
   def index
-    @users = User.all
+    @users = User.where(unit_id: current_user.unit)
   end
 
   def profile
     id = params[:id] || current_user.id
-    @user = User.find(id)
+    @user = User.where(unit_id: current_user.unit).find(id)
     @preferences = @user.sorted_preferences
     @workshift_assignments = @user.workshift_assignments.select do |assignment|
       assignment.can_check_off? || assignment.status == "upcoming"
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def update_required_hours
     authorize :user
-    @user = User.find_by_id(params[:id])
+    @user = User.where(unit_id: current_user.unit).find_by_id(params[:id])
     required_hours = params[:required_hours].to_f
     if required_hours >= 0 and required_hours <= HOURS_PER_WEEK
       @user.update_required_hours(required_hours)
@@ -52,7 +52,8 @@ class UsersController < ApplicationController
 
   def delete_all
     authorize :user
-    User.delete_all_residents
+    print("KALLED WITH UNUT <" + current_user.unit.to_s + ">")
+    User.delete_all_residents(current_user.unit)
     flash[:notice] = 'All current residents deleted.'
     redirect_to root_url
   end
@@ -64,7 +65,7 @@ class UsersController < ApplicationController
 
   def download_semester_report
     authorize :user
-    report = WeeklyReport.semester_report
+    report = WeeklyReport.semester_report(current_user.unit)
     send_data report, type: 'text/csv; charset=utf-8; header=present',
               disposition: "attachment; filename=semester_report.csv"
   end
@@ -72,13 +73,13 @@ class UsersController < ApplicationController
   def download_report
     authorize :user
     report = WeeklyReport.find(params[:id])
-    send_data report.text, type: 'text/csv; charset=utf-8; header=present',
+    send_data report.text(current_user.unit), type: 'text/csv; charset=utf-8; header=present',
               disposition: "attachment; filename=#{report.title}"
   end
 
   def view_semester_report
     authorize :user
-    @text = WeeklyReport.semester_report
+    @text = WeeklyReport.semester_report(current_user.unit)
   end
 
   def view_report

@@ -5,7 +5,10 @@
         %ul.title-area
           %li.name
             %h1
-              = link_to 'BSC Work Scheduler', root_url
+              - if user_signed_in?
+                = link_to (current_user.unit.nil? ?  'Temporary' : current_user.unit.name) + ' Work Scheduler', root_url
+              - else
+                = link_to 'Work Scheduler', root_url
           %li.toggle-topbar.menu-icon
             = link_to root_url do
               %span Menu

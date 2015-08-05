@@ -40,7 +40,7 @@ describe User do
       create_list(:user, 30)
       workshift_manager_2 = create(:workshift_manager)
       expect(User.all.count).to eq 32
-      User.delete_all_residents
+      User.delete_all_residents(Unit.find_or_create_by_name(name: 'Unit 1'))
       expect(User.all.count).to eq 2
       expect(User.all).to match_array [workshift_manager_1, workshift_manager_2]
     end
@@ -81,7 +81,7 @@ describe User do
       @num_categories = rand(5..10)
       create_list(:category, @num_categories)
       @created_users = create_list(:user, rand(10..20))
-      @new_category = Category.create(name: 'New Category')
+      @new_category = Category.create(name: 'New Category', unit: Unit.find_or_create_by_name(name: 'Unit 1'))
       User.create_preferences(@new_category)
     end
 

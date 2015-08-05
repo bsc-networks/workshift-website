@@ -30,7 +30,7 @@ Then /^I can download the weekly report$/ do
 end
 
 Then /^I should see the text of that report$/ do
-  CSV.parse(@report.text) do |row|
+  CSV.parse(@report.text(0)) do |row| #Using 0 as unit_id
     expect(page).to have_content(row[0])
     expect(page).to have_content(row[1])
   end

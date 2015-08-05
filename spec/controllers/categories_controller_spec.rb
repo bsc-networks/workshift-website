@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe CategoriesController do
   before :each do
-    user = double('user')
+    user = double('user', unit: Unit.find_or_create_by_name(name: 'Unit 1'))
     allow(user).to receive(:workshift_manager?) { true }
     sign_in(user)
   end
@@ -69,7 +69,7 @@ describe CategoriesController do
       before :each do
         @id = rand(1..100)
         @category = create(:category, id: @id)
-        sign_in double('user', :workshift_manager? => true)
+        sign_in double('user', :workshift_manager? => true, unit: Unit.find_or_create_by_name(name: 'Unit 1'))
       end
 
       describe 'GET edit' do

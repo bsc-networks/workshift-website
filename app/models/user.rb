@@ -34,6 +34,8 @@
 require 'csv'
 
 class User < ActiveRecord::Base
+  belongs_to :unit
+
   has_many :workshift_assignments, foreign_key: 'workshifter_id'
   has_many :preferences
   has_many :verified_workshifts, class_name: 'WorkshiftAssignment',
@@ -48,7 +50,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :room_number, :phone_number, :display_email,
                   :display_phone_number, :schedule, :required_hours,
-                  :hours_balance
+                  :hours_balance, :unit
 
   after_create :init_schedule
 
@@ -69,15 +71,15 @@ class User < ActiveRecord::Base
     num_invited
   end
 
-  def self.delete_all_residents
-    User.where(workshift_manager: false).destroy_all
-    WeeklyReport.destroy_all
+  def self.delete_all_residents(unit)
+    User.where(unit_id: unit).where(workshift_manager: false).destroy_all
+    WeeklyReport.where(unit_id: unit).destroy_all
   end
 
   # Create a new preference for the inputted category for each user. The rank
   # of the preference should place it as the least prefered category.
   def self.create_preferences(category)
-    User.all.each do |user|
+    User.where(unit_id: category.unit).each do |user|
       rank = Category.count
       Preference.create!(user_id: user.id, category_id: category.id,
                          rank: rank)
@@ -105,7 +107,7 @@ class User < ActiveRecord::Base
     Chronic.time_class = Time.zone
     current_week_end = Chronic.parse "last Saturday at 23:59"
     current_week_start = current_week_end - 1.week
-    User.all.each do |user|
+    User.where(unit_id: current_user.unit).each do |user|
       users_shifts = WorkshiftAssignment.where(workshifter_id: user,
                                                date: current_week_start..current_week_end)
       assigned_hours = users_shifts.sum(:hours)

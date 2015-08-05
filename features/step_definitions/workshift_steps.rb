@@ -1,11 +1,13 @@
 Given /^the following workshifts exist:$/ do |workshifts_table|
   workshifts_table.hashes.each do |workshift|
-    Workshift.create!(workshift)
+    w = Workshift.create!(workshift)
+    w.update_attribute :unit, Unit.find_or_create_by_id(id: 1, name: 'Unit 1')
+    w.save()
   end
 end
 
 Given /^the (?:|work)shift "(.+)" exists$/ do |task|
-  @workshift = FactoryGirl.create(:workshift, task: task)
+  @workshift = FactoryGirl.create(:workshift, task: task, unit_id: Unit.find_or_create_by_id(id: 1, name: 'Unit 1'))
 end
 
 Given /^it belongs to the category "(.+)"$/ do |name|
@@ -14,7 +16,7 @@ Given /^it belongs to the category "(.+)"$/ do |name|
 end
 
 Then /^I should see all of the workshifts$/ do
-  workshifts = Workshift.all
+  workshifts = Workshift.where(unit_id: 1)
   num_workshifts = workshifts.length
   assert(num_workshifts != 0,
          "#{num_workshifts} workshifts exist.")

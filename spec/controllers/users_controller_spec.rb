@@ -5,12 +5,13 @@ describe UsersController do
     context 'when an authenticated user is logged in' do
       before :each do
         @created_users = create_list(:user, rand(10..20))
-        sign_in
+        @user = create(:user, :with_assigned_workshifts, id: 4242, unit: Unit.find_or_create_by_name(name: 'Unit 1'))
+        sign_in @user
       end
 
       it 'assigns @users to all users' do
         get :index
-        expect(assigns(:users)).to match_array @created_users
+        expect(assigns(:users)).to match_array @created_users + [@user]
       end
 
       it 'renders the index template' do
@@ -23,8 +24,8 @@ describe UsersController do
   describe 'GET profile' do
     context 'when an authenticated user is logged in' do
       before :each do
-        @user = create(:user, :with_assigned_workshifts, id: 1)
-        sign_in
+        user = create(:user, :with_assigned_workshifts, id: 4243, unit: Unit.find_or_create_by_name(name: 'Unit 1'))
+        sign_in user
       end
 
       # it 'assigns @workshifts_assignments to users workshift assignments' do
@@ -34,7 +35,7 @@ describe UsersController do
       # end
 
       it 'renders the profile template' do
-        get :profile, id: 1
+        get :profile, id: 4243
         expect(response).to render_template 'profile'
       end
     end
@@ -43,7 +44,7 @@ describe UsersController do
   describe 'GET view_semester_report' do
     context 'an authenticated user is logged in' do
       it 'renders the view_semester_report template' do
-        user = create(:workshift_manager)
+        user = create(:workshift_manager, unit: Unit.find_or_create_by_name(name: 'Unit 1'))
         sign_in user
         get :view_semester_report
         expect(response).to render_template 'view_semester_report'
@@ -54,7 +55,7 @@ describe UsersController do
   describe 'GET view_report' do
     context 'a workshift manager is signed in' do
       it 'renders the view_report template' do
-        user = create(:workshift_manager)
+        user = create(:workshift_manager, unit: Unit.find_or_create_by_name(name: 'Unit 1'))
         sign_in user
         create(:weekly_report, id: 1)
         get :view_report, id: 1

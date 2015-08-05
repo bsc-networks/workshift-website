@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150727102630) do
+ActiveRecord::Schema.define(:version => 20150804230306) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20150727102630) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "unit_id"
   end
 
   create_table "preferences", :force => true do |t|
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20150727102630) do
     t.text     "schedule"
     t.float    "required_hours",         :default => 5.0
     t.boolean  "admin",                  :default => false, :null => false
+    t.integer  "unit_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -88,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20150727102630) do
   create_table "weekly_reports", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "unit_id"
   end
 
   create_table "workshift_assignments", :force => true do |t|
@@ -106,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20150727102630) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.boolean  "purchased",      :default => false
+    t.integer  "unit_id"
   end
 
   create_table "workshifts", :force => true do |t|
@@ -119,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20150727102630) do
     t.float    "hours"
     t.integer  "user_id"
     t.integer  "category_id"
+    t.integer  "unit_id"
   end
 
 end

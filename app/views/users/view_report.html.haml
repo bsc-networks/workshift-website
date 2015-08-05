@@ -8,7 +8,7 @@
           %th Resident
           %th Hours Balance
       %tbody
-        - CSV.parse(@report.text) do |row|
+        - CSV.parse(@report.text(current_user.unit)) do |row|
           %tr
             %td= row[0]
             %td= row[1]

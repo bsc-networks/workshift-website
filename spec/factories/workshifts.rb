@@ -23,5 +23,6 @@ FactoryGirl.define do
     start_time { Time.zone.parse('12:00pm') }
     end_time { start_time + 4.hours }
     user { nil }
+    unit { Unit.find_or_create_by_name(name: 'Unit 1') }
   end
 end

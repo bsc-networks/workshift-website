@@ -10,7 +10,7 @@ class WorkshiftAssignmentsController < ApplicationController
       redirect_to user_profile_path(@workshift_assignment.workshifter)
       return
     end
-    verifier = User.find_by_id(params[:verifier])
+    verifier = User.where(unit_id: current_user.unit).find_by_id(params[:verifier])
     if !verifier || verifier == @workshift_assignment.workshifter
       flash[:alert] = 'Invalid verifier'
       redirect_to user_profile_path(@workshift_assignment.workshifter)
@@ -24,10 +24,9 @@ class WorkshiftAssignmentsController < ApplicationController
   end
 
   def marketplace_index
-    assignments_on_sale = WorkshiftAssignment.assignments_on_market
+    assignments_on_sale = WorkshiftAssignment.assignments_on_market.where(unit_id: current_user.unit)
     @users_shifts = assignments_on_sale.where(workshifter_id: current_user)
-    @buyable_shifts = assignments_on_sale.where('workshifter_id != ?',
-                                                current_user)
+    @buyable_shifts = assignments_on_sale.where('workshifter_id != ?', current_user)
   end
 
   def put_on_market
@@ -44,7 +43,7 @@ class WorkshiftAssignmentsController < ApplicationController
 
   def sell_to
     authorize @workshift_assignment
-    if current_user != User.find(params[:buyer_id])
+    if current_user != User.where(unit_id: current_user.unit).find(params[:buyer_id])
       flash[:alert] = 'Unauthorized action'
       redirect_to user_profile_path(current_user)
       return

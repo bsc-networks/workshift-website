@@ -6,7 +6,7 @@ end
 
 When /^I am assigned to the shift "([^"]+)"$/ do |task|
   @workshift = Workshift.find_by_task(task)
-  @workshift ||= FactoryGirl.create(:workshift, task: task)
+  @workshift ||= FactoryGirl.create(:workshift, task: task, unit: Unit.find_or_create_by_id(id: 1, name: 'Unit 1'))
   @assignment = @workshift.assign_worker(@user)
 end
 

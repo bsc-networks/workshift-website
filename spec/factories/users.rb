@@ -43,6 +43,8 @@ FactoryGirl.define do
     password 'secret'
     schedule { Hash.new }
 
+    unit { Unit.find_or_create_by_name(name: 'Unit 1') }
+
     factory :workshift_manager do
       workshift_manager true
     end
