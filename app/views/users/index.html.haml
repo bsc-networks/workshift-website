@@ -1,26 +1,41 @@
 .row
   .column.small-12
     %h1 House Roster
-  .column.small-12
-    %table.data-table#house_roster
-      %thead
-        %tr
-          %td Resident
-          %td Hours Balance
-          - if policy(:workshift).edit?
-            %td Hours Assigned / Hours Needed
-          %td Room Number
-          %td Email
-          %td Phone Number
-      %tbody
-        - @users.each do |user|
+  = form_tag update_mult_required_hours_path(@user) do
+    .column.small-12
+      %table.data-table#house_roster
+        %thead
           %tr
-            %td= link_to user.name, user_profile_path(user)
-            %td{ class: "#{user.hours_balance_class}" }= user.hours_balance
             - if policy(:workshift).edit?
-              %td{ class: "#{user.hours_assigned_class}" }
-                #{user.workshifts.sum(:hours)} / #{user.required_hours}
-            %td= (user.room_number.length > 0) ? user.room_number : ''
-            %td= (user.display_email?) ? user.email : ''
-            %td
-              = (user.display_phone_number? && user.phone_number.length > 0) ? user.phone_number : ''
+              %td Select
+            %td Resident
+            %td Hours Balance
+            - if policy(:workshift).edit?
+              %td Hours Assigned / Hours Needed
+            %td Room Number
+            %td Email
+            %td Phone Number
+        %tbody
+          - @users.each do |user|
+            %tr
+              - if policy(:workshift).edit?
+                %td= check_box_tag "user_ids[#{user.id}]"
+              %td= link_to user.name, user_profile_path(user)
+              %td{ class: "#{user.hours_balance_class}" }= user.hours_balance
+              - if policy(:workshift).edit?
+                %td{ class: "#{user.hours_assigned_class}" }
+                  #{user.workshifts.sum(:hours)} / #{user.required_hours}
+              %td= (user.room_number.length > 0) ? user.room_number : ''
+              %td= (user.display_email?) ? user.email : ''
+              %td
+                = (user.display_phone_number? && user.phone_number.length > 0) ? user.phone_number : ''
+      - if policy(:workshift).edit?
+        .column.small-12
+          .settings-section
+          %fieldset
+            %legend Required Weekly Hours
+            .column.small-5
+              = label_tag :required_hours, 'New Required Hours'
+              = number_field_tag :required_hours, '3.0',
+                      step: 0.5
+              = submit_tag 'Change Required Hours', class: 'button small'
