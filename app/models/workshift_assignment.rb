@@ -2,9 +2,10 @@ class WorkshiftAssignment < ActiveRecord::Base
   belongs_to :workshifter, class_name: "User", foreign_key: "workshifter_id"
   belongs_to :verifier, class_name: "User", foreign_key: "verifier_id"
   belongs_to :workshift
+  belongs_to :unit
 
   attr_accessible :description, :date, :end_time, :hours, :schedule_id, :sign_off_time,
-                  :start_time, :status, :task, :purchased
+                  :start_time, :status, :task, :purchased, :unit
 
   after_create :schedule_in_progress_status
 

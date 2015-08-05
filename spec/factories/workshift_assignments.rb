@@ -15,6 +15,7 @@ FactoryGirl.define do
     end
     hours { workshift.hours }
     task { workshift.task }
+    unit { Unit.find_or_create_by_name(name: 'Unit 1') }
     status "Upcoming"
     purchased false
   end
