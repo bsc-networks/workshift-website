@@ -23,18 +23,6 @@ describe WorkshiftAssignmentsController do
     expect(response).to redirect_to user_profile_path(@workshift_assignment.workshifter)
   end
 
-  it 'checks off correctly' do
-    another_user = create(:user, id: 2, email: 'lol@lol.com')
-    @workshift_assignment = create(:workshift_assignment,
-                                   id: 1, workshifter: @user,
-                                   status: 'awaiting check off',
-                                   verifier: another_user)
-    expect_any_instance_of(WorkshiftAssignment).to receive :check_off
-    allow(ConfirmationMailer.sign_off_email(@workshift_assignment.verifier.email, @workshift_assignment.workshifter)).to receive(:deliver).and_return(true)
-    post :check_off, id: @workshift_assignment.id, verifier: 2
-    expect(response).to redirect_to user_profile_path(@workshift_assignment.workshifter)
-  end
-
   it 'successfully puts an assignment on the market' do
     @workshift_assignment = create(:workshift_assignment,
                                    id: 1, workshifter: @user,
