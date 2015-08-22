@@ -61,6 +61,7 @@ class UsersController < ApplicationController
     unit = Unit.find_by_name(params[:unit])
     if unit == nil
       flash[:alert] = "No such unit exists : #{params[:unit]}."
+      redirect_to user_profile_path(@user) and return
     else
       @user.update_unit(unit)
     end

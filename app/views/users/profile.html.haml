@@ -38,6 +38,7 @@
               %fieldset
                 %legend Unit
                 %p Current Unit: #{@user.unit.name}
+                %p Warning, you cannot retrieve the user after sending him to an other unit.
                 = form_tag update_unit_path(@user) do
                   .column.small-5
                     = label_tag :unit, 'New Unit name, must exist'
