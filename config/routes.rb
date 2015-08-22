@@ -31,6 +31,11 @@ WorkshiftWebsite::Application.routes.draw do
         as: :download_report
   end
 
+  scope controller: :standalone_workshift_signoff do
+    get 'signoff' => :index
+    post 'signoff' => :load_user, as: :load_user
+  end
+
   scope controller: :workshift_assignments do
     get 'workshifts/marketplace' => :marketplace_index, as: :marketplace
     post 'workshift_assignments/:id/check_off' => :check_off,
