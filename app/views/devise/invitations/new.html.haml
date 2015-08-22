@@ -2,17 +2,31 @@
   .column.small-12
     %h2 Add New Users
   .column.small-12
-    :markdown
-      Enter new user information in **Comma Separated** format, with names
-      in the first column and email addresses in the second.
+    - if policy(:unit).edit?
+      :markdown
+        Enter new user information in **Comma Separated** format, with names
+        in the first column, email addresses in the second, and Unit name in the third,
+        Unit must exist prior to this operation.
 
-      [Example Input](http://pastebin.com/Kaedc37g)
+        [Example Input](http://pastebin.com/zy95krRC)
+    - else
+      :markdown
+        Enter new user information in **Comma Separated** format, with names
+        in the first column and email addresses in the second.
+
+        [Example Input](http://pastebin.com/Kaedc37g)
 
 .row
   = form_tag invite_users_path do
     .column.small-12
-      = label_tag 'user_info', 'User Names and Emails'
-      = text_area_tag 'user_info', @user_info, rows: 20,
-        placeholder: 'User Name,user_email@example.com'
+      - if policy(:unit).edit?
+        = label_tag 'user_info', 'User Names, Emails and Units'
+        = text_area_tag 'user_info', @user_info, rows: 20,
+          placeholder: 'User Name,user_email@example.com, Unit Name'
+      - else
+        = label_tag 'user_info', 'User Names and Emails'
+        = text_area_tag 'user_info', @user_info, rows: 20,
+          placeholder: 'User Name,user_email@example.com'
+
     .column.small-12
       %input.button{:type => "submit", :value => "Invite User"}/

@@ -71,6 +71,22 @@ class User < ActiveRecord::Base
     num_invited
   end
 
+  def self.invite_users_in_units(user_info)
+    fail ArgumentError, 'Must input at least one userattr_accessible' if user_info.length == 0
+    num_invited = 0
+    CSV.parse(user_info) do |row|
+      fail ArgumentError, 'Improperly formatted user information on row '\
+        "#{num_invited + 1}" if row.length != 3
+      if row[2] == nil or Unit.find_by_name(row[2].strip) == nil
+        fail ArgumentError, 'No such unit exists on row '\
+        "#{num_invited + 1}"
+      end
+      User.invite!(name: row[0].strip, email: row[1].strip, unit: Unit.find_by_name(row[2].strip))
+      num_invited += 1
+    end
+    num_invited
+  end
+
   def self.delete_all_residents(unit)
     User.where(unit_id: unit).where(workshift_manager: false).destroy_all
     WeeklyReport.where(unit_id: unit).destroy_all

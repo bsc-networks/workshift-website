@@ -27,7 +27,11 @@ class UsersController < ApplicationController
     authorize :user
     @user_info = params[:user_info]
     begin
-      num_invited = User.invite_users(@user_info)
+      if current_user.admin
+        num_invited = User.invite_users_in_units(@user_info)
+      else
+        num_invited = User.invite_users(@user_info)
+      end
       # num_s used to change user -> users when more than 1 user invited
       num_s = num_invited > 1 ? 1 : 0
       flash[:notice] = "Invited #{num_invited} new user#{'s' * num_s}."
