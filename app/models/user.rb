@@ -59,13 +59,13 @@ class User < ActiveRecord::Base
   # Invites each of the users whose information is contained in the input,
   # which must be formatted as a comma-separated string with names in the
   # first column and email addresses in the second.
-  def self.invite_users(user_info)
+  def self.invite_users(user_info, unit)
     fail ArgumentError, 'Must input at least one userattr_accessible' if user_info.length == 0
     num_invited = 0
     CSV.parse(user_info) do |row|
       fail ArgumentError, 'Improperly formatted user information on row '\
         "#{num_invited + 1}" if row.length != 2
-      User.invite!(name: row[0].strip, email: row[1].strip)
+      User.invite!(name: row[0].strip, email: row[1].strip, unit:unit)
       num_invited += 1
     end
     num_invited

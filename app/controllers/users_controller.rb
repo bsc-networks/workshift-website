@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       if current_user.admin
         num_invited = User.invite_users_in_units(@user_info)
       else
-        num_invited = User.invite_users(@user_info)
+        num_invited = User.invite_users(@user_info, current_user.unit)
       end
       # num_s used to change user -> users when more than 1 user invited
       num_s = num_invited > 1 ? 1 : 0
