@@ -26,10 +26,10 @@ When /^someone buys the shift$/ do
   @assignment.sell_to(buyer)
 end
 
-Then /^I should see the workshift as sold$/ do
-  visit user_profile_path(@user)
-  step 'I should see "sold"'
-end
+#Then /^I should see the workshift as sold$/ do
+#  visit user_profile_path(@user)
+#  step 'I should see "sold"'
+#end
 
 Given /^no one buys my shift and the workshift has passed$/ do
   step 'I can see my workshift on the marketplace'
