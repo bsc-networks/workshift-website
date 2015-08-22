@@ -17,6 +17,8 @@ WorkshiftWebsite::Application.routes.draw do
          as: :update_schedule
     post 'residents/:id/settings/required_hours' => :update_required_hours,
          as: :update_required_hours
+    post 'residents/:id/settings/unit' => :update_unit,
+         as: :update_unit
     get 'residents/reports' => :reports, as: :reports
     get 'residents/reports/semester' => :view_semester_report,
         as: :view_semester_report

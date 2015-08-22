@@ -187,6 +187,11 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def update_unit(unit)
+    self.unit = unit
+    self.save!
+  end
+
   def needed_hours
     required_hours - workshifts.sum(:hours)
   end

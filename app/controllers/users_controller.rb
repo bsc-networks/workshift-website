@@ -54,6 +54,19 @@ class UsersController < ApplicationController
     redirect_to user_profile_path(@user)
   end
 
+  def update_unit
+    #TODO, Clean the user info while changing unit, don't know what to keep and what to destroy yet
+    authorize :user
+    @user = User.where(unit_id: current_user.unit).find_by_id(params[:id])
+    unit = Unit.find_by_name(params[:unit])
+    if unit == nil
+      flash[:alert] = "No such unit exists : #{params[:unit]}."
+    else
+      @user.update_unit(unit)
+    end
+    redirect_to roster_url
+  end
+
   def delete_all
     authorize :user
     print("KALLED WITH UNUT <" + current_user.unit.to_s + ">")
