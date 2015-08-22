@@ -32,7 +32,7 @@ WorkshiftWebsite::Application.routes.draw do
   end
 
   scope controller: :standalone_workshift_signoff do
-    get 'signoff' => :index
+    get 'signoff' => :index, as: :signoff
     post 'signoff' => :load_user, as: :load_user
   end
 
