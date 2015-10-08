@@ -59,20 +59,22 @@ describe User do
   end
 
   describe 'inviting new users' do
+    let (:unit) { Unit.find_or_create_by_name(name: 'Unit 1') }
+
     it 'fails when an empty string is inputted' do
-      expect { User.invite_users('') }.to raise_error ArgumentError
+      expect { User.invite_users('', unit) }.to raise_error ArgumentError
     end
 
     it 'fails when the input is not formatted correctly' do
       input = "User 1,user@example.com\nUser 2"
-      expect { User.invite_users(input) }.to raise_error ArgumentError
+      expect { User.invite_users(input, unit) }.to raise_error ArgumentError
     end
 
     it 'returns the number of people invited' do
       input = "User 1,user_1@example.com\n" \
               "User 2,user_2@example.com\n" \
               "User 3,user_3@example.com\n"
-      expect(User.invite_users(input)).to eq 3
+      expect(User.invite_users(input, unit)).to eq 3
     end
   end
 
