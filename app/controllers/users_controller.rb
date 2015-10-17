@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   end
 
   def update_unit
-    #TODO, Clean the user info while changing unit, don't know what to keep and what to destroy yet
+    #CHOICE, When a user changes units, its preferences stay the same, but workshifts are cleaned
     authorize :user
     @user = User.where(unit_id: current_user.unit).find_by_id(params[:id])
     unit = Unit.find_by_name(params[:unit])
@@ -63,6 +63,7 @@ class UsersController < ApplicationController
       flash[:alert] = "No such unit exists : #{params[:unit]}."
       redirect_to user_profile_path(@user) and return
     else
+      @user.workshifts.delete_all
       @user.update_unit(unit)
     end
     redirect_to roster_url
