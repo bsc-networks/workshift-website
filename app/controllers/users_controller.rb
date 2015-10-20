@@ -64,6 +64,7 @@ class UsersController < ApplicationController
       redirect_to user_profile_path(@user) and return
     else
       @user.workshifts.delete_all
+      @user.workshifts
       @user.update_unit(unit)
     end
     redirect_to roster_url
@@ -71,7 +72,6 @@ class UsersController < ApplicationController
 
   def delete_all
     authorize :user
-    print("KALLED WITH UNUT <" + current_user.unit.to_s + ">")
     User.delete_all_residents(current_user.unit)
     flash[:notice] = 'All current residents deleted.'
     redirect_to root_url

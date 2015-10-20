@@ -63,6 +63,31 @@ describe UsersController do
       end
     end
   end
+
+  describe 'POST update_unit' do
+    before :each do
+      @manager = create(:workshift_manager, unit: Unit.find_or_create_by_name(name: 'Unit 1'))
+      sign_in @manager
+      @unit1 = Unit.find_or_create_by_name(name: 'Unit 1')
+      @unit2 = Unit.find_or_create_by_name(name: 'Unit 2')
+      @user = create(:user, unit: @unit1)
+      @preference = create(:preference, user: @user, category_id: 1, rank: 1)
+      @workshift = create(:workshift, user: @user, unit: @unit1)
+    end
+
+    it 'leaves preferences unchanged' do
+      expect(@user.preferences.first).to eq(@preference)
+      post :update_unit, unit: 'Unit 2', id: @user.id
+      expect(@user.preferences.first).to eq(@preference)
+    end
+
+    it 'unassociates workshifts but does not remove them from the old unit' do
+      expect(@user.workshifts.first).to eq(@workshift)
+      post :update_unit, unit: 'Unit 2', id: @user.id
+      expect(@user.workshifts.empty?).to eq(true)
+    end
+  end
+
   #describe 'POST update_schedule' do
   #  context 'when an authenticated user is logged in'
   #  before :each do
