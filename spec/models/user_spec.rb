@@ -37,23 +37,23 @@ describe User do
 
   describe 'updating a users unit' do
     before :each do
-      unit1 = Unit.find_or_create_by_name(name: 'Unit 1')
-      unit2 = Unit.find_or_create_by_name(name: 'Unit 2')
-      user = create(:user, unit: unit1)
-      preference = create(:preference, user: user, category_id: 1, rank: 1)
-      workshift = create(:workshift, user: user, unit: unit1)
+      @unit1 = Unit.find_or_create_by_name(name: 'Unit 1')
+      @unit2 = Unit.find_or_create_by_name(name: 'Unit 2')
+      @user = create(:user, unit: @unit1)
+      @preference = create(:preference, user: @user, category_id: 1, rank: 1)
+      @workshift = create(:workshift, user: @user, unit: @unit1)
     end
 
     it 'leaves preferences unchanged' do
-      expect(user.preferences.first).to eq(preference)
-      user.update_unit(unit: unit2)
-      expect(user.preferences.first).to eq(preference)
+      expect(@user.preferences.first).to eq(@preference)
+      @user.update_unit(unit: @unit2)
+      expect(@user.preferences.first).to eq(@preference)
     end
 
     it 'unassociates workshifts but does not remove them from the old unit' do
-      expect(user.workshifts.first).to eq(workshift)
-      user.update_unit(unit: unit2)
-      expect(user.workshifts.empty?).to eq(true)
+      expect(@user.workshifts.first).to eq(@workshift)
+      @user.update_unit(unit: @unit2)
+      expect(@user.workshifts.empty?).to eq(true)
     end
   end
 
@@ -137,7 +137,7 @@ describe User do
     it 'creates the preferences if they do not currently exist' do
       @user.preferences.delete_all
       preferences = { '1' => '1', '2' => '2' }
-      @user.category_preferences(preferences)
+      @user.update_category_preferences(preferences)
       preferences.each do |category_id, ranking|
         pref = @user.preferences.where(category_id: category_id).first
         expect(pref.rank).to eq ranking.to_i
