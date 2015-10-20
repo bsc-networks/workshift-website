@@ -45,15 +45,15 @@ describe User do
     end
 
     it 'leaves preferences unchanged' do
-      expect(user.preferences.first) to eq(preference)
+      expect(user.preferences.first).to eq(preference)
       user.update_unit(unit: unit2)
-      expect(user.preferences.first) to eq(preference)
+      expect(user.preferences.first).to eq(preference)
     end
 
     it 'unassociates workshifts but does not remove them from the old unit' do
-      expect(user.workshifts.first) to eq(workshift)
+      expect(user.workshifts.first).to eq(workshift)
       user.update_unit(unit: unit2)
-      expect(user.workshifts.empty?) to eq(true)
+      expect(user.workshifts.empty?).to eq(true)
     end
   end
 
