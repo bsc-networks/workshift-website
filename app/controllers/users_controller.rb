@@ -63,8 +63,9 @@ class UsersController < ApplicationController
       flash[:alert] = "No such unit exists : #{params[:unit]}."
       redirect_to user_profile_path(@user) and return
     else
+      @user.preferences.destroy_all
       @user.workshifts.delete_all
-      @user.workshifts
+      @user.workshift_assignments.delete_all
       @user.update_unit(unit)
     end
     redirect_to roster_url

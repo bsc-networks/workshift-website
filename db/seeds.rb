@@ -26,8 +26,7 @@ manager.update_attribute :unit, cloyne
 admin = User.create!(email: 'admin@example.com',
                      name: '42',
                      required_hours: 0,
-                     password: 'C10H15N',
-                     password: 'C10H15N',
+                     password: 'secret',
                      unit: tmp)
 admin.update_attribute :admin, true
 admin.update_attribute :workshift_manager, true

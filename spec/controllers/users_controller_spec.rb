@@ -73,18 +73,23 @@ describe UsersController do
       @user = create(:user, unit: @unit1)
       @preference = create(:preference, user: @user, category_id: 1, rank: 1)
       @workshift = create(:workshift, user: @user, unit: @unit1)
+      @workshift_assignment = create(:workshift_assignment, id: 2, workshifter: @user)
     end
 
-    it 'leaves preferences unchanged' do
+    it 'removes preferences from user' do
       expect(@user.preferences.first).to eq(@preference)
       post :update_unit, unit: 'Unit 2', id: @user.id
-      expect(@user.preferences.first).to eq(@preference)
+      expect(@user.preferences.empty?).to be(true)
     end
 
-    it 'unassociates workshifts but does not remove them from the old unit' do
+    it 'unassociates workshifts, assignments but does not remove them from the old unit' do
       expect(@user.workshifts.first).to eq(@workshift)
+      expect(@user.workshift_assignments.first).to eq(@workshift_assignment)
       post :update_unit, unit: 'Unit 2', id: @user.id
       expect(@user.workshifts.empty?).to eq(true)
+      expect(@user.workshift_assignments.empty?).to eq(true)
+      expect(@unit1.workshifts).to include(@workshift)
+      expect(@unit1.workshift_assignments).to include(@workshift_assignment)
     end
   end
 
