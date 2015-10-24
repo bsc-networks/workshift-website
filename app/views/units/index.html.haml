@@ -20,8 +20,8 @@
             - if policy(:unit).edit?
               %td= link_to 'Edit', edit_unit_path(unit)
             - if policy(:unit).destroy?
-              %td= link_to 'Destroy', unit, method: :delete,
-                data: { confirm: 'Are you sure?, All registered users will be transferred to the Tmp unit and all the other relevant data will be lost, proceed with care !' }
+              %td= link_to 'Remove', unit, method: :destroy,
+                data: { Confirm: 'Are you sure? This unit\'s users will be deleted, so transfer users you wish to save first. Admins and workshift managers will be moved to Temp unit.' }
 
 %br
 - if policy(:unit).new?
