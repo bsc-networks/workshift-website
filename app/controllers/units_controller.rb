@@ -43,6 +43,11 @@ class UnitsController < ApplicationController
   def destroy
     authorize @unit
     @unit.destroy
+    @unit.users.each do |user|
+      if not (user.admin? or user.workshift_manager?)
+        user.destroy
+      end
+    end
     respond_with(@unit)
   end
 

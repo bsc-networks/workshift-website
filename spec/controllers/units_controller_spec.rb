@@ -134,11 +134,36 @@ RSpec.describe UnitsController, :type => :controller do
   end
 
   describe 'DELETE destroy' do
-    it 'removes a unit from the database' do
+    before :each do
       create(:unit, id: 1, name: 'test')
+    end
+
+    it 'removes a unit from the database' do
       delete :destroy, id: 1
       expect(Unit.find_by_id(1)).to eq nil
     end
+
+    it 'destroys users in the unit except admins and managers' do
+      unit = Unit.find_by_name('test')
+      temp_unit = Unit.find_by_name('Tmp')
+      create(:user, id: 1, unit: unit)
+      admin = create(:user, id: 2, unit: unit)
+      admin.update_attribute(:admin, true)
+      manager = create(:user, id: 3, unit: unit)
+      manager.update_attribute(:workshift_manager, true)
+      user = User.find_by_id(1)
+      admin = User.find_by_id(2)
+      manager = User.find_by_id(3)
+      expect(unit.users).to include(user)
+      expect(unit.users).to include(admin)
+      expect(unit.users).to include(manager)
+      delete :destroy, id: 1
+      expect(User.find_by_id(1)).to be_nil
+      expect(User.find_by_id(2).unit).to be_nil
+      expect(User.find_by_id(3).unit).to be_nil
+    end
+
+
   end
 
 end
