@@ -1,10 +1,10 @@
 class UserPolicy < ApplicationPolicy
   def add_users?
-    user.workshift_manager?
+    user.workshift_manager? || user.unit_level_admin?
   end
 
   def delete_all?
-    user.workshift_manager?
+    user.workshift_manager? || user.unit_level_admin?
   end
 
   def update_required_hours?
@@ -12,7 +12,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update_unit?
-    user.workshift_manager?
+    user.workshift_manager? || user.unit_level_admin?
   end
 
   def update_category_preferences?
@@ -24,22 +24,22 @@ class UserPolicy < ApplicationPolicy
   end
 
   def reports?
-    user.workshift_manager?
+    user.workshift_manager? || user.unit_level_admin?
   end
 
   def download_semester_report?
-    user.workshift_manager?
+    user.workshift_manager? || user.unit_level_admin?
   end
 
   def download_report?
-    user.workshift_manager?
+    user.workshift_manager? || user.unit_level_admin?
   end
 
   def view_semester_report?
-    user.workshift_manager?
+    user.workshift_manager? || user.unit_level_admin?
   end
 
   def view_report?
-    user.workshift_manager?
+    user.workshift_manager? || user.unit_level_admin?
   end
 end

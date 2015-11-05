@@ -49,7 +49,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   # for loop, different cases whether it was attempted sold/sold/done
 
   def check_off(verifier)
-    if verifier != self.workshifter || verifer.role === 'Workshift Manager'
+    if verifier != self.workshifter || verifer.role === 'Workshift Manager' || verifier.role === 'Unit-Level Admin'
       self.verifier = verifier
       self.status = "complete"
       self.sign_off_time = Time.zone.now # NEEDS TO BE FIXED PROBABLY

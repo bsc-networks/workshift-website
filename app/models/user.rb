@@ -25,6 +25,7 @@
 #  invited_by_type        :string(255)
 #  invitations_count      :integer          default(0)
 #  workshift_manager      :boolean
+#  unit_level_admin       :boolean
 #  phone_number           :string(255)      default("")
 #  room_number            :string(255)      default("")
 #  display_phone_number   :boolean          default(FALSE)
@@ -88,7 +89,7 @@ class User < ActiveRecord::Base
   end
 
   def self.delete_all_residents(unit)
-    User.where(unit_id: unit).where(workshift_manager: false).destroy_all
+    User.where(unit_id: unit).where(admin: false).where(workshift_manager: false).where(unit_level_admin: false).destroy_all
     WeeklyReport.where(unit_id: unit).destroy_all
   end
 
@@ -216,7 +217,12 @@ class User < ActiveRecord::Base
   end
 
   def role
-    return 'Workshift Manager' if workshift_manager?
+    if workshift_manager?
+      return 'Workshift Manager'
+    end
+    if unit_level_admin?
+      return 'Unit-Level Admin'
+    end
     'Resident'
   end
 

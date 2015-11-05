@@ -44,7 +44,7 @@ class UnitsController < ApplicationController
     authorize @unit
     @unit.destroy
     @unit.users.each do |user|
-      if not (user.admin? or user.workshift_manager?)
+      if not user.admin?
         user.destroy
       end
     end

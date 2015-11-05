@@ -25,6 +25,7 @@
 #  invited_by_type        :string(255)
 #  invitations_count      :integer          default(0)
 #  workshift_manager      :boolean
+#  unit_level_admin       :boolean
 #  phone_number           :string(255)      default("")
 #  room_number            :string(255)      default("")
 #  display_phone_number   :boolean          default(FALSE)
@@ -45,8 +46,16 @@ FactoryGirl.define do
 
     unit { Unit.find_or_create_by_name(name: 'Unit 1') }
 
+    factory :admin do
+      admin true
+    end
+
     factory :workshift_manager do
       workshift_manager true
+    end
+
+    factory :unit_level_admin do
+      unit_level_admin true
     end
 
     trait :with_assigned_workshifts do
