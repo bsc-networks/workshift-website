@@ -25,6 +25,7 @@
 #  invited_by_type        :string(255)
 #  invitations_count      :integer          default(0)
 #  workshift_manager      :boolean
+#  unit_level_admin       :boolean
 #  phone_number           :string(255)      default("")
 #  room_number            :string(255)      default("")
 #  display_phone_number   :boolean          default(FALSE)
@@ -34,6 +35,8 @@
 require 'csv'
 
 class User < ActiveRecord::Base
+  belongs_to :unit
+
   has_many :workshift_assignments, foreign_key: 'workshifter_id'
   has_many :preferences
   has_many :verified_workshifts, class_name: 'WorkshiftAssignment',
@@ -48,7 +51,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :room_number, :phone_number, :display_email,
                   :display_phone_number, :schedule, :required_hours,
-                  :hours_balance
+                  :hours_balance, :unit
 
   after_create :init_schedule
 
@@ -57,27 +60,43 @@ class User < ActiveRecord::Base
   # Invites each of the users whose information is contained in the input,
   # which must be formatted as a comma-separated string with names in the
   # first column and email addresses in the second.
-  def self.invite_users(user_info)
+  def self.invite_users(user_info, unit)
     fail ArgumentError, 'Must input at least one userattr_accessible' if user_info.length == 0
     num_invited = 0
     CSV.parse(user_info) do |row|
       fail ArgumentError, 'Improperly formatted user information on row '\
         "#{num_invited + 1}" if row.length != 2
-      User.invite!(name: row[0].strip, email: row[1].strip)
+      User.invite!(name: row[0].strip, email: row[1].strip, unit:unit)
       num_invited += 1
     end
     num_invited
   end
 
-  def self.delete_all_residents
-    User.where(workshift_manager: false).destroy_all
-    WeeklyReport.destroy_all
+  def self.invite_users_in_units(user_info)
+    fail ArgumentError, 'Must input at least one userattr_accessible' if user_info.length == 0
+    num_invited = 0
+    CSV.parse(user_info) do |row|
+      fail ArgumentError, 'Improperly formatted user information on row '\
+        "#{num_invited + 1}" if row.length != 3
+      if row[2] == nil or Unit.find_by_name(row[2].strip) == nil
+        fail ArgumentError, 'No such unit exists on row '\
+        "#{num_invited + 1}"
+      end
+      User.invite!(name: row[0].strip, email: row[1].strip, unit: Unit.find_by_name(row[2].strip))
+      num_invited += 1
+    end
+    num_invited
+  end
+
+  def self.delete_all_residents(unit)
+    User.where(unit_id: unit).where(admin: false).where(workshift_manager: false).where(unit_level_admin: false).destroy_all
+    WeeklyReport.where(unit_id: unit).destroy_all
   end
 
   # Create a new preference for the inputted category for each user. The rank
   # of the preference should place it as the least prefered category.
   def self.create_preferences(category)
-    User.all.each do |user|
+    User.where(unit_id: category.unit).each do |user|
       rank = Category.count
       Preference.create!(user_id: user.id, category_id: category.id,
                          rank: rank)
@@ -105,7 +124,7 @@ class User < ActiveRecord::Base
     Chronic.time_class = Time.zone
     current_week_end = Chronic.parse "last Saturday at 23:59"
     current_week_start = current_week_end - 1.week
-    User.all.each do |user|
+    User.where(unit_id: current_user.unit).each do |user|
       users_shifts = WorkshiftAssignment.where(workshifter_id: user,
                                                date: current_week_start..current_week_end)
       assigned_hours = users_shifts.sum(:hours)
@@ -169,6 +188,11 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def update_unit(unit)
+    self.unit = unit
+    self.save!
+  end
+
   def needed_hours
     required_hours - workshifts.sum(:hours)
   end
@@ -193,7 +217,12 @@ class User < ActiveRecord::Base
   end
 
   def role
-    return 'Workshift Manager' if workshift_manager?
+    if workshift_manager?
+      return 'Workshift Manager'
+    end
+    if unit_level_admin?
+      return 'Unit-Level Admin'
+    end
     'Resident'
   end
 

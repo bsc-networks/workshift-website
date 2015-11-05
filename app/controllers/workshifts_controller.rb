@@ -6,20 +6,21 @@ class WorkshiftsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @workshifts = Workshift.order(:day)
+    @workshifts = Workshift.where(unit_id: current_user.unit)
     respond_with(@workshifts)
   end
 
   def show
     authorize @workshift
     if current_user.workshift_manager?
-      @insights = @workshift.best_assignment_candidates
+      @insights = @workshift.best_assignment_candidates(current_user.unit)
     end
     respond_with(@workshift)
   end
 
   def new
     @workshift = Workshift.new
+    @workshift.unit_id = current_user.unit
     authorize @workshift
     respond_with(@workshift)
   end

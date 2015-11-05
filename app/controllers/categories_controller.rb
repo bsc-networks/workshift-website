@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   respond_to :html, :json
 
   def index
-    @categories = Category.all
+    @categories = Category.where(unit_id: current_user.unit)
     respond_with(@categories)
   end
 
@@ -15,6 +15,7 @@ class CategoriesController < ApplicationController
 
   def new
     @category = Category.new
+    @category.unit_id = current_user.unit
     authorize @category
     respond_with(@category)
   end

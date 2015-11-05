@@ -6,7 +6,11 @@ end
 
 When /^I am assigned to the shift "([^"]+)"$/ do |task|
   @workshift = Workshift.find_by_task(task)
-  @workshift ||= FactoryGirl.create(:workshift, task: task)
+  if @workshift != nil
+    @workshift.start_time = Time.zone.parse('10:00am')
+    @workshift.end_time = Time.zone.parse('1:00pm')
+  end
+  @workshift ||= FactoryGirl.create(:workshift, task: task, unit: Unit.find_or_create_by_id(id: 1, name: 'Unit 1'))
   @assignment = @workshift.assign_worker(@user)
 end
 

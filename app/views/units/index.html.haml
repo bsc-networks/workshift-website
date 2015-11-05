@@ -1,0 +1,30 @@
+.row
+  .column.small-12
+    %h1 Unit Listing
+
+.row
+  .column.small-12
+    %table#units
+      %thead
+        %tr
+          %th Name
+          - if policy(:unit).edit?
+            %th
+          - if policy(:unit).destroy?
+            %th
+
+      %tbody
+        - @units.each do |unit|
+          %tr
+            %td= unit.name
+            - if policy(:unit).edit?
+              %td= link_to 'Edit', edit_unit_path(unit)
+            - if policy(:unit).destroy?
+              %td= link_to 'Remove', unit, method: :destroy,
+                data: { Confirm: 'Are you sure? This unit\'s users will be deleted, so transfer users you wish to save first. Admins and workshift managers will be moved to Temp unit.' }
+
+%br
+- if policy(:unit).new?
+  .row
+    .column.small-12
+      = link_to 'New Unit', new_unit_path, class: 'button'

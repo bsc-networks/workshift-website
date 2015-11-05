@@ -28,21 +28,35 @@ describe User do
 
   it 'updates a users required hours' do
     user = create(:user)
+    user.preferences
     user.update_required_hours(0.5)
     expect(user.required_hours).to eq(0.5)
     user.update_required_hours(2)
     expect(user.required_hours).to eq(2)
   end
 
+  describe 'updating a users unit' do
+    it 'leaves preferences unchanged' do
+      unit1 = Unit.find_or_create_by_name(name: 'Unit 1')
+      unit2 = Unit.find_or_create_by_name(name: 'Unit 2')
+      user = create(:user, unit: unit1)
+      expect(user.unit).to eq(unit1)
+      user.update_unit(unit2)
+      expect(user.unit).to eq(unit2)
+    end
+  end
+
   describe 'wiping current residents from database' do
-    it 'removes every user from the database except for workshift managers' do
+    it 'removes every user from the database except for admins, workshift managers, and unit-admins' do
+      admin = create(:admin)
       workshift_manager_1 = create(:workshift_manager)
+      unit_admin = create(:unit_level_admin)
       create_list(:user, 30)
       workshift_manager_2 = create(:workshift_manager)
-      expect(User.all.count).to eq 32
-      User.delete_all_residents
-      expect(User.all.count).to eq 2
-      expect(User.all).to match_array [workshift_manager_1, workshift_manager_2]
+      expect(User.all.count).to eq 34
+      User.delete_all_residents(Unit.find_or_create_by_name(name: 'Unit 1'))
+      expect(User.all.count).to eq 4
+      expect(User.all).to include(admin, workshift_manager_1, workshift_manager_2, unit_admin)
     end
   end
 
@@ -56,32 +70,39 @@ describe User do
       user = create(:workshift_manager)
       expect(user.role).to eq 'Workshift Manager'
     end
+
+    it 'returns "Unit-Level Admin" if the user is a unit admin' do
+      user = create(:unit_level_admin)
+      expect(user.role).to eq 'Unit-Level Admin'
+    end
   end
 
   describe 'inviting new users' do
+    let (:unit) { Unit.find_or_create_by_name(name: 'Unit 1') }
+
     it 'fails when an empty string is inputted' do
-      expect { User.invite_users('') }.to raise_error ArgumentError
+      expect { User.invite_users('', unit) }.to raise_error ArgumentError
     end
 
     it 'fails when the input is not formatted correctly' do
       input = "User 1,user@example.com\nUser 2"
-      expect { User.invite_users(input) }.to raise_error ArgumentError
+      expect { User.invite_users(input, unit) }.to raise_error ArgumentError
     end
 
     it 'returns the number of people invited' do
       input = "User 1,user_1@example.com\n" \
               "User 2,user_2@example.com\n" \
               "User 3,user_3@example.com\n"
-      expect(User.invite_users(input)).to eq 3
+      expect(User.invite_users(input, unit)).to eq 3
     end
   end
 
   describe 'creating preferences when a new category is added' do
     before :each do
-      @num_categories = rand(5..10)
+      @num_categories = 10
       create_list(:category, @num_categories)
-      @created_users = create_list(:user, rand(10..20))
-      @new_category = Category.create(name: 'New Category')
+      @created_users = create_list(:user, 20)
+      @new_category = Category.create(name: 'New Category', unit: Unit.find_or_create_by_name(name: 'Unit 1'))
       User.create_preferences(@new_category)
     end
 

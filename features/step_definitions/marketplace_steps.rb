@@ -22,7 +22,7 @@ end
 When /^someone buys the shift$/ do
   buyer = User.find_by_name('Buyer')
   buyer ||= FactoryGirl.create(:user, name: 'Buyer',
-                                      email: 'buyer@example.com')
+                                      email: 'buyer@example.com', unit: Unit.find_or_create_by_id(id: 1, name: 'Unit 1'))
   @assignment.sell_to(buyer)
 end
 

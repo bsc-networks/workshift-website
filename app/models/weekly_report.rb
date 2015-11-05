@@ -1,14 +1,16 @@
 class WeeklyReport < ActiveRecord::Base
-  attr_accessible :report
+  belongs_to :unit
+
+  attr_accessible :report, :unit
 
   def title
     "weekly_resident_hours_#{period.gsub('/', '_')}.csv"
   end
 
-  def text
+  def text(unit)
     report = ''
     CSV.generate(report) do |csv|
-      User.all.each do |user|
+      User.where(unit_id: unit).each do |user|
         hours = user.hours_for_week(created_at)
         csv << [user.name, hours]
       end
@@ -30,10 +32,10 @@ class WeeklyReport < ActiveRecord::Base
     (created_at - 1.week).sunday - 1.day
   end
 
-  def self.semester_report
+  def self.semester_report(unit)
     report = ''
     CSV.generate(report) do |csv|
-      User.all.each do |user|
+      User.where(unit_id: unit).each do |user|
         csv << [user.name, user.hours_balance]
       end
     end

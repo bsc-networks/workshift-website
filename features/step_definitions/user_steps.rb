@@ -20,7 +20,7 @@ end
 
 Then /^only (\d+) person is left in the database$/ do |num_people|
   num_people = num_people.to_i
-  expect(User.count).to eq num_people
+  expect(User.where(unit_id: 1).count).to eq num_people
 end
 
 Given /^(\d+) residents exist$/ do |num_people|
@@ -29,22 +29,24 @@ Given /^(\d+) residents exist$/ do |num_people|
 end
 
 Given /^a resident named "(.+)" exists$/ do |name|
-  FactoryGirl.create(:user, name: name,
+  FactoryGirl.create(:user, name: name, unit: Unit.find_or_create_by_id(id: 1, name: 'Unit 1'),
                             email: "#{name.gsub(' ', '_')}@example.com")
 end
 
 Given /^I am a resident named "(.+)"$/ do |name|
-  @user = FactoryGirl.create(:user, name: name)
+  @user = FactoryGirl.create(:user, name: name, unit: Unit.find_or_create_by_id(id: 1, name: 'Unit 1'))
 end
 
 Then /^every resident's name should be visible$/ do
-  User.all.each do |user|
+  User.where(unit_id: 1).each do |user|
     expect(page).to have_content(user.name)
   end
 end
 
 Given /^the following residents exist:$/ do |resident_table|
   resident_table.hashes.each do |resident|
-    User.create!(resident)
+    user = User.create!(resident)
+    user.update_attribute :unit, Unit.find_or_create_by_id(id: 1, name: 'Unit 1')
+    user.save()
   end
 end

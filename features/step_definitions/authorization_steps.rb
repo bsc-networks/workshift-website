@@ -1,7 +1,7 @@
 Given /^I have an account with email "(.+)" and password "([^"]+)"(?: and name "(.+)")?$/ do |email, password, name|
   name ||= 'Test User'
   @user = User.create!(email: email, password: password,
-                       password_confirmation: password, name: name)
+                       password_confirmation: password, name: name, unit: Unit.find_or_create_by_id(id: 1, name: 'Unit 1'))
 end
 
 Given /^I am a workshift manager with email "(.*)" and password "([^"]+)"(?: and name "(.+)")?$/ do |email, password, name|
@@ -9,6 +9,7 @@ Given /^I am a workshift manager with email "(.*)" and password "([^"]+)"(?: and
   step "I have an account with email \"#{email}\" and password \"#{password}\""\
     " and name \"#{name}\""
   @user.update_attribute :workshift_manager, true
+  print(@user.unit.name)
   @user.save!
 end
 

@@ -54,6 +54,19 @@
                         %td= time_select 'stop_quiet_hours', 'stop_quiet_hours',
                               {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
                   = submit_tag 'Update Quiet Hours', class: 'button small'
+
+        .column.small-12
+          - if policy(:user).update_unit?
+            .settings-section
+              %fieldset
+                %legend Unit
+                %p Current Unit: #{@user.unit.name}
+                %p Warning, you cannot retrieve the user after sending him to an other unit.
+                = form_tag update_unit_path(@user) do
+                  .column.small-5
+                    = label_tag :unit, 'New Unit name, must exist'
+                    = text_field_tag :unit
+                  = submit_tag 'Change Unit', class: 'button small'
   .column.small-12.medium-4
     %table#user_category_preferences
       %thead

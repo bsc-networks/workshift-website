@@ -11,8 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150804091005) do
 
+ActiveRecord::Schema.define(:version => 20151029222505) do
+  
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
     t.integer  "user_id"
@@ -28,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20150804091005) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "unit_id"
   end
 
   create_table "preferences", :force => true do |t|
@@ -37,6 +39,14 @@ ActiveRecord::Schema.define(:version => 20150804091005) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "units", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "units", ["name"], :name => "index_units_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
@@ -68,6 +78,9 @@ ActiveRecord::Schema.define(:version => 20150804091005) do
     t.float    "hours_balance",          :default => 0.0,   :null => false
     t.text     "schedule"
     t.float    "required_hours",         :default => 5.0
+    t.boolean  "admin",                  :default => false, :null => false
+    t.integer  "unit_id"
+    t.boolean  "unit_level_admin",       :default => false, :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -79,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20150804091005) do
   create_table "weekly_reports", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "unit_id"
   end
 
   create_table "workshift_assignments", :force => true do |t|
@@ -97,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20150804091005) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.boolean  "purchased",      :default => false
+    t.integer  "unit_id"
   end
 
   create_table "workshift_selling_limits", :force => true do |t|
@@ -114,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20150804091005) do
     t.float    "hours"
     t.integer  "user_id"
     t.integer  "category_id"
+    t.integer  "unit_id"
   end
 
 end

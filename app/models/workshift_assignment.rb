@@ -2,9 +2,10 @@ class WorkshiftAssignment < ActiveRecord::Base
   belongs_to :workshifter, class_name: "User", foreign_key: "workshifter_id"
   belongs_to :verifier, class_name: "User", foreign_key: "verifier_id"
   belongs_to :workshift
+  belongs_to :unit
 
   attr_accessible :description, :date, :end_time, :hours, :schedule_id, :sign_off_time,
-                  :start_time, :status, :task, :purchased
+                  :start_time, :status, :task, :purchased, :unit
 
   after_create :schedule_in_progress_status
 
@@ -48,7 +49,7 @@ class WorkshiftAssignment < ActiveRecord::Base
   # for loop, different cases whether it was attempted sold/sold/done
 
   def check_off(verifier)
-    if verifier != self.workshifter || verifier.role === 'Workshift Manager'
+    if verifier != self.workshifter || verifer.role === 'Workshift Manager' || verifier.role === 'Unit-Level Admin'
       self.verifier = verifier
       self.status = "complete"
       self.sign_off_time = Time.zone.now # NEEDS TO BE FIXED PROBABLY

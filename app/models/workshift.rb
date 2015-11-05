@@ -16,10 +16,11 @@
 class Workshift < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
+  belongs_to :unit
 
   has_many :workshift_assignments
   attr_accessible :start_time, :end_time, :day, :task, :category_id,
-                  :description, :hours, :user_id
+                  :description, :hours, :user_id, :unit
   # after_create :apply_time_zone
   validates :start_time, :end_time, :day, :task, :hours,
             :description, presence: true
@@ -67,7 +68,8 @@ class Workshift < ActiveRecord::Base
         end_time: end_time,
         hours: self.hours,
         status: "upcoming",
-        purchased: false
+        purchased: false,
+        unit: user.unit,
     })
     assignment.assign_workshifter(self.user)
     assignment.save!
@@ -128,14 +130,14 @@ class Workshift < ActiveRecord::Base
     unavailability
   end
 
-  def best_assignment_candidates
+  def best_assignment_candidates(unit)
     best_candidates = {
       highest_pref: [],
       most_needed_hours: []
     }
     available = []
     has_ranking = (!!category)
-    User.all.each do |user|
+    User.where(unit_id: unit).each do |user|
       unavailability = unavailability_of(user)
       if unavailability.length < end_to_start_hours && user.needed_hours > 0
         # if user is not completely unavailable

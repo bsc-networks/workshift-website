@@ -21,6 +21,8 @@ WorkshiftWebsite::Application.routes.draw do
          as: :update_required_hours
     post 'residents/:id/settings/workshift_selling_limit' => :update_workshift_selling_limit,
          as: :update_workshift_selling_limit
+    post 'residents/:id/settings/unit' => :update_unit,
+         as: :update_unit
     get 'residents/reports' => :reports, as: :reports
     get 'residents/reports/semester' => :view_semester_report,
         as: :view_semester_report
@@ -59,5 +61,6 @@ WorkshiftWebsite::Application.routes.draw do
   end
 
   resources :categories, path: 'workshifts/categories'
+  resources :units, path: 'units'
   resources :workshifts
 end

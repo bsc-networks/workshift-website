@@ -5,12 +5,12 @@ class UsersController < ApplicationController
   HOURS_PER_WEEK = 168
 
   def index
-    @users = User.all
+    @users = User.where(unit_id: current_user.unit)
   end
 
   def profile
     id = params[:id] || current_user.id
-    @user = User.find(id)
+    @user = User.where(unit_id: current_user.unit).find(id)
     @quiet_hours = Quiet_hours.new
     @preferences = @user.sorted_preferences
     @verifier_list = User.all.map {|c| c.attributes.slice("name", "id")}
@@ -29,7 +29,11 @@ class UsersController < ApplicationController
     authorize :user
     @user_info = params[:user_info]
     begin
-      num_invited = User.invite_users(@user_info)
+      if current_user.admin
+        num_invited = User.invite_users_in_units(@user_info)
+      else
+        num_invited = User.invite_users(@user_info, current_user.unit)
+      end
       # num_s used to change user -> users when more than 1 user invited
       num_s = num_invited > 1 ? 1 : 0
       flash[:notice] = "Invited #{num_invited} new user#{'s' * num_s}."
@@ -79,7 +83,7 @@ class UsersController < ApplicationController
 
   def update_required_hours
     authorize :user
-    @user = User.find_by_id(params[:id])
+    @user = User.where(unit_id: current_user.unit).find_by_id(params[:id])
     required_hours = params[:required_hours].to_f
     if required_hours >= 0 and required_hours <= HOURS_PER_WEEK
       @user.update_required_hours(required_hours)
@@ -89,9 +93,26 @@ class UsersController < ApplicationController
     redirect_to user_profile_path(@user)
   end
 
+  def update_unit
+    #CHOICE, When a user changes units, its preferences stay the same, but workshifts are cleaned
+    authorize :user
+    @user = User.where(unit_id: current_user.unit).find_by_id(params[:id])
+    unit = Unit.find_by_name(params[:unit])
+    if unit == nil
+      flash[:alert] = "No such unit exists : #{params[:unit]}."
+      redirect_to user_profile_path(@user) and return
+    else
+      @user.preferences.destroy_all
+      @user.workshifts.delete_all
+      @user.workshift_assignments.delete_all
+      @user.update_unit(unit)
+    end
+    redirect_to roster_url
+  end
+
   def delete_all
     authorize :user
-    User.delete_all_residents
+    User.delete_all_residents(current_user.unit)
     flash[:notice] = 'All current residents deleted.'
     redirect_to root_url
   end
@@ -103,7 +124,7 @@ class UsersController < ApplicationController
 
   def download_semester_report
     authorize :user
-    report = WeeklyReport.semester_report
+    report = WeeklyReport.semester_report(current_user.unit)
     send_data report, type: 'text/csv; charset=utf-8; header=present',
               disposition: "attachment; filename=semester_report.csv"
   end
@@ -111,13 +132,13 @@ class UsersController < ApplicationController
   def download_report
     authorize :user
     report = WeeklyReport.find(params[:id])
-    send_data report.text, type: 'text/csv; charset=utf-8; header=present',
+    send_data report.text(current_user.unit), type: 'text/csv; charset=utf-8; header=present',
               disposition: "attachment; filename=#{report.title}"
   end
 
   def view_semester_report
     authorize :user
-    @text = WeeklyReport.semester_report
+    @text = WeeklyReport.semester_report(current_user.unit)
   end
 
   def view_report
