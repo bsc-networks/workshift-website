@@ -47,14 +47,16 @@ describe User do
   end
 
   describe 'wiping current residents from database' do
-    it 'removes every user from the database except for workshift managers' do
+    it 'removes every user from the database except for admins, workshift managers, and unit-admins' do
+      admin = create(:admin)
       workshift_manager_1 = create(:workshift_manager)
+      unit_admin = create(:unit_level_admin)
       create_list(:user, 30)
       workshift_manager_2 = create(:workshift_manager)
-      expect(User.all.count).to eq 32
+      expect(User.all.count).to eq 34
       User.delete_all_residents(Unit.find_or_create_by_name(name: 'Unit 1'))
-      expect(User.all.count).to eq 2
-      expect(User.all).to match_array [workshift_manager_1, workshift_manager_2]
+      expect(User.all.count).to eq 4
+      expect(User.all).to include(admin, workshift_manager_1, workshift_manager_2, unit_admin)
     end
   end
 
@@ -67,6 +69,11 @@ describe User do
     it 'returns "Workshift Manager" if the user is a workshift manager' do
       user = create(:workshift_manager)
       expect(user.role).to eq 'Workshift Manager'
+    end
+
+    it 'returns "Unit-Level Admin" if the user is a unit admin' do
+      user = create(:unit_level_admin)
+      expect(user.role).to eq 'Unit-Level Admin'
     end
   end
 

@@ -66,8 +66,9 @@ describe UsersController do
 
   describe 'POST update_unit' do
     before :each do
-      @manager = create(:workshift_manager, unit: Unit.find_or_create_by_name(name: 'Unit 1'))
-      sign_in @manager
+      @admin = create(:user, unit: Unit.find_or_create_by_name(name: 'Unit 1'))
+      @admin.update_attribute :unit_level_admin, true
+      sign_in @admin
       @unit1 = Unit.find_or_create_by_name(name: 'Unit 1')
       @unit2 = Unit.find_or_create_by_name(name: 'Unit 2')
       @user = create(:user, unit: @unit1)
