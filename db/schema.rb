@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150804230306) do
+ActiveRecord::Schema.define(:version => 20151029222505) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20150804230306) do
     t.float    "required_hours",         :default => 5.0
     t.boolean  "admin",                  :default => false, :null => false
     t.integer  "unit_id"
+    t.boolean  "unit_level_admin",       :default => false, :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
