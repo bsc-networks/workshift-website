@@ -14,5 +14,4 @@ ADD Gemfile* $APP_HOME/
 RUN bundle install
 
 ADD . $APP_HOME
-RUN RAILS_ENV=production bundle exec rake db:setup
 RUN RAILS_ENV=production bundle exec rake assets:precompile --trace
