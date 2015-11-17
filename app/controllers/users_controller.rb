@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def profile
     id = params[:id] || current_user.id
     @user = User.where(unit_id: current_user.unit).find(id)
+    @other_units = (Unit.all.size == 1) ? Unit.all : Unit.find(:all, :conditions => ["id != ?", @user.id])
     @quiet_hours = Quiet_hours.new
     @preferences = @user.sorted_preferences
     @verifier_list = User.all.map {|c| c.attributes.slice("name", "id")}
@@ -100,6 +101,9 @@ class UsersController < ApplicationController
     unit = Unit.find_by_name(params[:unit])
     if unit == nil
       flash[:alert] = "No such unit exists : #{params[:unit]}."
+      redirect_to user_profile_path(@user) and return
+    elsif unit.id == @user.unit.id
+      flash[:alert] = "User is already in selected unit : #{params[:unit]}."
       redirect_to user_profile_path(@user) and return
     else
       @user.preferences.destroy_all
