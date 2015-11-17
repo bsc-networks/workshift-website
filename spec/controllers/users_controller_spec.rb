@@ -77,6 +77,11 @@ describe UsersController do
       @workshift_assignment = create(:workshift_assignment, id: 2, workshifter: @user)
     end
 
+    it 'redirects to the user page if user is already in the selected unit' do
+      post :update_unit, unit: 'Unit 1', id: @user.id
+      expect(response).to redirect_to(user_profile_path(@user))
+    end
+
     it 'removes preferences from user' do
       expect(@user.preferences.first).to eq(@preference)
       post :update_unit, unit: 'Unit 2', id: @user.id

@@ -59,14 +59,17 @@
           - if policy(:user).update_unit?
             .settings-section
               %fieldset
-                %legend Unit
+                %legend Select a unit:
+                .column.small-5
                 %p Current Unit: #{@user.unit.name}
                 %p Warning, you cannot retrieve the user after sending him to an other unit.
                 = form_tag update_unit_path(@user) do
-                  .column.small-5
-                    = label_tag :unit, 'New Unit name, must exist'
-                    = text_field_tag :unit
+                  %select{:name => 'unit'}
+                    %option{value: -1}=""
+                    - @other_units.each do |unit|
+                      %option{value: unit.name}= unit.name
                   = submit_tag 'Change Unit', class: 'button small'
+
   .column.small-12.medium-4
     %table#user_category_preferences
       %thead
