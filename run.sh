@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
 # An example script to run workshift website in production. It uses data volumes under the $DATA_ROOT directory.
-# By default /srv. It uses a PostgreSQL database. The first time you have to create a database itself and account
-# with permissions over it.
+# By default /srv. It uses a PostgreSQL database (you can use cloyne/postgresql Docker image). The first time
+# you have to create a database itself and account with permissions over it.
 #
 # You have to create production config files. See the list below which one are mounted as volumes into a container.
 # To create them, copy them over from the repository and modify.
