@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     id = params[:id] || current_user.id
     @user = User.where(unit_id: current_user.unit).find(id)
     @other_units = (Unit.all.size == 1) ? Unit.all : Unit.find(:all, :conditions => ["id != ?", @user.id])
-    @quiet_hours = Quiet_hours.new
+    @quiet_hours = @user.unit.quiet_hour
     @preferences = @user.sorted_preferences
     @verifier_list = User.all.map {|c| c.attributes.slice("name", "id")}
     @workshift_assignments = @user.workshift_assignments.select do |assignment|
@@ -61,9 +61,24 @@ class UsersController < ApplicationController
   def update_quiet_hours
     authorize :user
     @user = User.find_by_id(params[:id])
-    start = get_quiet_hour_as_str(params[:start_quiet_hours].values)
-    stop = get_quiet_hour_as_str(params[:stop_quiet_hours].values)
-    Quiet_hours.new.set_quiet_hours(start, stop)
+    quiet_hours = @user.unit.quiet_hour
+    day_param = params[:day].downcase
+    start_time_param = params[:start_time]
+    start_time_str = start_time_param["start_time(4i)"] + ":" + start_time_param["start_time(5i)"]
+    end_time_param = params[:end_time]
+    start_time = Time.parse(start_time_str)
+    end_time = Time.parse(end_time_param["end_time(4i)"] + ":" + end_time_param["end_time(5i)"])
+    if quiet_hours.nil? or quiet_hours.day_quiet_hours.nil? or quiet_hours.day_quiet_hours.empty?
+      quiet_hours = QuietHour.new
+      quiet_hours.unit_id = @user.unit
+      @user.unit.quiet_hour = quiet_hours
+      quiet_hours.save
+      ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].each do |day|
+        quiet_hours.day_quiet_hours.create(day: day)
+      end
+    end
+    quiet_hours.set_day_start_time(day_param, start_time)
+    quiet_hours.set_day_end_time(day_param, end_time)
     redirect_to user_profile_path(@user)
   end
 
@@ -95,7 +110,7 @@ class UsersController < ApplicationController
   end
 
   def update_unit
-    #CHOICE, When a user changes units, its preferences stay the same, but workshifts are cleaned
+    # When a user changes units, all preferences and workshifts are cleaned from the user, but the workshifts remain on the unit
     authorize :user
     @user = User.where(unit_id: current_user.unit).find_by_id(params[:id])
     unit = Unit.find_by_name(params[:unit])
