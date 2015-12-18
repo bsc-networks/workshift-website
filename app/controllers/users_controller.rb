@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @other_units = (Unit.all.size == 1) ? Unit.all : Unit.find(:all, :conditions => ["id != ?", @user.id])
     if not @user.unit.nil?
       @quiet_hours = @user.unit.quiet_hour
+    end
     @preferences = @user.sorted_preferences
     @verifier_list = User.all.map {|c| c.attributes.slice("name", "id")}
     @workshift_assignments = @user.workshift_assignments.select do |assignment|
