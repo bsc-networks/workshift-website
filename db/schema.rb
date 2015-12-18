@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151029222505) do
+ActiveRecord::Schema.define(:version => 20151122173816) do
 
   create_table "assigned_workshifts", :force => true do |t|
     t.integer  "workshift_id"
@@ -31,12 +31,23 @@ ActiveRecord::Schema.define(:version => 20151029222505) do
     t.integer  "unit_id"
   end
 
+  create_table "day_quiet_hours", :force => true do |t|
+    t.integer "quiet_hour_id"
+    t.time    "start_time"
+    t.time    "end_time"
+    t.string  "day"
+  end
+
   create_table "preferences", :force => true do |t|
     t.integer  "rank"
     t.integer  "category_id"
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "quiet_hours", :force => true do |t|
+    t.integer "unit_id"
   end
 
   create_table "units", :force => true do |t|

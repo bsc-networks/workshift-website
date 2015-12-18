@@ -33,26 +33,47 @@
                     = number_field_tag :required_hours, @user.required_hours,
                       step: 0.5
                     = submit_tag 'Change Required Hours', class: 'button small'
+
         .column.small-12
           - if policy(:user).update_quiet_hours?
             .settings-section
               %fieldset
-                %legend Quiet hours
-                %p
-                  :markdown
-                    The current quiet hours are effective between: <strong>#{@quiet_hours.get_quiet_hours_str}</strong>
-                = form_tag update_quiet_hours_path(@user) do
+                %legend Quiet Hours
+                - if @quiet_hours.nil?
+                  %p No quiet hours have been set for the unit.
+                - else
                   %table
                     %thead
                       %tr
-                        %td From
-                        %td To
+                        %td Day
+                        %td End Time
+                        %td Start Time
+                    %tbody
+                      - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].each do |day|
+                        %tr
+                          %td= day
+                          - day_quiet_hours = @quiet_hours.day_quiet_hours.where(day: day.downcase).first
+                          %td= day_quiet_hours.end_time.nil? ? 'Not Set' : day_quiet_hours.end_time.strftime("%I:%M %p")
+                          %td= day_quiet_hours.start_time.nil? ? 'Not Set' : day_quiet_hours.start_time.strftime("%I:%M %p")
+                %p Set Quiet Hours:
+                = form_tag(update_quiet_hours_path(@user), :method => :post) do
+                  %select{:name => 'day'}
+                    %p Day: 
+                    %option{value: "Sunday"}="Sunday"
+                    - ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Weekdays', 'Weekends'].each do |day|
+                      %option{value: day}= day
+                  %p Note: selecting Weekdays sets quiet hours for the nights before weekdays, while Weekends sets Friday and Saturday nights.
+                  %table
+                    %thead
+                      %tr
+                        %td Ending At
+                        %td Starting At
                     %tbody
                       %tr
-                        %td= time_select 'start_quiet_hours', 'start_quiet_hours',
-                              {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
-                        %td= time_select 'stop_quiet_hours', 'stop_quiet_hours',
-                              {ampm: true, minute_step: 5, ignore_date: true, time_separator: ''}
+                        %td= time_select 'end_time', 'end_time',
+                              {ampm: true, minute_step: 5, ignore_date: true, time_separator: '', default: { hour: '8', minute: '0' } }
+                        %td= time_select 'start_time', 'start_time',
+                              { ampm: true, minute_step: 5, ignore_date: true, time_separator: '', default: { hour: '22', minute: '0' } }
                   = submit_tag 'Update Quiet Hours', class: 'button small'
 
         .column.small-12
