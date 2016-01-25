@@ -32,10 +32,10 @@ class UsersController < ApplicationController
     authorize :user
     @user_info = params[:user_info]
     begin
-      if current_user.admin
-        num_invited = User.invite_users_in_units(@user_info)
-      else
+      if current_user.workshift_manager? or current_user.unit_level_admin?
         num_invited = User.invite_users(@user_info, current_user.unit)
+      elsif current_user.admin?
+        num_invited = User.invite_users_in_units(@user_info)
       end
       # num_s used to change user -> users when more than 1 user invited
       num_s = num_invited > 1 ? 1 : 0
