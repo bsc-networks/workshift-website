@@ -7,3 +7,6 @@ Code Climate:
 
 Travis CI:
 [![Build Status](https://travis-ci.com/momochanfitz/coop-workshift-app.svg?token=mXoUzqtZhTDaxsjJSzUf&branch=master)](https://travis-ci.com/momochanfitz/coop-workshift-app)
+
+Pivotal Tracker:
+https://www.pivotaltracker.com/projects/1545105
