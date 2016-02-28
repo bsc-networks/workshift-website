@@ -5,9 +5,5 @@ Code Climate:
 
 <a href="https://codeclimate.com/github/rails/rails"><img src="https://codeclimate.com/github/rails/rails/badges/gpa.svg" /></a>
 
-Test Coverage:
-
-<a href="https://codeclimate.com/github/rails/rails/coverage"><img src="https://codeclimate.com/github/rails/rails/badges/coverage.svg" /></a>
-
 Travis CI:
 [![Build Status](https://travis-ci.com/momochanfitz/coop-workshift-app.svg?token=mXoUzqtZhTDaxsjJSzUf&branch=master)](https://travis-ci.com/momochanfitz/coop-workshift-app)
