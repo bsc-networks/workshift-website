@@ -12,8 +12,15 @@ Pivotal Tracker:
 https://www.pivotaltracker.com/projects/1545105
 
 
+
 ##Styling
 
 *Bootstrap-sass
     * https://github.com/twbs/bootstrap-sass
     * __Do not use *= require in Sass or your other stylesheets will not be able to access the Bootstrap mixins or variables.__
+
+
+##Reminders
+
+*Ideally pull before pushing (`git pull origin master`)
+*`bundle install` after pulling
