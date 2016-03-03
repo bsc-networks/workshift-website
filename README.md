@@ -6,6 +6,7 @@ Code Climate:
 <a href="https://codeclimate.com/github/rails/rails"><img src="https://codeclimate.com/github/rails/rails/badges/gpa.svg" /></a>
 
 Travis CI:
+Fixing
 [![Build Status](https://travis-ci.com/momochanfitz/coop-workshift-app.svg?token=mXoUzqtZhTDaxsjJSzUf&branch=master)](https://travis-ci.com/momochanfitz/coop-workshift-app)
 
 Pivotal Tracker:
