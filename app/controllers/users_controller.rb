@@ -60,7 +60,18 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
 
+  #GET /login
+  def show_login
+    
+  end
+  
+  #POST /login
+  def login_user
+    redirect_to("/")
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
