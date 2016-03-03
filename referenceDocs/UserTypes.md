@@ -14,6 +14,7 @@ optional (non-mvp):
 * view members directory
 * form to report issue to workshift manager
 * pay fines on site
+
 ***
 
 ## Manager
@@ -22,6 +23,7 @@ In addition to member:
 * Sign-off non-recurring special shifts
 Optional (non-mvp):
 * edit hours for given set of users
+
 ***
 
 ## Workshift Manager
