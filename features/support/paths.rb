@@ -14,6 +14,8 @@ module NavigationHelpers
     case page_name
     when /^the login\s?page$/
       '/login'
+    when /^the home\s?page$/
+      '/'
       
     when /^the (RottenPotatoes )?home\s?page$/ then '/movies'
     when /^the movies page$/ then '/movies'

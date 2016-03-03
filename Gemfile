@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 #ADDED by us
 gem 'bootstrap-sass', '~> 3.3.6'
+gem "haml-rails"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -38,7 +39,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
 end
 
 group :development do

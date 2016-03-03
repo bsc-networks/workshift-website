@@ -19,6 +19,10 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   (page.body =~Regexp.new(e1)).should < (page.body =~Regexp.new(e2))
 end
 
+
+Then(/^I should have admin rights$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
 # Make it easier to express checking or unchecking several boxes at once
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
