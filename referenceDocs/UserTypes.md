@@ -15,6 +15,7 @@ optional (non-mvp):
 * form to report issue to workshift manager
 * pay fines on site
 ***
+
 ## Manager
 In addition to member:
 * Create recurring special shifts
@@ -22,6 +23,7 @@ In addition to member:
 Optional (non-mvp):
 * edit hours for given set of users
 ***
+
 ## Workshift Manager
 * Create new member accounts
  * upload CSV, give new members temp passwords, send emails
