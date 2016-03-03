@@ -13,4 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+
+// Added by us - sprockets
+//= require bootstrap-sprockets
+
+// require treecompiles each of the other Javascript files
+// in the javascripts directory and any subdirectories. 
+// If you require bootstrap-sprockets after everything else, 
+// your other scripts may not have access to the Bootstrap functions.
 //= require_tree .
+
+
