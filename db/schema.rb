@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303230307) do
+ActiveRecord::Schema.define(version: 20160304000052) do
+
+  create_table "policies", force: :cascade do |t|
+    t.datetime "first_day"
+    t.datetime "last_day"
+    t.integer  "fine_amount"
+    t.datetime "fine_days"
+    t.integer  "market_sell_by"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
