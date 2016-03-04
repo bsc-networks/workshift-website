@@ -12,9 +12,8 @@ Pivotal Tracker:
 https://www.pivotaltracker.com/projects/1545105
 
 ##Resources
-
-..* [Old Site](https://workshift.bsc.coop/clo/online_signoff.php)
-    * [Workshift CSV Example](https://docs.google.com/spreadsheets/d/1zQl654nTXGvvZmO-40sK2LHi5gkv7dh4WgdVn6jrNa4/edit#gid=0)
+* [Old Site](https://workshift.bsc.coop/clo/online_signoff.php)
+* [Workshift CSV Example](https://docs.google.com/spreadsheets/d/1zQl654nTXGvvZmO-40sK2LHi5gkv7dh4WgdVn6jrNa4/edit#gid=0)
 
 ##Heroku
     * __Site__: [Home page here](https://coop-workshifts.herokuapp.com/login)
