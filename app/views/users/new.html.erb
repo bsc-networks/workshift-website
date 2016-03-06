@@ -1,5 +1,15 @@
-<h1>New User</h1>
+<!-- app/views/users/new.html.erb -->
 
-<%= render 'form' %>
+<h1>Signup!</h1>
 
-<%= link_to 'Back', users_path %>
+<%= form_for :user, url: '/users' do |f| %>
+
+  First Name: <%= f.text_field :first_name %>
+  Last Name: <%= f.text_field :last_name %>
+  Email: <%= f.text_field :email %>
+  Permissions: <%= f.text_field :permissions %>
+  Password: <%= f.password_field :password %>
+  Password Confirmation: <%= f.password_field :password_confirmation %>
+  <%= f.submit "Submit" %>
+
+<% end %>

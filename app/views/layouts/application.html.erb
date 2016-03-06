@@ -1,12 +1,21 @@
+<!-- app/views/layout/application.html.erb -->
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CoopWorkshiftApp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>Coop Workshift</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+# added these lines.
+<% if current_user %>
+  Signed in as <%= current_user.first_name %> | <%= link_to "Logout", '/logout' %>
+<% else %>
+  <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
+<% end %>
 
 <%= yield %>
 
