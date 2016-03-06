@@ -1,7 +1,11 @@
 <!-- app/views/users/new.html.erb -->
 
-<h1>Signup!</h1>
-
+<h1>Create Members</h1>
+<!--Need to add CSV gem to add users
+    Need to configure email and initial password
+    Need to add page for users to edit acount settings (password)
+    Need to make this page accessible by only admins -->
+<h2>Add Member Manually</h2>
 <%= form_for :user, url: '/users' do |f| %>
 
   First Name: <%= f.text_field :first_name %>
@@ -13,3 +17,5 @@
   <%= f.submit "Submit" %>
 
 <% end %>
+
+<h2>Upload A CSV</h2>
