@@ -36,7 +36,7 @@ gem "iconv", "~> 1.0.3"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-
+gem "jquery-ui-rails"
 gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'ajax-datatables-rails'
 gem "binding_of_caller"
