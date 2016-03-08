@@ -12,6 +12,19 @@ class UsersController < ApplicationController
       redirect_to '/signup'
     end
   end
+  
+  def upload
+    User.import(params[:file])
+    redirect_to root_url, notice: "Users imported."
+  end
+  
+  def get_all
+    respond_to do |format|
+      format.html
+      format.json { render json: UserDatatable.new(view_context) }
+    end
+  end
+    
 
 private
 

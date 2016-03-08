@@ -18,4 +18,9 @@
 
 <% end %>
 
-<h2>Upload A CSV</h2>
+<h2>Import Users from CSV</h2>
+
+<%= form_tag csv_upload_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
