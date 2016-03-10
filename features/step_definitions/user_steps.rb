@@ -10,6 +10,10 @@ Given /the following users exist/ do |users_table|
   # puts "COUNT: " + User.all.count.to_s
 end
 
+Given /none of the uploaders exists/ do
+  User.delete_all(["email in (?)", ["ericn@berkeley.edu","gwillits@berkeley.edu",	"yannie.yip@berkeley.edu", 	"ryan.riddle@berkeley.edu"]])
+end
+
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 

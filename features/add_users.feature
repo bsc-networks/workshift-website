@@ -6,10 +6,11 @@ Feature: Adding Users
     
 Background:
   Given I am on the create members page
+  Given none of the uploaders exists
 
 Scenario: an admin tries to add member accounts using a csv file
-  When I click "Upload a CSV"
-  And I upload "users.csv"
+  When I upload "users_upload.csv"
+  Then I press "Import"
   Then I should see a table
   And I should see "Giorgia"
   And I should see "Willits"

@@ -53,6 +53,23 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
+When(/^I upload "([^"]*)"$/) do |arg1|
+  page.attach_file("file", 'lib/users_upload.csv')
+end
+
+
+Then(/^I should see a table$/) do
+  if page.respond_to? :should
+    page.should have_content("Name")
+    page.should have_content("Email")
+    page.should have_content("Password")
+  else
+    assert page.has_content?("Name")
+    assert page.has_content?("Password")
+    assert page.has_content?("Email")
+  end
+end
+
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   # puts page.body
   click_link(link)

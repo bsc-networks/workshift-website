@@ -16,18 +16,16 @@ module NavigationHelpers
       '/login'
     when /^the home\s?page$/
       '/'
+    when /^the create members\s?page$/
+      '/signup'
       
-    when /^the (RottenPotatoes )?home\s?page$/ then '/movies'
-    when /^the movies page$/ then '/movies'
-
-
+      
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
-    when /the Similar Movies page for "(.*)"$/i
-      show_same_path(Movie.where(title: $1).first.id)
       
     when /the (.*) page for "(.*)"$/i
       id = Movie.where(title: $2).first.id

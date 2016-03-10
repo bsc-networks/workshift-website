@@ -14,8 +14,8 @@ class UsersController < ApplicationController
   end
   
   def upload
-    User.import(params[:file])
-    redirect_to root_url, notice: "Users imported."
+    @users_uploaded = User.import(params[:file])
+    @file = params[:file]
   end
   
   def get_all
@@ -23,6 +23,18 @@ class UsersController < ApplicationController
       format.html
       format.json { render json: UserDatatable.new(view_context) }
     end
+  end
+  
+  def confirm_users 
+    @users_uploaded = User.import(params[:file])
+    puts @users_uploaded
+    # uploaded_users = User.find(params[:users_uploaded])
+    # if uploaded_users.save
+    #   puts "SUCCESS"
+    # else
+    #   puts "ERROR"
+    # end
+    redirect_to "/"
   end
     
 

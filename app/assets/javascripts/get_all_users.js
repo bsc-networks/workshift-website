@@ -4,7 +4,7 @@ jQuery(document).ready(function() {
     "serverSide": true,
     "ajax": $('#users-table').data('source'),
     "pagingType": "full_numbers",
-    bJQueryUI: true,
+    // bJQueryUI: true,
     // optional, if you want full pagination controls.
     // Check dataTables documentation to learn more about
     // available options.

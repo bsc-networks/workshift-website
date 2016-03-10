@@ -1,19 +1,24 @@
 class User < ActiveRecord::Base
     has_secure_password
+    validates :email, uniqueness: true
     
     def self.import(file)
         # puts file
         spreadsheet = open_spreadsheet(file)
-        puts spreadsheet.info
+        # puts spreadsheet.info
         header = spreadsheet.row(1)
+        added = []
         (2..spreadsheet.last_row).each do |i|
           row = Hash[[header, spreadsheet.row(i)].transpose]
         #   print row
           user = find_by_id(row["id"]) || new
           user.attributes = row.to_hash.slice(*row.to_hash.keys)
           user.password = ('0'..'z').to_a.shuffle.first(8).join
-          user.save!
-      end
+          if user.save
+            added += [user]
+          end
+        end
+        return added
     end
     
     def self.open_spreadsheet(file)

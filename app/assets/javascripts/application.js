@@ -10,15 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require bootstrap-sprockets
 //= require jquery
 //= require jquery_ujs
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/jquery.dataTables
 //= require turbolinks
 //= require jquery-ui
+//= require_tree ../../../vendor/assets/javascripts/.
 
 // Added by us - sprockets
-//= require bootstrap-sprockets
 
 // require treecompiles each of the other Javascript files
 // in the javascripts directory and any subdirectories. 

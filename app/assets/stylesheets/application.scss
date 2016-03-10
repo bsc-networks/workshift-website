@@ -13,7 +13,7 @@
  *= require_tree .
  *= require jquery-ui
  *= require dataTables/jquery.dataTables
- *= require dataTables/src/demo_table_jui
+ *= require_tree ../../../vendor/assets/stylesheets/.
  *= require_self
  */
 

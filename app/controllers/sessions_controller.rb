@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    # render :page_login1
   end
 
   def create
