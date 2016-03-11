@@ -1,0 +1,23 @@
+%p#notice= notice
+
+%h2 Your Policies
+
+%%ul
+    %li
+        Semester start:
+        = @policy.first_day
+    %li
+        Semester end:
+        = @policy.last_day
+    %li
+        Fining Days:
+        = @policy.fine_days
+    %li
+        Fine rate:  
+        = @policy.fine_amount
+    %li
+        Selling date limit:
+        = @policy.market_sell_by
+
+
+= link_to 'Edit', edit_policy_path

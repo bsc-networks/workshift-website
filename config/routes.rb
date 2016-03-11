@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root to: 'workshift#index'
   get '/users/get_all' => 'users#get_all', as: 'get_all_users'
 
@@ -17,5 +18,23 @@ Rails.application.routes.draw do
   post '/users/upload' => 'users#upload', as: 'csv_upload'
 
   get '/index' => 'workshft#index'
-  get '/workshift/policies' => 'workshift#policies', as: 'policy'
+  
+  
+#     resources :policies
+#       policies GET    /policies(.:format)          policies#index
+# ?              POST   /policies(.:format)          policies#create
+# *   new_policy GET    /policies/new(.:format)      policies#new
+# *  edit_policy GET    /policies/:id/edit(.:format) policies#edit
+# *       policy GET    /policies/:id(.:format)      policies#show
+# ?              PATCH  /policies/:id(.:format)      policies#update
+# ?              PUT    /policies/:id(.:format)      policies#update
+# *              DELETE /policies/:id(.:format)      policies#destroy
+  
+  get '/policies/new' => 'policies#new', as: 'new_policy'
+  get '/policies/edit' => 'policies#edit', as: 'edit_policy'
+  get '/policies/' => 'policies#show', as: 'policy'
+  post 'policies/' => 'policies#create'
+  put '/policies/' => 'policies#update'
+  
+  
 end

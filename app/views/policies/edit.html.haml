@@ -1,20 +1,22 @@
-%h1 Set Policies
+%h1 Edit Your Policy
 
-= form_tag policy_path do 
+= form_tag policy_path, :method => :put do
 
     = label :policy, :first_day, 'Semester start'
-    = text_field :policy, 'semester start'
+    = date_select :policy, :first_day
     
     = label :policy, :last_day, 'Semester end'
-    = text_field :policy, 'semester end'
+    = date_select :policy, :last_day
     
     = label :policy, :fine_days, 'Fining Days'
-    = text_field :policy, 'list days'
+    = date_select :policy, :fine_days
     
     = label :policy, :fine_amount, 'Fine rate'
-    = text_field :policy, 'select amount'
+    = text_field :policy, :fine_amount
     
     = label :policy, :market_sell_by, 'Selling date limit'
-    = text_field :policy, 'number of days'
+    = text_field :policy, :market_sell_by
     
     = submit_tag 'Save Changes'
+
+= link_to 'Back', policy_path
