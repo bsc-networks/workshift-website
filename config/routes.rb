@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post '/users' => 'users#create'
   post '/users/confirm' => 'users#confirm_users', as: 'confirm_users'
   post '/users/upload' => 'users#upload', as: 'csv_upload'
+  post '/users/add' => 'users#add_user', as: 'add_user'
 
   get '/index' => 'workshft#index'
   

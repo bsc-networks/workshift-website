@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
           user = find_by(email: row["email"]) || new
           puts user.sent_confirmation
           user.attributes = row.to_hash.slice(*row.to_hash.keys)
-          user.password = ('0'..'z').to_a.shuffle.first(8).join
+          user.password = User.random_pw
           if (not user.sent_confirmation) and user.save
             added += [user]
           end
@@ -46,5 +46,9 @@ class User < ActiveRecord::Base
       else
         puts "Couldnt find user"
       end
+    end
+    
+    def self.random_pw
+      ('0'..'z').to_a.shuffle.first(8).join
     end
 end

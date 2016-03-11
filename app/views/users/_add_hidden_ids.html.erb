@@ -1,0 +1,7 @@
+<% if @users_uploaded %>
+    <% @users_uploaded.each do |user| %>
+        <% puts "WAAAAA"%>
+        <% puts user.inspect%>
+        <%= hidden_field_tag "confirmed_ids[]", user.id, :multiple => true %>
+    <% end %>
+<% end %>
