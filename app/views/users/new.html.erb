@@ -5,22 +5,7 @@
     Need to configure email and initial password
     Need to add page for users to edit acount settings (password)
     Need to make this page accessible by only admins -->
-<h2>Add Member Manually</h2>
-<%= form_for :user, url: '/users' do |f| %>
 
-  First Name: <%= f.text_field :first_name %>
-  Last Name: <%= f.text_field :last_name %>
-  Email: <%= f.text_field :email %>
-  Permissions: <%= f.text_field :permissions %>
-  Password: <%= f.password_field :password %>
-  Password Confirmation: <%= f.password_field :password_confirmation %>
-  <%= f.submit "Submit" %>
+<%= render "add_manual_form" %>
 
-<% end %>
-
-<h2>Import Users from CSV</h2>
-
-<%= form_tag csv_upload_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
-<% end %>
+<%= render "add_csv_form" %>

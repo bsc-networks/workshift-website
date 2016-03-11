@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   
   
   post '/users/upload' => 'users#upload', as: 'csv_upload'
+  post '/users/add' => 'users#add_user', as: 'add_user'
 
   get '/index' => 'workshft#index'
 
