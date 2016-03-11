@@ -3,6 +3,6 @@
 <%= form_tag csv_upload_path, multipart: true do %>
   <%= file_field_tag :file %>
   <%= render "add_hidden_ids" %>
-
+  <br>
   <%= submit_tag "Import" %>
 <% end %>

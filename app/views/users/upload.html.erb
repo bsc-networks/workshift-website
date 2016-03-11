@@ -1,41 +1,42 @@
 <!-- app/views/users/new.html.erb -->
 
-<h1>Create Members</h1>
-<!--Need to add CSV gem to add users
-    Need to configure email and initial password
-    Need to add page for users to edit acount settings (password)
-    Need to make this page accessible by only admins -->
+<div style="margin-left:45px">
+  <h1>Create Members</h1>
+  <!--Need to add CSV gem to add users
+      Need to configure email and initial password
+      Need to add page for users to edit acount settings (password)
+      Need to make this page accessible by only admins -->
 
-
-<%= render "add_manual_form" %>
-
-<%= render "add_csv_form" %>
-
-<br><br>
-<h5>You added <%= @users_uploaded.size %> new Users. Confirm below </h5>
-<br>
-
-  <table id="Users_uploaded">
-    <tr>
-      <th>Name &nbsp; &nbsp; &nbsp;</th>
-      <th>Email</th>
-      <th>Password</th>
-    </tr>
   
-    <% @users_uploaded.each do |user| %>
-    <tr>
-      <td><%= user.first_name %> <%= user.last_name%></td>
-      <td><%= user.email %></td>
-      <td><%= user.password %></td>
-    </tr>
-    <% end %>
+  <%= render "add_manual_form" %>
   
-  </table>
-
-<%= form_tag confirm_users_path  do %>
-  <%= render "add_hidden_ids" %>
-  <%= submit_tag "Confirm Users" %>
-<% end %>
-
-<br>
-
+  <%= render "add_csv_form" %>
+  
+  <br><br>
+  <h5>You added <%= @users_uploaded.size %> new Users. Confirm below </h5>
+  <br>
+    <table id="Users_uploaded" style="width:40%" >
+      <tr>
+        <th>Name &nbsp; &nbsp; &nbsp;</th>
+        <th>Email</th>
+        <th>Password</th>
+      </tr>
+    
+      <% @users_uploaded.each do |user| %>
+      <tr>
+        <td><%= user.first_name %> <%= user.last_name%></td>
+        <td><%= user.email %></td>
+        <td><%= user.password %></td>
+      </tr>
+      <% end %>
+    
+    </table>
+  
+  <%= form_tag confirm_users_path  do %>
+    <%= render "add_hidden_ids" %>
+    <br>
+    <%= submit_tag "Confirm Users" %>
+  <% end %>
+  
+  <br>
+</div>

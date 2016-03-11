@@ -8,12 +8,14 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<% if current_user %>
-  Signed in as <%= current_user.first_name %> | <%= link_to "Logout", '/logout' %>
-<% else %>
-  <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
-<% end %>
+<body >
+  <div style="margin-left:45px; margin-top: 15px">
+    <% if current_user %>
+      Signed in as <%= current_user.first_name %> | <%= link_to "Logout", '/logout' %>
+    <% else %>
+      <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
+    <% end %>
+  </div>
 
 <%= yield %>
 
