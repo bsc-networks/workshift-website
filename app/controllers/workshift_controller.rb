@@ -5,4 +5,8 @@ class WorkshiftController < ApplicationController
   def index
   end
 
+  def policies
+    
+  end
+  
 end
