@@ -1,0 +1,20 @@
+%h1 Set Policies
+
+= form_tag policy_path do 
+
+    = label :policy, :first_day, 'Semester start'
+    = text_field :policy, 'semester start'
+    
+    = label :policy, :last_day, 'Semester end'
+    = text_field :policy, 'semester end'
+    
+    = label :policy, :fine_days, 'Fining Days'
+    = text_field :policy, 'list days'
+    
+    = label :policy, :fine_amount, 'Fine rate'
+    = text_field :policy, 'select amount'
+    
+    = label :policy, :market_sell_by, 'Selling date limit'
+    = text_field :policy, 'number of days'
+    
+    = submit_tag 'Save Changes'
