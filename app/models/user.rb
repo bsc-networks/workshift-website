@@ -10,11 +10,14 @@ class User < ActiveRecord::Base
         added = []
         (2..spreadsheet.last_row).each do |i|
           row = Hash[[header, spreadsheet.row(i)].transpose]
-        #   print row
-          user = find_by_id(row["id"]) || new
+          #   print row
+          # puts
+          # puts row["email"]
+          user = find_by(email: row["email"]) || new
+          puts user.sent_confirmation
           user.attributes = row.to_hash.slice(*row.to_hash.keys)
           user.password = ('0'..'z').to_a.shuffle.first(8).join
-          if user.save
+          if (not user.sent_confirmation) and user.save
             added += [user]
           end
         end
@@ -27,6 +30,21 @@ class User < ActiveRecord::Base
         when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
         when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
         else raise "Unknown file type: #{file.original_filename}"           
+      end
+    end
+    
+    def full_name
+      return first_name + " " + last_name
+    end 
+    
+    def self.send_confirmation(id)
+      user = find(id)
+      if user
+        email = user.email
+        user.update_attribute(:sent_confirmation, true)
+        puts "Sending confirmation to " + user.full_name + " at " + email
+      else
+        puts "Couldnt find user"
       end
     end
 end
