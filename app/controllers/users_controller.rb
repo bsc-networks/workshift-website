@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   
   def upload
     @users_uploaded = User.import(params[:file])
-    @file = params[:file]
   end
   
   def get_all
@@ -25,17 +24,15 @@ class UsersController < ApplicationController
     end
   end
   
-  def confirm_users 
-    @users_uploaded = User.import(params[:file])
-    puts @users_uploaded
-    # uploaded_users = User.find(params[:users_uploaded])
-    # if uploaded_users.save
-    #   puts "SUCCESS"
-    # else
-    #   puts "ERROR"
-    # end
-    redirect_to "/"
+  def confirm_users
+    params[:confirmed_ids].each do |id|
+      User.send_confirmation(id)
+    end
+    flash[:success] =  "Sent confirmation email to users!" 
+    redirect_to get_all_users_path
   end
+  
+  
     
 
 private

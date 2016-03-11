@@ -26,27 +26,31 @@
 <% end %>
 
 <br><br>
-<h5>You added <%= @users_uploaded.size %> Users </h5>
-<br> 
-<table id="Users_uploaded">
-  <tr>
-    <th>Name &nbsp; &nbsp; &nbsp;</th>
-    <th>Email</th>
-    <th>Password</th>
-  </tr>
+<h5>You added <%= @users_uploaded.size %> new Users. Confirm below </h5>
+<br>
 
-  <% @users_uploaded.each do |user| %>
-  <tr>
-    <td><%= user.first_name %> <%= user.last_name%></td>
-    <td><%= user.email %></td>
-    <td><%= user.password %></td>
-  </tr>
-  <% end %>
-
-</table>
+  <table id="Users_uploaded">
+    <tr>
+      <th>Name &nbsp; &nbsp; &nbsp;</th>
+      <th>Email</th>
+      <th>Password</th>
+    </tr>
+  
+    <% @users_uploaded.each do |user| %>
+    <tr>
+      <td><%= user.first_name %> <%= user.last_name%></td>
+      <td><%= user.email %></td>
+      <td><%= user.password %></td>
+    </tr>
+    <% end %>
+  
+  </table>
 
 <%= form_tag confirm_users_path  do %>
-  <%= submit_tag "Import" %>
+  <% @users_uploaded.each do |user| %>
+    <%= hidden_field_tag "confirmed_ids[]", user.id, :multiple => true %>
+  <% end %>
+  <%= submit_tag "Confirm Users" %>
 <% end %>
 
 <br>

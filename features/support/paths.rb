@@ -28,7 +28,6 @@ module NavigationHelpers
     #     user_profile_path(User.find_by_login($1))
       
     when /the (.*) page for "(.*)"$/i
-      id = Movie.where(title: $2).first.id
       if $1 == "edit"
         edit_movie_path(id)
       elsif $1 == "details"
