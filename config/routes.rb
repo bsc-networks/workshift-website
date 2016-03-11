@@ -14,10 +14,8 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
   post '/users/confirm' => 'users#confirm_users', as: 'confirm_users'
-  
-  
   post '/users/upload' => 'users#upload', as: 'csv_upload'
 
   get '/index' => 'workshft#index'
-
+  get '/workshift/policies' => 'workshift#policies', as: 'policy'
 end
