@@ -1,21 +1,23 @@
-<h1>All Current Users</h1>
-
-<% flash.each do |key, value| %>
-  <%= content_tag :div, value, class: "flash #{key}" %>
-<% end %>
-
-<div style="width:70%">
-
-<table id="users-table" class="display" data-source="<%= get_all_users_path(format: :json) %>" >
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table
-
+<div style="margin-left:45px">
+  <h1>All Current Users</h1>
+  
+  <% flash.each do |key, value| %>
+    <%= content_tag :div, value, class: "flash #{key}" %>
+  <% end %>
+  
+  <div style="width:70%">
+  
+  <table id="users-table" class="display" data-source="<%= get_all_users_path(format: :json) %>" >
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table
+  
+  </div>
 </div>

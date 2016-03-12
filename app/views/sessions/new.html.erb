@@ -1,13 +1,21 @@
 <!-- app/views/sessions/new.html.erb -->
 
-<h1>Login</h1>
+<html>
+  
+  <body>
+    <div style="margin-left:45px">
+      <h1>Login</h1>
+    
+      <%= form_tag '/login' do %>
+        Email: <%= text_field_tag :email %> 
+        <br><br>
+        Password: <%= password_field_tag :password %>
+        <br><br>
+        <%= submit_tag "Log In" %>
+      
+      <% end %>
+    </div>
+  </body>
+</html>
 
-<%= form_tag '/login' do %>
 
-  Email: <%= text_field_tag :email %>
-  <br>
-  Password: <%= password_field_tag :password %>
-  <br>
-  <%= submit_tag "Submit" %>
-
-<% end %>

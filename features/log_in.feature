@@ -15,22 +15,22 @@ Background: users in database
 
 Scenario: a regular user tries to login
   When I go to the login page
-  And  I fill in "Email" with "ericn@berkeley.edu"
-  And  I fill in "user_password" with "bunny"
-  And  I press "Log in"
+  And  I fill in "email" with "ericn@berkeley.edu"
+  And  I fill in "password" with "bunnny"
+  And  I press "Log In"
   Then I should be on the home page
   
 Scenario: an admin user tries to login
   When I go to the login page
-  And  I fill in "Email" with "gwillits@berkeley.edu"
-  And  I fill in "user_password" with "tortoise"
-  And  I press "Log in"
+  And  I fill in "email" with "gwillits@berkeley.edu"
+  And  I fill in "password" with "tortoise"
+  And  I press "Log In"
   Then I should be on the home page
-  And I should have admin rights
+  # And I should have admin rights
   
 Scenario: Someone tries to login with bad credentials
   When I go to the login page
-  And  I fill in "Email" with "nobody@berkeley.edu"
-  And  I fill in "user_password" with "fake"
-  And  I press "Log in"
+  And  I fill in "email" with "nobody@berkeley.edu"
+  And  I fill in "password" with "fake"
+  And  I press "Log In"
   Then I should be on the login page
