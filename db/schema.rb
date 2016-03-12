@@ -11,15 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311022115) do
-
-  create_table "documents", force: :cascade do |t|
-    t.string   "filename"
-    t.string   "content_type"
-    t.binary   "file_contents"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
+ActiveRecord::Schema.define(version: 20160310090806) do
 
   create_table "policies", force: :cascade do |t|
     t.datetime "first_day"
