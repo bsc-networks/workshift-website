@@ -16,23 +16,17 @@ class UsersController < ApplicationController
   def upload
     @users_uploaded = get_current_uploaded(params[:confirmed_ids])
     new_users = User.import(params[:file])
-    
     @users_uploaded += new_users
     
   end
   
   def add_user
-    puts params[:confirmed_ids]
     @users_uploaded = get_current_uploaded(params[:confirmed_ids])
     new_user = User.new
     new_user.update_attributes(user_params)
     new_user.update_attribute(:password, User.random_pw)
     new_user.save
     @users_uploaded << new_user
-    puts "vv"
-    puts new_user.inspect
-    puts @users_uploaded
-    puts "**"
     render "upload"
   end
   
@@ -57,12 +51,9 @@ class UsersController < ApplicationController
 private
 
   def get_current_uploaded ids
-    puts ids
-    puts "^^^"
     added = []
     if ids
       ids.each do |id|
-        puts id
         added << User.find(id)
       end
     end

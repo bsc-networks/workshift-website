@@ -15,20 +15,20 @@ Scenario: an admin tries to add member accounts using a csv file
   And I should see "Giorgia"
   And I should see "Willits"
   And I should see "gwillits@berkeley.edu"
-  When I click "Save"
-  Then I should see "Confirmation emails sent to users with account information."
+  When I press "Confirm Users"
+  Then I should see "Sent confirmation email to users"
   
 Scenario: an admin tries to add member accounts manually
-  When I press the add user symbol
   And I fill in "First Name" with "Eric"
   And I fill in "Last Name" with "Nelson"
   And I fill in "Email" with "ericn@berkeley.edu"
-  Then I press the add user symbol
+  When I press "Add User"
   And I fill in "First Name" with "Yannie"
   And I fill in "Last Name" with "Yip"
   And I fill in "Email" with "yannie.yip@berkeley.edu"
-  When I press "Save"
-  Then I should see "Confirmation emails sent to users with account information."
+  Then I press "Add User"
+  When I press "Confirm Users"
+  Then I should see "Sent confirmation email to users"
   
   
   

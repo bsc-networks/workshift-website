@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
           # puts
           # puts row["email"]
           user = find_by(email: row["email"]) || new
-          puts user.sent_confirmation
           user.attributes = row.to_hash.slice(*row.to_hash.keys)
           user.password = User.random_pw
           if (not user.sent_confirmation) and user.save
