@@ -19,6 +19,14 @@ module NavigationHelpers
     when /^the create members\s?page$/
       '/signup'
       
+    #### POLICIES ####
+    when /^the view policy page$/
+      policy_path
+    when /^the set policies page$/
+      new_policy_path
+    when /^the edit policies page$/
+      edit_policy_path
+      
       
       
     # Add more mappings here.
@@ -26,14 +34,6 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
-      
-    when /the (.*) page for "(.*)"$/i
-      if $1 == "edit"
-        edit_movie_path(id)
-      elsif $1 == "details"
-        # puts "*"*100
-        movie_path(id)
-      end
 
     
     else

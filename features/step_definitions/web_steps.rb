@@ -71,7 +71,6 @@ Then(/^I should see a table$/) do
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
-  # puts page.body
   click_link(link)
 end
 
@@ -98,6 +97,13 @@ When /^(?:|I )fill in the following:$/ do |fields|
   fields.rows_hash.each do |name, value|
     When %{I fill in "#{name}" with "#{value}"}
   end
+end
+
+When /^I select "([^"]*)" as the (.+) "([^"]*)"(?: date)?$/ do |date, model, selector|
+  date = Date.parse(date)
+  select(date.year.to_s, :from => "#{model}[#{selector}(1i)]")
+  select(date.strftime("%B"), :from => "#{model}[#{selector}(2i)]")
+  select(date.day.to_s, :from => "#{model}[#{selector}(3i)]")
 end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|

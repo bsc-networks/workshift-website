@@ -9,9 +9,9 @@ class PoliciesController < ApplicationController
     #else
       #set @policy = policy for @current_house
     #end
-    begin 
-      @policy = Policy.find(11)
-    rescue
+    
+    @policy = Policy.all.last
+    if not @policy
       redirect_to new_policy_path
     end
   end
@@ -23,7 +23,7 @@ class PoliciesController < ApplicationController
 
   # GET /policies/1/edit
   def edit
-    @policy = Policy.find(11)
+    @policy = Policy.all.last
   end
 
   # POST /policies
@@ -37,7 +37,7 @@ class PoliciesController < ApplicationController
   # PATCH/PUT /policies/1
   # PATCH/PUT /policies/1.json
   def update
-    @policy = Policy.find(11)
+    @policy = Policy.all.last
     @policy.update_attributes!(policy_params)
     flash[:notice] = "Your policies have been updated"
     redirect_to policy_path
