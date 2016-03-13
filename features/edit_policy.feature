@@ -1,4 +1,4 @@
-Feature: Editing the Policy page
+Feature: Editing Semester Policies
   As a work-shift manager,
   In order to enforce policies for the semester,
   I would like to view and edit fining dates, the start and end of the semester, market sell-by, and fining rates.
