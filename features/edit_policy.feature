@@ -18,7 +18,7 @@ Feature: Editing the Policy page
     When I go to the view policy page
     And I follow "Edit"
     Then I should be on the edit policies page
-    When  I fill in "Fining Rate" with "100"
+    When  I fill in "Fine rate" with "100"
     And  I press "Save Changes"
     Then I should be on the view policy page
     And I should see "Your policies have been updated"
