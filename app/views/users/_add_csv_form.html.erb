@@ -1,8 +1,15 @@
-<h2>Import Users from CSV</h2>
 
 <%= form_tag csv_upload_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= render "add_hidden_ids" %>
   <br>
-  <%= submit_tag "Import" %>
+
+  <input type="file" name="file" class="file-inputs" data-filename-placement="inside">
+  <script>
+    $( document ).ready(function() {
+      $('.file-inputs').bootstrapFileInput();
+    });
+  </script>
+  <br>
+  <br>
+  <%= render "add_hidden_ids" %>
+  <button type="submit" class="btn btn-theme">Upload</button>
 <% end %>

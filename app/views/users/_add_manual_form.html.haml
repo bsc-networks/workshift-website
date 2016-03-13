@@ -1,20 +1,26 @@
-
-%h1 Add Member Manually
 %br/
 = form_tag add_user_path do
 
+  <div class="form-group">
   = label :user, :first_name, 'First Name'
-  = text_field :user, 'first_name'
+  = text_field :user, 'first_name', class:"form-control"
+  </div>
   
+  <div class="form-group">
   = label :user, :last_name, 'Last Name'
-  = text_field :user,"last_name"
-
+  = text_field :user,"last_name", class:"form-control"
+  </div>
+  
+  <div class="form-group">
   = label :user, :email, 'Email'
-  = text_field :user,"email"
-
+  = text_field :user,"email", class:"form-control"
+  </div>
+  
+  <div class="form-group">
   = label :user, :permissions, 'Permissions'
-  = text_field :user,"permissions"
+  = text_field :user,"permissions", class:"form-control"
+
+  </div>
 
   = render "add_hidden_ids"
-
-  = submit_tag 'Add User'
+  <button type="submit" class="btn btn-theme">Add User</button>

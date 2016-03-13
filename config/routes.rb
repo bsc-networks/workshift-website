@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
+  get '/login2' => 'sessions#test'
   get '/logout' => 'sessions#destroy'
 
   get '/signup' => 'users#new'
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   post '/users/confirm' => 'users#confirm_users', as: 'confirm_users'
   post '/users/upload' => 'users#upload', as: 'csv_upload'
   post '/users/add' => 'users#add_user', as: 'add_user'
+
 
   get '/index' => 'workshft#index'
   

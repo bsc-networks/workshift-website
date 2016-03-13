@@ -4,6 +4,10 @@ class SessionsController < ApplicationController
     # render :page_login1
   end
 
+  def test 
+    
+  end
+
   def create
     user = User.find_by_email(params[:email])
     # if the user exists AND the password entered is correct

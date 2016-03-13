@@ -1,12 +1,20 @@
 <!-- app/views/users/new.html.erb -->
-<div style="margin-left:45px">
-    <h1>Create Members</h1>
-    <!--Need to add CSV gem to add users
-        Need to configure email and initial password
-        Need to add page for users to edit acount settings (password)
-        Need to make this page accessible by only admins -->
-    
-    <%= render "add_manual_form" %>
-    
-    <%= render "add_csv_form" %>
+<div class="row">
+<div class="col-lg-8">
+  <h2>Add User Manually!</h2>
+  <div class="hline"></div>
+
+  <%=render "add_manual_form" %>
+
 </div>
+<! --/col-lg-8 -->
+
+<div class="col-lg-4">
+  <h2>Upload CSV</h2>
+  <div class="hline"></div>
+
+  <%=render "add_csv_form" %>
+
+</div>
+</div>
+<! --/row -->
