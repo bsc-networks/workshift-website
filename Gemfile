@@ -44,6 +44,7 @@ gem "binding_of_caller"
 gem 'less-rails-bootstrap', '~> 3.0'
 gem "font-awesome-rails"
 gem 'therubyracer'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -12,8 +12,8 @@ Feature: Setting Semester Policies
     When I select "January 16, 2016" as the policy "first_day"
     And I select "May 17, 2016" as the policy "last_day"
     And I select "March 5, 2016" as the policy "fine_days"
-    And  I fill in "Fining Rate" with "20"
-    And  I fill in "Selling Date Limit" with "48 hours"
+    And  I fill in "Fine rate" with "20"
+    And  I fill in "Selling date limit" with "48 hours"
     And  I press "Save"
     Then I should be on the view policy page
     And I should see "Your policies have been saved"

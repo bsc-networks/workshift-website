@@ -1,21 +1,42 @@
-<!-- app/views/sessions/new.html.erb -->
 
-<html>
-  
-  <body>
-    <div style="margin-left:45px">
-      <h1>Login</h1>
-    
-      <%= form_tag '/login' do %>
-        Email: <%= text_field_tag :email %> 
-        <br><br>
-        Password: <%= password_field_tag :password %>
-        <br><br>
-        <%= submit_tag "Log In" %>
-      
-      <% end %>
-    </div>
-  </body>
-</html>
-
-
+<div id="loginModal"  tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="text-center" style="color:#00b3fe">Login</h1>
+      </div>
+      <div class="modal-body">
+        
+          <%= form_tag '/login',{:class => 'form col-md-12 center-block'} do %>
+          <div class="form-group">
+            <%= text_field_tag :email, "", {class: "form-control input-lg", placeholder: "Email"} %> 
+          </div>
+          <div class="form-group">
+            <%= password_field_tag :password,"", {class: "form-control input-lg", placeholder: "Password"} %>
+          </div>
+          <div class="form-group">
+            <%= submit_tag "Log In", class: "btn btn-primary btn-lg btn-block" %>
+          </div>
+          <% end %>
+          
+          <!--<form class="form col-md-12 center-block">-->
+          <!--  <div class="form-group">-->
+          <!--    <input type="text" class="form-control input-lg" placeholder="Email">-->
+          <!--  </div>-->
+          <!--  <div class="form-group">-->
+          <!--    <input type="password" class="form-control input-lg" placeholder="Password">-->
+          <!--  </div>-->
+          <!--  <div class="form-group">-->
+          <!--    <button class="btn btn-primary btn-lg btn-block">Sign In</button>-->
+          <!--    <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>-->
+          <!--  </div>-->
+          <!--</form>-->
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		  </div>	
+      </div>
+  </div>
+  </div>
+</div>

@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
     end
     
     def full_name
-      return first_name + " " + last_name
+      return first_name.capitalize + " " + last_name.capitalize
     end 
     
     def self.send_confirmation(id)
