@@ -1,0 +1,4 @@
+And /^I have set the policies for the semester$/ do
+    Policy.create!(:first_day => Date.parse("January 16, 2016"), :last_day => Date.parse("May 17, 2016"), 
+        :fine_days => Date.parse("March 5, 2016"), :fine_amount => 20, :market_sell_by => 2)
+end
