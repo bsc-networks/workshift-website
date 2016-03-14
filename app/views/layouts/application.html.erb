@@ -27,7 +27,9 @@
           <li><a href="/">Home</a></li>
             <% if current_user %>
               <li> <%= link_to 'Policies', policy_path %> </li>
-
+              <li>
+                 <%= link_to 'Signup', '/signup' %>
+              </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.full_name %> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -38,9 +40,6 @@
             <% else %>
               <li>
                 <%= link_to 'LOGIN', '/login' %>
-              </li>
-              <li>
-                 <%= link_to 'SIGNUP', '/signup' %>
               </li>
             <% end %>
           </li>

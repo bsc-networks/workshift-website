@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-
+  skip_before_filter :set_current_user
+  
   def new
     # render :page_login1
   end
@@ -23,6 +24,9 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     redirect_to '/login'
+  end
+  
+  def failure
   end
 
 end
