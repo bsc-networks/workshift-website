@@ -1,4 +1,6 @@
-%p#notice= notice
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, class: "flash #{key}" %>
+<% end %>
 
 <div class="spacing"></div>
  <h4>Your Policies</h4>
@@ -9,28 +11,6 @@
  <p><b>Fining Rate:</b> <%= @policy.fine_amount %> </p>
  <p><b>Selling Date Limit:</b> <%= @policy.market_sell_by %> </p>
 
-
-
-<!--%h2 Your Policies-->
-
-
-
-<!--%%ul-->
-<!--    %li-->
-<!--        Semester Start Date:-->
-<!--        = @policy.first_day-->
-<!--    %li-->
-<!--        Semester End Date:-->
-<!--        = @policy.last_day-->
-<!--    %li-->
-<!--        Fining Days:-->
-<!--        = @policy.fine_days-->
-<!--    %li-->
-<!--        Fining Rate:  -->
-<!--        = @policy.fine_amount-->
-<!--    %li-->
-<!--        Selling Date Limit:-->
-<!--        = @policy.market_sell_by-->
 
 
 <%= link_to 'Edit', edit_policy_path %>
