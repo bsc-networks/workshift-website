@@ -1,38 +1,8 @@
 %h1 Edit Your Policy
 
 = form_tag policy_path, :method => :put, class:"form-horizontal" do 
-  
-  
-    <div class="form-group">
-    = label :policy, :first_day, 'Semester start', class:"col-sm-2 control-label"
-    <div class="col-sm-10">
-    = date_select :policy, :first_day, class:"form-control"
-    </div></div>
-  
-    <div class="form-group">
-    = label :policy, :last_day, 'Semester end', class:"col-sm-2 control-label"
-    <div class="col-sm-10">
-    = date_select :policy, :last_day, class:"form-control"
-    </div></div>
-  
-    <div class="form-group">
-    = label :policy, :fine_days, 'Fining Days', class:"col-sm-2 control-label"
-    <div class="col-sm-10">
-    = date_select :policy, :fine_days, class:"form-control"
-    </div></div>
-  
-    <div class="form-group">
-    = label :policy, :fine_amount, 'Fine rate', class:"col-sm-2 control-label"
-    <div class="col-sm-10">
-    = text_field :policy, :fine_amount, class:"form-control"
-    </div></div>
-  
-    <div class="form-group">
-    = label :policy, :market_sell_by, 'Selling date limit', class:"col-sm-2 control-label"
-    <div class="col-sm-10">
-    = text_field :policy, :market_sell_by, class:"form-control"
-    </div></div>
-
+    = render :partial => 'policy_form'  
+    
     <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
     <button type="submit" class="btn btn-theme">Save Changes</button>
