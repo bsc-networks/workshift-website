@@ -1,0 +1,36 @@
+%p#notice= notice
+
+<div class="spacing"></div>
+ <h4>Your Policies</h4>
+ <div class="hline"></div>
+ <p><b>Semester Start Date:</b> <%= @policy.first_day.strftime("%B %d, %Y") %> </p>
+ <p><b>Semester End Date:</b> <%= @policy.last_day.strftime("%B %d, %Y") %> </p>
+ <p><b>Fining Days:</b> <%= @policy.fine_days.strftime("%B %d, %Y") %> </p>
+ <p><b>Fining Rate:</b> <%= @policy.fine_amount %> </p>
+ <p><b>Selling Date Limit:</b> <%= @policy.market_sell_by %> </p>
+
+
+
+<!--%h2 Your Policies-->
+
+
+
+<!--%%ul-->
+<!--    %li-->
+<!--        Semester Start Date:-->
+<!--        = @policy.first_day-->
+<!--    %li-->
+<!--        Semester End Date:-->
+<!--        = @policy.last_day-->
+<!--    %li-->
+<!--        Fining Days:-->
+<!--        = @policy.fine_days-->
+<!--    %li-->
+<!--        Fining Rate:  -->
+<!--        = @policy.fine_amount-->
+<!--    %li-->
+<!--        Selling Date Limit:-->
+<!--        = @policy.market_sell_by-->
+
+
+<%= link_to 'Edit', edit_policy_path %>
