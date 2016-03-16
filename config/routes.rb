@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :shifts
   resources :metashifts
   root to: 'workshift#index'
   get '/users/get_all' => 'users#get_all', as: 'get_all_users'
