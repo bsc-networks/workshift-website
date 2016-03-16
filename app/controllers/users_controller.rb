@@ -15,10 +15,9 @@ class UsersController < ApplicationController
   
   def upload
     @users_uploaded = get_current_uploaded(params[:confirmed_ids])
-    if (defined? params[:file])
-      new_users = User.import(params[:file])
-      @users_uploaded += new_users
-    end
+    new_users = User.import(params[:file])
+    @users_uploaded += new_users
+    
   end
   
   def add_user
