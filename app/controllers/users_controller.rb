@@ -15,9 +15,13 @@ class UsersController < ApplicationController
   
   def upload
     @users_uploaded = get_current_uploaded(params[:confirmed_ids])
-    new_users = User.import(params[:file])
-    @users_uploaded += new_users
-    
+    if (not params[:file].blank?)
+      new_users = User.import(params[:file])
+      @users_uploaded += new_users
+    else
+      flash[:notice] = "No file specified."
+      redirect_to '/signup'
+    end
   end
   
   def add_user
