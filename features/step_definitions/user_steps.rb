@@ -13,11 +13,6 @@ Given /none of the uploaders exists/ do
 end
 
 Given /^I am logged in as an admin$/ do
-  user = User.create!(first_name: "Example", last_name: "Admin", email: "coop_admin@berkeley.edu", password: "admin")
-  visit path_to('the login page')
-  fill_in('email', :with => 'coop_admin@berkeley.edu')
-  fill_in('password', :with => 'admin')
-  click_button("Log In")
 end
 
 Then(/^I should have admin rights$/) do

@@ -5,9 +5,8 @@ Feature: Adding Users
     To ease the process of creating user accounts
     
 Background:
-  Given I am logged in as an admin
-  And I go to the create members page
-  And none of the uploaders exists
+  Given I am on the create members page
+  Given none of the uploaders exists
 
 Scenario: an admin tries to add member accounts using a csv file
   When I upload "users_upload.csv"
