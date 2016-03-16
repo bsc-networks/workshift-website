@@ -29,7 +29,11 @@ Scenario: an admin tries to add member accounts manually
   Then I press "Add User"
   When I press "Confirm Users"
   Then I should see "Sent confirmation email to users"
-  
+
+Scenario: an admin tries to import no file
+  When I press "Import"
+  Then I should be on the create members page
+
   
   
   
