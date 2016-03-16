@@ -43,7 +43,17 @@ ActiveRecord::Schema.define(version: 20160316034302) do
   add_index "shifts", ["metashift_id"], name: "index_shifts_on_metashift_id"
   add_index "shifts", ["user_id"], name: "index_shifts_on_user_id"
 
-# Could not dump table "users" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.integer  "permissions"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "password"
+    t.string   "password_digest"
+    t.boolean  "sent_confirmation", default: false
+    t.boolean  "has_confirmed",     default: false
+  end
 
 end
