@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
     has_secure_password
     validates :email, uniqueness: true
     
+    PERMISSION = {
+          :member => 0, :manager => 1, :ws_manager =>2
+    }
+    
     def self.import(file)
         # puts file
         spreadsheet = open_spreadsheet(file)
@@ -36,6 +40,7 @@ class User < ActiveRecord::Base
       return first_name.capitalize + " " + last_name.capitalize
     end 
     
+    
     def self.send_confirmation(id)
       user = find(id)
       if user
@@ -50,4 +55,16 @@ class User < ActiveRecord::Base
     def self.random_pw
       ('0'..'z').to_a.shuffle.first(8).join
     end
+    
+    def is_ws_manager
+      permissions == PERMISSION[:ws_manager]
+    end
+    
+    def is_manager
+      permissions == PERMISSION[:manager]
+    end
+    
+    def is_member
+      permissions == PERMISSION[:member]
+    end 
 end
