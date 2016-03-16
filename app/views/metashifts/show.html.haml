@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Category:
+  = @metashift.category
+%p
+  %b Description:
+  = @metashift.description
+%p
+  %b Multiplier:
+  = @metashift.multiplier
+
+= link_to 'Edit', edit_metashift_path(@metashift)
+\|
+= link_to 'Back', metashifts_path
