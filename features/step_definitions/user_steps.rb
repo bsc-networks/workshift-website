@@ -20,6 +20,14 @@ Given /^I am logged in as an admin$/ do
   click_button("Sign In")
 end
 
+Given /^I am logged in as a non-admin$/ do
+  user = User.create!(first_name: "Example", last_name: "Non-Admin", email: "non_admin@berkeley.edu", password: "nonadmin")
+  visit path_to('the home page')
+  fill_in('email', :with => 'non_admin@berkeley.edu')
+  fill_in('password', :with => 'nonadmin')
+  click_button("Sign In")
+end
+
 Then(/^I should have admin rights$/) do
   pending # Write code here that turns the phrase above into concrete actions
 end
