@@ -16,12 +16,11 @@
  
 And /^I have created workshifts for the semester$/ do
     user_maura = User.create!(first_name: "Maura", last_name: "Fitz", email: "momo@berkeley.edu", password: "pw")
-    sweep_kitchen = Metashift.create!(:category => 'Kitchen', :name => 'Sweep Floors', :hour_value => 1)
-    clean_shower = Metashift.create!(:category => 'Bathroom', :name => 'Clean the shower', :hour_value => 1.5)
-    Workshift.create!(:metashift => sweep_kitchen, :start_time => '01:00PM', :end_time => '03:00PM', :day_of_week => 'Wednesday',
-        :members_assigned => [user_maura])
-    Workshift.create!(:metashift => clean_shower, :start_time => '02:30PM', :end_time => '03:30PM', :day_of_week => 'Friday',
-        :members_assigned => [])
+    sweep_kitchen = Metashift.create!(:category => 'Kitchen', :name => 'Sweep Floors', :multiplier => 1, :description => 'Sweeping the kitchen floors')
+    clean_shower = Metashift.create!(:category => 'Bathroom', :name => 'Clean the shower', :multiplier => 1.5, :description => 'Cleaning the upstairs bathroom')
+    sweep_shift = sweep_kitchen.create_shift!(:start_time => '01:00PM', :end_time => '03:00PM', :day_of_week => 'Wednesday')
+    clean_shower.create_shift!(:start_time => '02:30PM', :end_time => '03:30PM', :day_of_week => 'Friday')
+    user_maura.shifts << sweep_shift
 end
 
 And /^some workshifts have been created for the semester$/ do
