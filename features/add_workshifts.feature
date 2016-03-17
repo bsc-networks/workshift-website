@@ -9,7 +9,7 @@ Background:
   And PENDING I go to the create workshifts page
 
 Scenario: an admin adds workshifts using a csv file
-  When PENDING I upload "workshifts_upload.csv"
+  When I upload "workshifts_upload.csv"
   Then I press "Import"
   Then I should see a table
   And I should see "Clean dishes" "2" times

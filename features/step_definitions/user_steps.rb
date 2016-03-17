@@ -25,17 +25,14 @@ Given /^I am logged in as a non-admin$/ do
   visit path_to('the home page')
   fill_in('email', :with => 'non_admin@berkeley.edu')
   fill_in('password', :with => 'nonadmin')
+end
 
 Given /^I am logged in as a workshift manager$/ do
     step "I am logged in as an admin"
 end
 
 Given /^I am logged in as a user$/ do
-  user = User.create!(first_name: "Example", last_name: "User", email: "coop_user@berkeley.edu", password: "user")
-  visit path_to('the home page')
-  fill_in('email', :with => 'coop_user@berkeley.edu')
-  fill_in('password', :with => 'user')
-  click_button("Sign In")
+  step "I am logged in as a non-admin"
 end
 
 Then(/^I should have admin rights$/) do
