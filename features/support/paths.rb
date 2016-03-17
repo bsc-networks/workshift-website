@@ -19,6 +19,14 @@ module NavigationHelpers
     when /^the create members\s?page$/
       '/signup'
       
+    #### WORKSHIFTS ####
+    when /^the create workshifts page$/
+      #'/'
+    when /^the view workshifts page$/
+      #'/'
+    when /^the edit workshift page$/
+      #'/'
+      
     #### POLICIES ####
     when /^the view policy page$/
       policy_path
