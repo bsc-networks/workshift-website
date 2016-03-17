@@ -38,6 +38,7 @@ class PoliciesController < ApplicationController
   # PATCH/PUT /policies/1.json
   def update
     @policy = Policy.all.last
+    puts policy_params
     @policy.update_attributes!(policy_params)
     flash[:notice] = "Your policies have been updated"
     redirect_to policy_path

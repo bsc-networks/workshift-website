@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
     has_secure_password
     validates :email, uniqueness: true
     
+    belongs_to :unit
     has_many :shifts
     
     PERMISSION = {
