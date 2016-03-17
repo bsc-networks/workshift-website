@@ -31,6 +31,7 @@
       <th>Name &nbsp; &nbsp; &nbsp;</th>
       <th>Email</th>
       <th>Password</th>
+      <th>Permissions</th>
     </tr>
 
     <% @users_uploaded.each do |user| %>
@@ -44,6 +45,9 @@
         </td>
         <td>
           <%=user.password %>
+        </td>
+        <td>
+          <%=user.permissions %>
         </td>
       </tr>
     <% end %>

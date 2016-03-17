@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
     
     def full_name
       return first_name.capitalize + " " + last_name.capitalize
-    end 
+    end
     
     
     def self.send_confirmation(id)
