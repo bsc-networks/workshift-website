@@ -14,23 +14,26 @@ Background: users in database
   | Giorgia         | Willits       | gwillits@berkeley.edu     |   tortoise     |      2           |
 
 Scenario: a regular user tries to login
-  When I go to the login page
+  When I go to the home page
   And  I fill in "email" with "ericn@berkeley.edu"
   And  I fill in "password" with "bunnny"
-  And  I press "Log In"
+  And  I press "Sign In"
   Then I should be on the home page
+  And  I should see "Eric"
   
 Scenario: an admin user tries to login
-  When I go to the login page
+  When I go to the home page
   And  I fill in "email" with "gwillits@berkeley.edu"
   And  I fill in "password" with "tortoise"
-  And  I press "Log In"
+  And  I press "Sign In"
   Then I should be on the home page
+  And  I should see "Giorgia"
   # And I should have admin rights
   
 Scenario: Someone tries to login with bad credentials
-  When I go to the login page
+  When I go to the home page
   And  I fill in "email" with "nobody@berkeley.edu"
   And  I fill in "password" with "fake"
-  And  I press "Log In"
+  And  I press "Sign In"
   Then I should be on the login page
+  And  I should see "Please try again"

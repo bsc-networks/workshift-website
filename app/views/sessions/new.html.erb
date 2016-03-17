@@ -1,7 +1,9 @@
-
 <div id="loginModal"  tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
+        <% flash.each do |key, value| %>
+          <%= content_tag :div, value, class: "flash #{key}" %>
+        <% end %>
       <div class="modal-header">
           <h1 class="text-center" style="color:#00b3fe">Login</h1>
       </div>
@@ -18,19 +20,6 @@
             <%= submit_tag "Log In", class: "btn btn-primary btn-lg btn-block" %>
           </div>
           <% end %>
-          
-          <!--<form class="form col-md-12 center-block">-->
-          <!--  <div class="form-group">-->
-          <!--    <input type="text" class="form-control input-lg" placeholder="Email">-->
-          <!--  </div>-->
-          <!--  <div class="form-group">-->
-          <!--    <input type="password" class="form-control input-lg" placeholder="Password">-->
-          <!--  </div>-->
-          <!--  <div class="form-group">-->
-          <!--    <button class="btn btn-primary btn-lg btn-block">Sign In</button>-->
-          <!--    <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>-->
-          <!--  </div>-->
-          <!--</form>-->
       </div>
       <div class="modal-footer">
           <div class="col-md-12">

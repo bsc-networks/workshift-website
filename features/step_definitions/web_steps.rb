@@ -54,6 +54,7 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
 end
 
 When(/^I upload "([^"]*)"$/) do |arg1|
+
   page.attach_file("file", 'lib/users_upload.csv')
 end
 
