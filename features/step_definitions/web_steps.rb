@@ -59,6 +59,12 @@ When(/^I upload "([^"]*)"$/) do |arg1|
 end
 
 
+Then /^I should see "([^"]*)" "(.+)" times$/ do |text, num|
+  number = num.to_i
+  page.should have_content(text, :count => number)
+end
+
+
 Then(/^I should see a table$/) do
   if page.respond_to? :should
     page.should have_content("Name")
