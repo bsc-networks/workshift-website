@@ -11,7 +11,7 @@ Feature: Editing Semester Policies
     When I go to the view policy page
     Then I should see "Your Policies"
     And I should see "Semester Start Date:" 
-    And I should see "2016-01-16"
+    And I should see "January 16, 2016"
     And I should see "Edit"
     
   Scenario: An admin edits the policies for the semester

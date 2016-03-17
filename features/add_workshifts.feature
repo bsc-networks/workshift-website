@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Feature: Adding workshifts
     
     As a work-shift manager
