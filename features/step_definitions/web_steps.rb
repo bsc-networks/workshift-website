@@ -142,7 +142,13 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
   end
 end
 
-
+Then /^I should see the following: (.*)$/ do |list|
+  list.split(',').each do |item|
+    step %Q{ 
+      Then I should see "#{item}"
+    }
+  end
+end
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
@@ -159,6 +165,14 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
     page.should have_no_content(text)
   else
     assert page.has_no_content?(text)
+  end
+end
+
+Then /^I should not see the following: (.*)$/ do |list|
+  list.split(',').each do |item|
+    step %Q{ 
+      Then I should not see "#{item}"
+    }
   end
 end
 
