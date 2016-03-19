@@ -18,6 +18,9 @@
 //= require dataTables/jquery.dataTables
 //= require turbolinks
 
+//= require moment
+//= require bootstrap-datetimepicker
+
 // Added by us - sprockets
 
 // require treecompiles each of the other Javascript files

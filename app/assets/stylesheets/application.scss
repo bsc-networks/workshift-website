@@ -24,6 +24,9 @@
 @import "bootstrap";
 
 
+// import bootstrap-sprockets before bootstrap if using bootstrap >= 3.2
+@import 'bootstrap-datetimepicker';
+
 /*	################################################################
 	1. GENERAL STRUCTURES
 ################################################################# */
@@ -133,6 +136,9 @@ a:focus {
 
 .dropdown-menu {
 	background: #384452;
+}
+.datetimepicker .dropdown-menu {
+	background: #FFF;
 }
 
 .dropdown-menu > li > a {

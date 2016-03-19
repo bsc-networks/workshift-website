@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
     has_secure_password
     validates :email, uniqueness: true
     
+    belongs_to :unit
     has_many :shifts
     
     PERMISSION = {
@@ -40,7 +41,7 @@ class User < ActiveRecord::Base
     
     def full_name
       return first_name.capitalize + " " + last_name.capitalize
-    end 
+    end
     
     
     def self.send_confirmation(id)
