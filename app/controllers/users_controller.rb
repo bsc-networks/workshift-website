@@ -49,6 +49,9 @@ class UsersController < ApplicationController
     redirect_to get_all_users_path
   end
   
+  def show
+  end
+  
 private
 
   def get_current_uploaded ids

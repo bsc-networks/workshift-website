@@ -144,9 +144,8 @@ end
 
 Then /^I should see the following: (.*)$/ do |list|
   list.split(',').each do |item|
-    step %Q{ 
-      Then I should see "#{item}"
-    }
+    item =~ /("(.*)")/
+    step %Q{I should see #{$1}}
   end
 end
 
@@ -170,9 +169,8 @@ end
 
 Then /^I should not see the following: (.*)$/ do |list|
   list.split(',').each do |item|
-    step %Q{ 
-      Then I should not see "#{item}"
-    }
+    item =~ /("(.*)")/
+    step %Q{I should not see #{$1}}
   end
 end
 

@@ -11,11 +11,12 @@ Feature: Viewing User Profile
   Scenario: A user views their profile while logged in
     Given I am logged in
     And I am on the home page
-    Then I should see "Profile"
-    When I go to my profile page
+    When I follow "Profile"
+    Then I should be on my profile page
     Then I should see the following: "Hour Balance", "Fine Balance", "Permanent Shift Assignment", "Signoff History", "18", "100"
     And I should see "Edit Profile"
-    And I should not see the following: "Create Users", "Create Workshifts", "Assign Workshifts", "View Weekly History"
+    And I should not see the following: "Create Workshifts", "Assign Workshifts", "View Weekly History"
+    # should not see "Create Users"
     
   Scenario: A user tries to view their profile while not logged in
     Given I am not logged in

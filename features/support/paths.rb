@@ -18,6 +18,11 @@ module NavigationHelpers
       '/'
     when /^the create members\s?page$/
       '/signup'
+    when /^my profile page$/
+      user_profile_path(User.find_by_id(@current_user.id))
+      
+    # when /^(.*)'s profile page$/i
+      # user_profile_path(User.find_by_login($1))
       
     #### WORKSHIFTS ####
     when /^the create workshifts page$/

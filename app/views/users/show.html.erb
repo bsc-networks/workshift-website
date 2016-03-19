@@ -1,0 +1,13 @@
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, class: "flash #{key}" %>
+<% end %>
+
+<div class="spacing"></div>
+ <h4>Your Profile</h4>
+ <div class="hline"></div>
+ <p><b>Hour Balance:</b> <%= current_user.hour_balance %> </p>
+ <p><b>Fine Balance:</b> <%= current_user.fine_balance %> </p>
+ <p><b>Permanent Shift Assignment:</b> <%=  %> </p>
+ <p><b>Signoff History:</b> <%=  %> </p>
+
+<%= link_to 'Edit Profile', edit_profile_path %>
