@@ -46,9 +46,9 @@ class User < ActiveRecord::Base
       if user
         email = user.email
         user.update_attributes!(:sent_confirmation => true)
-        puts "Sending confirmation to " + user.full_name + " at " + email
+        #puts "Sending confirmation to " + user.full_name + " at " + email
       else
-        puts "Couldnt find user"
+        #puts "Couldnt find user"
       end
     end
     
