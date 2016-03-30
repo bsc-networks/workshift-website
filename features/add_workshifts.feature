@@ -1,5 +1,4 @@
 Feature: Adding workshifts
-    
     As a work-shift manager
     I want to be able to upload workshifts at the start of the semester
     To make sure the coop's responsibilities are fulfilled
