@@ -11,3 +11,14 @@
  <p><b>Signoff History:</b> <%=  %> </p>
 
 <%= link_to 'Edit Profile', edit_profile_path %>
+
+<%### ADMIN ONLY ###%>
+<% if @current_user.is_ws_manager %>
+    <%= link_to 'Create Users', '/signup' %>
+    <%= link_to 'Create Workshifts', '/' %>
+    <%= link_to 'Assign Workshifts', '/'%>
+    <%= link_to 'View Weekly History', '/'%>
+<% end %>
+
+
+

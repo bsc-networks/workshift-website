@@ -16,21 +16,27 @@ module NavigationHelpers
       '/login'
     when /^the home\s?page$/
       '/'
-    when /^the create members\s?page$/
-      '/signup'
     when /^my profile page$/
       user_profile_path(User.find_by_id(@current_user.id))
+      
+    ### WORKSHIFT MANAGER ###
+    when /^the create members\s?page$/
+      '/signup'      
+    when /^the view weekly history page$/
+      '/'
       
     # when /^(.*)'s profile page$/i
       # user_profile_path(User.find_by_login($1))
       
     #### WORKSHIFTS ####
     when /^the create workshifts page$/
-      #'/'
+      '/'
     when /^the view workshifts page$/
-      #'/'
+      '/'
     when /^the edit workshift page$/
-      #'/'
+      '/'
+    when /^the assign workshifts page$/
+      '/'
       
     #### POLICIES ####
     when /^the view policy page$/
