@@ -64,8 +64,6 @@ ActiveRecord::Schema.define(version: 20160317211305) do
     t.string   "password_digest"
     t.boolean  "sent_confirmation", default: false
     t.boolean  "has_confirmed",     default: false
-    t.integer  "hour_balance"
-    t.integer  "fine_balance"
   end
 
 end
