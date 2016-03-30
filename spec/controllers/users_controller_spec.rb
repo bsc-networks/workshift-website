@@ -6,7 +6,6 @@ RSpec.describe UsersController, type: :controller do
             @a_user = User.create!(:first_name => 'my user', :last_name => 'last',
             :email => 'auser@gmail.com', :password => '3ljkd;a2', :permissions =>
             User::PERMISSION[:member])
-            puts(@a_user)
             @user = User.find_by(:first_name => 'my user')
             request.session = { :user_id => @user.id }
         end
@@ -33,6 +32,16 @@ RSpec.describe UsersController, type: :controller do
                 :permissions => User::PERMISSION[:member]
             }
             expect(response).to redirect_to('/signup')
+        end
+        
+        it 'should render the upload template after manually adding a user' do
+            post :add_user, :user => {:first_name => 'M',
+            :last_name => 'F',
+            :email => 'ehjd@gmail.com',
+            :permissions => User::PERMISSION[:member],
+            :password => '48741fkdahl'
+            }
+            expect(response).to render_template(:upload)
         end
     end
 end
