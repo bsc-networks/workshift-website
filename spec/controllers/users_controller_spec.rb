@@ -3,7 +3,11 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :controller do
     describe "creating users" do
         before(:each) do
-            @user = User.find_by(:first_name => 'member')
+            @a_user = User.create!(:first_name => 'my user', :last_name => 'last',
+            :email => 'auser@gmail.com', :password => '3ljkd;a2', :permissions =>
+            User::PERMISSION[:member])
+            puts(@a_user)
+            @user = User.find_by(:first_name => 'my user')
             request.session = { :user_id => @user.id }
         end
         
@@ -14,10 +18,11 @@ RSpec.describe UsersController, type: :controller do
 
         it 'should redirect after successfully creating a user' do
             post :create, :user => {:first_name => 'M',
-                :last_name => 'F',
-                :email => 'ehjd@gmail.com',
-                :permissions => User::PERMISSION[:member],
-                :password => '48741fkdahl'}
+            :last_name => 'F',
+            :email => 'ehjd@gmail.com',
+            :permissions => User::PERMISSION[:member],
+            :password => '48741fkdahl'
+            }
             expect(response).to redirect_to('/')
         end
         
@@ -25,7 +30,8 @@ RSpec.describe UsersController, type: :controller do
              post :create, :user => {:first_name => 'M',
                 :last_name => 'F',
                 :email => 'ehjd@gmail.com',
-                :permissions => User::PERMISSION[:member]}
+                :permissions => User::PERMISSION[:member]
+            }
             expect(response).to redirect_to('/signup')
         end
     end
