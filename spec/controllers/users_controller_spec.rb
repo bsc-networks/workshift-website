@@ -14,34 +14,37 @@ RSpec.describe UsersController, type: :controller do
             get :new
             expect(response).to render_template(:new)
         end 
-
-        it 'should redirect after successfully creating a user' do
-            post :create, :user => {:first_name => 'M',
-            :last_name => 'F',
-            :email => 'ehjd@gmail.com',
-            :permissions => User::PERMISSION[:member],
-            :password => '48741fkdahl'
-            }
-            expect(response).to redirect_to('/')
-        end
         
-        it 'should redirect to signup if user is missing a password' do
-             post :create, :user => {:first_name => 'M',
+        describe "creating a user without password provided" do
+            it 'should redirect to signup if user is missing a password' do
+                post :create, :user => {:first_name => 'M',
                 :last_name => 'F',
                 :email => 'ehjd@gmail.com',
                 :permissions => User::PERMISSION[:member]
-            }
-            expect(response).to redirect_to('/signup')
+                }
+                expect(response).to redirect_to('/signup')
+            end
         end
         
-        it 'should render the upload template after manually adding a user' do
-            post :add_user, :user => {:first_name => 'M',
-            :last_name => 'F',
-            :email => 'ehjd@gmail.com',
-            :permissions => User::PERMISSION[:member],
-            :password => '48741fkdahl'
-            }
-            expect(response).to render_template(:upload)
+        describe "creating a user with password provided" do
+            before(:each) do
+                @my_user = {:first_name => 'M',
+                :last_name => 'F',
+                :email => 'ehjd@gmail.com',
+                :permissions => User::PERMISSION[:member],
+                :password => '48741fkdahl'
+                }
+            end
+            
+             it 'should redirect after successfully creating a user' do
+                post :create, :user => @my_user
+                expect(response).to redirect_to('/')
+            end
+            
+            it 'should render the upload template after manually adding a user' do
+                post :add_user, :user => @my_user
+                expect(response).to render_template(:upload)
+            end
         end
     end
     
