@@ -94,6 +94,36 @@
         1,
         null
       ],
+      "/home/ubuntu/workspace/coop-workshift-app/app/controllers/application_controller.rb": [
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        10,
+        10,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
       "/home/ubuntu/workspace/coop-workshift-app/app/controllers/users_controller.rb": [
         1,
         null,
@@ -166,36 +196,6 @@
         null,
         1,
         4,
-        null,
-        null
-      ],
-      "/home/ubuntu/workspace/coop-workshift-app/app/controllers/application_controller.rb": [
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        10,
-        10,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
-        0,
-        null,
-        1,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
         null,
         null
       ],
@@ -558,6 +558,6 @@
         0
       ]
     },
-    "timestamp": 1459316121
+    "timestamp": 1459317391
   }
 }
