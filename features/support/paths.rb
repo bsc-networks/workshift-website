@@ -18,6 +18,8 @@ module NavigationHelpers
       '/'
     when /^my profile page$/
       user_profile_path(User.find_by_id(@current_user.id))
+    when /^my edit profile page$/
+      edit_profile_path(User.find_by_id(@current_user.id))
       
     ### WORKSHIFT MANAGER ###
     when /^the create members\s?page$/
