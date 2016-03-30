@@ -46,6 +46,10 @@ RSpec.describe UsersController, type: :controller do
     end
     
     describe "uploading CSV file" do
+        before(:each) do
+            @file = fixture_file_upload('test.xml')
+        end
+        
         it 'should redirect if no file is provided' do
             post :upload
             expect(response).to redirect_to '/signup'
@@ -54,6 +58,12 @@ RSpec.describe UsersController, type: :controller do
         it 'should flash a message if no file is provided' do
             post :upload
             expect(flash[:notice]).to be_present
+        end
+        
+        it 'should call a user method if a file is provided' do
+            expect(User).to receive("import")
+            User.stub(:import).and_return([@a_user])
+            post :upload, :file => @file
         end
     end
     
@@ -83,6 +93,10 @@ RSpec.describe UsersController, type: :controller do
             :permissions => User::PERMISSION[:member],
             :password => '48741fkdahl',
             }, :confirmed_ids => [@user.id]
+        end
+        it 'should render the data table' do
+            get :get_all
+            expect(response).to render_template(:get_all)
         end
     end
 end
