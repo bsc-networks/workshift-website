@@ -17,9 +17,6 @@ class User < ActiveRecord::Base
         added = []
         (2..spreadsheet.last_row).each do |i|
           row = Hash[[header, spreadsheet.row(i)].transpose]
-          #   print row
-          # puts
-          # puts row["email"]
           user = find_by(email: row["email"]) || new
           user.attributes = row.to_hash.slice(*row.to_hash.keys)
           user.password = User.random_pw

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318214628) do
+ActiveRecord::Schema.define(version: 20160317211305) do
 
   create_table "metashifts", force: :cascade do |t|
     t.string   "category"
@@ -64,8 +64,6 @@ ActiveRecord::Schema.define(version: 20160318214628) do
     t.string   "password_digest"
     t.boolean  "sent_confirmation", default: false
     t.boolean  "has_confirmed",     default: false
-    t.integer  "hour_balance"
-    t.integer  "fine_balance"
   end
 
 end

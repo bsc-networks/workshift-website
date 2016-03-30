@@ -99,6 +99,11 @@ GEM
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.6.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.6.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     font-awesome-rails (4.5.0.1)
       railties (>= 3.2, < 5.1)
     gherkin (3.2.0)
@@ -280,6 +285,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   cucumber-rails
   database_cleaner
+  factory_girl_rails
   font-awesome-rails
   haml-rails
   iconv (~> 1.0.3)
