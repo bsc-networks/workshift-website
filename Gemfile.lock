@@ -102,6 +102,8 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    domain_name (0.5.20160310)
+      unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -127,6 +129,8 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.7.0)
     iconv (1.0.4)
     jbuilder (2.4.1)
@@ -158,6 +162,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mailgun_rails (0.8.0)
+      actionmailer (>= 3.2.13)
+      json (>= 1.7.7)
+      rest-client (>= 1.6.7)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -165,6 +173,7 @@ GEM
       railties (>= 3.1)
     multi_json (1.11.2)
     multi_test (0.1.2)
+    netrc (0.11.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.2)
@@ -212,6 +221,10 @@ GEM
       rails (>= 3.2)
       tilt
     ref (2.0.0)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     roo (2.3.2)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
@@ -273,6 +286,9 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -306,6 +322,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   less-rails-bootstrap (~> 3.0)
+  mailgun_rails
   momentjs-rails (>= 2.9.0)
   pg
   railroady
