@@ -1,5 +1,6 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :set_current_user
 
   # GET /shifts
   # GET /shifts.json
