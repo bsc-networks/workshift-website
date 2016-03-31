@@ -1,4 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'coveralls'
+Coveralls.wear_merged!('rails')
+
 require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter "/datatables"

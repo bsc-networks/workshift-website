@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear_merged!('rails')
+
 require 'factory_girl_rails'
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
