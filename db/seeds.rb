@@ -21,6 +21,36 @@ users = [{:first_name => 'admin', :last_name => 'Z',
           :password => 'manager', :has_confirmed => true }
     	  ]
 
+metashifts = [{:category => 'Cooking', :description => 'fake description',
+          :multiplier => 2.0},
+          {:category => 'Cleaning', :description => 'fake description',
+          :multiplier => 2.0},
+          {:category => 'Trash Duty', :description => 'fake description',
+          :multiplier => 2.0}]
+          
+user_instances = []
 users.each do |user|
-   User.create!(user) 
+    user_instances <<    User.create!(user) 
+end
+
+metashift_instances = []
+metashifts.each do |metashift|
+    metashift_instances << Metashift.create!(metashift)
+end
+
+
+
+shifts = [{:start_time => DateTime.strptime("09/02/2009 17:00", "%m/%d/%Y %H:%M"),
+           :end_time => DateTime.strptime("09/02/2009 19:00", "%m/%d/%Y %H:%M"),
+           :user => user_instances[0], :metashift => metashift_instances[0]},
+           {:start_time => DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M"),
+           :end_time => DateTime.strptime("09/01/2009 19:00", "%m/%d/%Y %H:%M"),
+           :user => user_instances[1], :metashift => metashift_instances[1]},
+           {:start_time => DateTime.strptime("09/03/2009 17:00", "%m/%d/%Y %H:%M"),
+           :end_time => DateTime.strptime("09/03/2009 19:00", "%m/%d/%Y %H:%M"),
+           :user => user_instances[2], :metashift => metashift_instances[2]}
+           ]
+           
+shifts.each do |shift|
+          Shift.create!(shift)
 end
