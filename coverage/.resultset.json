@@ -1249,8 +1249,8 @@
         1,
         1,
         null,
-        32,
-        32,
+        31,
+        31,
         null,
         null,
         null,
@@ -1552,6 +1552,12 @@
         null,
         null
       ],
+      "/home/ubuntu/workspace/coop-workshift-app/app/models/unit.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
       "/home/ubuntu/workspace/coop-workshift-app/app/models/policy.rb": [
         1,
         1,
@@ -1571,17 +1577,6 @@
         0,
         null,
         null
-      ],
-      "/home/ubuntu/workspace/coop-workshift-app/app/controllers/workshift_controller.rb": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
       ],
       "/home/ubuntu/workspace/coop-workshift-app/app/controllers/metashifts_controller.rb": [
         0,
@@ -1658,14 +1653,8 @@
         0,
         0,
         0
-      ],
-      "/home/ubuntu/workspace/coop-workshift-app/app/models/unit.rb": [
-        0,
-        0,
-        0,
-        0
       ]
     },
-    "timestamp": 1459461718
+    "timestamp": 1459464764
   }
 }
