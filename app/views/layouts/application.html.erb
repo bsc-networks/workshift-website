@@ -59,7 +59,10 @@
 
 <div class="container mtb">
 <% flash.each do |key, value| %>
-  <%= content_tag :div, value, class: "flash #{key}" %>
+  <div class="alert alert-<%=key%>" >
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong> <%= value %> </strong>
+  </div>
 <% end %>
 
 <%= yield %>
