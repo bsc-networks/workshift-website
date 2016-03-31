@@ -7,5 +7,6 @@ Feature: Restrict Non-admin User From Editing
     Given I am logged in as a non-admin
     
   Scenario: Non-admin tries to edit
+    Given the policies for the semester have been set
     When I go to the view policy page
     Then I should not see "Edit"

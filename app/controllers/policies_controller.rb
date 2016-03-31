@@ -11,8 +11,14 @@ class PoliciesController < ApplicationController
     #end
     
     @policy = Policy.all.last
+    # @policy = nil
     if not @policy
-      redirect_to new_policy_path
+      if @current_user.is_ws_manager
+        redirect_to new_policy_path
+      else
+        flash[:notice] = "The policies have not been set for this semester"
+        redirect_to '/'
+      end
     end
   end
 
@@ -23,7 +29,11 @@ class PoliciesController < ApplicationController
 
   # GET /policies/1/edit
   def edit
-    @policy = Policy.all.last
+    if @current_user.is_ws_manager
+      @policy = Policy.all.last
+    else
+      redirect_to policy_path
+    end
   end
 
   # POST /policies
