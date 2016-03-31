@@ -5,6 +5,14 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
     @shifts = Shift.all
+    @serializedShifts = json_shifts(@shifts)
+    # puts "Shifts:"
+    # puts @shifts
+    # puts "End of shifts"
+    if @shifts.empty?
+      puts "EMPTY"
+    end
+    #puts @serializedShifts
   end
 
   # GET /shifts/1
@@ -71,4 +79,15 @@ class ShiftsController < ApplicationController
     def shift_params
       params.require(:shift).permit(:start_time, :end_time, :metashift_id)
     end
+    
+    #Keys: shift, user, start_time, end_time, description
+    def json_shifts(instances)
+      lst = []
+      instances.each do |shift|
+        lst << shift.full_json
+      end
+      lst
+    end 
+    
+    
 end
