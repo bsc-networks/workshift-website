@@ -17,11 +17,11 @@ RSpec.describe ApplicationController, type: :controller do
         end
     end
     
-    describe "it keeps track of the current user" do
-        it "finds the current user" do
-            expect(User).to receive("find")
-            @controller.instance_eval { current_user } 
-            expect(session[:user_id]).to be_truthy
-        end
-    end
+    # describe "it keeps track of the current user" do
+    #     it "finds the current user" do
+    #         expect(User).to receive("find")
+    #         @controller.instance_eval { current_user } 
+    #         expect(session[:user_id]).to be_truthy
+    #     end
+    # end
 end
