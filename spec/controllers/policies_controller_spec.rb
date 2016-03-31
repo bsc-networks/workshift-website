@@ -2,9 +2,6 @@ require 'rails_helper'
 
 RSpec.describe PoliciesController, type: :controller do
     before :each do
-        # @admin = double("Workshift Manager", id: 1, permissions: User::PERMISSION[:ws_manager])
-        # @member = double("Member", id: 2, permissions: User::PERMISSION[:member])
-        
         @admin = User.create!(:id => 1, :first_name => 'Workshift', :last_name => 'Manager',
                 :email => 'wsm@berkeley.edu', :password => 'admin', :permissions => User::PERMISSION[:ws_manager])
         @member = User.create!(:id => 2, :first_name => 'Regular', :last_name => 'Member',
