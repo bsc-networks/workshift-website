@@ -54,7 +54,19 @@ ActiveRecord::Schema.define(version: 20160330230950) do
   add_index "units", ["policy_id"], name: "index_units_on_policy_id"
   add_index "units", ["user_id"], name: "index_units_on_user_id"
 
-# Could not dump table "users" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.integer  "permissions"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "password"
+    t.string   "password_digest"
+    t.boolean  "sent_confirmation", default: false
+    t.boolean  "has_confirmed",     default: false
+    t.integer  "hour_balance"
+    t.integer  "fine_balance"
+  end
 
 end

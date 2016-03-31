@@ -44,7 +44,8 @@ class User < ActiveRecord::Base
     def self.send_confirmation(id)
       user = find(id)
       if user
-        UserMailer.setup_email(user).deliver
+        email = user.email
+        user.update_attributes!(:sent_confirmation => true)
         #puts "Sending confirmation to " + user.full_name + " at " + email
       else
         #puts "Couldnt find user"
