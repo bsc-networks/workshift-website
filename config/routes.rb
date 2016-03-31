@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :shifts
   resources :metashifts
-  root to: 'workshift#index'
+  root to: 'shifts#index'
   get '/users/get_all' => 'users#get_all', as: 'get_all_users'
 
   resources :users do
@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
-  get '/login2' => 'sessions#test'
   get '/logout' => 'sessions#destroy'
   #get  'auth/failure' => 'sessions#failure'
 
