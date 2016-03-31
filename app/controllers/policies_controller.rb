@@ -4,14 +4,7 @@ class PoliciesController < ApplicationController
   # GET /policies/1
   # GET /policies/1.json
   def show
-    #if there is no policy for @current_house
-      #redirect to new_policy_path
-    #else
-      #set @policy = policy for @current_house
-    #end
-    
     @policy = Policy.all.last
-    # @policy = nil
     if not @policy
       if @current_user.is_ws_manager
         redirect_to new_policy_path
@@ -24,7 +17,12 @@ class PoliciesController < ApplicationController
 
   # GET /policies/new
   def new
-    @policy = Policy.new
+    if @current_user.is_ws_manager
+      @policy = Policy.new
+    else
+      flash[:notice] = "You cannot set the policies for this semester. Contact the workshift manager."
+      redirect_to policy_path
+    end
   end
 
   # GET /policies/1/edit
