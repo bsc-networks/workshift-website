@@ -5,3 +5,4 @@ exclude_paths:
 - "features/step_definitions/web_steps.rb"
 - "config/initializers/form.rb"
 - "app/assets/javascripts/griddle.js"
+- "app/models/unit.rb"
