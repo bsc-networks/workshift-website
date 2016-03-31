@@ -1,5 +1,4 @@
 Feature: Adding Users
-
     As a work-shift manager
     I want to be able to upload a csv file with all my members
     To ease the process of creating user accounts

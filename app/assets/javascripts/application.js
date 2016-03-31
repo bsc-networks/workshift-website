@@ -18,8 +18,13 @@
 //= require dataTables/jquery.dataTables
 //= require turbolinks
 
+//= require react
+//= require react_ujs
+//= require components
 //= require moment
 //= require bootstrap-datetimepicker
+
+//= require griddle
 
 // Added by us - sprockets
 
