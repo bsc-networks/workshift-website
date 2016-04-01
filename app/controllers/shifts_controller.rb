@@ -20,6 +20,17 @@ class ShiftsController < ApplicationController
   # GET /shifts/1.json
   def show
   end
+  
+  def upload
+    # @shifts_uploaded = []
+    # if (not params[:file].blank?)
+    #   new_shifts = Metashifts.import(params[:file])
+    #   @users_uploaded += new_users
+    # else
+    #   flash[:notice] = "No file specified."
+    #   redirect_to '/signup'
+    # end
+  end
 
   # GET /shifts/new
   def new
