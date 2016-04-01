@@ -18,4 +18,4 @@ RSpec::Core::RakeTask.new(:spec)
 #task :default => :spec
 
 #desc 'Default: Run specs.'
-task :default => [:spec, :cucumber, 'coveralls:push']
+task :default => [:spec, :features, 'coveralls:push']
