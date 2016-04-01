@@ -4,8 +4,6 @@ CS 169 Group Project, Spring 2016. An application to manage the assignment and m
 Code Climate GPA:
 [![Code Climate](https://codeclimate.com/repos/56d2353c473c7133c9009434/badges/a376a4dc733d19da5a54/gpa.svg)](https://codeclimate.com/repos/56d2353c473c7133c9009434/feed)
 
-<a href="https://codeclimate.com/repos/56d2353c473c7133c9009434/coverage"><img src="https://codeclimate.com/repos/56d2353c473c7133c9009434/badges/a376a4dc733d19da5a54/coverage.svg" /></a>
-
 Travis CI:
 [![Build Status](https://travis-ci.org/momochanfitz/coop-workshift-app.svg?branch=master)](https://travis-ci.org/momochanfitz/coop-workshift-app)
 
