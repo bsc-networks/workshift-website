@@ -10,6 +10,9 @@ Code Climate:
 Travis CI:
 [![Build Status](https://travis-ci.org/momochanfitz/coop-workshift-app.svg?branch=master)](https://travis-ci.org/momochanfitz/coop-workshift-app)
 
+Coveralls:
+[![Coverage Status](https://coveralls.io/repos/github/momochanfitz/coop-workshift-app/badge.svg?branch=master)](https://coveralls.io/github/momochanfitz/coop-workshift-app?branch=master)
+
 Pivotal Tracker:
 https://www.pivotaltracker.com/projects/1545105
 
