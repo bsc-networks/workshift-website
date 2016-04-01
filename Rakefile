@@ -3,9 +3,9 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-if not Rails.env.production? 
+
     Rails.application.load_tasks
-    
+    if not Rails.env.production? 
     require 'rspec/core/rake_task'
     require 'cucumber/rake/task'
     require 'coveralls/rake/task'
