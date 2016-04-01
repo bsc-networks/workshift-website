@@ -19,4 +19,4 @@
 /log/*
 !/log/.keep
 /tmp
-/app/assets/javascripts*
+#/app/assets/javascripts*
