@@ -2,6 +2,7 @@
 'use strict'
 
 var React = require('react')
+var Griddle = require('griddle-react')
 
 var columnMeta = [
   {
@@ -81,21 +82,21 @@ var WorkShiftTable = React.createClass({
     }
   },
   
-  render: function(){
-    return (
-        <div> Hello from react land!</div>
-      );
-  }
-
-  // render: function() {
+  // render: function(){
   //   return (
-  //     <div>
-  //       <Griddle results={this.state.shiftData}
-  //       columnMetadata={columnMeta}
-  //       showFilter={true}/>
-  //     </div>
-  //   );
+  //       <div> Hello from react land!</div>
+  //     );
   // }
+
+  render: function() {
+    return (
+      <div>
+        <Griddle results={this.state.shiftData}
+        columnMetadata={columnMeta}
+        showFilter={true}/>
+      </div>
+    );
+  }
 });
 
 var hello = function(){
