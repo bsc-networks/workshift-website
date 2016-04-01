@@ -1,0 +1,9 @@
+{
+  "name": "coop-workshift-app",
+  "version": "1.0.0",
+  "description": "my-rails-app",
+  "dependencies": {
+    "jquery": "~1.11.0",
+    "lodash": "~2.4.1"
+  }
+}

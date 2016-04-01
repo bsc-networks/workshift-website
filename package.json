@@ -1,0 +1,13 @@
+{
+  "name": "coop-workshift-app",
+  "description": "coop-workshift-app",
+  "version": "1.0.0",
+  "devDependencies": {
+    "webpack": "~1.4.13",
+    "expose-loader": "~0.6.0",
+    "imports-loader": "~0.6.3",
+    "exports-loader": "~0.6.2",
+    "lodash": "~2.4.1"
+  },
+  "dependencies": {}
+}
