@@ -37,4 +37,12 @@ RSpec.describe User, type: :model do
       expect(pw.length).to eq(8)
     end
   end
+  
+  describe "uploading a file" do
+    it 'should error if an unknown type is uploaded' do
+      @file = double()
+      @file.stub(:original_filename).and_return('test.xml')
+      expect {User.open_spreadsheet(@file)}.to raise_error(RuntimeError)
+    end
+  end
 end
