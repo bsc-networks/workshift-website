@@ -27,7 +27,7 @@ config.output = {
 config.resolve = {
   // tell webpack which extensions to auto search when it resolves modules. With this,
   // you'll be able to do `require('./utils')` instead of `require('./utils.js')`
-  extensions: ['', '.js', '.coffee'],
+  extensions: ['', '.js', '.coffee', '.jsx'],
   // by default, webpack will search in `web_modules` and `node_modules`. Because we're using
   // Bower, we want it to look in there too
   modulesDirectories: [ 'node_modules', 'bower_components' ],
@@ -43,6 +43,9 @@ config.plugins = [
     $: 'jquery',
     jQuery: 'jquery',
   }),
+  new webpack.ProvidePlugin({
+    React: 'react',
+  }),
   //new webpack.optimize.CommonsChunkPlugin('common-bundle.js'),
 
 ];
@@ -50,5 +53,9 @@ config.plugins = [
 config.module = {
   loaders: [
     { test: /\.coffee$/, loader: 'coffee-loader' },
+    {//tell webpack to use jsx-loader for all *.jsx files
+      test: /\.jsx$/,
+      loader: 'jsx-loader?insertPragma=React.DOM&harmony'
+    },
   ],
 };

@@ -10,6 +10,10 @@ require('expose?$!expose?jQuery!jquery');
 
 var App = require('./app');
 var _ = require('lodash');
+var React = require('react');
+var WST = require('./work_shift_table.js.jsx');
+
+console.log(WST);
 
 var app = new App();
 app.start();

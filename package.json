@@ -10,7 +10,10 @@
     "imports-loader": "~0.6.3",
     "lodash": "~2.4.1",
     "webpack": "~1.4.13",
-    "chunk-manifest-webpack-plugin": "~0.0.1"
+    "chunk-manifest-webpack-plugin": "~0.0.1",
+    "jsx-loader": "^0.13.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react": "^0.14.8"
+  }
 }
