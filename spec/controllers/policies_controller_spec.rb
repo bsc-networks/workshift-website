@@ -17,13 +17,13 @@ RSpec.describe PoliciesController, type: :controller do
                 get :new
             end
             it "should select the New Policy template for rendering" do
-                response.should render_template('new')
+                expect(response).to render_template('new')
             end
             it "should initialize a policy object that is available to that template" do
-                assigns(:policy).should == @new_policy
+                expect(assigns(:policy)).to  eq(@new_policy)
             end
             it "should save the policy" do
-                Policy.should_receive(:create!)
+                expect(Policy).to receive(:create!)
                 post :create, policy: {id: 1}
             end
             it "should redirect to the view policy page" do
@@ -71,10 +71,10 @@ RSpec.describe PoliciesController, type: :controller do
                 get :show
             end
             it "should select the View Policy template for rendering" do
-                response.should render_template('show')
+                expect(response).to render_template('show')
             end
             it "should make the correct policy available to that template" do
-                assigns(:policy).should == @policy
+                expect(assigns(:policy)). to eq(@policy)
             end
         end
     end
@@ -91,13 +91,13 @@ RSpec.describe PoliciesController, type: :controller do
                 get :edit
             end
             it "should select the Edit Policy template for rendering" do
-                response.should render_template('edit')
+                expect(response).to render_template('edit')
             end
             it "should make the correct policy available to that template" do
-                assigns(:policy).should == @policy
+                expect(assigns(:policy)).to eq(@policy)
             end
             it "should update the attributes of the policy" do
-                @policy.should_receive(:update_attributes!)
+                expect(@policy).to receive(:update_attributes!)
                 post :update, policy: {id: 1}
             end
             it "should redirect to the view policy page" do

@@ -14,24 +14,26 @@ RSpec.describe SessionsController, type: :controller do
                 expect(response).to redirect_to('/')
             end
         end
-        # context "when the current user is not logged in" do
-        #     it "should select the Login template for rendering" do
-        #         response.should render_template('new')
-        #     end
-        # end
+        context "when the current user is not logged in" do
+            it "should select the Login template for rendering" do
+                get :new
+                expect(response).to render_template(:new)
+            end
+        end
     end
     describe "logging in a user" do
         before :each do
             User.stub(:find_by_email).and_return(@current_user)
         end
         it "should find the user in the database" do
-            User.should_receive(:find_by_email)
+            expect(User).to receive(:find_by_email)
             post :create, {:email => @current_user.email, :password => @current_user_pw}
             ### user needs to be @user in sessions_controller for this to work:  
                 # assigns(:user).should == @current_user
+                # expect(assigns(:user)).to == @current_user
         end
         it "should authenticate the user based on the password" do
-            @current_user.should_receive(:authenticate)
+            expect(@current_user).to receive(:authenticate)
             post :create, {:email => @current_user.email, :password => @current_user_pw}
         end
         context "when authentication succeeds" do
