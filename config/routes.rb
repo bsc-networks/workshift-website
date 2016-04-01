@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get '/users/:id' => 'users#profile', as: 'user_profile'
   get '/users/:id/edit' => 'users#edit_profile', as: 'edit_profile'
 
-  get '/index' => 'workshft#index'
+  get '/index' => 'workshift#index'
   
   
   get '/policies/new' => 'policies#new', as: 'new_policy'
