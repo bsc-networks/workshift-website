@@ -61,7 +61,9 @@ class User < ActiveRecord::Base
     end
     
     def self.random_pw
-      ('0'..'z').to_a.shuffle.first(8).join
+      x = ('0'..'z').to_a.shuffle.first(8).join
+      puts x
+      return x
     end
     
     def is_ws_manager
