@@ -62,7 +62,6 @@ class User < ActiveRecord::Base
     
     def self.random_pw
       x = ('0'..'z').to_a.shuffle.first(8).join
-      puts x
       return x
     end
     

@@ -18,6 +18,24 @@ Scenario: an admin tries to add member accounts using a csv file
   When I press "Confirm Users"
   Then I should see "Sent confirmation email to users"
   
+Scenario: an admin tries to add member accounts using an xls file
+  When I upload "users_upload.xls"
+  Then I press "Import"
+  Then I should see a table
+  And I should see "Eric"
+  And I should see "Nelson"
+  And I should see "ericn@berkeley.edu"
+
+Scenario: an admin tries to add member accounts using an xlsx file
+  When I upload "users_upload.xlsx"
+  Then I press "Import"
+  Then I should see a table
+  And I should see "Yannie"
+  And I should see "Yip"
+  And I should see "yannie.yip@berkeley.edu"
+
+  
+  
 Scenario: an admin tries to add member accounts manually
   And I fill in "First Name" with "Eric"
   And I fill in "Last Name" with "Nelson"
