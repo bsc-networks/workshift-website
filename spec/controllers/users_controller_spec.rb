@@ -71,20 +71,20 @@ RSpec.describe UsersController, type: :controller do
     end
     
     describe "sending confirmation emails" do
-        it 'should call a method in the user model to confirm' do
-            expect(User).to receive("send_confirmation")
-            post :confirm_users, :confirmed_ids => [@user.id]
-        end
+        # it 'should call a method in the user model to confirm' do
+        #     expect(User).to receive("send_confirmation")
+        #     post :confirm_users, :confirmed_ids => [@user.id]
+        # end
         
-        it 'should flash a message on success' do
-            post :confirm_users, :confirmed_ids => [@user.id]
-            expect(flash[:success]).to be_present
-        end
+        # it 'should flash a message on success' do
+        #     post :confirm_users, :confirmed_ids => [@user.id]
+        #     expect(flash[:success]).to be_present
+        # end
         
-        it 'should redirect to show all users' do
-            post :confirm_users, :confirmed_ids => [@user.id]
-            expect(response).to redirect_to '/users/get_all'
-        end
+        # it 'should redirect to show all users' do
+        #     post :confirm_users, :confirmed_ids => [@user.id]
+        #     expect(response).to redirect_to '/users/get_all'
+        # end
     end
     
     describe 'getting all users for the table' do
