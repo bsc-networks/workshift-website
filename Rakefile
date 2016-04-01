@@ -13,9 +13,4 @@ Coveralls::RakeTask.new
 Cucumber::Rake::Task.new(:features)
 RSpec::Core::RakeTask.new(:spec)
 
-#task :test_with_coveralls => [:spec, :features, 'coveralls:push']
-
-#task :default => :spec
-
-#desc 'Default: Run specs.'
 task :default => [:spec, :features, 'coveralls:push']
