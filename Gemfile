@@ -57,6 +57,9 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 # React is dope as fuck, does all work in the front-end
 gem 'react-rails', '~> 1.6.0'
 
+# Alex added
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

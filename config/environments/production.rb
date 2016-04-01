@@ -88,4 +88,6 @@ Rails.application.configure do
     :authentication => :plain,
   }
   
+  config.webpack[:use_manifest] = true
+  
 end

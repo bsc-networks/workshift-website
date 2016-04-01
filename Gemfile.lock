@@ -347,6 +347,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   spring
+  sprockets-rails
   sqlite3
   therubyracer
   turbolinks
