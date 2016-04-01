@@ -20,6 +20,7 @@ gem 'coffee-rails', '~> 4.1.0'
 #ADDED by us
 gem 'bootstrap-sass', '~> 3.3.6'
 gem "haml-rails"
+gem 'mailgun-ruby', '~>1.0.2', require: 'mailgun'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
