@@ -5,10 +5,6 @@ class SessionsController < ApplicationController
     # render :page_login1
   end
 
-  def test 
-    
-  end
-
   def create
     user = User.find_by_email(params[:email])
     # if the user exists AND the password entered is correct
@@ -17,7 +13,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to '/'
     else
-      flash[:notice] = "Incorrect Please try again."
+      flash[:danger] = "Incorrect Please try again."
       redirect_to '/login'
     end
   end

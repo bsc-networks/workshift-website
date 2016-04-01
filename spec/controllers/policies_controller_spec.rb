@@ -35,11 +35,11 @@ RSpec.describe PoliciesController, type: :controller do
             end
         end
         context "when the current user is a member" do
-            it "should redirect to the home page" do
+            it "should redirect to the view policies" do
                 request.session = { :user_id => @member.id }
                 get :new
-                # expect(flash[:notice]).to be_present
-                # expect(response).to redirect_to('/')
+                expect(flash[:notice]).to be_present
+                expect(response).to redirect_to(policy_path)
             end
         end
     end
@@ -60,7 +60,7 @@ RSpec.describe PoliciesController, type: :controller do
                 it "should redirect to the home page" do
                     request.session = { :user_id => @member.id }
                     get :show 
-                    expect(flash[:notice]).to be_present
+                    expect(flash[:info]).to be_present
                     expect(response).to redirect_to('/')
                 end
             end

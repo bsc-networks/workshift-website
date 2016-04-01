@@ -14,12 +14,12 @@ RSpec.describe ShiftsController, type: :controller do
             get :index
         end
         
-        it 'should return something from shifts#index' do
-            puts "Shifts"
-            puts Shift.all
-            puts "End shifts"
-            get :index
-            assigns(:shifts).should_not be_nil
-        end
+        # it 'should return something from shifts#index' do
+        #     puts "Shifts"
+        #     puts Shift.all
+        #     puts "End shifts"
+        #     get :index
+        #     assigns(:shifts).should_not be_nil
+        # end
     end
 end

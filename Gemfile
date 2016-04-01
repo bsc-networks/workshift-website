@@ -49,6 +49,8 @@ gem 'less-rails-bootstrap', '~> 3.0'
 gem "font-awesome-rails"
 gem 'therubyracer'
 
+gem 'simplecov', :require => false, :group => :test
+
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 
@@ -69,10 +71,12 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  gem 'shoulda-matchers'
 end
 
 group :test do
   gem 'factory_girl_rails'
+  gem 'coveralls', require: false
 end
 
 group :development do
