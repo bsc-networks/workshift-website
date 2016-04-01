@@ -90,6 +90,6 @@ Rails.application.configure do
   
   config.webpack[:use_manifest] = true
   
-  config.serve_static_files = true
+  
   
 end
