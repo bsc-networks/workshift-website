@@ -1,10 +1,12 @@
+
 require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter "/spec/"
   add_filter "/features/"
 end
 
-#Coveralls.wear_merged!('rails')
+require 'coveralls'
+Coveralls.wear_merged!('rails')
 
 require 'factory_girl_rails'
 require "codeclimate-test-reporter"
