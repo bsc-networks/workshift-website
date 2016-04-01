@@ -7,6 +7,8 @@ SimpleCov.start 'rails' do
   add_filter "/datatables"
   add_filter "/spec/"
   add_filter "/features/"
+  add_filter "/lib/tasks"
+  add_filter "/app/helpers"
 end
 
 ENV['RAILS_ENV'] ||= 'test'
