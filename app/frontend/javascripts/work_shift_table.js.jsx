@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+
 'use strict'
 
 var React = require('react')
@@ -102,4 +102,5 @@ var hello = function(){
   run: console.log("Hello world");
 }
 module.exports = WorkShiftTable
+//module.exports = WorkShiftTable
 //module.exports(hello)

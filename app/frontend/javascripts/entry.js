@@ -11,9 +11,16 @@ require('expose?$!expose?jQuery!jquery');
 var App = require('./app');
 var _ = require('lodash');
 var React = require('react');
+var ReactDOM = require('react-dom')
+
 var WST = require('./work_shift_table.js.jsx');
 
-console.log(WST);
+
+if(document.getElementById('work-shift-table'))
+{
+    ReactDOM.render(<WST/>, document.getElementById('work-shift-table'));
+} 
+//ReactDOM.render(<WST/>, document.getElementById('work-shift-table'));
 
 var app = new App();
 app.start();
