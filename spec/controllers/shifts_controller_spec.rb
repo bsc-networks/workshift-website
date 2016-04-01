@@ -6,8 +6,20 @@ RSpec.describe ShiftsController, type: :controller do
         @meta_shift = create(:metashift)
         @shift = create(:shift, metashift: @meta_shift, user: @user1)
         @shift.save
-        puts @shift
     end 
+    
+    describe "preparing a new shift" do
+        before(:each) do
+            get :new
+        end
+        it 'should provide a new form' do
+            expect(response).to render_template(:new)
+        end
+        it 'should prepare a new instance of a shift' do
+            get :new
+            expect(assigns(:shift)).to be_a_new(Shift)
+        end
+    end
     
     describe "Index" do
         it 'rand' do 

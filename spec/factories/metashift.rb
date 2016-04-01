@@ -3,5 +3,6 @@ FactoryGirl.define do
         category 'Default Category'
         description 'Default Description'
         multiplier 2.0
+        id 0
     end
 end
