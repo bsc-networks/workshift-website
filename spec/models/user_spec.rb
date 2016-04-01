@@ -37,5 +37,4 @@ RSpec.describe User, type: :model do
       expect(pw.length).to eq(8)
     end
   end
-
 end

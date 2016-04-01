@@ -34,8 +34,6 @@ Scenario: an admin tries to add member accounts using an xlsx file
   And I should see "Yip"
   And I should see "yannie.yip@berkeley.edu"
 
-  
-  
 Scenario: an admin tries to add member accounts manually
   And I fill in "First Name" with "Eric"
   And I fill in "Last Name" with "Nelson"
