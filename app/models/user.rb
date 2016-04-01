@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
                           :subject => 'Welcome to Coop Workshift',
                           :text    => 'Your temporary password is ' + new_password + ' be sure to change this when you sign in.'
                         }
-        mg_client.send_message(Rails.application.secrets.domain, message_params)
+        # mg_client.send_message(Rails.application.secrets.domain, message_params)
       else
         # puts "Couldnt find user"
       end
