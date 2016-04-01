@@ -6,7 +6,7 @@ SimpleCov.start 'rails' do
 end
 
 require 'coveralls'
-Coveralls.wear_merged!('rails')
+Coveralls.wear!
 
 require 'factory_girl_rails'
 require "codeclimate-test-reporter"
