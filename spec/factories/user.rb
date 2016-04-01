@@ -5,5 +5,6 @@ FactoryGirl.define do
         email 'default@gmail.com'
         permissions User::PERMISSION[:member]
         password 'password'
+        id 0
     end
 end

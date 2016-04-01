@@ -75,18 +75,17 @@ group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
   gem 'shoulda-matchers'
+  gem 'coveralls', require: false
 end
 
 group :test do
   gem 'factory_girl_rails'
-  gem 'coveralls', require: false
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
   gem 'railroady'
-  gem 'rspec-rails', '~> 3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   
@@ -97,4 +96,8 @@ group :production do
   gem 'rails_12factor'
   gem 'rspec-rails', '~> 3.0'
   gem 'pg'
+  gem 'coveralls', require: false
+  gem 'cucumber-rails', :require => false
+
+
 end
