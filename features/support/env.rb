@@ -3,9 +3,12 @@ Coveralls.wear!
 
 require 'simplecov'
 SimpleCov.start do
+  add_filter "/datatables"
   add_filter "/spec/"
   add_filter "/features/"
-  add_filter "/datatables"
+  add_filter "/lib/tasks"
+  add_filter "/app/helpers/"
+  add_filter "/config"
 end
 
 
