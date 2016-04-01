@@ -1,12 +1,3 @@
-# require 'simplecov'
-# SimpleCov.start 'rails' do
-#   add_filter "/spec/"
-#   add_filter "/features/"
-# end
-
-# require 'coveralls'
-# Coveralls.wear!
-
 require 'factory_girl_rails'
 require "codeclimate-test-reporter"
 #CodeClimate::TestReporter.start
