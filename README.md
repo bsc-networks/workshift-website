@@ -6,12 +6,15 @@ Code Climate GPA:
 [![Code Climate](https://codeclimate.com/repos/56d2353c473c7133c9009434/badges/a376a4dc733d19da5a54/gpa.svg)](https://codeclimate.com/repos/56d2353c473c7133c9009434/feed)
 
 Travis CI:
+<br>
 [![Build Status](https://travis-ci.org/momochanfitz/coop-workshift-app.svg?branch=master)](https://travis-ci.org/momochanfitz/coop-workshift-app)
 
 Coveralls:
+<br>
 [![Coverage Status](https://coveralls.io/repos/github/momochanfitz/coop-workshift-app/badge.svg?branch=master)](https://coveralls.io/github/momochanfitz/coop-workshift-app?branch=master)
 
 Pivotal Tracker:
+<br>
 https://www.pivotaltracker.com/projects/1545105
 
 ##Resources
