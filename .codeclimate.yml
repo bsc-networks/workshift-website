@@ -6,4 +6,4 @@ exclude_paths:
 - "config/initializers/form.rb"
 - "node_modules/**/*"
 - "bower_components/**/*"
-
+- "**.js"
