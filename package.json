@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "griddle-react": "^0.4.1",
-    "react": "^0.14.8"
+    "react": "^0.14.8",
+
   }
 }
