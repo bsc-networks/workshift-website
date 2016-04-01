@@ -101,5 +101,5 @@ var WorkShiftTable = React.createClass({
 var hello = function(){
   run: console.log("Hello world");
 }
-module.exports = [WorkShiftTable, hello]
+module.exports = WorkShiftTable
 //module.exports(hello)
