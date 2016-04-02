@@ -32,7 +32,7 @@ module NavigationHelpers
       
     #### WORKSHIFTS ####
     when /^the create workshifts page$/
-      '/'
+      '/shifts/new'
     when /^the view workshifts page$/
       '/'
     when /^the edit workshift page$/

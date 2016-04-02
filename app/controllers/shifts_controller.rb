@@ -46,7 +46,7 @@ class ShiftsController < ApplicationController
       @metashifts_uploaded = new_shifts
     else
       flash[:notice] = "No file specified."
-      redirect_to '/signup'
+      redirect_to '/shifts/new'
     end
   end
 
