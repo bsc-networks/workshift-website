@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post '/metashifts/add' => 'metashifts#add_metashift', as: 'add_metashift'
   post '/shifts/upload' => 'shifts#upload', as: 'shift_csv_upload'
   get '/shifts/:id/new_timeslots' => 'shifts#new_timeslots', as: 'new_timeslots'
+  post '/shifts/add_timeslots' => 'shifts#add_timeslots', as: 'add_timeslots'
   
   
   get '/policies/new' => 'policies#new', as: 'new_policy'

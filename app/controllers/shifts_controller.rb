@@ -21,6 +21,9 @@ class ShiftsController < ApplicationController
     @metashift = (Metashift.find_by_id(meta_id))
     render 'shifts/add_timeshifts'
   end
+  
+  def add_timeslots
+  end
 
   # GET /shifts/1
   # GET /shifts/1.json
