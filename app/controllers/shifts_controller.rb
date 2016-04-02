@@ -59,20 +59,6 @@ class ShiftsController < ApplicationController
   def edit
   end
 
-  # POST /shifts
-  # POST /shifts.json
-  def create
-    @shift = Shift.new(shift_params)
-    respond_to do |format|
-      if @shift.save
-        format.html { redirect_to @shift, notice: 'Shift was successfully created.' }
-        format.json { render :show, status: :created, location: @shift }
-      else
-        format.html { render :new }
-        format.json { render json: @shift.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # PATCH/PUT /shifts/1
   # PATCH/PUT /shifts/1.json
