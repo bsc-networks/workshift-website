@@ -15,6 +15,18 @@ RSpec.describe UsersController, type: :controller do
             expect(response).to render_template(:new)
         end 
         
+        describe "creating a user without admin account" do
+            it "should redirect to root if the user is not an admin" do
+                @a_user2 = User.create!(:first_name => 'b user', :last_name => 'last',
+                    :email => 'buser@gmail.com', :password => '4ljkd;a2', :permissions =>
+                    User::PERMISSION[:member])
+                @user = User.find_by(:first_name => 'b user')
+                request.session = { :user_id => @user.id }
+                get :new
+                expect(response).to redirect_to('/')
+            end
+        end
+        
         describe "creating a user without password provided" do
             it 'should redirect to signup if user is missing a password' do
                 post :create, :user => {:first_name => 'M',
