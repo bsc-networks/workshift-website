@@ -1,0 +1,14 @@
+<%= form_tag shift_csv_upload_path, multipart: true do %>
+  <br>
+
+  <input type="file" name="file" class="file-inputs" data-filename-placement="inside">
+  <script>
+    $( document ).ready(function() {
+      $('.file-inputs').bootstrapFileInput();
+    });
+  </script>
+  <br>
+  <br>
+
+  <button type="submit" class="btn btn-theme">Import</button>
+<% end %>

@@ -2,21 +2,18 @@ class Metashift < ActiveRecord::Base
     has_many :shifts
     
      def self.import(file)
-        puts file
         spreadsheet = open_spreadsheet(file)
-        puts spreadsheet.info
-        # header = spreadsheet.row(1)
-        # added = []
-        # (2..spreadsheet.last_row).each do |i|
-        #   row = Hash[[header, spreadsheet.row(i)].transpose]
-        #   user = find_by(email: row["email"]) || new
-        #   user.attributes = row.to_hash.slice(*row.to_hash.keys)
-        #   user.password = User.random_pw
-        #   if (not user.sent_confirmation) and user.save
-        #     added += [user]
-        #   end
-        # end
-        # return added
+        header = spreadsheet.row(1)
+        added = []
+        (2..spreadsheet.last_row).each do |i|
+          row = Hash[[header, spreadsheet.row(i)].transpose]
+          metashift = find_by(category: row["category"]) || new
+          metashift.attributes = row.to_hash.slice(*row.to_hash.keys)
+          if metashift.save!
+            added << metashift
+          end
+        end
+        return added
     end
     
     def self.open_spreadsheet(file)

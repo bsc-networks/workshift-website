@@ -1,0 +1,51 @@
+<!-- app/views/shifts/new.html.erb -->
+  <div class="row">
+    <div class="col-lg-8">
+      <h2>Add Workshift Manually</h2>
+      <div class="hline"></div>
+
+      <%=render "shifts/add_manual_form" %>
+
+    </div>
+    <! --/col-lg-8 -->
+
+    <div class="col-lg-4">
+      <h2>Upload CSV</h2>
+      <div class="hline"></div>
+
+      <%=render "shifts/add_csv_form" %>
+
+    </div>
+  
+  <! --/row -->
+  
+  <! --New row -->
+  <div class="row" style= "padding-top:15px;">
+
+  <div class="hline"></div>
+
+  <h3>You added <%= @metashifts_uploaded.size %> new workshifts.</h3>
+  <br>
+  <table id="Workshifts_uploaded" class="table table-striped table-hover">
+    <tr>
+      <th>Category &nbsp; &nbsp; &nbsp;</th>
+      <th>Description</th>
+      <th>Hour Value</th>
+    </tr>
+    <% @metashifts_uploaded.each do |shift| %>
+      <tr>
+        <td>
+          <%=shift.category %>
+        </td>
+        <td>
+          <%=shift.description %>
+        </td>
+        <td>
+          <%=shift.multiplier %>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+  </div>
+

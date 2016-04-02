@@ -7,7 +7,7 @@ SimpleCov.start do
   add_filter "/spec/"
   add_filter "/features/"
   add_filter "/lib/tasks"
-  add_filter "/app/helpers/"
+  add_filter "app/mailers/signup_mailer.rb"
   add_filter "/config"
 end
 
