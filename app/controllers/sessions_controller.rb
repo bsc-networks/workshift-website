@@ -3,9 +3,6 @@ class SessionsController < ApplicationController
   
   def new
     # render :page_login1
-    if session[:user_id]
-      redirect_to '/'
-    end
   end
 
   def create

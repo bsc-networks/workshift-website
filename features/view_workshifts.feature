@@ -5,18 +5,18 @@ Feature: View a Workshift
   
   Background:
     Given I am logged in as a user
-    And PENDING some workshifts have been created for the semester
-    And I go to the view workshifts page
+    And some workshifts have been created for the semester
+    And I am on the view workshifts page
   
   Scenario: A regular user can see all workshift slots for the semester
-    Then I should see "Workshifts"
-    And I should see a table
+    Then I should see "Listing Shifts"
+    # And I should see a table
     And I should see "Description"
     And I should see "Members Assigned"
     And I should see "Maura Fitz" in the row for "Sweep Floors"
 
  Scenario: A regular user can't edit workshifts
-    Then I should see "Workshifts"
+    Then I should see "Listing Shifts"
     And I should not see "Edit"
  
   
