@@ -103,6 +103,4 @@ class ShiftsController < ApplicationController
       end
       lst
     end 
-    
-    
 end
