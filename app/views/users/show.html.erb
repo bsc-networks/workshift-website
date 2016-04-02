@@ -15,7 +15,7 @@
 <%### ADMIN ONLY ###%>
 <% if @current_user.is_ws_manager %>
     <br> <%= link_to 'Create Users', '/signup' %> </br>
-    <br> <%= link_to 'Create Workshifts', '/' %> </br>
+    <br> <%= link_to 'Create Workshifts', create_shifts_path %> </br>
     <br> <%= link_to 'Assign Workshifts', '/'%> </br>
     <br> <%= link_to 'View Weekly History', '/'%> </br>
 <% end %>
