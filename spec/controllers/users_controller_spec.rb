@@ -4,7 +4,7 @@ RSpec.describe UsersController, type: :controller do
     before(:each) do
         @a_user = User.create!(:first_name => 'my user', :last_name => 'last',
             :email => 'auser@gmail.com', :password => '3ljkd;a2', :permissions =>
-            User::PERMISSION[:member])
+            User::PERMISSION[:ws_manager])
         @user = User.find_by(:first_name => 'my user')
         request.session = { :user_id => @user.id }
     end
