@@ -21,11 +21,7 @@ RSpec.describe ShiftsController, type: :controller do
         end
     end
     
-    describe "Index" do
-        it 'rand' do 
-            get :index
-        end
-        
+    describe "index" do
         # it 'should return something from shifts#index' do
         #     puts "Shifts"
         #     puts Shift.all

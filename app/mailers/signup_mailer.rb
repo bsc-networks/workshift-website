@@ -2,7 +2,6 @@ class SignupMailer < ApplicationMailer
     default from: "Coop Workshift <postmaster@sandbox1344c868d76244459ff5ac36bead315d.mailgun.org>"
     
     def signup_email(user)
-        puts "HERE"
         mail(to: @user.email, subject: 'Welcome to Coop Workshift')
     end
     

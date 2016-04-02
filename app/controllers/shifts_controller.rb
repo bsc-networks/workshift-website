@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  #before_action :set_shift, only: [:show, :edit, :update, :destroy]
   skip_before_filter :set_current_user
 
   # GET /shifts
@@ -15,10 +15,30 @@ class ShiftsController < ApplicationController
     end
     #puts @serializedShifts
   end
+  
+  def new_timeslots
+    meta_id = params[:id]
+    @metashift = (Metashift.find_by_id(meta_id))
+    render 'shifts/add_timeslots'
+  end
+  
+  def add_timeslots
+    redirect_to '/'
+  end
 
   # GET /shifts/1
   # GET /shifts/1.json
   def show
+  end
+  
+  def upload
+    if (not params[:file].blank?)
+      new_shifts = Metashift.import(params[:file])
+      @metashifts_uploaded = new_shifts
+    else
+      flash[:notice] = "No file specified."
+      redirect_to '/signup'
+    end
   end
 
   # GET /shifts/new
@@ -71,9 +91,9 @@ class ShiftsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_shift
-      @shift = Shift.find(params[:id])
-    end
+    #def set_shift
+    #  @shift = Shift.find(params[:id])
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
