@@ -25,8 +25,8 @@ Scenario: an admin adds workshifts manually
 Scenario: an admin edits a table entry
   When I upload "workshifts_upload.csv"
   Then I press "Import"
-  And I follow "Edit"
-  Then I should be on the edit workshifts page
+  # And I follow "Edit"
+  # Then I should be on the edit workshifts page
   
 Scenario: an admin tries to import no file
   When I press "Import"
