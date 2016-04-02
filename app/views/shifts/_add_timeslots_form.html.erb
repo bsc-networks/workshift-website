@@ -1,0 +1,23 @@
+<br>
+  <%=form_tag add_metashift_path, :id => 'my_form' do %>
+<form class="form-horizontal">
+    <div class="row">
+         <div class="form-group" style="margin-top:20px">
+        <label class="col-sm-2" style="margin-top:5px; margin-right:-50px; margin-bottom: 20px;">Day of the Week</label>
+        <div class="col-sm-2" style="margin-right:40px;"><input id="dayoftheweek" type="text" name="shift[dayoftheweek]" style="max-width:500px;"class="form-control"></div>
+        </div>
+        <div class="form-group">
+        <label class="col-sm-2" style="margin-top:5px; margin-right:-80px; margin-bottom: 20px;">Start Time</label>
+        <div class="col-sm-2" style="margin-right:40px;"><input id="start_time" type="text" name="shift[start_time]" style="max-width:350px;"class="form-control">
+        </div>
+         </div>
+         <div class="form-group">
+        <label class="col-sm-2" style="margin-top:5px; margin-right:-80px; margin-bottom: 20px;">End Time</label>
+        <div class="col-sm-2"><input id="end_time" type="text" name="shift[end_time]" style="max-width:350px;"class="form-control"></div>
+         </div>
+    </div>
+</form>
+  <button type="submit" class="btn btn-theme" id="submit_button">Add Workshift</button>
+  
+  <% end %>
+  
