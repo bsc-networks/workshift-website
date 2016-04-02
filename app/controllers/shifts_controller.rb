@@ -19,10 +19,11 @@ class ShiftsController < ApplicationController
   def new_timeslots
     meta_id = params[:id]
     @metashift = (Metashift.find_by_id(meta_id))
-    render 'shifts/add_timeshifts'
+    render 'shifts/add_timeslots'
   end
   
   def add_timeslots
+    redirect_to '/'
   end
 
   # GET /shifts/1
