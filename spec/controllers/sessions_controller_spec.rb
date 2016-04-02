@@ -34,6 +34,8 @@ RSpec.describe SessionsController, type: :controller do
             get :destroy
             expect(session[:user_id]).to be_nil
         end
+    end
+end
     # before :each do
     #     @current_user = User.create!(:id => 2, :first_name => 'Regular', :last_name => 'Member',
     #             :email => 'rm@berkeley.edu', :password => 'member', :permissions => User::PERMISSION[:member])
@@ -100,4 +102,3 @@ RSpec.describe SessionsController, type: :controller do
     #         expect(response).to redirect_to('/login')
     #     end
     # end
-end

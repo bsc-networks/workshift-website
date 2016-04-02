@@ -1,23 +1,35 @@
-<%=form_tag add_timeslots_path, :id => 'my_form' do %>
-    <form class="form-horizontal">
-        <div class="row">
-             <div class="form-group" style="margin-top:20px">
-            <label class="col-sm-2" style="margin-top:5px; margin-right:-50px; margin-bottom: 20px;">Day of the Week</label>
-            <div class="col-sm-2" style="margin-right:40px;"><input id="dayoftheweek" type="text" name="shift[dayoftheweek]" style="max-width:500px;"class="form-control"></div>
-            </div>
-            <div class="form-group">
-            <label class="col-sm-2" style="margin-top:5px; margin-right:-80px; margin-bottom: 20px;">Start Time</label>
-            <div class="col-sm-2" style="margin-right:40px;"><input id="start_time" type="text" name="shift[start_time]" style="max-width:350px;"class="form-control">
-            </div>
-             </div>
-             <div class="form-group">
-            <label class="col-sm-2" style="margin-top:5px; margin-right:-80px; margin-bottom: 20px;">End Time</label>
-            <div class="col-sm-2"><input id="end_time" type="text" name="shift[end_time]" style="max-width:350px;"class="form-control"></div>
-             </div>
-        </div>
-        <button type="submit" class="btn btn-theme" id="submit_button">Add Workshifts</button>
+<link rel="stylesheet" type="text/css" href="dist/bootstrap-clockpicker.min.css">
 
-    </form>
+<%=form_tag add_timeslots_path, :id => 'my_form' do %>
+    <div class="form-group" style="margin-top:20px; width = 500px;">
+        <label class="col-sm-2">Day of the Week</label>
+        <div class="col-sm-10" style="margin-bottom:10px;"><input id="dayoftheweek" type="text" name="shift[dayoftheweek]" style="max-width:500px;"class="form-control"></div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3" style="margin-top:5px; margin-right:-80px; margin-bottom: 20px;">Start Time</label>
+             <div class="input-group clockpicker"><input id="start_time" type="text" name="shift[start_time]" class="form-control" value = "07:30">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>
+             </div>
+    <div class="form-group">
+            <label class="col-sm-3" style="margin-top:5px; margin-right:-80px; margin-bottom: 20px;">End Time</label>
+            <div class="input-group clockpicker"><input id="end_time" type="text" name="shift[end_time]" class="form-control" value = "09:30">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>
+    </div>
+    <div class = "form-group">
+        <input type="hidden" name="shift[metashift_id]" id="metashift_field" value=<%=params[:id]%>>    
+    </div>
+    
+    <button type="submit" class="btn btn-theme" id="submit_button" style="margin-top:100px;">Add Workshifts</button>
     
 <% end %>
-  
+ 
+<script type="text/javascript" src="dist/bootstrap-clockpicker.min.js"></script>
+<script type="text/javascript">
+    $('.clockpicker').clockpicker();
+</script>

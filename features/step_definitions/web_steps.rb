@@ -54,7 +54,7 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
 end
 
 When(/^I upload "([^"]*)"$/) do |arg1|
-  page.attach_file("file", 'lib/users_upload.csv')
+  page.attach_file("file", 'lib/' + arg1)
 end
 
 
@@ -64,7 +64,7 @@ Then /^I should see "([^"]*)" "(.+)" times$/ do |text, num|
 end
 
 
-Then(/^I should see a table$/) do
+Then(/^I should see a user table$/) do
   if page.respond_to? :should
     page.should have_content("Name")
     page.should have_content("Email")
@@ -73,6 +73,18 @@ Then(/^I should see a table$/) do
     assert page.has_content?("Name")
     assert page.has_content?("Password")
     assert page.has_content?("Email")
+  end
+end
+
+Then(/^I should see a workshift table$/) do
+  if page.respond_to? :should
+    page.should have_content("Category")
+    page.should have_content("Description")
+    page.should have_content("Hour")
+  else
+    assert page.has_content?("Category")
+    assert page.has_content?("Description")
+    assert page.has_content?("Hour")
   end
 end
 

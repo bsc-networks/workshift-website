@@ -1,3 +1,4 @@
+require 'chronic'
 class ShiftsController < ApplicationController
   #before_action :set_shift, only: [:show, :edit, :update, :destroy]
   skip_before_filter :set_current_user
@@ -6,10 +7,9 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
     @shifts = Shift.all
+    print(@shifts)
     @serializedShifts = json_shifts(@shifts)
-    # puts "Shifts:"
-    # puts @shifts
-    # puts "End of shifts"
+    puts(@serializedShifts)
     if @shifts.empty?
       puts "EMPTY"
     end
@@ -23,7 +23,16 @@ class ShiftsController < ApplicationController
   end
   
   def add_timeslots
-    redirect_to '/'
+    day_of_the_week = params[:shift][:dayoftheweek]
+    starttime = params[:shift][:start_time]
+    endtime = params[:shift][:end_time]
+    metashift = Metashift.find_by_id(params[:shift][:metashift_id])
+    start_time = Chronic.parse('this ' + day_of_the_week + ' ' + starttime.to_str)
+    end_time = Chronic.parse('this ' + day_of_the_week + ' ' + endtime.to_str)
+    a_shift = Shift.new(:start_time => start_time, :end_time => end_time)
+    a_shift.save!
+    metashift.shifts << a_shift
+    redirect_to '/shifts'
   end
 
   # GET /shifts/1
@@ -37,7 +46,7 @@ class ShiftsController < ApplicationController
       @metashifts_uploaded = new_shifts
     else
       flash[:notice] = "No file specified."
-      redirect_to '/signup'
+      redirect_to '/shifts/new'
     end
   end
 

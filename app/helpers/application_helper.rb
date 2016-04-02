@@ -1,5 +1,4 @@
 module ApplicationHelper
-    
     def webpack_bundle_tag(bundle)
       # src =
       #   if false and Rails.configuration.webpack[:use_manifest]

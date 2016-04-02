@@ -4,6 +4,7 @@
   "description": "my-rails-app",
   "dependencies": {
     "jquery": "~1.11.0",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
   }
 }
