@@ -32,6 +32,7 @@
       <th>Category &nbsp; &nbsp; &nbsp;</th>
       <th>Description</th>
       <th>Hour Value</th>
+      <th>Add Timeslots</th>
     </tr>
     <% @metashifts_uploaded.each do |shift| %>
       <tr>
@@ -43,6 +44,9 @@
         </td>
         <td>
           <%=shift.multiplier %>
+        </td>
+        <td>
+          <%=link_to('Add times', new_timeslots_path(:id => shift.id))%>
         </td>
       </tr>
     <% end %>

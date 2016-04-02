@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  #before_action :set_shift, only: [:show, :edit, :update, :destroy]
   skip_before_filter :set_current_user
 
   # GET /shifts
@@ -14,6 +14,12 @@ class ShiftsController < ApplicationController
       puts "EMPTY"
     end
     #puts @serializedShifts
+  end
+  
+  def new_timeslots
+    meta_id = params[:id]
+    @metashift = (Metashift.find_by_id(meta_id))
+    render 'shifts/add_timeshifts'
   end
 
   # GET /shifts/1
@@ -81,9 +87,9 @@ class ShiftsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_shift
-      @shift = Shift.find(params[:id])
-    end
+    #def set_shift
+    #  @shift = Shift.find(params[:id])
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
