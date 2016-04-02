@@ -48,7 +48,7 @@ gem "binding_of_caller"
 gem 'less-rails-bootstrap', '~> 3.0'
 gem "font-awesome-rails"
 gem 'therubyracer'
-
+gem 'chronic'
 gem 'simplecov', :require => false, :group => :test
 
 gem 'momentjs-rails', '>= 2.9.0'
