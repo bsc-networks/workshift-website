@@ -41,13 +41,13 @@ class ShiftsController < ApplicationController
   end
   
   def upload
-    if (not params[:file].blank?)
-      new_shifts = Metashift.import(params[:file])
-      @metashifts_uploaded = new_shifts
-    else
-      flash[:notice] = "No file specified."
-      redirect_to '/shifts/new'
-    end
+    # if (not params[:file].blank?)
+    #   new_shifts = Metashift.import(params[:file])
+    #   @metashifts_uploaded = new_shifts
+    # else
+    #   flash[:notice] = "No file specified."
+    #   redirect_to '/shifts/new'
+    # end
   end
 
   # GET /shifts/new
