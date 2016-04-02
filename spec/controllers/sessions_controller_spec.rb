@@ -11,7 +11,6 @@ RSpec.describe SessionsController, type: :controller do
             expect(User).to receive("find_by_email").with('m@gmail.com')
             post :create, {:email => 'm@gmail.com', :password => '432jkfla'}
         end
-    
     end
     
     describe "unsuccessful login attempt" do
