@@ -11,7 +11,7 @@ Background:
 Scenario: an admin tries to add member accounts using a csv file
   When I upload "users_upload.csv"
   Then I press "Import"
-  Then I should see a table
+  Then I should see a user table
   And I should see "Giorgia"
   And I should see "Willits"
   And I should see "gwillits@berkeley.edu"
