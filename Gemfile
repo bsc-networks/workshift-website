@@ -20,6 +20,7 @@ gem 'coffee-rails', '~> 4.1.0'
 #ADDED by us
 gem 'bootstrap-sass', '~> 3.3.6'
 gem "haml-rails"
+gem 'mailgun-ruby', '~>1.0.2', require: 'mailgun'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -56,6 +57,9 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 # React is dope as fuck, does all work in the front-end
 gem 'react-rails', '~> 1.6.0'
 
+# Alex added
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -70,6 +74,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  gem 'shoulda-matchers'
+  gem 'coveralls', require: false
 end
 
 group :test do
@@ -80,7 +86,6 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
   gem 'railroady'
-  gem 'rspec-rails', '~> 3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   
@@ -91,4 +96,8 @@ group :production do
   gem 'rails_12factor'
   gem 'rspec-rails', '~> 3.0'
   gem 'pg'
+  gem 'coveralls', require: false
+  gem 'cucumber-rails', :require => false
+
+
 end

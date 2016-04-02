@@ -57,7 +57,7 @@ RSpec.describe PoliciesController, type: :controller do
                 it "should redirect to the home page" do
                     request.session = { :user_id => @member.id }
                     get :show 
-                    expect(flash[:notice]).to be_present
+                    expect(flash[:info]).to be_present
                     expect(response).to redirect_to('/')
                 end
             end

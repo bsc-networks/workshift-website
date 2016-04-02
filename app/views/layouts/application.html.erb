@@ -5,7 +5,9 @@
 <head>
   <title>Coop Workshift</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  
+ 
+  
   <%= csrf_meta_tags %>
 </head>
 <!--<body style="background-color:#BBBBBB">-->
@@ -28,26 +30,21 @@
           <li><a href="/shifts"> Shifts </a></li>
             <% if current_user %>
               <li> <%= link_to 'Policies', policy_path %> </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.full_name %> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to "Profile", user_profile_path(current_user.id) %></li>
-                  <li><%= link_to "Sign Out", '/logout' %></li>
-                </ul>
-              </li>
+              <li><%= link_to "Profile", user_profile_path(current_user.id) %></li>
+              <li><%= link_to "Sign Out", '/logout' %></li>
             <% else %>
-              <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-          			<div id="login-dp" class="dropdown-menu">
-          				<!--<li>-->
-          				<!--	 <div class="row">-->
-          				<!--			<div class="col-md-12">-->
-          								 <%= render "sessions/login_form" %>
-          				<!--			</div>-->
-          				<!--	 </div>-->
-          				<!--</li>-->
-          			</div>
-              </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+              <div id="login-dp" class="dropdown-menu">
+                <!--<li>-->
+                <!--	 <div class="row">-->
+                <!--			<div class="col-md-12">-->
+                  <%= render "sessions/login_form" %>
+                <!--			</div>-->
+                <!--	 </div>-->
+                <!--</li>-->
+              </div>
+            </li>
             <% end %>
           </li>
         </ul>
@@ -59,12 +56,15 @@
 
 <div class="container mtb">
 <% flash.each do |key, value| %>
-  <%= content_tag :div, value, class: "flash #{key}" %>
+  <div class="alert alert-<%=key%>" >
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong> <%= value %> </strong>
+  </div>
 <% end %>
 
 <%= yield %>
 </div><!-- /headerwrap -->  
   
-
+<%= javascript_include_tag 'bundle' %>
 </body>
 </html>

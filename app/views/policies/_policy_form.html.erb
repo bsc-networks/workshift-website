@@ -6,7 +6,7 @@
     </div>
     <div class="col-sm-10">
         <div class='input-group date datetimepicker' id='datetimepicker_start' style="max-width:350px;">
-            <input id="first_day" value=<%=@policy.first_day %>type='text' name="policy[first_day]" class="form-control" />
+            <input id="first_day" value=<%=@policy.first_day or @defaultDate%> type='text' name="policy[first_day]" class="form-control" />
             <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -20,7 +20,7 @@
     </div>
     <div class="col-sm-10">
         <div class='input-group date datetimepicker' id='datetimepicker_end' style="max-width:350px;">
-            <input id="last_day" value=<%=@policy.last_day %>type='text' name="policy[last_day]" class="form-control" />
+            <input id="last_day" value=<%=@policy.last_day or @defaultDate %> type='text' name="policy[last_day]" class="form-control" />
             <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -33,8 +33,9 @@
         <label for="fine_days">Fining Days</label>
     </div>
     <div class="col-sm-10">
+        
         <div class='input-group date datetimepicker' id='datetimepicker_fine1' style="max-width:350px;">
-            <input id="fine_days" value=<%=@policy.fine_days %> type='text' name="policy[fine_days]" class="form-control" />
+            <input id="fine_days" type='text' name="policy[fine_days]" class="form-control" value=<%=@policy.fine_days or @defaultDate %>   />
             <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -49,7 +50,7 @@
     <div class="col-sm-10">
         <div class="input-group">
           <span class="input-group-addon">$</span>
-          <input id="fine_amount" value=<%=@policy.fine_amount %> type="text" name="policy[fine_amount]" style="max-width:350px;"class="form-control" aria-label="Amount (to the nearest dollar)">
+          <input id="fine_amount" value=<%=@policy.fine_amount or @defaultFine%> type="text" name="policy[fine_amount]" style="max-width:350px;"class="form-control" aria-label="Amount (to the nearest dollar)">
         </div>
     </div>
 </div>
@@ -60,7 +61,7 @@
     </div>
     <div class="col-sm-10">
         <div class="input-group">
-          <input id="market_sell_by" value=<%=@policy.market_sell_by %> type="text" name="policy[market_sell_by]" style="max-width:350px;"class="form-control" aria-label="Amount (to the nearest dollar)">
+          <input id="market_sell_by" value=<%=@policy.market_sell_by or @defaultLimit%> type="text" name="policy[market_sell_by]" style="max-width:350px;"class="form-control" aria-label="Amount (to the nearest dollar)">
         </div>
     </div>
 </div>
@@ -87,27 +88,3 @@
         $('#fine_days').val(moment($('#fine_days').attr("value")).format(date_format))
     });
 </script>
-
-<!--<div class="form-group">-->
-<!--= label :policy, :last_day, 'Semester end', class:"col-sm-2 control-label"-->
-<!--<div class="col-sm-10">-->
-<!--= date_select :policy, :last_day, class:"form-control"-->
-<!--</div></div>-->
-
-<!--<div class="form-group">-->
-<!--= label :policy, :fine_days, 'Fining Days', class:"col-sm-2 control-label"-->
-<!--<div class="col-sm-10">-->
-<!--= date_select :policy, :fine_days, class:"form-control"-->
-<!--</div></div>-->
-
-<!--<div class="form-group">-->
-<!--= label :policy, :fine_amount, 'Fine rate', class:"col-sm-2 control-label"-->
-<!--<div class="col-sm-10">-->
-<!--= text_field :policy, :fine_amount, class:"form-control"-->
-<!--</div></div>-->
-
-<!--<div class="form-group">-->
-<!--= label :policy, :market_sell_by, 'Selling date limit', class:"col-sm-2 control-label"-->
-<!--<div class="col-sm-10">-->
-<!--= text_field :policy, :market_sell_by, class:"form-control"-->
-<!--</div></div>-->

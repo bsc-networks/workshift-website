@@ -17,7 +17,7 @@ Scenario: an admin tries to add member accounts using a csv file
   And I should see "gwillits@berkeley.edu"
   When I press "Confirm Users"
   Then I should see "Sent confirmation email to users"
-  
+
 Scenario: an admin tries to add member accounts manually
   And I fill in "First Name" with "Eric"
   And I fill in "Last Name" with "Nelson"

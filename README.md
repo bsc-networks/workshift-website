@@ -1,16 +1,20 @@
 # coop-workshift-app
 CS 169 Group Project, Spring 2016. An application to manage the assignment and management of work shifts in the BSC (Berkeley Student Cooperative) system.
 
-Code Climate:
-
-<a href="https://codeclimate.com/repos/56d2353c473c7133c9009434/feed"><img src="https://codeclimate.com/repos/56d2353c473c7133c9009434/badges/a376a4dc733d19da5a54/gpa.svg" /></a>
-
-<a href="https://codeclimate.com/repos/56d2353c473c7133c9009434/coverage"><img src="https://codeclimate.com/repos/56d2353c473c7133c9009434/badges/a376a4dc733d19da5a54/coverage.svg" /></a>
+Code Climate GPA:
+<br>
+[![Code Climate](https://codeclimate.com/repos/56d2353c473c7133c9009434/badges/a376a4dc733d19da5a54/gpa.svg)](https://codeclimate.com/repos/56d2353c473c7133c9009434/feed)
 
 Travis CI:
+<br>
 [![Build Status](https://travis-ci.org/momochanfitz/coop-workshift-app.svg?branch=master)](https://travis-ci.org/momochanfitz/coop-workshift-app)
 
+Coveralls:
+<br>
+[![Coverage Status](https://coveralls.io/repos/github/momochanfitz/coop-workshift-app/badge.svg?branch=master)](https://coveralls.io/github/momochanfitz/coop-workshift-app?branch=master)
+
 Pivotal Tracker:
+<br>
 https://www.pivotaltracker.com/projects/1545105
 
 ##Resources

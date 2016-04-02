@@ -11,7 +11,12 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+/coverage/*
+
+/spring-1000/*
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
 /tmp
+#/app/assets/javascripts*

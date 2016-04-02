@@ -4,4 +4,6 @@ exclude_paths:
 - "coverage/assets/0.10.0/application.js"
 - "features/step_definitions/web_steps.rb"
 - "config/initializers/form.rb"
-- "app/assets/javascripts/griddle.js"
+- "node_modules/**/*"
+- "bower_components/**/*"
+- "**.js"

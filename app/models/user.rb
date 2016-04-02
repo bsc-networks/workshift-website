@@ -30,8 +30,6 @@ class User < ActiveRecord::Base
     def self.open_spreadsheet(file)
       case File.extname(file.original_filename)
         when ".csv" then Roo::CSV.new(file.path, csv_options: {encoding: "iso-8859-1:utf-8"})
-        when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-        when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
         else raise "Unknown file type: #{file.original_filename}"           
       end
     end
@@ -44,16 +42,25 @@ class User < ActiveRecord::Base
     def self.send_confirmation(id)
       user = find(id)
       if user
-        email = user.email
+        mg_client = Mailgun::Client.new Rails.application.secrets.api_key
         user.update_attributes!(:sent_confirmation => true)
-        #puts "Sending confirmation to " + user.full_name + " at " + email
+        new_password = User.random_pw
+        user.update_attribute(:password, new_password)
+        message_params = {
+                          :from    => Rails.application.secrets.username,
+                          :to      => user.email,
+                          :subject => 'Welcome to Coop Workshift',
+                          :text    => 'Your temporary password is ' + new_password + ' be sure to change this when you sign in.'
+                        }
+        # mg_client.send_message(Rails.application.secrets.domain, message_params)
       else
-        #puts "Couldnt find user"
+        # puts "Couldnt find user"
       end
     end
     
     def self.random_pw
-      ('0'..'z').to_a.shuffle.first(8).join
+      x = ('0'..'z').to_a.shuffle.first(8).join
+      return x
     end
     
     def is_ws_manager
