@@ -36,15 +36,15 @@ RSpec.describe ShiftsController, type: :controller do
             @shift2 = Shift.create!(:start_time => DateTime.strptime("09/02/2009 17:00", "%m/%d/%Y %H:%M"),
                                     :end_time => DateTime.strptime("09/02/2009 19:00", "%m/%d/%Y %H:%M"),
                                     :metashift_id => '')
+            @metashift = Metashift.create!(:category => "Kitchen", :description => 'dlka;jfd', :multiplier => 5)
         end
 
         it "should provide a new timeslot" do
-            get :add_timeslots
-            expect(response).to redirect_to('/')
+            get :new_timeslots, :id => @metashift.id
+            expect(response).to render_template("shifts/add_timeslots")
         end
         
         it "should update a shift" do
-            
             expect{@shift2.update!(:start_time => DateTime.strptime("09/01/2009 17:00", "%m/%d/%Y %H:%M"))}.to change{@shift2.start_time}
         end
         
