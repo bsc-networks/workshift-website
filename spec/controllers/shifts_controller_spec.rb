@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "json"
 
 RSpec.describe ShiftsController, type: :controller do
     before(:each) do 
@@ -18,6 +19,9 @@ RSpec.describe ShiftsController, type: :controller do
         it 'should prepare a new instance of a shift' do
             get :new
             expect(assigns(:shift)).to be_a_new(Shift)
+        end
+        it 'should display as json correctly' do
+            @shift.full_json
         end
     end
     
