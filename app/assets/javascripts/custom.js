@@ -18,3 +18,5 @@ $(function () {
     $('#last_day').val(moment($('#last_day').attr("value")).format(date_format))
     $('#fine_days').val(moment($('#fine_days').attr("value")).format(date_format))
 });
+
+console.log("Custom Loaded");
