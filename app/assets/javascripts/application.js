@@ -14,7 +14,7 @@
 // require jquery_ujs
 //= require bootstrap
 //= require bootstrap.file-input
-//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+// require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/jquery.dataTables
 //= require turbolinks
 
