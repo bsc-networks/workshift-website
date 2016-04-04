@@ -1,4 +1,4 @@
-require('expose?$!expose?jQuery!jquery');
+// require('expose?$!expose?jQuery!jquery');
 
 //^^^We’re actually running the
 //expose loader twice here, to add jQuery to both window.$ and window.jQuery.

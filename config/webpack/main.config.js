@@ -39,10 +39,10 @@ config.plugins = [
   new webpack.ResolverPlugin([
     new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
   ]),
-  new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-  }),
+  // new webpack.ProvidePlugin({
+  //   $: 'jquery',
+  //   jQuery: 'jquery',
+  // }),
   new webpack.ProvidePlugin({
     React: 'react',
   }),
