@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
       return x
     end
     
-    def is_ws_manager??
+    def is_ws_manager?
       permissions == PERMISSION[:ws_manager]
     end
     
