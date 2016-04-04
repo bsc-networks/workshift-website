@@ -1,10 +1,11 @@
-Feature: Editing Semester Policies
+Feature: Editing Semester Policies as an Admin
   As a work-shift manager,
   In order to enforce policies for the semester,
   I would like to view and edit fining dates, the start and end of the semester, market sell-by, and fining rates.
   
   Background:
     Given I am logged in as an admin
+    And I belong to "Cloyne"
     And I have set the policies for the semester
   
   Scenario: An admin views the policies for the semester 

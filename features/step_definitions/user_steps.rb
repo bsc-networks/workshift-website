@@ -1,3 +1,4 @@
+### EXISTENCE OF USERS ###
 Given /the following users exist/ do |users_table|
   users_table.hashes.each do |user|
     # each returned element will be a hash whose key is the table header.
@@ -17,11 +18,14 @@ Given /^I am the following user:$/ do |user_table|
   end
 end
 
+
+### LOGGING IN USERS ###
 def simulate_login(user)
   visit path_to('the home page')
   fill_in('email', :with => user.email)
   fill_in('password', :with => user.password)
   click_button("Sign In")
+  @current_user = user
 end
 
 Given /^I am logged in as an admin$/ do
@@ -52,6 +56,14 @@ end
 Given /^I am not logged in$/ do
 end
 
+### USER ASSOCIATIONS ### 
+And /^I belong to "Cloyne"$/ do
+  @current_unit = Unit.create!(:name => "Cloyne")
+  @current_user.unit = @current_unit
+  @current_user.save
+end
+
+### USER ACCESS ### 
 Then /^I should have admin rights$/ do
   pending # Write code here that turns the phrase above into concrete actions
 end

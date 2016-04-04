@@ -9,7 +9,7 @@ class PoliciesController < ApplicationController
       if @current_user.is_ws_manager?
         redirect_to new_policy_path
       else
-        flash[:info] = "The policies have not been set for this semester"
+        flash[:info] = "The policies have not been set for this semester."
         redirect_to '/'
       end
     end
@@ -17,16 +17,15 @@ class PoliciesController < ApplicationController
 
   # GET /policies/new
   def new
-    @policy = Policy.new
-    @defaultDate = Date.today.to_s
-    @defaultFine = 10
-    @defaultLimit = 2
     if @current_user.is_ws_manager?
       if @current_user.unit.policy
         flash[:notice] = "Your policies have already been set for this semester. Edit your policies below."
         redirect_to edit_policy_path
       end
       @policy = Policy.new
+      @defaultDate = Date.today.to_s
+      @defaultFine = 10
+      @defaultLimit = 2
     else
       flash[:notice] = "You cannot set the policies for this semester. Contact the workshift manager."
       redirect_to policy_path
@@ -37,8 +36,12 @@ class PoliciesController < ApplicationController
   def edit
     if @current_user.is_ws_manager?
       @policy = @current_user.unit.policy
-      puts(@policy.get_fine_days)
+      if not @policy
+        flash[:info] = "You have not set the policies for this semester. Set your policies below."
+        redirect_to new_policy_path
+      end
     else
+      flash[:notice] = "You cannot edit the policies for this semester. Contact the workshift manager."
       redirect_to policy_path
     end
   end
@@ -47,7 +50,9 @@ class PoliciesController < ApplicationController
   # POST /policies.json
   def create
     @policy = Policy.create!(policy_params)
-    flash[:success] = "Your policies have been saved"
+    @current_user.unit.policy = @policy
+    @current_user.unit.save
+    flash[:success] = "Your policies have been saved."
     redirect_to policy_path
   end
 
