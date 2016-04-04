@@ -5,6 +5,7 @@ Feature: Viewing Semester Policies
   
   Background:
     Given I am logged in as a non-admin
+    And I belong to "Cloyne"
   
   Scenario: A member tries to view nonexistent policies for the semester 
     When I go to the view policy page

@@ -5,6 +5,7 @@ Feature: Setting Semester Policies
   
   Background:
     Given I am logged in as an admin
+    And I belong to "Cloyne"
 
   Scenario: An admin sets the policies for the semester
     When I go to the view policy page
