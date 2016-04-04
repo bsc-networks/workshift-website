@@ -22,6 +22,10 @@ class PoliciesController < ApplicationController
     @defaultFine = 10
     @defaultLimit = 2
     if @current_user.is_ws_manager?
+      if @current_user.unit.policy
+        flash[:notice] = "Your policies have already been set for this semester. Edit your policies below."
+        redirect_to edit_policy_path
+      end
       @policy = Policy.new
     else
       flash[:notice] = "You cannot set the policies for this semester. Contact the workshift manager."
@@ -32,7 +36,7 @@ class PoliciesController < ApplicationController
   # GET /policies/1/edit
   def edit
     if @current_user.is_ws_manager?
-      @policy = Policy.all.last
+      @policy = @current_user.unit.policy
     else
       redirect_to policy_path
     end
@@ -49,7 +53,7 @@ class PoliciesController < ApplicationController
   # PATCH/PUT /policies/1
   # PATCH/PUT /policies/1.json
   def update
-    @policy = Policy.all.last
+    @policy = @current_user.unit.policy
     @policy.update_attributes!(policy_params)
     flash[:success] = "Your policies have been updated"
     redirect_to policy_path
