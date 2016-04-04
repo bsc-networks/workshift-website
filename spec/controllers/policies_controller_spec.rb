@@ -18,6 +18,8 @@ RSpec.describe PoliciesController, type: :controller do
                     
                     Policy.stub(:new).and_return(@policy)
                     Policy.stub(:create!).and_return(@policy)
+                    allow(@unit).to receive(:save)
+                    allow(@unit).to receive(:policy=)
                     
                     get :new
                 end
@@ -27,8 +29,9 @@ RSpec.describe PoliciesController, type: :controller do
                 it "should initialize a policy object that is available to that template" do
                     expect(assigns(:policy)).to  eq(@policy)
                 end
-                it "should save the policy" do
+                it "should save the policy and assign to the current user's unit" do
                     expect(Policy).to receive(:create!)
+                    expect(@unit).to receive(:policy=)
                     post :create, policy: {id: 1}
                 end
                 it "should redirect to the view policy page" do
