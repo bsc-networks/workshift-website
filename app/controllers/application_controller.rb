@@ -17,8 +17,9 @@ class ApplicationController < ActionController::Base
     begin 
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
     rescue
+      @current_user = nil
       session[:user_id] = nil
-      redirect_to login_path
+      return nil
     end
   end
   helper_method :current_user

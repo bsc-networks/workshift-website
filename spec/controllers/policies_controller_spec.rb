@@ -9,26 +9,35 @@ RSpec.describe PoliciesController, type: :controller do
     end
     describe "creating a semester policy" do 
         context "when the current user is an admin" do
-            before :each do
-                @new_policy = double("New Policy")
-                Policy.stub(:new).and_return(@new_policy)
-                Policy.stub(:create!).and_return(@new_policy)
-                request.session = { :user_id => @admin.id }
-                get :new
+            context "and no policy has been set" do
+                before :each do
+                    @new_policy = double("New Policy")
+                    Policy.stub(:new).and_return(@new_policy)
+                    Policy.stub(:create!).and_return(@new_policy)
+                    request.session = { :user_id => @admin.id }
+                    get :new
+                end
+                it "should select the New Policy template for rendering" do
+                    expect(response).to render_template('new')
+                end
+                it "should initialize a policy object that is available to that template" do
+                    expect(assigns(:policy)).to  eq(@new_policy)
+                end
+                it "should save the policy" do
+                    expect(Policy).to receive(:create!)
+                    post :create, policy: {id: 1}
+                end
+                it "should redirect to the view policy page" do
+                    post :create, policy: {id: 1}
+                    expect(response).to redirect_to(policy_path)
+                end
             end
-            it "should select the New Policy template for rendering" do
-                expect(response).to render_template('new')
-            end
-            it "should initialize a policy object that is available to that template" do
-                expect(assigns(:policy)).to  eq(@new_policy)
-            end
-            it "should save the policy" do
-                expect(Policy).to receive(:create!)
-                post :create, policy: {id: 1}
-            end
-            it "should redirect to the view policy page" do
-                post :create, policy: {id: 1}
-                expect(response).to redirect_to(policy_path)
+            context "and a policy has already been set" do
+                it "should redirect to the edit policy page" do
+                    
+                    get :new
+                    expect(response).to redirect_to(edit_policy_path)
+                end
             end
         end
         context "when the current user is a member" do
