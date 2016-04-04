@@ -134,9 +134,3 @@ RSpec.describe PoliciesController, type: :controller do
         end
     end
 end
-
-# TRY TO EDIT
-# admin/no policy    =>   redirect to new policy page
-# admin/policy       =>   normal proc
-# member/no policy   =>   redirect to view policy page -> redirect to home page
-# member/policy      =>   redirect to view policy page 
