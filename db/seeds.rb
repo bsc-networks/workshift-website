@@ -10,10 +10,10 @@ User.destroy_all
 
 ## POLICIES ## 
 policies = [{:first_day => "January 1, 2016",  :last_day => "May 17, 2016",
-             :fine_amount => 30, :fine_days => "April 13, 2016",
+             :fine_amount => 30, :fine_days => [Date.parse("April 13, 2016")],
              :market_sell_by => 3},
             {:first_day => "August 20, 2016",  :last_day => "December 20, 2016",
-             :fine_amount => 10, :fine_days => "October 31, 2016",
+             :fine_amount => 10, :fine_days => [Date.parse("April 13, 2016"), Date.parse("April 19, 2016")],
              :market_sell_by => 32}
             ]
            

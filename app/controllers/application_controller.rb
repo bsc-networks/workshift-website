@@ -31,4 +31,13 @@ class ApplicationController < ActionController::Base
   def current_house
     @current_house = "Cloyne"
   end
+  
+  def admin_rights?
+    if self.current_user and self.current_user().is_ws_manager?
+      return true
+    else
+      return false
+    end
+  end
+  helper_method :admin_rights?
 end

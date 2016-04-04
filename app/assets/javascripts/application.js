@@ -14,13 +14,14 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap.file-input
+//= require bootstrap-datepicker
 // require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/jquery.dataTables
 //= require turbolinks
 
 // require custom
 //= require moment
-//= require bootstrap-datetimepicker
+// require bootstrap-datetimepicker
 
 
 // Added by us - sprockets

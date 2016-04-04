@@ -37,6 +37,7 @@ class PoliciesController < ApplicationController
   def edit
     if @current_user.is_ws_manager?
       @policy = @current_user.unit.policy
+      puts(@policy.get_fine_days)
     else
       redirect_to policy_path
     end
@@ -54,7 +55,14 @@ class PoliciesController < ApplicationController
   # PATCH/PUT /policies/1.json
   def update
     @policy = @current_user.unit.policy
-    @policy.update_attributes!(policy_params)
+    pre_params = policy_params
+    arr = []
+    pre_params["fine_days"].split("; ").each do |date|
+      arr << Date.parse(date)
+    end
+    pre_params["fine_days"] = arr
+    puts pre_params
+    @policy.update_attributes!(pre_params)
     flash[:success] = "Your policies have been updated"
     redirect_to policy_path
   end
