@@ -9,7 +9,7 @@ class PoliciesController < ApplicationController
       if @current_user.is_ws_manager?
         redirect_to new_policy_path
       else
-        flash[:info] = "The policies have not been set for this semester"
+        flash[:info] = "The policies have not been set for this semester."
         redirect_to '/'
       end
     end
@@ -37,7 +37,7 @@ class PoliciesController < ApplicationController
     if @current_user.is_ws_manager?
       @policy = @current_user.unit.policy
       if not @policy
-        flash[:info] = "You have not set the policies for this semester"
+        flash[:info] = "You have not set the policies for this semester. Set your policies below."
         redirect_to new_policy_path
       end
     else
@@ -50,7 +50,9 @@ class PoliciesController < ApplicationController
   # POST /policies.json
   def create
     @policy = Policy.create!(policy_params)
-    flash[:success] = "Your policies have been saved"
+    @current_user.unit.policy = @policy
+    @current_user.unit.save
+    flash[:success] = "Your policies have been saved."
     redirect_to policy_path
   end
 
@@ -59,7 +61,7 @@ class PoliciesController < ApplicationController
   def update
     @policy = @current_user.unit.policy
     @policy.update_attributes!(policy_params)
-    flash[:success] = "Your policies have been updated"
+    flash[:success] = "Your policies have been updated."
     redirect_to policy_path
   end
 
