@@ -10,6 +10,6 @@
 
 
 <%### ADMIN ONLY ###%>
-<% if @current_user.is_ws_manager %>
+<% if @current_user.is_ws_manager? %>
     <%= link_to 'Edit', edit_policy_path %>
 <% end %>

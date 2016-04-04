@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def new
-    if not @current_user.is_ws_manager
+    if not @current_user.is_ws_manager?
       redirect_to '/'
     end
   end

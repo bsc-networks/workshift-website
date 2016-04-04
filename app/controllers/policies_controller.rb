@@ -4,9 +4,9 @@ class PoliciesController < ApplicationController
   # GET /policies/1
   # GET /policies/1.json
   def show
-    @policy = Policy.all.last
+    @policy = @current_user.unit.policy
     if not @policy
-      if @current_user.is_ws_manager
+      if @current_user.is_ws_manager?
         redirect_to new_policy_path
       else
         flash[:info] = "The policies have not been set for this semester"
@@ -21,7 +21,7 @@ class PoliciesController < ApplicationController
     @defaultDate = Date.today.to_s
     @defaultFine = 10
     @defaultLimit = 2
-    if @current_user.is_ws_manager
+    if @current_user.is_ws_manager?
       @policy = Policy.new
     else
       flash[:notice] = "You cannot set the policies for this semester. Contact the workshift manager."
@@ -31,7 +31,7 @@ class PoliciesController < ApplicationController
 
   # GET /policies/1/edit
   def edit
-    if @current_user.is_ws_manager
+    if @current_user.is_ws_manager?
       @policy = Policy.all.last
     else
       redirect_to policy_path

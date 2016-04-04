@@ -11,18 +11,18 @@ RSpec.describe User, type: :model do
     end
     
     it 'should give a member only member access' do
-        mem1 = @member1.is_member
+        mem1 = @member1.is_member?
         expect(mem1).to be_truthy
-        man1 = @member1.is_manager
+        man1 = @member1.is_manager?
         expect(man1).to be_falsy
-        ws1 = @member1.is_ws_manager
+        ws1 = @member1.is_ws_manager?
         expect(ws1).to be_falsy
     end
     
     it 'should make a manager only have manager access' do
-      @member2.is_manager.should be_truthy
-      @member2.is_member.should be_falsy
-      @member2.is_ws_manager.should be_falsy
+      @member2.is_manager?.should be_truthy
+      @member2.is_member?.should be_falsy
+      @member2.is_ws_manager?.should be_falsy
     end
     
     it 'should have a correct full name' do
