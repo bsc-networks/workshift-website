@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404215535) do
+ActiveRecord::Schema.define(version: 20160405071434) do
 
   create_table "metashifts", force: :cascade do |t|
     t.string   "category"
@@ -55,14 +55,18 @@ ActiveRecord::Schema.define(version: 20160404215535) do
     t.string   "last_name"
     t.string   "email"
     t.integer  "permissions"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "password_digest"
-    t.boolean  "sent_confirmation", default: false
-    t.boolean  "has_confirmed",     default: false
-    t.integer  "hour_balance",      default: 0
-    t.integer  "fine_balance",      default: 0
+    t.boolean  "sent_confirmation",   default: false
+    t.boolean  "has_confirmed",       default: false
+    t.integer  "hour_balance",        default: 0
+    t.integer  "fine_balance",        default: 0
     t.integer  "unit_id"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
 end

@@ -18,7 +18,6 @@ var WST = require('./work_shift_table.js.jsx');
 if(document.getElementById('work-shift-table'))
 {
     var shifts = $('.temp_information').data('temp');
-    console.log(shifts);
     ReactDOM.render(<WST shifts={shifts}/>, document.getElementById('work-shift-table'));
 } 
 //ReactDOM.render(<WST/>, document.getElementById('work-shift-table'));

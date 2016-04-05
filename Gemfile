@@ -51,6 +51,8 @@ gem 'therubyracer'
 gem 'chronic'
 gem 'simplecov', :require => false, :group => :test
 
+
+gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 
