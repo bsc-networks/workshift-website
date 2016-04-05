@@ -20,9 +20,9 @@ RSpec.describe User, type: :model do
     end
     
     it 'should make a manager only have manager access' do
-      @member2.is_manager?.should be_truthy
-      @member2.is_member?.should be_falsy
-      @member2.is_ws_manager?.should be_falsy
+      expect(@member2.is_manager?).to be_truthy
+      expect(@member2.is_member?).to be_falsy
+      expect(@member2.is_ws_manager?).to be_falsy
     end
     
     it 'should have a correct full name' do
@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
   describe "uploading a file" do
     it 'should error if an unknown type is uploaded' do
       @file = double()
-      @file.stub(:original_filename).and_return('test.xml')
+      allow(@file).to receive(:original_filename).and_return('test.xml')
       expect {User.open_spreadsheet(@file)}.to raise_error(RuntimeError)
     end
   end
