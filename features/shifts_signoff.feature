@@ -57,6 +57,7 @@ Feature: Sign-off a shift
     And I fill in "bunnny" for "Password"
     And I click "Sign off!"
     Then Giorgia's shift for "Head Cook" on "March 6, 2016" should be completed
+<<<<<<< HEAD
     And I should not be logged in
 
   Scenario: A manager signs off a member while logged in
@@ -128,6 +129,8 @@ Background:
     And I fill in "bunnny" for "Password"
     And I click "Sign off!"
     Then Giorgia's shift for "Head Cook" should be completed
+=======
+>>>>>>> all step definitions defined
     And I should not be logged in
 
   Scenario: A manager signs off a member while logged in
