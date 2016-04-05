@@ -53,13 +53,16 @@ Given /^I am logged in$/ do
   simulate_login(@current_user)
 end
 
-# Given(/^"([^"]*)" is logged in$/) do |arg1|
 Given /^"(.*)" is logged in$/ do |first_name|
   user = User.find_by_first_name(first_name)
   simulate_login(user)
 end
 
 Given /^I am not logged in$/ do
+end
+
+And /^I should not be logged in$/ do
+  step %Q{I should not see the following: "Profile", "Sign Out"}
 end
 
 ### USER ASSOCIATIONS ### 
