@@ -10,11 +10,14 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require jquery-ui
+ *= require bootstrap-datepicker3
  *= require dataTables/jquery.dataTables
  *= require_tree ../../../vendor/assets/stylesheets/.
  *= require_self
+ *= require_tree .
+ 
+ 
  */
 
 //"bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
@@ -25,7 +28,9 @@
 
 
 // import bootstrap-sprockets before bootstrap if using bootstrap >= 3.2
-@import 'bootstrap-datetimepicker';
+// @import 'bootstrap-datetimepicker';
+
+
 
 /*	################################################################
 	1. GENERAL STRUCTURES
@@ -134,7 +139,7 @@ a:focus {
 	border-color: transparent;
 }
 
-.dropdown-menu {
+.dropdown-menu-theme {
 	background: #384452;
 }
 .datetimepicker .dropdown-menu {

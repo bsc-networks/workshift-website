@@ -2,23 +2,71 @@
   <%= content_tag :div, value, class: "flash #{key}" %>
 <% end %>
 
-<div class="spacing"></div>
- <h4>Your Profile</h4>
- <div class="hline"></div>
- <p><b>Hour Balance:</b> <%= current_user.hour_balance %> </p>
- <p><b>Fine Balance:</b> <%= current_user.fine_balance %> </p>
- <p><b>Permanent Shift Assignment:</b> <%=  %> </p>
- <p><b>Signoff History:</b> <%=  %> </p>
-
-<br> <%= link_to 'Edit Profile', edit_profile_path %> </br>
-
-<%### ADMIN ONLY ###%>
-<% if @current_user.is_ws_manager? %>
-    <br> <%= link_to 'Create Users', '/signup' %> </br>
-    <br> <%= link_to 'Create Workshifts', create_shifts_path %> </br>
-    <br> <%= link_to 'Assign Workshifts', '/'%> </br>
-    <br> <%= link_to 'View Weekly History', '/'%> </br>
-<% end %>
+       
 
 
+
+<div class ="row">
+    <div class ="col-md-8">
+        <div class="spacing"></div>
+            <h3> Profile </h4>
+        <div class="hline"></div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://socialbelly.com/assets/icons/blank_user-586bd979abac4d7c7007414f5e94fe71.png" class="img-circle img-responsive"> </div>
+
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td><b>First Name:</b></td>    <td><%= current_user.first_name.capitalize%> </td>
+                      </tr>
+                      <tr>
+                        <td><b>Last Name:</b></td>     <td><%= current_user.last_name.capitalize%></td>
+                      </tr>
+                      <tr>
+                        <td><b>Email:</b></td>          <td><a href="mailto:<%= current_user.email%>"><%= current_user.email%></td>
+                      </tr>
+                      <tr>
+                        <td><b>Hour Balance</b></td>   <td><%= current_user.hour_balance %> </td>
+                      </tr>
+                      <tr>
+                        <td><b>Fine Balance:</b></td>    <td><%= current_user.fine_balance %></td>
+                      </tr>
+                      <tr>
+                        <td><b>Permanent Shift Assignment:</b> </td>     <td></td>
+                      </tr>
+                      <tr>
+                        <td><b>Shift Signoff History: </b></td>     <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+          </div>
+
+        <!--<div class="spacing"></div>-->
+        <!-- <h4>Your Profile</h4>-->
+        <!-- <div class="hline"></div>-->
+        <!-- <p><b>Hour Balance:</b> <%= current_user.hour_balance %> </p>-->
+        <!-- <p><b>Fine Balance:</b> <%= current_user.fine_balance %> </p>-->
+        <!-- <p><b>Permanent Shift Assignment:</b> <%=  %> </p>-->
+        <!-- <p><b>Signoff History:</b> <%=  %> </p>-->
+        
+        <br> <%= link_to 'Edit Profile', edit_profile_path %> </br>
+    </div>
+    <div class ="col-md-4">
+        <%### ADMIN ONLY ###%>
+        <% if admin_rights? %>
+            <div class="spacing"></div>
+             <h3>Admin Duties</h4>
+             <div class="hline"></div>
+            <br> <%= link_to 'Create Users', '/signup' %> </br>
+            <br> <%= link_to 'Create Workshifts', create_shifts_path %> </br>
+            <br> <%= link_to 'Assign Workshifts', '/'%> </br>
+            <br> <%= link_to 'View Weekly History', '/'%> </br>
+        <% end %>
+    </div>
+</div>
 

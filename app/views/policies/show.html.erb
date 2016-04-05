@@ -3,7 +3,7 @@
  <div class="hline"></div>
  <p><b>Semester Start Date:</b> <%= @policy.first_day.strftime("%B %d, %Y") %> </p>
  <p><b>Semester End Date:</b> <%= @policy.last_day.strftime("%B %d, %Y") %> </p>
- <p><b>Fining Days:</b> <%= @policy.fine_days.strftime("%B %d, %Y") %> </p>
+ <p><b>Fining Days:</b> <%= @policy.get_fine_days %> </p>
  <p><b>Fining Rate:</b> <%= @policy.fine_amount %> </p>
  <p><b>Selling Date Limit:</b> <%= @policy.market_sell_by %> </p>
 

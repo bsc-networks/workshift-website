@@ -48,7 +48,13 @@ class PoliciesController < ApplicationController
   # POST /policies
   # POST /policies.json
   def create
-    @policy = Policy.create!(policy_params)
+    pre_params = policy_params
+    arr = []
+    pre_params["fine_days"].split("; ").each do |date|
+      arr << Date.parse(date)
+    end
+    pre_params["fine_days"] = arr
+    @policy = Policy.create!(pre_params)
     @current_user.unit.policy = @policy
     @current_user.unit.save
     flash[:success] = "Your policies have been saved."
@@ -59,8 +65,14 @@ class PoliciesController < ApplicationController
   # PATCH/PUT /policies
   def update
     set_policy
-    @policy.update_attributes!(policy_params)
-    flash[:success] = "Your policies have been updated."
+    pre_params = policy_params
+    arr = []
+    pre_params["fine_days"].split("; ").each do |date|
+      arr << Date.parse(date)
+    end
+    pre_params["fine_days"] = arr
+    @policy.update_attributes!(pre_params)
+    flash[:success] = "Your policies have been updated"
     redirect_to policy_path
   end
 

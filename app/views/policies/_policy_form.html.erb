@@ -35,7 +35,7 @@
     <div class="col-sm-10">
         
         <div class='input-group date datetimepicker' id='datetimepicker_fine1' style="max-width:350px;">
-            <input id="fine_days" type='text' name="policy[fine_days]" class="form-control" value=<%=@policy.fine_days or @defaultDate %>   />
+            <input id="fine_days" type='text' name="policy[fine_days]" class="form-control" value="<%=@policy.get_fine_days or @defaultDate %>"   />
             <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -68,23 +68,39 @@
 
 <script type="text/javascript">
     $(function () {
-        date_format = "MMMM Do, YYYY"
-        x = $('#fine_days').val()
-
-        $('#datetimepicker_start').datetimepicker({
-            format: date_format,
-            defaultDate: moment($('#first_day').attr("value")),
+        date_format = "MMMM d, YYYY"
+        
+        var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+        $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
+        $('#datetimepicker_start').bootstrapDP({
+            orientation: "left bottom auto",
+            startDate: "today",
+            clearBtn: true,
+            format: "M d, yyyy"
         });
-        $('#datetimepicker_end').datetimepicker({
-            format: date_format,
-            defaultDate: $('#last_day').attr("value")
+        $('#datetimepicker_end').bootstrapDP({
+            orientation: "left bottom auto",
+            startDate: "today",
+            clearBtn: true,
+            format: "M d, yyyy"
         });
-        $('#datetimepicker_fine1').datetimepicker({
-            format: date_format,
-            defaultDate: $('#fine_days').attr("value")
+        $('#datetimepicker_fine1 input').bootstrapDP({
+            orientation: "left bottom auto",
+            startDate: "today",
+            clearBtn: true,
+            multidate: true,
+            multidateSeparator: "; ",
+            format: "M d, yyyy"
         });
+        
         $('#first_day').val(moment($('#first_day').attr("value")).format(date_format))
         $('#last_day').val(moment($('#last_day').attr("value")).format(date_format))
-        $('#fine_days').val(moment($('#fine_days').attr("value")).format(date_format))
+        fine_days = $('#fine_days').attr("value")
+        console.log(fine_days)
+        str = ""
+        for(day in fine_days){
+            str += moment(day).format(date_format) + ", "
+        }
+        // $('#fine_days').val(str)
     });
 </script>
