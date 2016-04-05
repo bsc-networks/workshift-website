@@ -52,6 +52,12 @@ class UsersController < ApplicationController
     redirect_to get_all_users_path
   end
   
+  def upload_avatar
+    @current_user.avatar = params[:user][:avatar]
+    @current_user.save
+    redirect_to user_profile_path
+  end
+  
   def show
   end
   
@@ -71,6 +77,6 @@ private
   end
   
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :permissions, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :email, :permissions, :password, :password_confirmation, :avatar)
   end
 end

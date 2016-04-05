@@ -13,8 +13,22 @@
         <div class="hline"></div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://socialbelly.com/assets/icons/blank_user-586bd979abac4d7c7007414f5e94fe71.png" class="img-circle img-responsive"> </div>
-
+                <div class="col-md-3 col-lg-3 " align="center"> 
+                  
+                  <%= image_tag current_user.avatar.url(:profile), :class => "img-circle img-responsive" %> 
+                  <div style="padding-top: 10px;"></div>
+                  <div class="hline"  style="margin-bottom: 10px;"></div>
+                  <%= form_for @current_user, url: edit_avatar_path, html: { multipart: true } do |form| %>
+                    <%= form.file_field :avatar , :class => "file-inputs", "data-filename-placement" => "inside", "title" => "Browse Pictures"%>
+                      <script>
+                        $( document ).ready(function() {
+                          $('.file-inputs').bootstrapFileInput();
+                        });
+                      </script>
+                    <%= form.submit "Change Picture", :class=>"btn btn-theme" %>
+                  <% end %>
+                  
+                </div>
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>

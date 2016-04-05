@@ -70,7 +70,7 @@ var WorkShiftTable = React.createClass({
     for (var i = 0; i < shifts.length; i++){
       var shift = shifts[i]
       data.push({"shift": shift.metashift.category,
-        "user": shift.user.first_name +" "+ shift.user.last_name,
+        "user": shift.user.full_name,
         "start_time": shift.start_time, 
         "end_time": shift.end_time
       })

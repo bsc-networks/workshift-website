@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/thoughtbot/paperclip.git
+  revision: 4ef27eb84fe283f5dbe62fd99d7359822e79db28
+  specs:
+    paperclip (5.0.0.beta1)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (~> 0.3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -69,6 +80,10 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     chronic (0.10.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
@@ -173,6 +188,7 @@ GEM
       json (~> 1.8)
       rest-client (~> 1.6)
     mime-types (2.99.1)
+    mimemagic (0.3.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     momentjs-rails (2.11.0)
@@ -337,6 +353,7 @@ DEPENDENCIES
   less-rails-bootstrap (~> 3.0)
   mailgun-ruby (~> 1.0.2)
   momentjs-rails (>= 2.9.0)
+  paperclip!
   pg
   railroady
   rails (= 4.2.5)

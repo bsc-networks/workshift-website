@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
     has_secure_password
     validates :email, uniqueness: true
     
+    has_attached_file :avatar, styles: { profile: "150x150>", thumb: "100x100>" }, default_url: "https://socialbelly.com/assets/icons/blank_user-586bd979abac4d7c7007414f5e94fe71.png"
+    validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+    
     belongs_to :unit
     has_many :shifts
     

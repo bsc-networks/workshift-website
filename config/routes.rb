@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post '/users/add' => 'users#add_user', as: 'add_user'
   get '/users/:id' => 'users#profile', as: 'user_profile'
   get '/users/:id/edit' => 'users#edit_profile', as: 'edit_profile'
+  patch '/users/:id/edit_avatar' => 'users#upload_avatar', as: 'edit_avatar'
 
   get '/index' => 'workshift#index'
   post '/shifts/upload' => 'shifts#upload', as: 'csv_shift_upload'
