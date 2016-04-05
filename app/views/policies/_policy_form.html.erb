@@ -6,7 +6,7 @@
     </div>
     <div class="col-sm-10">
         <div class='input-group date datetimepicker' id='datetimepicker_start' style="max-width:350px;">
-            <input id="first_day" value=<%=@policy.first_day or @defaultDate%> type='text' name="policy[first_day]" class="form-control" />
+            <input id="first_day" value="<%=@policy.get_first_day %>" type='text' name="policy[first_day]" class="form-control" />
             <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -20,7 +20,7 @@
     </div>
     <div class="col-sm-10">
         <div class='input-group date datetimepicker' id='datetimepicker_end' style="max-width:350px;">
-            <input id="last_day" value=<%=@policy.last_day or @defaultDate %> type='text' name="policy[last_day]" class="form-control" />
+            <input id="last_day" value="<%=@policy.get_last_day %>" type='text' name="policy[last_day]" class="form-control" />
             <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -35,7 +35,7 @@
     <div class="col-sm-10">
         
         <div class='input-group date datetimepicker' id='datetimepicker_fine1' style="max-width:350px;">
-            <input id="fine_days" type='text' name="policy[fine_days]" class="form-control" value="<%=@policy.get_fine_days or @defaultDate %>"   />
+            <input id="fine_days" type='text' name="policy[fine_days]" class="form-control" value="<%=@policy.get_fine_days %>"   />
             <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -50,7 +50,7 @@
     <div class="col-sm-10">
         <div class="input-group">
           <span class="input-group-addon">$</span>
-          <input id="fine_amount" value=<%=@policy.fine_amount or @defaultFine%> type="text" name="policy[fine_amount]" style="max-width:350px;"class="form-control" aria-label="Amount (to the nearest dollar)">
+          <input id="fine_amount" value="<%=@policy.fine_amount%>" type="text" name="policy[fine_amount]" style="max-width:350px;"class="form-control" aria-label="Amount (to the nearest dollar)">
         </div>
     </div>
 </div>
@@ -61,7 +61,7 @@
     </div>
     <div class="col-sm-10">
         <div class="input-group">
-          <input id="market_sell_by" value=<%=@policy.market_sell_by or @defaultLimit%> type="text" name="policy[market_sell_by]" style="max-width:350px;"class="form-control" aria-label="Amount (to the nearest dollar)">
+          <input id="market_sell_by" value="<%=@policy.market_sell_by%>" type="text" name="policy[market_sell_by]" style="max-width:350px;"class="form-control" aria-label="Amount (to the nearest dollar)">
         </div>
     </div>
 </div>
@@ -70,21 +70,21 @@
     $(function () {
         date_format = "MMMM d, YYYY"
         
-        var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
-        $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
-        $('#datetimepicker_start').bootstrapDP({
+        // var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+        // $.fn.bootstrapDP = datepicker;                 // give $().bootstrapDP the bootstrap-datepicker functionality
+        first = $('#first_day').datepicker({
             orientation: "left bottom auto",
             startDate: "today",
             clearBtn: true,
             format: "M d, yyyy"
         });
-        $('#datetimepicker_end').bootstrapDP({
+        last = $('#last_day').datepicker({
             orientation: "left bottom auto",
             startDate: "today",
             clearBtn: true,
             format: "M d, yyyy"
         });
-        $('#datetimepicker_fine1 input').bootstrapDP({
+        fine = $('#fine_days').datepicker({
             orientation: "left bottom auto",
             startDate: "today",
             clearBtn: true,
@@ -92,15 +92,17 @@
             multidateSeparator: "; ",
             format: "M d, yyyy"
         });
-        
-        $('#first_day').val(moment($('#first_day').attr("value")).format(date_format))
-        $('#last_day').val(moment($('#last_day').attr("value")).format(date_format))
-        fine_days = $('#fine_days').attr("value")
-        console.log(fine_days)
-        str = ""
-        for(day in fine_days){
-            str += moment(day).format(date_format) + ", "
-        }
-        // $('#fine_days').val(str)
+        // console.log(first)
+        // first_day_str = Date.parse($('#first_day').attr("value"))
+        // console.log(first_day_str);
+        // $('#first_day').val(first_day_str);
+        // $('#last_day').val(moment($('#last_day').attr("value")).format(date_format));
+        // fine_days = $('#fine_days').attr("value");
+        // console.log(fine_days);
+        // str = "";
+        // for(day in fine_days){
+        //     str += moment(day).format(date_format) + "; ";
+        // }
+        // $('#fine_days').val(str);
     });
 </script>

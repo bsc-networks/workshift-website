@@ -7,7 +7,7 @@
  <p><b>Fining Rate:</b> <%= @policy.fine_amount %> </p>
  <p><b>Selling Date Limit:</b> <%= @policy.market_sell_by %> </p>
 
-
+<%= puts @policy.inspect %>
 
 <%### ADMIN ONLY ###%>
 <% if @current_user.is_ws_manager? %>
