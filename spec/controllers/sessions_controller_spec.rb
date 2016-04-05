@@ -57,7 +57,7 @@ RSpec.describe SessionsController, type: :controller do
     end
     describe "logging in a user" do
         before :each do
-            User.stub(:find_by_email).and_return(@current_user)
+            allow(User).to receive(:find_by_email).and_return(@current_user)
         end
         it "should find the user in the database" do
             expect(User).to receive(:find_by_email)
@@ -72,7 +72,7 @@ RSpec.describe SessionsController, type: :controller do
         end
         context "when authentication succeeds" do
             before :each do
-                @current_user.stub(:authenticate).and_return(true)
+                allow(@current_user).to receive(:authenticate).and_return(true)
                 post :create, {:email => @current_user.email, :password => @current_user_pw}
             end
             it "should set the session's current user" do
@@ -84,7 +84,7 @@ RSpec.describe SessionsController, type: :controller do
         end
         context "when authentication fails" do
             it "should redirect to the login page" do
-                @current_user.stub(:authenticate).and_return(false)
+                allow(@current_user).to receive(:authenticate).and_return(false)
                 post :create, {:email => @current_user.email, :password => @current_user_pw}
                 expect(response).to redirect_to('/login')
             end

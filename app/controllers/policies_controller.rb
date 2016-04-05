@@ -1,10 +1,9 @@
 class PoliciesController < ApplicationController
   before_action :set_policy, only: [:show, :edit, :update, :destroy]
 
-  # GET /policies/1
-  # GET /policies/1.json
+  # GET /policies
   def show
-    @policy = @current_user.unit.policy
+    set_policy
     if not @policy
       if @current_user.is_ws_manager?
         redirect_to new_policy_path
@@ -18,7 +17,7 @@ class PoliciesController < ApplicationController
   # GET /policies/new
   def new
     if @current_user.is_ws_manager?
-      if @current_user.unit.policy
+      if set_policy
         flash[:notice] = "Your policies have already been set for this semester. Edit your policies below."
         redirect_to edit_policy_path
       end
@@ -32,10 +31,10 @@ class PoliciesController < ApplicationController
     end
   end
 
-  # GET /policies/1/edit
+  # GET /policies/edit
   def edit
     if @current_user.is_ws_manager?
-      @policy = @current_user.unit.policy
+      set_policy
       if not @policy
         flash[:info] = "You have not set the policies for this semester. Set your policies below."
         redirect_to new_policy_path
@@ -62,15 +61,11 @@ class PoliciesController < ApplicationController
     redirect_to policy_path
   end
 
-  # PATCH/PUT /policies/1
-  # PATCH/PUT /policies/1.json
+  # PATCH/PUT /policies
+  # PATCH/PUT /policies
   def update
-    @policy = @current_user.unit.policy
-    puts "#"*45
-    puts params
-    puts policy_params
+    set_policy
     pre_params = policy_params
-    puts pre_params
     arr = []
     pre_params["fine_days"].split("; ").each do |date|
       arr << Date.parse(date)
@@ -94,12 +89,11 @@ class PoliciesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_policy
-      # @policy = Policy.find(params[:id])
+      @policy = @current_user.unit.policy
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def policy_params
-      puts params
-      x = params.require(:policy).permit(:first_day, :last_day, :fine_amount, :fine_days, :market_sell_by)
+      params.require(:policy).permit(:first_day, :last_day, :fine_amount, :fine_days, :market_sell_by)
     end
 end

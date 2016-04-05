@@ -77,7 +77,7 @@ RSpec.describe UsersController, type: :controller do
         
         it 'should call a user method if a file is provided' do
             expect(User).to receive("import")
-            User.stub(:import).and_return([@a_user])
+            allow(User).to receive(:import).and_return([@a_user])
             post :upload, :file => @file
         end
     end
