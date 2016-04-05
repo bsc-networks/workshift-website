@@ -15,7 +15,7 @@ Feature: Viewing Semester Policies
   Scenario: A member views the policies for the semester
     Given the policies for the semester have been set
     When I go to the view policy page
-    Then I should see "Your Policies"
+    Then I should see "Policies for Cloyne"
     And I should see "Semester Start Date:" 
     And I should see "January 16, 2016"
     And I should not see "Edit"

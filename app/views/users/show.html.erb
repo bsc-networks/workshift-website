@@ -15,37 +15,37 @@
               <div class="row">
                 <div class="col-md-3 col-lg-3 " align="center"> 
                   
-                  <%= image_tag current_user.avatar.url(:profile), :class => "img-circle img-responsive" %> 
+                  <%= image_tag(@user.avatar.url(:profile), :class => "img-circle img-responsive") %> 
                   <div style="padding-top: 10px;"></div>
                   <div class="hline"  style="margin-bottom: 10px;"></div>
-                  <%= form_for @current_user, url: edit_avatar_path, html: { multipart: true } do |form| %>
-                    <%= form.file_field :avatar , :class => "file-inputs", "data-filename-placement" => "inside", "title" => "Browse Pictures"%>
-                      <script>
-                        $( document ).ready(function() {
-                          $('.file-inputs').bootstrapFileInput();
-                        });
-                      </script>
-                    <%= form.submit "Change Picture", :class=>"btn btn-theme" %>
-                  <% end %>
-                  
+                    <% if current_user.id == @user.id or admin_rights? %>
+                      <%= form_for @user, url: edit_avatar_path, html: { multipart: true } do |form| %>
+                          <%= form.file_field :avatar , :class => "file-inputs", "data-filename-placement" => "inside", "title" => "Browse Pictures"%>
+                            <script>$( document ).ready(function() {
+                                  $('.file-inputs').bootstrapFileInput();
+                                });
+                            </script>
+                          <%= form.submit "Change Picture", :class=>"btn btn-theme" %>
+                      <% end %>
+                    <% end %>
                 </div>
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td><b>First Name:</b></td>    <td><%= current_user.first_name.capitalize%> </td>
+                        <td><b>First Name:</b></td>    <td><%= @user.first_name.capitalize%> </td>
                       </tr>
                       <tr>
-                        <td><b>Last Name:</b></td>     <td><%= current_user.last_name.capitalize%></td>
+                        <td><b>Last Name:</b></td>     <td><%= @user.last_name.capitalize%></td>
                       </tr>
                       <tr>
-                        <td><b>Email:</b></td>          <td><a href="mailto:<%= current_user.email%>"><%= current_user.email%></td>
+                        <td><b>Email:</b></td>          <td><a href="mailto:<%= @user.email%>"><%= @user.email%></td>
                       </tr>
                       <tr>
-                        <td><b>Hour Balance</b></td>   <td><%= current_user.hour_balance %> </td>
+                        <td><b>Hour Balance</b></td>   <td><%= @user.hour_balance %> </td>
                       </tr>
                       <tr>
-                        <td><b>Fine Balance:</b></td>    <td><%= current_user.fine_balance %></td>
+                        <td><b>Fine Balance:</b></td>    <td><%= @user.fine_balance %></td>
                       </tr>
                       <tr>
                         <td><b>Permanent Shift Assignment:</b> </td>     <td></td>
@@ -73,4 +73,3 @@
         <% end %>
     </div>
 </div>
-

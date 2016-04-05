@@ -10,7 +10,7 @@ Feature: Editing Semester Policies as an Admin
   
   Scenario: An admin views the policies for the semester 
     When I go to the view policy page
-    Then I should see "Your Policies"
+    Then I should see "Policies for Cloyne"
     And I should see "Semester Start Date:" 
     And I should see "January 16, 2016"
     And I should see "Edit"
