@@ -1,3 +1,4 @@
+@wip
 Feature: Sign-off a shift
   As a member of a coop,
   In order to get credit for the shifts I work,
