@@ -49,7 +49,13 @@ class PoliciesController < ApplicationController
   # POST /policies
   # POST /policies.json
   def create
-    @policy = Policy.create!(policy_params)
+    pre_params = policy_params
+    arr = []
+    pre_params["fine_days"].split("; ").each do |date|
+      arr << Date.parse(date)
+    end
+    pre_params["fine_days"] = arr
+    @policy = Policy.create!(pre_params)
     @current_user.unit.policy = @policy
     @current_user.unit.save
     flash[:success] = "Your policies have been saved."
@@ -60,13 +66,16 @@ class PoliciesController < ApplicationController
   # PATCH/PUT /policies/1.json
   def update
     @policy = @current_user.unit.policy
+    puts "#"*45
+    puts params
+    puts policy_params
     pre_params = policy_params
+    puts pre_params
     arr = []
     pre_params["fine_days"].split("; ").each do |date|
       arr << Date.parse(date)
     end
     pre_params["fine_days"] = arr
-    puts pre_params
     @policy.update_attributes!(pre_params)
     flash[:success] = "Your policies have been updated"
     redirect_to policy_path
@@ -90,6 +99,7 @@ class PoliciesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def policy_params
-      params.require(:policy).permit(:first_day, :last_day, :fine_amount, :fine_days, :market_sell_by)
+      puts params
+      x = params.require(:policy).permit(:first_day, :last_day, :fine_amount, :fine_days, :market_sell_by)
     end
 end
