@@ -53,6 +53,12 @@ Given /^I am logged in$/ do
   simulate_login(@current_user)
 end
 
+# Given(/^"([^"]*)" is logged in$/) do |arg1|
+Given /^"(.*)" is logged in$/ do |first_name|
+  user = User.find_by_first_name(first_name)
+  simulate_login(user)
+end
+
 Given /^I am not logged in$/ do
 end
 
@@ -61,6 +67,17 @@ And /^I belong to "Cloyne"$/ do
   @current_unit = Unit.create!(:name => "Cloyne")
   @current_user.unit = @current_unit
   @current_user.save
+end
+
+Given(/^"([^"]*)" is assigned the following shifts:$/) do |first_name, shifts_table|
+  shifts_table.hashes.each do |shift|
+    metashift_id = shift[:metashift_id]
+    shift.delete(:metashift_id)
+    shift = Shift.create!(shift)
+    shift.metashift_id = metashift_id
+    shift.user_id = User.find_by_first_name(first_name)
+    shift.save
+  end
 end
 
 ### USER ACCESS ### 

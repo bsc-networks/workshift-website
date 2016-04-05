@@ -53,6 +53,10 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
+When /^(?:|I )click "([^"]*)"$/ do |button|
+  click_button(button)
+end
+
 When(/^I upload "([^"]*)"$/) do |arg1|
   page.attach_file("file", 'lib/' + arg1)
 end
