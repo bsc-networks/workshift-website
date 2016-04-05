@@ -24,5 +24,3 @@ Feature: Editing Semester Policies as an Admin
     Then I should be on the view policy page
     And I should see "Your policies have been updated"
     And I should see "100"
- 
-  
