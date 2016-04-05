@@ -116,7 +116,7 @@ Background:
     When I select "Head Cook" for "Giorgia's shifts"
     Then I should see the following: "Hours", "2"
     When I click "Sign off!"
-    Then Giorgia's shift for "Head Cook" should be completed
+    Then Giorgia's shift for "Head Cook" on "March 6, 2016" should be completed
     
   Scenario: A member signs off another member while not signed in
     Given I am on the home page
