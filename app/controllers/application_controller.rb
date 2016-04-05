@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
   
   def admin_rights?
-    self.current_user and self.current_user().is_ws_manager?
+    self.current_user and self.current_user.is_ws_manager?
   end
   helper_method :admin_rights?
 end
