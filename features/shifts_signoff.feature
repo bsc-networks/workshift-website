@@ -1,4 +1,3 @@
-@wip
 Feature: Sign-off a shift
   As a member of a coop,
   In order to get credit for the shifts I work,
@@ -26,6 +25,7 @@ Feature: Sign-off a shift
     | 11:00AM      | 1:00PM     | 3              | March 6, 2016   | false     |
     | 2:00PM       | 5:00PM     | 5              | March 8, 2016   | false     |
  
+  @wip
   Scenario: A member signs off another member while signed in
     Given "Eric" is logged in
     And I am on the home page
@@ -39,6 +39,7 @@ Feature: Sign-off a shift
     When I click "Sign off!"
     Then Giorgia's shift for "Head Cook" on "March 6, 2016" should be completed
     
+  @wip
   Scenario: A member signs off another member while not signed in
     Given I am on the home page
     Then I should see the following: "Workshifter", "Verifier", "Notes", "Password"
@@ -51,11 +52,23 @@ Feature: Sign-off a shift
     Then Giorgia's shift for "Head Cook" on "March 6, 2016" should be completed
     And I should not be logged in
 
+  @wip
+  Scenario: A member enters the wrong password to sign off another member
+    Given I am on the home page
+    When I select "Giorgia" for "Workshifter"
+    And I select "Head Cook" for "Giorgia's shifts"
+    And I select "Eric" for "Verifier"
+    And I fill in "rabbit" for "Password"
+    And I click "Sign off!"
+    Then Giorgia's shift for "Head Cook" on "March 6, 2016" should not be completed
+    
+  @wip
   Scenario: A manager signs off a member while logged in
     Given "Alex" is logged in
     And I am on the home page
     Then I should see the following: "Workshifter", "Notes", "Special Shift", "Recent online signoffs", "View Workshifts and Descriptions"
     
+  @wip
   Scenario: A workshift manager signs off a member while logged in
     Given "Maura" is logged in
     And I am on the home page
