@@ -47,7 +47,7 @@ Feature: Sign-off a shift
     And I select "Eric" for "Verifier"
     And I fill in "bunnny" for "Password"
     And I click "Sign off!"
-    Then Giorgia's shift for "Head Cook" should be completed
+    Then Giorgia's shift for "Head Cook" on "March 6, 2016" should be completed
     And I should not be logged in
 
   Scenario: A manager signs off a member while logged in
