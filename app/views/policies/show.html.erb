@@ -1,0 +1,16 @@
+<div class="spacing"></div>
+ <h3>Policies for <%= @current_user.unit.name %> </h4>
+ <div class="hline"></div>
+<div class = "information">
+ <p><b>Semester Start Date:</b> <%= @policy.first_day.strftime("%B %d, %Y") %> </p>
+ <p><b>Semester End Date:</b> <%= @policy.last_day.strftime("%B %d, %Y") %> </p>
+ <p><b>Fining Days:</b> <%= @policy.get_fine_days %> </p>
+ <p><b>Fining Rate:</b> <%= @policy.fine_amount %> </p>
+ <p><b>Selling Date Limit:</b> <%= @policy.market_sell_by %> </p>
+</div>
+<!--<%= puts @policy.inspect %>-->
+
+<%### ADMIN ONLY ###%>
+<% if @current_user.is_ws_manager? %>
+    <%= link_to 'Edit', edit_policy_path %>
+<% end %>

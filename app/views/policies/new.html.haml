@@ -1,0 +1,14 @@
+%h1 Set Policies
+
+= form_tag policy_path, class:"form-horizontal" do 
+  
+    = render :partial => 'policy_form'  
+
+    <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+    <button type="submit" class="btn btn-theme">Save</button>
+    </div>
+    </div>
+
+
+= link_to 'Back', policy_path

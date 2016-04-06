@@ -1,0 +1,19 @@
+= form_for @metashift do |f|
+  - if @metashift.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@metashift.errors.count, "error")} prohibited this metashift from being saved:"
+      %ul
+        - @metashift.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :category
+    = f.text_field :category
+  .field
+    = f.label :description
+    = f.text_field :description
+  .field
+    = f.label :multiplier
+    = f.text_field :multiplier
+  .actions
+    = f.submit 'Save'

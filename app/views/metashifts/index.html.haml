@@ -1,0 +1,25 @@
+%h1 Listing metashifts
+
+%table
+  %thead
+    %tr
+      %th Category
+      %th Description
+      %th Multiplier
+      %th
+      %th
+      %th
+
+  %tbody
+    - @metashifts.each do |metashift|
+      %tr
+        %td= metashift.category
+        %td= metashift.description
+        %td= metashift.multiplier
+        %td= link_to 'Show', metashift
+        %td= link_to 'Edit', edit_metashift_path(metashift)
+        %td= link_to 'Destroy', metashift, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Metashift', new_metashift_path

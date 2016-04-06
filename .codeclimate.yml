@@ -1,0 +1,9 @@
+languages:
+  Ruby: true
+exclude_paths:
+- "coverage/assets/0.10.0/application.js"
+- "features/step_definitions/web_steps.rb"
+- "config/initializers/form.rb"
+- "node_modules/**/*"
+- "bower_components/**/*"
+- "**.js"

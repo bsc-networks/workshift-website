@@ -1,0 +1,63 @@
+<!-- app/views/users/new.html.erb -->
+  <div class="row">
+    <div class="col-lg-8">
+      <h2>Add User Manually!</h2>
+      <div class="hline"></div>
+
+      <%=render "add_manual_form" %>
+
+    </div>
+    <! --/col-lg-8 -->
+
+    <div class="col-lg-4">
+      <h2>Upload CSV</h2>
+      <div class="hline"></div>
+
+      <%=render "add_csv_form" %>
+
+    </div>
+  </div>
+  <! --/row -->
+  
+  <! --New row -->
+  <div class="row" style= "padding-top:15px">
+
+  <div class="hline"></div>
+
+  <h3>You added <%= @users_uploaded.size %> new Users. Confirm below </h3>
+  <br>
+  <table id="Users_uploaded" class="table table-striped table-hover">
+    <tr>
+      <th>Name &nbsp; &nbsp; &nbsp;</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Permissions</th>
+    </tr>
+
+    <% @users_uploaded.each do |user| %>
+      <tr>
+        <td>
+          <%=user.first_name %>
+            <%=user.last_name%>
+        </td>
+        <td>
+          <%=user.email %>
+        </td>
+        <td>
+          <%=user.password %>
+        </td>
+        <td>
+          <%=user.permissions %>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+
+  <%=form_tag confirm_users_path do %>
+    <%=render "add_hidden_ids" %>
+      <br>
+  <button type="submit" class="btn btn-theme">Confirm Users</button>
+  <% end %>
+  </div>
+

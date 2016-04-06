@@ -1,0 +1,48 @@
+<br>
+  <%=form_tag add_user_path, :id => 'my_form' do %>
+    <%= label :user, :first_name, 'First Name' %>
+    <%= text_field :user, 'first_name', class:"form-control" %>
+    <br>
+    <%= label :user, :last_name, 'Last Name' %>
+    <%= text_field :user,"last_name", class:"form-control" %>
+    <br>
+    <%= label :user, :email, 'Email' %>
+    <%= text_field :user,"email", class:"form-control" %>
+    
+    <input type="hidden" name="user[permissions]" id="permission_field" value="">
+    
+    <div class = "form-group" id="dropdown_form">
+      <div class="dropdown" style="margin-top:20px; margin-bottom:20px">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Permissions
+      <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id= "permissions_menu">
+      <li><a href="#">Member</a></li>
+      <li><a href="#">Manager</a></li>
+      <li><a href="#">Workshift-Manager</a></li>
+      </ul>
+      </div>
+    </div>
+
+  <%= render "add_hidden_ids" %>
+  <button type="submit" class="btn btn-theme" id="submit_button">Add User</button>
+  
+  <script>
+    $(function(){
+      $(".dropdown-menu li a").click(function(){
+        $(".btn:first-child").text($(this).text());
+        $(".btn:first-child").val($(this).text());
+        per_string = $(".btn:first-child").text();
+        var permissions = {
+          "Member" : 2,
+          "Manager" : 1,
+          "Workshift-Manager" : 0
+          };
+        permission = $("#permission_field").val(permissions[per_string]);
+      });
+    });
+  </script>
+  <% end %>
+  
+

@@ -1,0 +1,81 @@
+<!-- app/views/layout/application.html.erb -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coop Workshift</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  
+  
+  <%= csrf_meta_tags %>
+</head>
+<!--<body style="background-color:#BBBBBB">-->
+<body>
+  
+   <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">WORKSHIFTR.</a>
+      </div>
+      <div class="navbar-collapse collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/shifts"> Shifts </a></li>
+            <% if current_user %>
+              <li> <%= link_to 'Policies', policy_path %> </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.full_name %> <b class="caret"></b></a>
+                <ul class="dropdown-menu dropdown-menu-theme">
+                  <li><%= link_to "Profile", user_profile_path(current_user.id) %></li>
+                  <li><%= link_to "Sign Out", '/logout' %></li>
+                </ul>
+              </li>
+            <% else %>
+              <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+          			<div id="login-dp" class="dropdown-menu">
+          				<!--<li>-->
+          				<!--	 <div class="row">-->
+          				<!--			<div class="col-md-12">-->
+          								 <%= render "sessions/login_form" %>
+          				<!--			</div>-->
+          				<!--	 </div>-->
+          				<!--</li>-->
+          			</div>
+              </li>
+            <% end %>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+
+
+<div class="container mtb">
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%=key%>" >
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong> <%= value %> </strong>
+  </div>
+<% end %>
+
+<%= yield %>
+</div><!-- /headerwrap --> 
+  
+<%= javascript_include_tag 'bundle' %>
+<!-- Latest compiled and minified JavaScript -->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
+  </body>
+</html>

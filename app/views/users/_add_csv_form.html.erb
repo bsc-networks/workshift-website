@@ -1,0 +1,15 @@
+
+<%= form_tag csv_upload_path, multipart: true do %>
+  <br>
+
+  <input type="file" name="file" class="file-inputs" data-filename-placement="inside">
+  <script>
+    $( document ).ready(function() {
+      $('.file-inputs').bootstrapFileInput();
+    });
+  </script>
+  <br>
+  <br>
+  <%= render "add_hidden_ids" %>
+  <button type="submit" class="btn btn-theme">Import</button>
+<% end %>

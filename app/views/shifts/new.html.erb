@@ -1,0 +1,21 @@
+<!-- app/views/shifts/new.html.erb -->
+<div class="row">
+<div class="col-lg-8">
+  <h2>Add Workshift Manually</h2>
+  <div class="hline"></div>
+
+  <%=render "add_manual_form" %>
+
+</div>
+<! --/col-lg-8 -->
+
+<div class="col-lg-4">
+  <h2>Upload CSV</h2>
+  <div class="hline"></div>
+    <%=render "add_csv_form" %>
+  </div>
+</div>
+<! --/row -->
+<div style='margin-top:30px;'>
+  <a href="/shifts" button type="button" class="btn btn-theme" id="back_button">Back</a>
+</div>
