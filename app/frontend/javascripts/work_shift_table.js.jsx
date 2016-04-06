@@ -1,8 +1,59 @@
 
 'use strict'
 
-var React = require('react')
-var Griddle = require('griddle-react')
+var React = require('react');
+var Griddle = require('griddle-react');
+var ReactDOM = require('react-dom');
+
+var Button = require('react-bootstrap/lib/Button');
+var Popover = require('react-bootstrap/lib/Popover');
+var OverlayTrigger = require('react-bootstrap/lib/OverlayTrigger');
+
+var moment = require('moment');
+
+var DescriptionComponent;
+
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
+DescriptionComponent = React.createClass({
+  displayName: 'DescriptionComponent',
+  componentDidMount: function() {
+    
+  },
+
+  render: function(){
+    return (
+      <div>
+        <OverlayTrigger trigger="click" placement="left" overlay={<Popover title={this.props.rowData.shift}>{this.props.rowData.description}</Popover>}>
+          <Button color="blue" type="button">Description</Button>
+        </OverlayTrigger>
+      </div>
+    );}
+});
+
+var UserComponent = React.createClass({
+  displayName: 'UserComponent',
+  getInitialState: function(){
+    var full_name = this.props.rowData.user.full_name
+    if (full_name) {
+      full_name = full_name.capitalizeFirstLetter();
+    }
+    return {profile_url: "users/"+this.props.rowData.user.user_id,
+            full_name: full_name
+    }
+  },
+  
+  render: function(){
+    return (
+      <a href={this.state.profile_url} className="btn btn-default" role="button">
+        {this.state.full_name}
+      </a>
+      );
+    
+  }
+  });
 
 var columnMeta = [
   {
@@ -17,7 +68,7 @@ var columnMeta = [
   "columnName": "user",
   "displayName": "User",
   "order": 4,
-  //"customComponent": UserComponent
+  "customComponent": UserComponent
   },
   {
   "columnName": "start_time",
@@ -32,11 +83,14 @@ var columnMeta = [
   {
   "columnName": "description",
   "displayName": "Description",
-  "order" :5
+  "order" :5,
+  "customComponent": DescriptionComponent
   },
 ];
 
-
+var columns = [
+  'shift', 'user', 'start_time', 'end_time', 'description' 
+  ];
 
 
 var WorkShiftTable = React.createClass({
@@ -49,14 +103,16 @@ var WorkShiftTable = React.createClass({
    return {shiftData: [
      {
     "shift": "Pans",
-    "user": "Mayer Leonard",
+    "user": {"full_name":"Mayers Leonard",
+                 "user_id" : 1},
     "start_time": "2PM",
     "end_time": "3PM",
     "description": "Pans description"
   },
   {
     "shift": "Kitchen",
-    "user": "Mom",
+    "user": {"full_name":"Mom",
+                 "user_id" : 1},
     "start_time": "3PM",
     "end_time": "5PM",
     "description": "Kitchen description"
@@ -66,42 +122,38 @@ var WorkShiftTable = React.createClass({
   
   componentDidMount: function(){
     var shifts = this.props.shifts
+    console.log(shifts)
     var data = []
     for (var i = 0; i < shifts.length; i++){
       var shift = shifts[i]
       data.push({"shift": shift.metashift.category,
-        "user": shift.user.full_name,
-        "start_time": shift.start_time, 
-        "end_time": shift.end_time
+        "user": {"full_name":shift.user.first_name +" " +shift.user.last_name,
+                 "user_id" : shift.user_id},
+        "start_time": moment(shift.start_time).format('llll'), 
+        "end_time": moment(shift.end_time).format('llll'),
+        "description": shift.metashift.description,
       })
     }
+    console.log(data)
     if (shifts.length > 0) {
       this.setState({shiftData: data})
     } else{
       
     }
   },
-  
-  // render: function(){
-  //   return (
-  //       <div> Hello from react land!</div>
-  //     );
-  // }
 
   render: function() {
     return (
       <div>
         <Griddle results={this.state.shiftData}
         columnMetadata={columnMeta}
+        columns={columns}
         showFilter={true}/>
       </div>
     );
   }
 });
 
-var hello = function(){
-  run: console.log("Hello world");
-}
+
 module.exports = WorkShiftTable
-//module.exports = WorkShiftTable
-//module.exports(hello)
+
