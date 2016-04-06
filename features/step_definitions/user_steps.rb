@@ -53,6 +53,7 @@ Given /^I am logged in$/ do
   simulate_login(@current_user)
 end
 
+
 Given /^"(.*)" is logged in$/ do |first_name|
   user = User.find_by_first_name(first_name)
   simulate_login(user)
