@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 @wip
+=======
+>>>>>>> starting signoff cuke
 Feature: Sign-off a shift
   As a member of a coop,
   In order to get credit for the shifts I work,
   I would like to get signed off online by another member
   
+<<<<<<< HEAD
   Background:
     Given the following users exist:
     | first_name      | last_name     | email                     |   password     |    permissions   |
@@ -61,6 +65,25 @@ Feature: Sign-off a shift
     And I am on the home page
     Then I should see the following: "Workshifter", "Notes", "Special Shift", "Recent online signoffs", "View Workshifts and Descriptions"
     
+=======
+Background:
+  Given the following users exist:
+  | first_name      | last_name     | email                     |   password     |    permissions   |
+  | Eric            | Nelson        | ericn@berkeley.edu        |   bunnny       |      0           |
+  | Alex            | Danilychev    | danilychev@berkeley.edu   |   rabbit       |      0           |
+  | Giorgia         | Willits       | gwillits@berkeley.edu     |   tortoise     |      2           |
+  
+  And the following metashifts exist:
+  | category      | description     | multiplier    |
+  | Eric            | Nelson        | ericn@berkeley.edu     |  
+  
+  And "Eric" is logged in
+  And "Giorgia" is assigned the following shifts:
+  | start_time      | end_time     | metashift_id       |
+  |             |        | ericn@.edu        |  
+  
+  
+>>>>>>> starting signoff cuke
 # homepage
 # if you are signed in
 #     pwd not required for signoff
