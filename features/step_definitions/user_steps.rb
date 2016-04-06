@@ -5,7 +5,6 @@ Given /the following users exist/ do |users_table|
     # you should arrange to add that user to the database here.
     User.create!(user)
   end
-  # puts "COUNT: " + User.all.count.to_s
 end
 
 Given /none of the uploaders exists/ do
@@ -73,12 +72,12 @@ And /^I belong to "Cloyne"$/ do
 end
 
 Given(/^"([^"]*)" is assigned the following shifts:$/) do |first_name, shifts_table|
+  user = User.find_by_first_name(first_name)
   shifts_table.hashes.each do |shift|
     metashift_id = shift[:metashift_id]
     shift.delete(:metashift_id)
-    shift = Shift.create!(shift)
+    shift = user.shifts.create!(shift)
     shift.metashift_id = metashift_id
-    shift.user_id = User.find_by_first_name(first_name)
     shift.save
   end
 end

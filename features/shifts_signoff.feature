@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 @wip
 =======
 >>>>>>> starting signoff cuke
+=======
+>>>>>>> 306db3330a3dbb2d0f388487ee1e10c6d5816bba
 Feature: Sign-off a shift
   As a member of a coop,
   In order to get credit for the shifts I work,
@@ -9,8 +12,11 @@ Feature: Sign-off a shift
   
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> cuke feature done without step definitions
+=======
+>>>>>>> 306db3330a3dbb2d0f388487ee1e10c6d5816bba
   Background:
     Given the following users exist:
     | first_name      | last_name     | email                     |   password     |    permissions   |
@@ -19,6 +25,9 @@ Feature: Sign-off a shift
     | Alex            | Danily        | adanily@berkeley.edu      |   hare         |      1           |
     | Maura           | Fitz          | mfitz@berkeley.edu        |   kitty        |      2           |
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 306db3330a3dbb2d0f388487ee1e10c6d5816bba
   
     And the following metashifts exist:
     | category      | name                             | id |
@@ -34,6 +43,10 @@ Feature: Sign-off a shift
     | 11:00AM      | 1:00PM     | 3              | March 6, 2016   | false     |
     | 2:00PM       | 5:00PM     | 5              | March 8, 2016   | false     |
  
+<<<<<<< HEAD
+=======
+  @wip
+>>>>>>> 306db3330a3dbb2d0f388487ee1e10c6d5816bba
   Scenario: A member signs off another member while signed in
     Given "Eric" is logged in
     And I am on the home page
@@ -47,6 +60,10 @@ Feature: Sign-off a shift
     When I click "Sign off!"
     Then Giorgia's shift for "Head Cook" on "March 6, 2016" should be completed
     
+<<<<<<< HEAD
+=======
+  @wip
+>>>>>>> 306db3330a3dbb2d0f388487ee1e10c6d5816bba
   Scenario: A member signs off another member while not signed in
     Given I am on the home page
     Then I should see the following: "Workshifter", "Verifier", "Notes", "Password"
@@ -57,6 +74,7 @@ Feature: Sign-off a shift
     And I fill in "bunnny" for "Password"
     And I click "Sign off!"
     Then Giorgia's shift for "Head Cook" on "March 6, 2016" should be completed
+<<<<<<< HEAD
 <<<<<<< HEAD
     And I should not be logged in
 
@@ -133,17 +151,39 @@ Background:
 >>>>>>> all step definitions defined
     And I should not be logged in
 
+=======
+    And I should not be logged in
+
+  @wip
+  Scenario: A member enters the wrong password to sign off another member
+    Given I am on the home page
+    When I select "Giorgia" for "Workshifter"
+    And I select "Head Cook" for "Giorgia's shifts"
+    And I select "Eric" for "Verifier"
+    And I fill in "rabbit" for "Password"
+    And I click "Sign off!"
+    Then Giorgia's shift for "Head Cook" on "March 6, 2016" should not be completed
+    
+  @wip
+>>>>>>> 306db3330a3dbb2d0f388487ee1e10c6d5816bba
   Scenario: A manager signs off a member while logged in
     Given "Alex" is logged in
     And I am on the home page
     Then I should see the following: "Workshifter", "Notes", "Special Shift", "Recent online signoffs", "View Workshifts and Descriptions"
     
+<<<<<<< HEAD
+=======
+  @wip
+>>>>>>> 306db3330a3dbb2d0f388487ee1e10c6d5816bba
   Scenario: A workshift manager signs off a member while logged in
     Given "Maura" is logged in
     And I am on the home page
     Then I should see the following: "Workshifter", "Notes", "Special Shift", "Recent online signoffs", "View Workshifts and Descriptions"
     
+<<<<<<< HEAD
 >>>>>>> cuke feature done without step definitions
+=======
+>>>>>>> 306db3330a3dbb2d0f388487ee1e10c6d5816bba
 # homepage
 # if you are signed in
 #     pwd not required for signoff
