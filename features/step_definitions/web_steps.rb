@@ -199,6 +199,10 @@ When(/^(?:|I )click "([^"]*)"$/) do |button|
   click_button(button)
 end
 
+When(/^I click "([^"]*)" in the row for "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
 When /^I select "([^"]*)" as the (.+) "([^"]*)"(?: date)?$/ do |date, model, selector|
   date = Date.parse(date)
   select(date.year.to_s, :from => "#{model}[#{selector}(1i)]")
