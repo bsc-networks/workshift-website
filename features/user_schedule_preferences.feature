@@ -1,4 +1,4 @@
-Feature: Set User Preferences
+Feature: Set User Preferences for Schedule
   As a co-op member
   In order to be assigned shifts at times that I can work
   I would like to be able to set my schedule preferences for the semester.
