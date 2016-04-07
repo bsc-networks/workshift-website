@@ -48,6 +48,11 @@ module NavigationHelpers
     when /^the edit policies page$/
       edit_policy_path
       
+     #### Preferences ####
+    when /^the set preferences page$/
+      # user_preferences_path
+      "/"
+      
       
       
     # Add more mappings here.

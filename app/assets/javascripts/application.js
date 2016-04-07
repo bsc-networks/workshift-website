@@ -18,9 +18,7 @@
 //= require dataTables/jquery.dataTables
 //= require turbolinks
 
-// require custom
 //= require moment
-// require bootstrap-datetimepicker
 //= require bootstrap-datepicker
 
 
