@@ -54,6 +54,10 @@ When(/^(?:|I )follow "([^"]*)"$/) do |link|
   click_link(link)
 end
 
+When(/^I follow "([^"]*)" for "([^"]*)"$/) do |arg1, arg2|
+  pending 
+end
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -85,10 +89,12 @@ end
 Then(/^I should see a workshift table$/) do
   if page.respond_to? :should
     page.should have_content("Category")
+    page.should have_content("Name")
     page.should have_content("Description")
     page.should have_content("Hour")
   else
     assert page.has_content?("Category")
+    page.should have_content("Name")
     assert page.has_content?("Description")
     assert page.has_content?("Hour")
   end
