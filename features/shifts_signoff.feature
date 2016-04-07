@@ -24,7 +24,7 @@ Feature: Sign-off a shift
     | 5:00PM       | 6:00PM     | 1              | March 5, 2016   | false     |
     | 11:00AM      | 1:00PM     | 3              | March 6, 2016   | false     |
     | 2:00PM       | 5:00PM     | 5              | March 8, 2016   | false     |
- 
+    
   @wip
   Scenario: A member signs off another member while signed in
     Given "Eric" is logged in

@@ -1,4 +1,4 @@
-Feature: View a Workshift
+Feature: View Workshift Table
   As a user of any type,
   In order to learn more about a workshift,
   I would like to view the list of workshifts and select one to see more details.
