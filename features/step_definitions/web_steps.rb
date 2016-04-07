@@ -41,6 +41,7 @@ When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
   with_scope(parent) { When "#{step}:", table_or_string }
 end
 
+########## PAGE NAVIGATION ##########
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -49,20 +50,21 @@ When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
-When /^(?:|I )press "([^"]*)"$/ do |button|
-  click_button(button)
+When(/^(?:|I )follow "([^"]*)"$/) do |link|
+  click_link(link)
 end
 
-When /^(?:|I )click "([^"]*)"$/ do |button|
-  click_button(button)
+Then /^(?:|I )should be on (.+)$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  if current_path.respond_to? :should
+    current_path.should == path_to(page_name)
+  else
+    assert_equal path_to(page_name), current_path
+  end
 end
 
-When(/^I upload "([^"]*)"$/) do |arg1|
-  page.attach_file("file", 'lib/' + arg1)
-end
-
-
-Then /^I should see "([^"]*)" "(.+)" times$/ do |text, num|
+########## WHAT I SHOULD SEE ON PAGE ##########
+Then(/^I should see "([^"]*)" "(.+)" times$/) do |text, num|
   number = num.to_i
   page.should have_content(text, :count => number)
 end
@@ -92,67 +94,7 @@ Then(/^I should see a workshift table$/) do
   end
 end
 
-When /^(?:|I )follow "([^"]*)"$/ do |link|
-  click_link(link)
-end
-
-When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
-    fill_in(field, :with => value)
-end
-
-When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
-  fill_in(field, :with => value)
-end
-
-# Use this to fill in an entire form with data from a table. Example:
-#
-#   When I fill in the following:
-#     | Account Number | 5002       |
-#     | Expiry date    | 2009-11-01 |
-#     | Note           | Nice guy   |
-#     | Wants Email?   |            |
-#
-# TODO: Add support for checkbox, select or option
-# based on naming conventions.
-#
-When /^(?:|I )fill in the following:$/ do |fields|
-  fields.rows_hash.each do |name, value|
-    When %{I fill in "#{name}" with "#{value}"}
-  end
-end
-
-When /^I select "([^"]*)" as the (.+) "([^"]*)"(?: date)?$/ do |date, model, selector|
-  date = Date.parse(date)
-  select(date.year.to_s, :from => "#{model}[#{selector}(1i)]")
-  select(date.strftime("%B"), :from => "#{model}[#{selector}(2i)]")
-  select(date.day.to_s, :from => "#{model}[#{selector}(3i)]")
-end
-
-When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
-  select(value, :from => field)
-end
-
-When /^(?:|I )select "([^"]*)" for "([^"]*)"$/ do |value, field|
-  select(value, :from => field)
-end
-
-When /^(?:|I )check "([^"]*)"$/ do |field|
-  check("ratings_"+field)
-end
-
-When /^(?:|I )uncheck "([^"]*)"$/ do |field|
-  uncheck("ratings_"+field)
-end
-
-When /^(?:|I )choose "([^"]*)"$/ do |field|
-  choose(field)
-end
-
-When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
-  attach_file(field, File.expand_path(path))
-end
-
-Then /^(?:|I )should see "([^"]*)"$/ do |text|
+Then(/^(?:|I )should see "([^"]*)"$/) do |text|
   if page.respond_to? :should
     page.should have_content(text)
   else
@@ -177,7 +119,7 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
-Then /^(?:|I )should not see "([^"]*)"$/ do |text|
+Then(/^(?:|I )should not see "([^"]*)"$/) do |text|
   if page.respond_to? :should
     page.should have_no_content(text)
   else
@@ -226,6 +168,104 @@ Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |f
   end
 end
 
+Then(/^the "([^"]*)" checkbox(?: within (.*))? should be checked$/) do |label, parent|
+  with_scope(parent) do
+    field_checked = find_field(label)['checked']
+    if field_checked.respond_to? :should
+      field_checked.should be_true
+    else
+      assert field_checked
+    end
+  end
+end
+
+Then(/^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/) do |label, parent|
+  with_scope(parent) do
+    field_checked = find_field(label)['checked']
+    if field_checked.respond_to? :should
+      field_checked.should be_false
+    else
+      assert !field_checked
+    end
+  end
+end
+
+########## CLICK/SELECT/CHECK/FILL IN ##########
+When(/^(?:|I )press "([^"]*)"$/) do |button|
+  click_button(button)
+end
+
+When(/^(?:|I )click "([^"]*)"$/) do |button|
+  click_button(button)
+end
+
+When /^I select "([^"]*)" as the (.+) "([^"]*)"(?: date)?$/ do |date, model, selector|
+  date = Date.parse(date)
+  select(date.year.to_s, :from => "#{model}[#{selector}(1i)]")
+  select(date.strftime("%B"), :from => "#{model}[#{selector}(2i)]")
+  select(date.day.to_s, :from => "#{model}[#{selector}(3i)]")
+end
+
+When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+  select(value, :from => field)
+end
+
+When /^(?:|I )select "([^"]*)" for "([^"]*)"$/ do |value, field|
+  select(value, :from => field)
+end
+
+When(/^(?:|I )check "([^"]*)"$/) do |field|
+  check("ratings_"+field)
+end
+
+When(/^(?:|I )uncheck "([^"]*)"$/) do |field|
+  uncheck("ratings_"+field)
+end
+
+When(/^(?:|I )choose "([^"]*)"$/) do |field|
+  choose(field)
+end
+
+When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
+    fill_in(field, :with => value)
+end
+
+When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
+  fill_in(field, :with => value)
+end
+
+# Use this to fill in an entire form with data from a table. Example:
+#
+#   When I fill in the following:
+#     | Account Number | 5002       |
+#     | Expiry date    | 2009-11-01 |
+#     | Note           | Nice guy   |
+#     | Wants Email?   |            |
+#
+# TODO: Add support for checkbox, select or option
+# based on naming conventions.
+#
+When /^(?:|I )fill in the following:$/ do |fields|
+  fields.rows_hash.each do |name, value|
+    When %{I fill in "#{name}" with "#{value}"}
+  end
+end
+
+########## UPLOAD ##########
+When(/^I upload "([^"]*)"$/) do |arg1|
+  page.attach_file("file", 'lib/' + arg1)
+end
+
+When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
+  attach_file(field, File.expand_path(path))
+end
+
+########## SUBMIT ##########
+Then /I submit/ do
+  find('input[name="commit"]').click
+end
+
+########## ERROR ##########
 Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_message|
   element = find_field(field)
   classes = element.find(:xpath, '..')[:class].split(' ')
@@ -257,7 +297,7 @@ Then /^the "([^"]*)" field should have the error "([^"]*)"$/ do |field, error_me
   end
 end
 
-Then /^the "([^"]*)" field should have no error$/ do |field|
+Then(/^the "([^"]*)" field should have no error$/) do |field|
   element = find_field(field)
   classes = element.find(:xpath, '..')[:class].split(' ')
   if classes.respond_to? :should
@@ -269,37 +309,7 @@ Then /^the "([^"]*)" field should have no error$/ do |field|
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, parent|
-  with_scope(parent) do
-    field_checked = find_field(label)['checked']
-    if field_checked.respond_to? :should
-      field_checked.should be_true
-    else
-      assert field_checked
-    end
-  end
-end
-
-Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label, parent|
-  with_scope(parent) do
-    field_checked = find_field(label)['checked']
-    if field_checked.respond_to? :should
-      field_checked.should be_false
-    else
-      assert !field_checked
-    end
-  end
-end
- 
-Then /^(?:|I )should be on (.+)$/ do |page_name|
-  current_path = URI.parse(current_url).path
-  if current_path.respond_to? :should
-    current_path.should == path_to(page_name)
-  else
-    assert_equal path_to(page_name), current_path
-  end
-end
-
+########## RANDOM ##########
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
@@ -315,8 +325,4 @@ end
 
 Then /^show me the page$/ do
   save_and_open_page
-end
-
-Then /I submit/ do
-  find('input[name="commit"]').click
 end
