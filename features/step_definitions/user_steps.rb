@@ -46,6 +46,10 @@ Given /^I am logged in as a user$/ do
   step "I am logged in as a non-admin"
 end
 
+Given(/^I am logged in as a member$/) do
+  step "I am logged in as a non-admin" 
+end
+
 Given /^I am logged in$/ do
   if not @current_user
     @current_user = User.create!({"first_name"=>"Example", "last_name"=>"Non-Admin", "email"=>"non_admin@berkeley.edu", "password"=>"nonadmin", "permissions"=>"0"})
