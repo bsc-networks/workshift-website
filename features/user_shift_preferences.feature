@@ -27,6 +27,7 @@ Feature: Set User Preferences for Workshifts
     And I should not see the following: "Waste Reduction Coordinator", "TRC"
     And I should see "View description"
     
+  @wip
   Scenario: A user views workshift descriptions
     When I click "Expand" in the row for "Kitchen"
     When I click "View description" in the row for "Dishes"
@@ -36,6 +37,7 @@ Feature: Set User Preferences for Workshifts
     Then I should not see the following: "Kitchen Manager", "Dishes", "Head Cook"
     And I should not see "Use a sponge and soap to scrub off each dish."
   
+  @wip
   Scenario: A user sets their workshift preferences
     When I fill in "5" for the rank box for "Kitchen"
     And I fill in "1" for the rank box for "Garbage"
@@ -46,6 +48,7 @@ Feature: Set User Preferences for Workshifts
     And I click "Save"
     Then my preferences should be saved
     
+  @wip
   Scenario: A user sets invalid workshift preferences
     When I fill in "h" for the rank box for "Kitchen"
     And I fill in "6" for the rank box for "Garbage"
