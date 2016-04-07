@@ -1,4 +1,3 @@
-@wip
 Feature: Set User Preferences for Workshifts
   As a co-op member
   In order to be assigned shifts that I like
