@@ -7,13 +7,7 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
     @shifts = Shift.all
-    #print(@shifts)
     @serializedShifts = json_shifts(@shifts)
-    #puts(@serializedShifts)
-    if @shifts.empty?
-      #puts "EMPTY"
-    end
-    #puts @serializedShifts
   end
   
   def new_timeslots

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405071434) do
+ActiveRecord::Schema.define(version: 20160405075121) do
 
   create_table "metashifts", force: :cascade do |t|
     t.string   "category"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160405071434) do
     t.float    "multiplier"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "name"
   end
 
   create_table "policies", force: :cascade do |t|
@@ -39,6 +40,8 @@ ActiveRecord::Schema.define(version: 20160405071434) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "user_id"
+    t.datetime "date"
+    t.boolean  "completed"
   end
 
   add_index "shifts", ["metashift_id"], name: "index_shifts_on_metashift_id"
@@ -57,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160405071434) do
     t.integer  "permissions"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "password"
     t.string   "password_digest"
     t.boolean  "sent_confirmation",   default: false
     t.boolean  "has_confirmed",       default: false

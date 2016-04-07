@@ -5,7 +5,6 @@ Given /the following users exist/ do |users_table|
     # you should arrange to add that user to the database here.
     User.create!(user)
   end
-  # puts "COUNT: " + User.all.count.to_s
 end
 
 Given /none of the uploaders exists/ do
@@ -57,7 +56,16 @@ Given /^I am logged in$/ do
   simulate_login(@current_user)
 end
 
+Given /^"(.*)" is logged in$/ do |first_name|
+  user = User.find_by_first_name(first_name)
+  simulate_login(user)
+end
+
 Given /^I am not logged in$/ do
+end
+
+And /^I should not be logged in$/ do
+  step %Q{I should not see the following: "Profile", "Sign Out"}
 end
 
 ### USER ASSOCIATIONS ### 
@@ -65,6 +73,17 @@ And /^I belong to "Cloyne"$/ do
   @current_unit = Unit.create!(:name => "Cloyne")
   @current_user.unit = @current_unit
   @current_user.save
+end
+
+Given(/^"([^"]*)" is assigned the following shifts:$/) do |first_name, shifts_table|
+  user = User.find_by_first_name(first_name)
+  shifts_table.hashes.each do |shift|
+    metashift_id = shift[:metashift_id]
+    shift.delete(:metashift_id)
+    shift = user.shifts.create!(shift)
+    shift.metashift_id = metashift_id
+    shift.save
+  end
 end
 
 ### USER ACCESS ### 

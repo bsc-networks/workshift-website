@@ -53,6 +53,10 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
+When /^(?:|I )click "([^"]*)"$/ do |button|
+  click_button(button)
+end
+
 When(/^I upload "([^"]*)"$/) do |arg1|
   page.attach_file("file", 'lib/' + arg1)
 end
@@ -125,6 +129,10 @@ When /^I select "([^"]*)" as the (.+) "([^"]*)"(?: date)?$/ do |date, model, sel
 end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+  select(value, :from => field)
+end
+
+When /^(?:|I )select "([^"]*)" for "([^"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
