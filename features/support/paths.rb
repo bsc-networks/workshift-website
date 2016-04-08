@@ -12,14 +12,12 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
+    
+    #### APPLICATION ####
     when /^the login\s?page$/
       '/login'
     when /^the home\s?page$/
       '/'
-    when /^my profile page$/
-      user_profile_path(User.find_by_id(@current_user.id))
-    when /^my edit profile page$/
-      edit_profile_path(User.find_by_id(@current_user.id))
       
     ### WORKSHIFT MANAGER ###
     when /^the create members\s?page$/
@@ -27,8 +25,13 @@ module NavigationHelpers
     when /^the view weekly history page$/
       '/'
       
-    # when /^(.*)'s profile page$/i
-      # user_profile_path(User.find_by_login($1))
+    #### USERS ####
+    when /^my profile page$/
+      user_profile_path(User.find_by_id(@current_user.id))
+    when /^my edit profile page$/
+      edit_profile_path(User.find_by_id(@current_user.id))
+    when /^the set preferences page$/
+      '/'
       
     #### WORKSHIFTS ####
     when /^the create workshifts page$/
@@ -47,6 +50,13 @@ module NavigationHelpers
       new_policy_path
     when /^the edit policies page$/
       edit_policy_path
+      
+     #### Preferences ####
+    when /^the set preferences page$/
+      # user_preferences_path
+      "/"
+      
+      
       
       
       

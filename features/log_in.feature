@@ -1,7 +1,7 @@
-Feature: Log in to the Page
+Feature: Log in to the Application
   As any user, with any set of permissions
-  I want to be able to log in to the app
-  So that I can view pages on the site that I have permissions for.
+  In order to view pages on the site that I have permissions for
+  I want to be able to log in to the app.
 
 Background: users in database
 
