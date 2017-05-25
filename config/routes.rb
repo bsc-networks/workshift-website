@@ -11,6 +11,8 @@ WorkshiftWebsite::Application.routes.draw do
     get 'settings/preferences' => :preferences, as: :preferences
     delete 'residents/delete/all' => :delete_all, as: :delete_all_users
     post 'residents/add' => :add_users, as: :invite_users
+    post 'residents/settings/required_hours' => :update_mult_required_hours,
+         as: :update_mult_required_hours
     post 'settings/preferences/categories' => :update_category_preferences,
          as: :update_category_preferences
     post 'settings/preferences/schedule' => :update_schedule,

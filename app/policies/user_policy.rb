@@ -11,6 +11,10 @@ class UserPolicy < ApplicationPolicy
     user.workshift_manager?
   end
 
+  def update_mult_required_hours?
+    user.workshift_manager?
+  end
+
   def update_workshift_selling_limit?
     user.workshift_manager?
   end

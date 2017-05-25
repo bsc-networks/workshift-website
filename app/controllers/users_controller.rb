@@ -99,6 +99,22 @@ class UsersController < ApplicationController
     redirect_to marketplace_path(@user)
   end
 
+  def update_mult_required_hours
+    authorize :user
+    required_hours = params[:required_hours].to_f
+    if required_hours >= 0 and required_hours <= HOURS_PER_WEEK and params[:user_ids] != nil
+      for user_id in params[:user_ids].keys
+        @user = User.find_by_id(user_id)
+        @user.update_required_hours(required_hours)
+      end
+    elsif params[:user_ids] == nil
+      flash[:alert] = 'Select at least one user to update Required Weekly Hours.'
+    else
+      flash[:alert] = "Required hours should be equal or greater than 0 but equal or less than #{HOURS_PER_WEEK}."
+    end
+    redirect_to roster_path(@user)
+  end
+
   def update_required_hours
     authorize :user
     @user = User.where(unit_id: current_user.unit).find_by_id(params[:id])
